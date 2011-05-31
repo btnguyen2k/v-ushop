@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE package PUBLIC
+	"-//dPHP Package Description DTD//EN"
+	"http://dphp.googlecode.com/svn/trunk/docs/package.dtd">
+<package>
+	<name>Ddth::Mls</name>
+	<version>0.2</version>
+	<description>Multi-Languages Support for PHP applications.</description>
+	<summary>
+		This library provides multi-languages support for PHP applications.
+	</summary>
+	<author>
+		<author-name>Thanh Ba Nguyen</author-name>
+		<author-email>
+			btnguyen2k@gmail.com
+		</author-email>
+	</author>
+	<dependencies>
+		<dependency>
+			<dependency-name>PHP</dependency-name>
+			<dependency-version>5.0+</dependency-version>
+			<dependency-description></dependency-description>
+		</dependency>
+		<dependency>
+			<dependency-name>Ddth::Commons</dependency-name>
+			<dependency-version>0.2+</dependency-version>
+			<dependency-description>
+				Ddth::Mls uses several modules from Ddth::Commons
+				package.
+			</dependency-description>
+		</dependency>
+	</dependencies>
+</package>

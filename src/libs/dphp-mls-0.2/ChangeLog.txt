@@ -1,0 +1,9 @@
+* 28-Dec-2010: v0.2
+    - Now use PHP-style configuration (and remove .properties file-based configuration)
+    - Refactored and Enhanced
+
+* 04-April-2008: minor enhancement & update of copyright & license
+
+* 01-Mar-2008: version 0.1 (initial version)
+	- Class(es): AbstractLanguage, FileLanguage, FileLanguageFactory, LanguageFactory, MlsException
+	- Interface(s): ILanguage, ILanguageFactory

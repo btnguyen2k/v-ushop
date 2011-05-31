@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE package PUBLIC
+	"-//dPHP Package Description DTD//EN"
+	"http://dphp.googlecode.com/svn/trunk/docs/package.dtd">
+<package>
+    <name>Ddth::Dzit</name>
+    <version>0.2</version>
+    <description>
+		Dzit - PHP Application Framework.
+	</description>
+    <summary>
+		A PHP Application Framework.
+	</summary>
+    <author>
+        <author-name>Thanh Ba Nguyen</author-name>
+        <author-email>
+			btnguyen2k@gmail.com
+		</author-email>
+    </author>
+    <dependencies>
+        <dependency>
+            <dependency-name>PHP</dependency-name>
+            <dependency-version>5.0+</dependency-version>
+            <dependency-description>
+				PHP 5.0+ is needed for SimpleXML. 
+			</dependency-description>
+        </dependency>
+    </dependencies>
+</package>

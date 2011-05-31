@@ -1,0 +1,32 @@
+* 27-Dec-2010: upgraded to v0.2
+    - Ddth::Commons::Logging-v0.2: now use PHP-style configurations (removed .properties file-based config)
+    - Ddth_Commons_Properties class: added function toArray()
+
+* 04-April-2008: minor enhancement & update of copyright & license
+
+* 12-Mar-2008: version 0.1_5
+	- Upgraded Ddth_Commons_Logging to 0.1.1:
+		+ Class(es): ConsoleLog
+
+* 28-Feb-2008: version 0.1_4
+	- Introduced package MessageFormat module:
+		+ Class(es): MessageFormat
+
+* 11-Feb-2008: version 0.1_3
+	- Introduced package Ddth::Commons::Logging:
+		+ Interface(s): ILog
+		+ Class(es): AbstractLog, LogConfigurationException, LogFactory, SimpleLog
+	- Several typos and minor bug fixes
+	
+* 05-Feb-2008: version 0.1_2
+	- Introduced package Ddth::Commons::Exceptions:
+		+ AbstractException
+		+ IllegalArgumentException, IllegalStateException
+		+ IOException
+	- Introduced Properties module:
+		+ Class(es): Properties
+
+* 28-Jan-2008: version 0.1_1 (initial version)
+	- Introduced Loader module:
+		+ Interface(s): IClassNameTranslator
+		+ Class(es): Loader, DefaultClassNameTranslator
