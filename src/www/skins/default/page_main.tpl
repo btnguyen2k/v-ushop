@@ -1,4 +1,4 @@
-{include file='inc_header.tpl'}
+<!include file='inc_header.tpl'!>
 <p>Current session values:</p>
 <table border="1" cellpadding="4">
     <thead>

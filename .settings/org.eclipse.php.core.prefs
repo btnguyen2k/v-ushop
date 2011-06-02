@@ -1,3 +1,5 @@
-#Sun May 22 23:27:32 ICT 2011
+#Tue May 31 16:22:52 ICT 2011
 eclipse.preferences.version=1
 include_path=0;/vListings
+org.eclipse.php.core.phpForamtterIndentationSize=4
+org.eclipse.php.core.phpForamtterUseTabs=false

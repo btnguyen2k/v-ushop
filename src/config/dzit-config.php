@@ -8,7 +8,7 @@ defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
 /*
  * If environment variable DEV_ENV exists then we are on development server.
  */
-define('IN_DEV_ENV', isset($_ENV['DEV_ENV']));
+define('IN_DEV_ENV', getenv('DEV_ENV'));
 
 /*
  * If CLI_MODE is TRUE, the application is running in CLI (command line interface) mode.
@@ -56,7 +56,9 @@ Dzit_Config::set(Dzit_Config::CONF_DISPATCHER, new $dispatcherClass());
  * </code>
  */
 /* NOTE: REMEMBER TO CONFIGURE YOUR OWN APPLICATION'S ROUTING HERE! */
-$router = Array('*' => 'Vlistings_Controller_HomeController');
+$router = Array('*' => 'Vlistings_Controller_HomeController',
+        'login' => 'Vlistings_Controller_LoginController',
+        'admin' => Array('*' => 'Vlistings_Controller_Admin_DefaultController'));
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 
 /*
@@ -66,7 +68,9 @@ Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
  * Action handler mapping is responsible for obtaining a controller instance
  * (type {@link Dzit_IController}) for a request {module:action}.
  */
-$actionHandlerMappingClass = 'Dzit_DefaultActionHandlerMapping';
+//$actionHandlerMappingClass = 'Dzit_DefaultActionHandlerMapping';
+require_once 'Vlistings/Controller/ClassActionHandlerMapping.php';
+$actionHandlerMappingClass = 'Vlistings_Controller_ActionHandlerMapping';
 Dzit_Config::set(Dzit_Config::CONF_ACTION_HANDLER_MAPPING, new $actionHandlerMappingClass($router));
 
 /*
@@ -81,14 +85,15 @@ Dzit_Config::set(Dzit_Config::CONF_ACTION_HANDLER_MAPPING, new $actionHandlerMap
  */
 include_once ('Smarty.class.php');
 
-$params = Array('templateDir' => 'skins/default/',
+define('SKIN_DIR', 'skins/default/');
+$params = Array('templateDir' => SKIN_DIR,
         'prefix' => 'page_',
         'suffix' => '.tpl',
         'smartyCacheDir' => '../../../smarty/cache',
         'smartyConfigDir' => '../../../smarty/config',
         'smartyCompileDir' => '../../../smarty/template_c',
-        'smartyLeftDelimiter' => '<!',
-        'smartyRightDelimiter' => '!>');
+        'smartyLeftDelimiter' => '<:',
+        'smartyRightDelimiter' => ':>');
 $viewResolverClass = 'Dzit_View_SmartyViewResolver';
 Dzit_Config::set(Dzit_Config::CONF_VIEW_RESOLVER, new $viewResolverClass($params));
 
@@ -105,4 +110,5 @@ Dzit_Config::set(Dzit_Config::CONF_DEFAULT_TEMPLATE_NAME, 'default');
 /*
  * Name of the module's bootstrap file.
  */
+
 define('MODULE_BOOTSTRAP_FILE', 'bootstrap.php');

@@ -10,7 +10,7 @@
  * @package     Dzit
  * @subpackage  View
  * @author      Thanh Ba Nguyen <btnguyen2k@gmail.com>
- * @version     $Id: ClassSmartyViewResolver.php 63 2011-05-29 01:52:33Z btnguyen2k $
+ * @version     $Id: ClassSmartyViewResolver.php 73 2011-06-02 07:52:49Z btnguyen2k $
  * @since       File available since v0.2
  */
 

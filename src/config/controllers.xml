@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<!DOCTYPE config SYSTEM "config.dtd">
+
+<config>
+    <object name="foo" classname="bar"></object>
+</config>

@@ -2,6 +2,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Dzit Demo::SessionViewer</title>
+<title><:$MODEL.page.title|escape:'html':></title>
 </head>
 <body>

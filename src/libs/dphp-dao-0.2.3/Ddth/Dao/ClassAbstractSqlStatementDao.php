@@ -78,7 +78,11 @@ abstract class Ddth_Dao_AbstractSqlStatementDao extends Ddth_Dao_AbstractConnDao
      * @return Ddth_Dao_SqlStatement
      */
     protected function getSqlStatement($name) {
-        return $this->sqlStmFactory->getSqlStatement($name);
+        $stm = $this->sqlStmFactory->getSqlStatement($name);
+        if ($stm === NULL || $stm === FALSE) {
+            throw new Ddth_Dao_DaoException("Can not get the statement [$name]!");
+        }
+        return $stm;
     }
 }
 ?>

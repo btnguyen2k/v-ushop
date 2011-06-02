@@ -28,14 +28,18 @@ abstract class Ddth_Dao_AbstractConnDao extends Ddth_Dao_AbstractDao {
     /**
      * @see Ddth_Dao_IDao::getConnection()
      */
-    public function getConnection($startTransaction=FALSE) {
-        return $this->getDaoFactory()->getConnection($startTransaction);
+    public function getConnection($startTransaction = FALSE) {
+        $conn = $this->getDaoFactory()->getConnection($startTransaction);
+        if ($conn === NULL || $conn === FALSE) {
+            throw new Ddth_Dao_DaoException('Failed to obtain a db connection!');
+        }
+        return $conn;
     }
 
     /**
      * @see Ddth_Dao_IDao::closeConnection()
      */
-    public function closeConnection($hasError=FALSE, $forceClose=FALSE) {
+    public function closeConnection($hasError = FALSE, $forceClose = FALSE) {
         $this->getDaoFactory()->closeConnection($hasError, $forceClose);
     }
 

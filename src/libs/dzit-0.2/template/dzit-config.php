@@ -9,7 +9,7 @@ defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
 /*
  * If environment variable DEV_ENV exists then we are on development server.
  */
-define('IN_DEV_ENV', isset($_ENV['DEV_ENV']));
+define('IN_DEV_ENV', getenv('DEV_ENV'));
 
 /*
  * If CLI_MODE is TRUE, the application is running in CLI (command line interface) mode.

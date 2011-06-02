@@ -24,12 +24,12 @@ function dzitAutoload($className) {
     $translator = Ddth_Commons_DefaultClassNameTranslator::getInstance();
     if (!Ddth_Commons_Loader::loadClass($className, $translator)) {
         return FALSE;
-        //$filename = $translator->translateClassNameToFileName($className);
-        //trigger_error("Can not load class [$className] (file: \"$filename\")!");
+
+     //$filename = $translator->translateClassNameToFileName($className);
+    //trigger_error("Can not load class [$className] (file: \"$filename\")!");
     }
     return TRUE;
 }
-
 
 //if (!function_exists('__autoload')) {
 //    /**
@@ -48,6 +48,7 @@ function dzitAutoload($className) {
 //        }
 //    }
 //}
+
 
 /*
  * Define a token as the include-allow key.
@@ -93,6 +94,30 @@ if (($dh = @opendir(LIBS_DIR)) !== FALSE) {
     exit('Can not open LIBS_DIR!');
 }
 ini_set('include_path', $includePath);
+
+/*
+ * This is the directory where application's modules are located.
+ * All 1st level sub-directories of this directory will be included
+ * in the include_path.
+ * Note: change the value if your module folder is located at another location!
+ * Note: if the application does not use module directory.
+ */
+define('MODULES_DIR', '../modules');
+
+if (defined('MODULES_DIR')) {
+    /* set up include path */
+    $includePath = ini_get('include_path');
+    if (($dh = @opendir(MODULES_DIR)) !== FALSE) {
+        while (($file = readdir($dh)) !== FALSE) {
+            if (is_dir(MODULES_DIR . "/$file") && $file != "." && $file != "..") {
+                $includePath .= PATH_SEPARATOR . MODULES_DIR . "/$file";
+            }
+        }
+    } else {
+        exit('Can not open MODULES_DIR!');
+    }
+    ini_set('include_path', $includePath);
+}
 
 //load the configuration file if exists
 if (file_exists(CONFIG_DIR . '/dzit-config.php')) {
