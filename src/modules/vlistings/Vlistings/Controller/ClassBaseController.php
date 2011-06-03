@@ -156,6 +156,14 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     }
 
     /**
+     * Build custom model. Sub-class overrides this function to build its own custom model.
+     * @return Array
+     */
+    protected function buildModel() {
+        return NULL;
+    }
+
+    /**
      * Build page's model (after a successful form submission).
      * @return Array
      */
@@ -164,6 +172,7 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
 
         $model['basehref'] = $this->buildModel_BaseHref();
         $model['page'] = $this->buildModel_Page();
+        $model['language'] = $this->getLanguage();
 
         $customModel = $this->buildModel();
         if ($customModel !== NULL) {
@@ -185,6 +194,7 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
 
         $model['basehref'] = $this->buildModel_BaseHref();
         $model['page'] = $this->buildModel_Page();
+        $model['language'] = $this->getLanguage();
 
         $modelForm = $this->buildModel_Form();
         if ($modelForm !== NULL) {

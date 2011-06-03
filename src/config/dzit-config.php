@@ -21,6 +21,13 @@ define('CLI_MODE', strtolower(php_sapi_name()) == 'cli' && empty($_SERVER['REMOT
  */
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
+/*
+ * Put list of classes that should be ignored by Dzit's auto loading.
+ * Note: PCRE regular expression supported (http://www.php.net/manual/en/pcre.pattern.php).
+ */
+global $DZIT_IGNORE_AUTOLOAD;
+$DZIT_IGNORE_AUTOLOAD = Array('/^Smarty_*/');
+
 include 'dzit-config-logging.php';
 
 include 'dzit-config-dao.php';

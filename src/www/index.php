@@ -9,7 +9,7 @@
  *
  * @package     Dzit
  * @author      Thanh Ba Nguyen <btnguyen2k@gmail.com>
- * @version     $Id: index.php 74 2011-06-02 08:23:30Z btnguyen2k $
+ * @version     $Id: index.php 75 2011-06-03 06:31:24Z btnguyen2k $
  * @since       File available since v0.1
  */
 
@@ -19,8 +19,13 @@ spl_autoload_register('dzitAutoload');
  * Dzit's class auto loader.
  */
 function dzitAutoload($className) {
-    if (defined('DZIT_IGNORE_AUTOLOAD') && is_array(DZIT_IGNORE_AUTOLOAD) && in_array($className, DZIT_IGNORE_AUTOLOAD)) {
-        return FALSE;
+    global $DZIT_IGNORE_AUTOLOAD;
+    if (isset($DZIT_IGNORE_AUTOLOAD) && is_array($DZIT_IGNORE_AUTOLOAD)) {
+        foreach ($DZIT_IGNORE_AUTOLOAD as $pattern) {
+            if (preg_match($pattern, $className)) {
+                return FALSE;
+            }
+        }
     }
     $translator = Ddth_Commons_DefaultClassNameTranslator::getInstance();
     if (!Ddth_Commons_Loader::loadClass($className, $translator)) {
@@ -40,12 +45,14 @@ function dzitAutoload($className) {
  */
 define('DZIT_INCLUDE_KEY', 'DZIT_INCLUDE_OK');
 
+$BASE_DIR = __DIR__ . DIRECTORY_SEPARATOR;
+
 /*
  * This is the directory where configuration files are stored.
  * For security reason, it should not be reachable from the web.
  * Note: change the value if your config folder is located at another location!
  */
-define('CONFIG_DIR', '../config');
+define('CONFIG_DIR', $BASE_DIR.'../config');
 if (!is_dir(CONFIG_DIR)) {
     exit('Invalid CONFIG_DIR setting!');
 }
@@ -56,7 +63,7 @@ if (!is_dir(CONFIG_DIR)) {
  * in the include_path.
  * Note: change the value if your config folder is located at another location!
  */
-define('LIBS_DIR', '../libs');
+define('LIBS_DIR', $BASE_DIR.'../libs');
 if (!is_dir(LIBS_DIR)) {
     exit('Invalid LIBS_DIR setting!');
 }
@@ -81,7 +88,7 @@ ini_set('include_path', $includePath);
  * Note: change the value if your module folder is located at another location!
  * Note: if the application does not use module directory.
  */
-define('MODULES_DIR', '../modules');
+define('MODULES_DIR', $BASE_DIR.'../modules');
 
 if (defined('MODULES_DIR')) {
     /* set up include path */

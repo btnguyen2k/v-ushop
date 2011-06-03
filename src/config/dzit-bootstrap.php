@@ -6,6 +6,12 @@ defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
  * From http://www.daniweb.com/web-development/php/code/216305
  */
 class Dzit_SessionHandler {
+
+    /**
+     * @var Ddth_Commons_Logging_ILog
+     */
+    private $LOGGER;
+
     /**
      * @var boolean
      */
@@ -17,9 +23,9 @@ class Dzit_SessionHandler {
     private $dao = NULL;
 
     public function __construct() {
+        $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
         session_set_save_handler(array(&$this, 'open'), array(&$this, 'close'), array(&$this,
                 'read'), array(&$this, 'write'), array(&$this, 'destroy'), array(&$this, 'gc'));
-        session_start();
     }
 
     public function __destruct() {
@@ -38,7 +44,10 @@ class Dzit_SessionHandler {
         $daoFactory = Ddth_Dao_BaseDaoFactory::getInstance();
         $this->dao = $daoFactory->getDao('dao.session');
         if ($this->dao === NULL) {
-            throw new Exception('Can not obtain Vlistings_Bo_Session_ISessionDao instance!');
+            $msg = 'Can not obtain Vlistings_Bo_Session_ISessionDao instance!';
+            $e = new Exception($msg);
+            $this->LOGGER->fatal($msg, $e);
+            throw $e;
         }
         return TRUE;
     }
@@ -57,8 +66,13 @@ class Dzit_SessionHandler {
      * other handlers are converted to boolean expression. TRUE for success, FALSE for failure.
      */
     public function read($sid) {
-        $sessionData = $this->dao->readSessionData($sid);
-        return $sessionData !== NULL ? $sessionData : '';
+        try {
+            $sessionData = $this->dao->readSessionData($sid);
+            return $sessionData !== NULL ? $sessionData : '';
+        } catch (Exception $e) {
+            $this->LOGGER->fatal($e->getMessage(), $e);
+            throw $e;
+        }
     }
 
     /*
@@ -66,8 +80,13 @@ class Dzit_SessionHandler {
      * two parameters: an identifier and the data associated with it.
      */
     public function write($sid, $data) {
-        $this->dao->writeSessionData($sid, $data);
-        return TRUE;
+        try {
+            $this->dao->writeSessionData($sid, $data);
+            return TRUE;
+        } catch (Exception $e) {
+            $this->LOGGER->fatal($e->getMessage(), $e);
+            throw $e;
+        }
     }
 
     /*
@@ -75,8 +94,13 @@ class Dzit_SessionHandler {
      * and takes the session id as its only parameter.
      */
     public function destroy($sid) {
-        $this->dao->deleteSessionData($sid);
-        return TRUE;
+        try {
+            $this->dao->deleteSessionData($sid);
+            return TRUE;
+        } catch (Exception $e) {
+            $this->LOGGER->fatal($e->getMessage(), $e);
+            throw $e;
+        }
     }
 
     /*
@@ -84,11 +108,17 @@ class Dzit_SessionHandler {
      * and takes the max session lifetime as its only parameter.
      */
     public function gc($expiry) {
-        $this->dao->deleteExpiredSessions($expiry);
-        return TRUE;
+        try {
+            $this->dao->deleteExpiredSessions($expiry);
+            return TRUE;
+        } catch (Exception $e) {
+            $this->LOGGER->fatal($e->getMessage(), $e);
+            throw $e;
+        }
     }
 }
 $sessionHandler = new Dzit_SessionHandler();
+session_start();
 
 /**
  * Dzit's core bootstrap file.

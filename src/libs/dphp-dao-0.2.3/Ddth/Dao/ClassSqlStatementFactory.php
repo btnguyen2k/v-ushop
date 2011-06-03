@@ -136,13 +136,15 @@ class Ddth_Dao_SqlStatementFactory {
              * @var Ddth_Dao_SqlStatement
              */
             $stm = $sql !== NULL ? new $this->stmClass() : NULL;
-            if (!($stm instanceof Ddth_Dao_SqlStatement)) {
-                $stm = NULL;
-                $msg = "[{$this->stmClass}] is not instance of [Ddth_Dao_SqlStatement]!";
-                $this->LOGGER->error($msg);
-            } else {
-                $stm->setSql($sql);
-                $this->cache[$name] = $stm;
+            if ($stm !== NULL) {
+                if (!($stm instanceof Ddth_Dao_SqlStatement)) {
+                    $stm = NULL;
+                    $msg = "[{$this->stmClass}] is not instance of [Ddth_Dao_SqlStatement]!";
+                    $this->LOGGER->error($msg);
+                } else {
+                    $stm->setSql($sql);
+                    $this->cache[$name] = $stm;
+                }
             }
         }
         return $stm;

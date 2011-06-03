@@ -46,24 +46,28 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Ddth_Dao_AbstractSqlS
         $sqlStm = $this->getSqlStatement('sql.readSession');
         $sqlConn = $this->getConnection();
 
-        $params = Array('sid' => $id);
+        $params = Array('id' => $id);
         $rs = $sqlStm->execute($sqlConn->getConn(), $params);
         $result = $this->fetchResultAssoc($rs);
 
         $this->closeConnection();
-        return $result !== FALSE ? $result['sdata'] : NULL;
+        return $result !== FALSE ? $result['data'] : NULL;
     }
 
     /* (non-PHPdoc)
      * @see Vlistings_Bo_Session_ISessionDao::writeSessionData()
      */
     public function writeSessionData($id, $data) {
-        $sqlStm = $this->getSqlStatement('sql.updateSession');
+        $data = $this->readSessionData($id);
+        if ($data === NULL) {
+            $sqlStm = $this->getSqlStatement('sql.createSession');
+        } else {
+            $sqlStm = $this->getSqlStatement('sql.updateSession');
+        }
         $sqlConn = $this->getConnection();
 
-        $params = Array('sid' => $id, 'sdata' => $data);
+        $params = Array('id' => $id, 'data' => $data);
         $sqlStm->execute($sqlConn->getConn(), $params);
         $this->closeConnection();
     }
-
 }

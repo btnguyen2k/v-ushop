@@ -10,8 +10,10 @@ class Vlistings_Controller_HomeController extends Vlistings_Controller_BaseContr
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::executeAction()
+     * @see Vlistings_Controller_BaseController::executeNonPost()
      */
-    protected function executeAction() {
+    protected function executeNonPost() {
+        // TODO Auto-generated method stub
     }
+
 }

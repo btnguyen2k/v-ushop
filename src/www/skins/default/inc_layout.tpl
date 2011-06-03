@@ -3,7 +3,7 @@
 <head>
     <base href="<:$MODEL.basehref:>" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="description" content="<:$MODEL.page.descrpition|escape:'html':>" />
+    <meta name="description" content="<:$MODEL.page.description|escape:'html':>" />
     <meta name="keywords" content="<:$MODEL.page.keywords|escape:'html':>" />
     <meta name="author" content="GPV.COM.VN/" />
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
@@ -12,13 +12,13 @@
 
 <body>
 <div id="wrap"><!-- HEADER --> <!-- Background -->
-<div id="header-section"><a href="#"><img id="header-background-left" src="./img/img_logo.jpg"
-    alt="" /></a> <img id="header-background-right" src="./img/img_header.jpg" alt="" /></div>
+<div id="header-section"><a href="<:$smarty.server.SCRIPT_NAME:>"><img id="header-background-left" src="./img/KNbabyshop-logo-01.jpg"
+    alt="" /></a> <img id="header-background-right" src="./img/KNbabyshop-banner-01.jpg" alt="" /></div>
 
 <!-- Navigation -->
 <div id="header">
 <ul>
-    <li><a href="#">Home</a></li>
+    <li><a href="<:$smarty.server.SCRIPT_NAME:>"><:$MODEL.language->getMessage('msg.home'):></a></li>
     <li><a href="#">Menu Link 1</a></li>
     <li><a href="#">Menu Link 2</a></li>
     <li class="selected">Menu Link 3</li>

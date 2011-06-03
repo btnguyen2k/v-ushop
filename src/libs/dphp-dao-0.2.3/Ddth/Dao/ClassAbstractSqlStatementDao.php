@@ -9,7 +9,7 @@
  *
  * @package     Dao
  * @author      Thanh Ba Nguyen <btnguyen2k@gmail.com>
- * @version     $Id: ClassAbstractSqlStatementDao.php 273 2011-05-24 09:35:16Z btnguyen2k@gmail.com $
+ * @version     $Id: ClassAbstractSqlStatementDao.php 275 2011-06-02 16:32:27Z btnguyen2k@gmail.com $
  * @since       File available since v0.2.3
  */
 

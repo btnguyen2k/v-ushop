@@ -63,11 +63,17 @@ abstract class Ddth_Dao_SqlStatement {
     private $sql = '';
 
     /**
+     * @var Ddth_Commons_Logging_ILog
+     */
+    private $LOGGER;
+
+    /**
      * Constructs a new Ddth_Dao_SqlStatement object.
      *
      * @param string $sql
      */
     public function __construct($sql = '') {
+        $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
         $this->setSql($sql);
     }
 
@@ -88,6 +94,15 @@ abstract class Ddth_Dao_SqlStatement {
     }
 
     /**
+     * Gets the 'null' literate. This function returns <code>NULL</code>. Sub-class may override
+     * the behavior of this function if needed.
+     * @return string
+     */
+    protected function getNullLiterate() {
+        return 'NULL';
+    }
+
+    /**
      * Prepares the SQL statement.
      *
      * @param mixed $conn an open database connection
@@ -98,7 +113,9 @@ abstract class Ddth_Dao_SqlStatement {
         $sql = $this->sql;
         foreach ($values as $key => $value) {
             $v = $this->escape($conn, $value);
-            if (is_string($value)) {
+            if ($v === NULL) {
+                $v = $this->getNullLiterate();
+            } else if ($value == '' || is_string($value)) {
                 $v = "'$v'";
             }
             $sql = str_replace('${' . $key . '}', $v, $sql);
@@ -127,7 +144,13 @@ abstract class Ddth_Dao_SqlStatement {
      */
     public function execute($conn, $values = Array()) {
         $sql = $this->prepare($conn, $values);
-        return $this->doExecute($sql, $conn);
+        try {
+            return $this->doExecute($sql, $conn);
+        } catch (Exception $e) {
+            $msg = $e->getMessage() . "\nThe executed query: $sql";
+            $this->LOGGER->fatal($msg, $e);
+            throw $e;
+        }
     }
 
     /**
@@ -139,4 +162,3 @@ abstract class Ddth_Dao_SqlStatement {
      */
     protected abstract function doExecute($preparedSql, $conn);
 }
-?>

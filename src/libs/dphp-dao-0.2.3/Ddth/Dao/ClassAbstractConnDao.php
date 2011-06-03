@@ -9,7 +9,7 @@
  *
  * @package     Dao
  * @author      Thanh Ba Nguyen <btnguyen2k@gmail.com>
- * @version     $Id: ClassAbstractConnDao.php 267 2011-05-23 09:06:50Z btnguyen2k@gmail.com $
+ * @version     $Id: ClassAbstractConnDao.php 275 2011-06-02 16:32:27Z btnguyen2k@gmail.com $
  * @since       File available since v0.2.1
  */
 
