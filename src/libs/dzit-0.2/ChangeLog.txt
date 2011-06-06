@@ -1,5 +1,0 @@
-* 2011-Jan-07: v0.2
-    - dPHP libraries are now use PHP-style configuration (no longer .properties file-based)
-    - Re-organized the demo directory
-    - Finished he "simple blog" demo
-* 2008: v0.1 - first version
