@@ -201,11 +201,13 @@ class Ddth_Dao_Mysql_BaseMysqlDaoFactory extends Ddth_Dao_AbstractConnDaoFactory
                 $mysqlConn = @mysql_connect($this->mysqlHost);
             }
         }
+        var_dump("HEHE-1");
         if ($mysqlConn === FALSE || $mysqlConn === NULL) {
+            var_dump("HEHE-2");
             throw new Ddth_Dao_DaoException('Can not make connection to MySQL server!');
         }
         if (isset($this->mysqlDatabase) && $this->mysqlDatabase !== FALSE) {
-            if ( !mysql_select_db($this->mysqlDatabase, $mysqlConn) ) {
+            if (!mysql_select_db($this->mysqlDatabase, $mysqlConn)) {
                 throw new Ddth_Dao_DaoException(mysql_error($mysqlConn));
             }
         }

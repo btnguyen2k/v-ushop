@@ -1,12 +1,17 @@
 <?php
 
+include_once 'Yadif/Exception.php';
 include_once 'Yadif/Container.php';
 
 global $YADIF_CONFIG;
 $YADIF_CONFIG = Array(
         'Vlistings_Controller_HomeController' => Array(
                 'class' => 'Vlistings_Controller_HomeController',
-                'scope' => 'singleton'));
+                'scope' => 'singleton'),
+        'Vlistings_Controller_LoginController' => Array(
+                'class' => 'Vlistings_Controller_LoginController',
+                'scope' => 'singleton',
+                'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))));
 
 /**
  * This class utilizes yadif (http://github.com/beberlei/yadif/)

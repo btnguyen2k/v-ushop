@@ -12,116 +12,36 @@
 
 <body>
 <div id="wrap"><!-- HEADER --> <!-- Background -->
-<div id="header-section"><a href="<:$smarty.server.SCRIPT_NAME:>"><img id="header-background-left" src="./img/KNbabyshop-logo-01.jpg"
+<div id="header-section"><a href="<:$MODEL.urlHome:>"><img id="header-background-left" src="./img/KNbabyshop-logo-01.jpg"
     alt="" /></a> <img id="header-background-right" src="./img/KNbabyshop-banner-01.jpg" alt="" /></div>
 
 <!-- Navigation -->
 <div id="header">
 <ul>
-    <li><a href="<:$smarty.server.SCRIPT_NAME:>"><:$MODEL.language->getMessage('msg.home'):></a></li>
+    <li><a href="<:$MODEL.urlHome:>"><:$MODEL.language->getMessage('msg.home'):></a></li>
+    <:if isset($MODEL.urlLogout):>
+        <li><a href="<:$MODEL.urlLogout:>"><:$MODEL.language->getMessage('msg.logout'):></a></li>
+    <:else:>
+        <li><a href="<:$MODEL.urlLogin:>"><:$MODEL.language->getMessage('msg.login'):></a></li>
+        <li><a href="<:$MODEL.urlRegister:>"><:$MODEL.language->getMessage('msg.register'):></a></li>
+    <:/if:>
+    <!--
     <li><a href="#">Menu Link 1</a></li>
     <li><a href="#">Menu Link 2</a></li>
     <li class="selected">Menu Link 3</li>
     <li><a href="#">Menu Link 4</a></li>
     <li><a href="#">Menu Link 5</a></li>
+    -->
 </ul>
 </div>
 
-<!-- LEFT COLUMN --> <!-- Navigation -->
-<div id="left-column">
-<ul>
-    <li class="left-navheader-first">Menu 3</li>
-    <li><a class="left-navheader" href="#">Menu link 3-1</a></li>
-    <li><a href="#">Menu Link 3-1-1</a></li>
-    <li><a href="#">Menu Link 3-1-2</a></li>
-    <li><a href="#">Menu Link 3-1-3</a></li>
-    <li><a class="left-navheader" href="#">Menu Link 3-2</a></li>
-    <li><a href="#">Menu Link 3-2-1</a></li>
-    <li><a href="#">Menu Link 3-2-2</a></li>
-    <li><a href="#">Menu Link 3-2-3</a></li>
-    <li><a class="left-navheader" href="#">Menu Link 3-3</a></li>
-    <li><a href="#">Menu Link 3-3-1</a></li>
-    <li class="selected">Menu Link 3-3-2</li>
-    <li><a href="#">Menu Link 3-3-3</a></li>
-    <li><a class="left-navheader" href="#">Menu Link 3-4</a></li>
-    <li><a href="#">Menu Link 3-4-1</a></li>
-    <li><a href="#">Menu Link 3-4-2</a></li>
-    <li><a href="#">Menu Link 3-4-3</a></li>
-</ul>
-</div>
+<:if !isset($DISABLE_COLUMN_LEFT):>
+    <:include file='inc_column_left.tpl':>
+<:/if:>
 
-<!-- RIGHT COLUMN -->
-<div id="right-column"><!-- Right column box -->
-<div class="right-column-box-white">
-<div class="right-column-box-title-grey">Color options</div>
-<p>All boxes in the middle and right columns can vary colors for titles and backgrounds. See
-examples below. The colors for titles and backgrounds can be chosen independently.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-white">
-<div class="right-column-box-title-grey">Grey title</div>
-<p>White background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-white">
-<div class="right-column-box-title-blue">Blue title</div>
-<p>White background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-white">
-<div class="right-column-box-title-yellow">Yellow title</div>
-<p>White background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-white">
-<div class="right-column-box-title-green">Green title</div>
-<p>White background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-white">
-<div class="right-column-box-title-red">Red title</div>
-<p>White background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-blue">
-<div class="right-column-box-title-blue">Blue title</div>
-<p>Blue background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-yellow">
-<div class="right-column-box-title-yellow">Yellow title</div>
-<p>Yellow background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-green">
-<div class="right-column-box-title-green">Green title</div>
-<p>Green background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-red">
-<div class="right-column-box-title-red">Red title</div>
-<p>Red background.</p>
-</div>
-
-<!-- Right column box -->
-<div class="right-column-box-white">
-<div class="right-column-box-title-grey">Grey title</div>
-<p>Use this column for news, events, button links, further links, or whatever you want.</p>
-<p>Additional links:</p>
-<p><a href="#">Link A</a></p>
-<p><a href="#">Link B</a></p>
-<p><a href="#">Link C</a></p>
-</div>
-</div>
+<:if !isset($DISABLE_COLUMN_RIGHT):>
+    <:include file='inc_column_right.tpl':>
+<:/if:>
 
 <!-- MIDDLE COLUMN -->
 <div id="middle-column"><!-- Middle column full box -->

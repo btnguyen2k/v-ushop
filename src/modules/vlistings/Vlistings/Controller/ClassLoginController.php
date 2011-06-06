@@ -10,18 +10,11 @@ class Vlistings_Controller_LoginController extends Vlistings_Controller_BaseCont
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::executeAction()
+     * @see Vlistings_Controller_BaseController::executeNonPost()
      */
-    protected function executeAction() {
+    protected function executeNonPost() {
+        // TODO Auto-generated method stub
 
-    }
 
-    /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::buildModel_Form()
-     */
-    protected function buildModel_Form() {
-        if (isset($_POST)) {
-            return NULL;
-        }
     }
 }

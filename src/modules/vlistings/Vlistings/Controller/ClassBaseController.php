@@ -2,8 +2,8 @@
 abstract class Vlistings_Controller_BaseController implements Dzit_IController {
 
     private $module, $action;
-
     private $hasError = FALSE;
+    private $saveUrl = TRUE;
 
     /**
      * @var Ddth_Commons_Logging_ILog
@@ -12,6 +12,14 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
 
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog('Vlistings_Controller_BaseController');
+    }
+
+    /**
+     * Setter for $safeUrl.
+     * @param boolean $value
+     */
+    public function setSaveUrl($value) {
+        $this->saveUrl = $value;
     }
 
     /**
@@ -163,6 +171,19 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
         return NULL;
     }
 
+    private function buildModel_Commons(&$model) {
+        $model['basehref'] = $this->buildModel_BaseHref();
+        $model['page'] = $this->buildModel_Page();
+        $model['language'] = $this->getLanguage();
+        $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
+        if (isset($_SESSION[SESSION_USER_ID])) {
+            $model['urlLogout'] = $_SERVER['SCRIPT_NAME'] . '/logout';
+        } else {
+            $model['urlLogin'] = $_SERVER['SCRIPT_NAME'] . '/login';
+            $model['urlRegister'] = $_SERVER['SCRIPT_NAME'] . '/register';
+        }
+    }
+
     /**
      * Build page's model (after a successful form submission).
      * @return Array
@@ -170,9 +191,7 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     protected function buildModel_AfterPost() {
         $model = Array();
 
-        $model['basehref'] = $this->buildModel_BaseHref();
-        $model['page'] = $this->buildModel_Page();
-        $model['language'] = $this->getLanguage();
+        $this->buildModel_Commons($model);
 
         $customModel = $this->buildModel();
         if ($customModel !== NULL) {
@@ -192,9 +211,7 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     protected function buildModel_NonPost() {
         $model = Array();
 
-        $model['basehref'] = $this->buildModel_BaseHref();
-        $model['page'] = $this->buildModel_Page();
-        $model['language'] = $this->getLanguage();
+        $this->buildModel_Commons($model);
 
         $modelForm = $this->buildModel_Form();
         if ($modelForm !== NULL) {
@@ -278,6 +295,9 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     public function execute($module, $action) {
         $this->module = $module;
         $this->action = $action;
+        if ($this->saveUrl) {
+            $_SESSION[SESSION_LAST_ACCESS_URL] = $_SERVER['REQUEST_URI'];
+        }
 
         /*
          * First, we validate parameters (i.e. parameters passed via URL).

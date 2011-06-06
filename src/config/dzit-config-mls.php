@@ -6,7 +6,7 @@ global $DPHP_MLS_CONFIG;
 $DPHP_MLS_CONFIG = Array('factory.class' => 'Ddth_Mls_BaseLanguageFactory',
         //'languages' => 'vn, en',
         'languages' => 'vn',
-        'language.baseDirectory' => '../config/languages',
+        'language.baseDirectory' => '../config/language',
         'language.class' => 'Ddth_Mls_FileLanguage',
         'language.vn.location' => 'vi_vn',
         'language.vn.displayName' => 'Tiếng Việt',

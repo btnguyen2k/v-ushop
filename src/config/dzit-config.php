@@ -26,7 +26,9 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
  * Note: PCRE regular expression supported (http://www.php.net/manual/en/pcre.pattern.php).
  */
 global $DZIT_IGNORE_AUTOLOAD;
-$DZIT_IGNORE_AUTOLOAD = Array('/^Smarty_*/');
+$DZIT_IGNORE_AUTOLOAD = Array('/^Smarty_*/', '/^Yadif_*/');
+
+include 'vlistings-config-constants.php';
 
 include 'dzit-config-logging.php';
 
@@ -107,7 +109,7 @@ Dzit_Config::set(Dzit_Config::CONF_VIEW_RESOLVER, new $viewResolverClass($params
 /*
  * Name of the default language pack.
  */
-Dzit_Config::set(Dzit_Config::CONF_DEFAULT_LANGUAGE_NAME, 'default');
+Dzit_Config::set(Dzit_Config::CONF_DEFAULT_LANGUAGE_NAME, 'vn');
 
 /*
  * Name of the default template pack.

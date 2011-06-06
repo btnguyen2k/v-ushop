@@ -144,6 +144,7 @@ abstract class Ddth_Dao_SqlStatement {
      */
     public function execute($conn, $values = Array()) {
         $sql = $this->prepare($conn, $values);
+        $this->LOGGER->debug("SQL: $sql");
         try {
             return $this->doExecute($sql, $conn);
         } catch (Exception $e) {
