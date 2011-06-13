@@ -59,7 +59,7 @@ class Vlistings_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
             die("Can not switch to database {$this->mysqlDbName}!");
         }
         $stacktrace = $e !== NULL ? $e->getTraceAsString() : NULL;
-        $className = '$this->getClassName()';
+        $className = $e !== NULL ? $e->getFile() : '';
         $sql = "INSERT INTO {$this->tableName} (logTimestamp, logLevel, logClass, logMessage, logStacktrace)";
         $sql .= "VALUES (";
         $sql .= time() . ",";

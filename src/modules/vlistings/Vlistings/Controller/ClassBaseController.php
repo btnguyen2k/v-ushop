@@ -306,29 +306,46 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
         $pageKeywords = $this->getPageKeywords();
         $pageDescription = $this->getPageDescription();
         $pageCopyright = $this->getPageCopyright();
+        $pageSlogan = $this->getPageSlogan();
 
         $page = Array('title' => $pageTitle,
                 'keywords' => $pageKeywords,
                 'description' => $pageDescription,
-                'copyright' => $pageCopyright);
+                'copyright' => $pageCopyright,
+                'slogan' => $pageSlogan);
 
         return $page;
     }
 
     protected function getPageTitle() {
-        return '//TODO: Page Title';
+        $dao = $this->getDao('dao.config');
+        $siteName = $dao->loadConfig('site_name');
+        $siteTitle = $dao->loadConfig('site_title');
+        return "$siteName | $siteTitle";
     }
 
     protected function getPageKeywords() {
-        return '//TODO: Page Keywords';
+        $dao = $this->getDao('dao.config');
+        $siteKeywords = $dao->loadConfig('site_keywords');
+        return $siteKeywords;
     }
 
     protected function getPageDescription() {
-        return '//TODO: Page Description';
+        $dao = $this->getDao('dao.config');
+        $siteDesc = $dao->loadConfig('site_description');
+        return $siteDesc;
     }
 
     protected function getPageCopyright() {
-        return '//TODO: Page Copyright';
+        $dao = $this->getDao('dao.config');
+        $siteCopyright = $dao->loadConfig('site_copyright');
+        return $siteCopyright;
+    }
+
+    protected function getPageSlogan() {
+        $dao = $this->getDao('dao.config');
+        $siteSlogan = $dao->loadConfig('site_slogan');
+        return $siteSlogan;
     }
 
     /**

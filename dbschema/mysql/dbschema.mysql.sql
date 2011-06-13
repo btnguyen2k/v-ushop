@@ -4,6 +4,25 @@ DROP TABLE IF EXISTS vlistings_group;
 DROP TABLE IF EXISTS vlistings_user;
 DROP TABLE IF EXISTS vlistings_item;
 DROP TABLE IF EXISTS vlistings_category;
+DROP TABLE IF EXISTS vlistings_app_config;
+
+CREATE TABLE vlistings_app_config (
+    conf_key            VARCHAR(32)         NOT NULL,
+    conf_value          TEXT,
+    PRIMARY KEY (conf_key)
+) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+INSERT INTO vlistings_app_config (conf_key, conf_value)
+VALUES('site_name', 'vListings');
+INSERT INTO vlistings_app_config (conf_key, conf_value)
+VALUES('site_title', 'Online Listing Management System');
+INSERT INTO vlistings_app_config (conf_key, conf_value)
+VALUES('site_slogan', 'Website slogan');
+INSERT INTO vlistings_app_config (conf_key, conf_value)
+VALUES('site_keywords', 'vlistings, listing');
+INSERT INTO vlistings_app_config (conf_key, conf_value)
+VALUES('site_description', 'Listing System');
+INSERT INTO vlistings_app_config (conf_key, conf_value)
+VALUES('site_copyright', '(C) 2011 by vListings/ddth.org | All Rights Reserved');
 
 CREATE TABLE app_log(
     logid               INT                 NOT NULL AUTO_INCREMENT,

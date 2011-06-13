@@ -11,4 +11,5 @@ $DPHP_DAO_CONFIG = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Mysql_BaseMysqlDao
         'dphp-dao.mysql.database' => 'vlistings',
         'dao.session' => 'Vlistings_Bo_Session_MysqlSessionDao',
         'dao.user' => 'Vlistings_Bo_User_MysqlUserDao',
-        'dao.listings' => 'Vlistings_Bo_Listings_MysqlListingsDao');
+        'dao.listings' => 'Vlistings_Bo_Listings_MysqlListingsDao',
+        'dao.config' => 'Vlistings_Bo_Config_MysqlConfigDao');

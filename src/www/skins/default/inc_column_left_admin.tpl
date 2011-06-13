@@ -1,7 +1,12 @@
 <!-- LEFT COLUMN --> <!-- Navigation -->
 <div id="left-column">
     <ul>
-        <li class="left-navheader-first">[:$MODEL.language->getMessage('msg.adminCp'):]</li>
+        <!-- <li class="left-navheader-first">[:$MODEL.language->getMessage('msg.adminCp'):]</li> -->
+
+        <li><a class="left-navheader" href="[:$MODEL.urlAdmin:]">[:$MODEL.language->getMessage('msg.siteManagement'):]</a></li>
+        <li><a href="[:$MODEL.urlAdmin:]">[:$MODEL.language->getMessage('msg.adminCp'):]</a>
+        <li><a href="[:$MODEL.urlSiteSettings:]">[:$MODEL.language->getMessage('msg.siteSettings'):]</a>
+
         <li><a class="left-navheader" href="[:$MODEL.urlCategoryManagement:]">[:$MODEL.language->getMessage('msg.categoryManagement'):]</a></li>
         <li><a href="[:$MODEL.urlCategoryManagement:]">[:$MODEL.language->getMessage('msg.categoryList'):]</a>
         <li><a href="[:$MODEL.urlCreateCategory:]">[:$MODEL.language->getMessage('msg.createCategory'):]</a>

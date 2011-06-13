@@ -8,6 +8,9 @@ abstract class Vlistings_Controller_Admin_BaseController extends Vlistings_Contr
         if ($model === NULL) {
             $model = Array();
         }
+
+        $model['urlSiteSettings'] = $_SERVER['SCRIPT_NAME'] . '/admin/siteSettings';
+
         $model['urlCategoryManagement'] = $_SERVER['SCRIPT_NAME'] . '/admin/categories';
         $model['urlCreateCategory'] = $_SERVER['SCRIPT_NAME'] . '/admin/createCategory';
         $model['urlCreateItem'] = $_SERVER['SCRIPT_NAME'] . '/admin/createItem';
