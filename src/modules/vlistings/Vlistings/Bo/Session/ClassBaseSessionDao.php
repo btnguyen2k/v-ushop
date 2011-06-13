@@ -1,5 +1,5 @@
 <?php
-abstract class Vlistings_Bo_Session_BaseSessionDao extends Ddth_Dao_AbstractSqlStatementDao implements
+abstract class Vlistings_Bo_Session_BaseSessionDao extends Vlistings_Bo_BaseDao implements
         Vlistings_Bo_Session_ISessionDao {
 
     /**
@@ -12,26 +12,15 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Ddth_Dao_AbstractSqlS
         parent::__construct();
     }
 
-    /**
-     * Fetches result from the result set and returns as an associative array.
-     *
-     * @param resource $rs
-     */
-    protected abstract function fetchResultAssoc($rs);
-
-    /**
-     * Fetches result from the result set and returns as an index array.
-     *
-     * @param resource $rs
-     */
-    protected abstract function fetchResultArr($rs);
-
     /* (non-PHPdoc)
      * @see Vlistings_Bo_Session_ISessionDao::deleteExpiredSessions()
      */
     public function deleteExpiredSessions($expiry) {
-        $this->LOGGER->debug(__FUNCTION__ . "($expiry)");
-        $sqlStm = $this->getSqlStatement('sql.deleteExpiredSessions');
+        if ($this->LOGGER->isDebugEnabled()) {
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Expiry: {$expiry}";
+            $this->LOGGER->debug($msg);
+        }
+        $sqlStm = $this->getStatement('sql.deleteExpiredSessions');
         $wrappedConn = $this->getConnection();
 
         $sqlStm->execute($wrappedConn->getConn());
@@ -42,8 +31,11 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Ddth_Dao_AbstractSqlS
      * @see Vlistings_Bo_Session_ISessionDao::deleteSessionData()
      */
     public function deleteSessionData($id) {
-        $this->LOGGER->debug(__FUNCTION__ . "($id)");
-        $sqlStm = $this->getSqlStatement('sql.deleteSessionById');
+        if ($this->LOGGER->isDebugEnabled()) {
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Session Id: {$id}";
+            $this->LOGGER->debug($msg);
+        }
+        $sqlStm = $this->getStatement('sql.deleteSessionById');
         $wrappedConn = $this->getConnection();
 
         $params = Array('sid' => $id);
@@ -55,8 +47,11 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Ddth_Dao_AbstractSqlS
      * @see Vlistings_Bo_Session_ISessionDao::readSessionData()
      */
     public function readSessionData($id) {
-        $this->LOGGER->debug(__FUNCTION__ . "($id)");
-        $sqlStm = $this->getSqlStatement('sql.readSession');
+        if ($this->LOGGER->isDebugEnabled()) {
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Session Id: {$id}";
+            $this->LOGGER->debug($msg);
+        }
+        $sqlStm = $this->getStatement('sql.readSession');
         $sqlConn = $this->getConnection();
 
         $params = Array('id' => $id);
@@ -71,12 +66,15 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Ddth_Dao_AbstractSqlS
      * @see Vlistings_Bo_Session_ISessionDao::writeSessionData()
      */
     public function writeSessionData($id, $data) {
-        $this->LOGGER->debug(__FUNCTION__ . "($id, $data)");
+        if ($this->LOGGER->isDebugEnabled()) {
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Session Id: {$id}/Data: {$data}";
+            $this->LOGGER->debug($msg);
+        }
         $oldData = $this->readSessionData($id);
         if ($oldData === NULL) {
-            $sqlStm = $this->getSqlStatement('sql.createSession');
+            $sqlStm = $this->getStatement('sql.createSession');
         } else {
-            $sqlStm = $this->getSqlStatement('sql.updateSession');
+            $sqlStm = $this->getStatement('sql.updateSession');
         }
         $sqlConn = $this->getConnection();
 

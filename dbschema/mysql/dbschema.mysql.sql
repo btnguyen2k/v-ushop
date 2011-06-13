@@ -1,8 +1,22 @@
+DROP TABLE IF EXISTS app_log;
 DROP TABLE IF EXISTS http_session;
 DROP TABLE IF EXISTS vlistings_group;
 DROP TABLE IF EXISTS vlistings_user;
 DROP TABLE IF EXISTS vlistings_item;
 DROP TABLE IF EXISTS vlistings_category;
+
+CREATE TABLE app_log(
+    logid               INT                 NOT NULL AUTO_INCREMENT,
+    logTimestamp        INT,
+        INDEX logTimestamp(logTimestamp),
+    logLevel            VARCHAR(64),
+        INDEX logLevel(logLevel),
+    logClass            VARCHAR(96),
+        INDEX logClass(logClass),
+    logMessage          TEXT,
+    logStacktrace       TEXT,
+    PRIMARY KEY (logid)
+) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE http_session (
     sid             VARCHAR(32)             NOT NULL,
@@ -30,12 +44,14 @@ CREATE TABLE vlistings_user (
         INDEX ugroup_id(ugroup_id),
     PRIMARY KEY (uid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
--- First Administrator, password is "password" (without quotes, of course!)
+-- Administrator account, password is "password" (without quotes, of course!)
 INSERT INTO vlistings_user (uid, uemail, upassword, ugroup_id)
 VALUES (1, 'admin@localhost', '5f4dcc3b5aa765d61d8327deb882cf99', 1);
 
 CREATE TABLE vlistings_category (
     cid             INT                     NOT NULL AUTO_INCREMENT,
+    cposition       INT                     NOT NULL DEFAULT 0,
+        INDEX cposition(cposition),
     cparent_id      INT,
     ctitle          VARCHAR(64),
     cdesc           VARCHAR(255),

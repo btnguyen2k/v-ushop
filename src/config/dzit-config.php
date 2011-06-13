@@ -67,7 +67,9 @@ Dzit_Config::set(Dzit_Config::CONF_DISPATCHER, new $dispatcherClass());
 /* NOTE: REMEMBER TO CONFIGURE YOUR OWN APPLICATION'S ROUTING HERE! */
 $router = Array('*' => 'Vlistings_Controller_HomeController',
         'login' => 'Vlistings_Controller_LoginController',
-        'admin' => Array('*' => 'Vlistings_Controller_Admin_DefaultController'));
+        'logout' => 'Vlistings_Controller_LogoutController',
+        'admin' => Array('*' => 'Vlistings_Controller_Admin_HomeController',
+                'categories' => 'Vlistings_Controller_Admin_CategoryListController'));
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 
 /*
@@ -101,8 +103,8 @@ $params = Array('templateDir' => SKIN_DIR,
         'smartyCacheDir' => '../../../smarty/cache',
         'smartyConfigDir' => '../../../smarty/config',
         'smartyCompileDir' => '../../../smarty/template_c',
-        'smartyLeftDelimiter' => '<:',
-        'smartyRightDelimiter' => ':>');
+        'smartyLeftDelimiter' => '[:',
+        'smartyRightDelimiter' => ':]');
 $viewResolverClass = 'Dzit_View_SmartyViewResolver';
 Dzit_Config::set(Dzit_Config::CONF_VIEW_RESOLVER, new $viewResolverClass($params));
 

@@ -1,1 +1,1 @@
-<:include file='inc_layout.tpl' content='content_login.tpl':>
+[:include file='inc_layout.tpl' DISABLE_COLUMN_LEFT=TRUE DISABLE_COLUMN_RIGHT=TRUE CONTENT='content_login.tpl':]

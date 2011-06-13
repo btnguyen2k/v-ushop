@@ -44,9 +44,9 @@ class Dzit_SessionHandler {
         $daoFactory = Ddth_Dao_BaseDaoFactory::getInstance();
         $this->dao = $daoFactory->getDao('dao.session');
         if ($this->dao === NULL) {
-            $msg = 'Can not obtain Vlistings_Bo_Session_ISessionDao instance!';
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Can not obtain Vlistings_Bo_Session_ISessionDao instance!";
             $e = new Exception($msg);
-            $this->LOGGER->fatal($msg, $e);
+            $this->LOGGER->fatal("Can not obtain Vlistings_Bo_Session_ISessionDao instance!", $e);
             throw $e;
         }
         return TRUE;
@@ -70,7 +70,8 @@ class Dzit_SessionHandler {
             $sessionData = $this->dao->readSessionData($sid);
             return $sessionData !== NULL ? $sessionData : '';
         } catch (Exception $e) {
-            $this->LOGGER->fatal($e->getMessage(), $e);
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]{$e->getMessage()}";
+            $this->LOGGER->fatal($msg, $e);
             throw $e;
         }
     }
@@ -84,7 +85,8 @@ class Dzit_SessionHandler {
             $this->dao->writeSessionData($sid, $data);
             return TRUE;
         } catch (Exception $e) {
-            $this->LOGGER->fatal($e->getMessage(), $e);
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]{$e->getMessage()}";
+            $this->LOGGER->fatal($msg, $e);
             throw $e;
         }
     }
@@ -98,7 +100,8 @@ class Dzit_SessionHandler {
             $this->dao->deleteSessionData($sid);
             return TRUE;
         } catch (Exception $e) {
-            $this->LOGGER->fatal($e->getMessage(), $e);
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]{$e->getMessage()}";
+            $this->LOGGER->fatal($msg, $e);
             throw $e;
         }
     }
@@ -112,7 +115,8 @@ class Dzit_SessionHandler {
             $this->dao->deleteExpiredSessions($expiry);
             return TRUE;
         } catch (Exception $e) {
-            $this->LOGGER->fatal($e->getMessage(), $e);
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]{$e->getMessage()}";
+            $this->LOGGER->fatal($msg, $e);
             throw $e;
         }
     }

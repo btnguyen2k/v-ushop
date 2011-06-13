@@ -1,3 +1,4 @@
 <?php
 define('SESSION_LAST_ACCESS_URL', 'LAST_ACCESS_URL');
 define('SESSION_USER_ID', 'USER_ID');
+define('USER_GROUP_ADMIN', 1);

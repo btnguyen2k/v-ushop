@@ -1,1 +1,1 @@
-<:include file='inc_layout.tpl' content='content_home.tpl':>
+[:include file='inc_layout.tpl' CONTENT='content_home.tpl':]

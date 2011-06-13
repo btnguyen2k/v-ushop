@@ -11,7 +11,23 @@ $YADIF_CONFIG = Array(
         'Vlistings_Controller_LoginController' => Array(
                 'class' => 'Vlistings_Controller_LoginController',
                 'scope' => 'singleton',
-                'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))));
+                'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
+        'Vlistings_Controller_LogoutController' => Array(
+                'class' => 'Vlistings_Controller_LogoutController',
+                'scope' => 'singleton',
+                'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
+        'Vlistings_Controller_Admin_HomeController' => Array(
+                'class' => 'Vlistings_Controller_Admin_HomeController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vlistings_Controller_Admin_CategoryListController' => Array(
+                'class' => 'Vlistings_Controller_Admin_CategoryListController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))));
 
 /**
  * This class utilizes yadif (http://github.com/beberlei/yadif/)

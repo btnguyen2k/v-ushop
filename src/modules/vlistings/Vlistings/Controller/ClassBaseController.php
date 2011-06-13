@@ -4,6 +4,8 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     private $module, $action;
     private $hasError = FALSE;
     private $saveUrl = TRUE;
+    private $requireAuthentication = FALSE;
+    private $allowedUserGroups = NULL;
 
     /**
      * @var Ddth_Commons_Logging_ILog
@@ -23,6 +25,22 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     }
 
     /**
+     * Setter for $requireAuthentication.
+     * @param boolean $value
+     */
+    public function setRequireAuthentication($value) {
+        $this->requireAuthentication = $value;
+    }
+
+    /**
+     * Setter for $allowedUserGroups.
+     * @param boolean $value
+     */
+    public function setAllowedUserGroups($value) {
+        $this->allowedUserGroups = $value;
+    }
+
+    /**
      * Gets the currently requested module.
      * @return string
      */
@@ -36,6 +54,16 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
      */
     protected function getAction() {
         return $this->action;
+    }
+
+    /**
+     * Gets a DAO object.
+     *
+     * @param string $name
+     * @return Ddth_dao_IDao
+     */
+    protected function getDao($name) {
+        return Ddth_Dao_BaseDaoFactory::getInstance()->getDao($name);
     }
 
     /**
@@ -80,10 +108,21 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     }
 
     /**
+     * Checks if there is a logged in user.
+     *
+     * @return boolean
+     */
+    protected function isLoggedIn() {
+        return isset($_SESSION[SESSION_USER_ID]);
+    }
+
+    /**
      * Convenient function to execute the business (non-POST request). Sub-class overrides this function to perform its own business.
      * @return Dzit_ModelAndView
      */
-    protected abstract function executeNonPost();
+    protected function executeNonPost() {
+        return NULL;
+    }
 
     /**
      * Turns the error flag on.
@@ -171,6 +210,15 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
         return NULL;
     }
 
+    /**
+     * Get the login url.
+     *
+     * @return boolean
+     */
+    protected function getUrlLogin() {
+        return $model['urlLogin'] = $_SERVER['SCRIPT_NAME'] . '/login';
+    }
+
     private function buildModel_Commons(&$model) {
         $model['basehref'] = $this->buildModel_BaseHref();
         $model['page'] = $this->buildModel_Page();
@@ -178,8 +226,14 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
         $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
         if (isset($_SESSION[SESSION_USER_ID])) {
             $model['urlLogout'] = $_SERVER['SCRIPT_NAME'] . '/logout';
+            $userDao = $this->getDao('dao.user');
+            //because we actually store email address in session, not user id
+            $user = $userDao->getUserByEmail($_SESSION[SESSION_USER_ID]);
+            if ($user !== NULL && $user['groupId'] === USER_GROUP_ADMIN) {
+                $model['urlAdmin'] = $_SERVER['SCRIPT_NAME'] . '/admin';
+            }
         } else {
-            $model['urlLogin'] = $_SERVER['SCRIPT_NAME'] . '/login';
+            $model['urlLogin'] = $this->getUrlLogin();
             $model['urlRegister'] = $_SERVER['SCRIPT_NAME'] . '/register';
         }
     }
@@ -297,6 +351,13 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
         $this->action = $action;
         if ($this->saveUrl) {
             $_SESSION[SESSION_LAST_ACCESS_URL] = $_SERVER['REQUEST_URI'];
+        }
+        if ($this->requireAuthentication && !$this->isLoggedIn()) {
+            $view = new Dzit_View_RedirectView($this->getUrlLogin());
+            return new Dzit_ModelAndView($view);
+        }
+        if ($this->allowedUserGroups !== NULL) {
+            //TODO check user group
         }
 
         /*

@@ -1,6 +1,7 @@
 <?php
-class Vlistings_Controller_HomeController extends Vlistings_Controller_BaseController {
-    const VIEW_NAME = 'home';
+class Vlistings_Controller_Admin_CategoryListController extends Vlistings_Controller_Admin_BaseController {
+
+    const VIEW_NAME = 'admin_categoryList';
 
     /* (non-PHPdoc)
      * @see Vlistings_Controller_BaseController::getViewName()
