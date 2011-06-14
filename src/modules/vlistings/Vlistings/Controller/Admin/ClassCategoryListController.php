@@ -18,6 +18,9 @@ class Vlistings_Controller_Admin_CategoryListController extends Vlistings_Contro
         if ($model === NULL) {
             $model = Array();
         }
+        /**
+         * @var Vlistings_Bo_Listings_IListingsDao
+         */
         $listingsDao = $this->getDao('dao.listings');
         $catTree = $listingsDao->getCategoryTree();
         $model['categoryTree'] = $catTree;

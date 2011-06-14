@@ -43,4 +43,16 @@ abstract class Vlistings_Bo_Listings_BaseListingsDao extends Vlistings_Bo_BaseDa
         $this->closeConnection();
         return $aResult;
     }
+
+    /* (non-PHPdoc)
+     * @see Vlistings_Bo_Listings_IListingsDao::countNumCategories()
+     */
+    public function countNumCategories() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+        $rs = $sqlStm->execute($sqlConn->getConn());
+        $result = $this->fetchResultArr($rs);
+        $this->closeConnection();
+        return (int)$result[0];
+    }
 }
