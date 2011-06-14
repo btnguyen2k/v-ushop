@@ -1,7 +1,7 @@
 <!-- LEFT COLUMN --> <!-- Navigation -->
 <div id="left-column">
     <ul>
-        <!-- <li class="left-navheader-first">[:$MODEL.language->getMessage('msg.adminCp'):]</li> -->
+        <li class="left-navheader-first">[:$MODEL.language->getMessage('msg.adminCp'):]</li>
 
         <li><a class="left-navheader" href="[:$MODEL.urlAdmin:]">[:$MODEL.language->getMessage('msg.siteManagement'):]</a></li>
         <li><a href="[:$MODEL.urlAdmin:]">[:$MODEL.language->getMessage('msg.adminCp'):]</a>

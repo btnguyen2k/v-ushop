@@ -27,6 +27,12 @@ $YADIF_CONFIG = Array(
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vlistings_Controller_Admin_SiteSettingsController' => Array(
+                'class' => 'Vlistings_Controller_Admin_SiteSettingsController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))));
 
 /**
@@ -35,6 +41,7 @@ $YADIF_CONFIG = Array(
  *
  * @author ThanhNB
  */
+
 class Vlistings_Controller_ActionHandlerMapping extends Dzit_DefaultActionHandlerMapping {
 
     /**

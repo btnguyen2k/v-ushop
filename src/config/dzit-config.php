@@ -69,7 +69,8 @@ $router = Array('*' => 'Vlistings_Controller_HomeController',
         'login' => 'Vlistings_Controller_LoginController',
         'logout' => 'Vlistings_Controller_LogoutController',
         'admin' => Array('*' => 'Vlistings_Controller_Admin_HomeController',
-                'categories' => 'Vlistings_Controller_Admin_CategoryListController'));
+                'categories' => 'Vlistings_Controller_Admin_CategoryListController',
+                'siteSettings' => 'Vlistings_Controller_Admin_SiteSettingsController'));
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 
 /*

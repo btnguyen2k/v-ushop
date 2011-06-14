@@ -9,6 +9,7 @@ $DPHP_DAO_CONFIG = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Mysql_BaseMysqlDao
         'dphp-dao.mysql.username' => 'vlistings',
         'dphp-dao.mysql.password' => 'vlistings',
         'dphp-dao.mysql.database' => 'vlistings',
+        'dphp-dao.mysql.setupSqls' => Array("SET NAMES 'utf8'"),
         'dao.session' => 'Vlistings_Bo_Session_MysqlSessionDao',
         'dao.user' => 'Vlistings_Bo_User_MysqlUserDao',
         'dao.listings' => 'Vlistings_Bo_Listings_MysqlListingsDao',
