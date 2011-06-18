@@ -1,5 +1,12 @@
 <?php
-class Vlistings_Bo_Listings_BoCategory {
+class Vlistings_Bo_Listings_BoCategory extends Commons_Bo_BaseBo {
+
+    const COL_ID = 'cid';
+    const COL_POSITION = 'cposition';
+    const COL_PARENT_ID = 'cparent_id';
+    const COL_TITLE = 'ctitle';
+    const COL_DESCRIPTION = 'cdesc';
+
     private $id, $position, $parentId, $title, $description;
     private $children = Array();
 
@@ -8,6 +15,17 @@ class Vlistings_Bo_Listings_BoCategory {
     private $urlMoveUp = NULL;
     private $urlMoveDown = NULL;
     private $urlView = NULL;
+
+    /* (non-PHPdoc)
+     * @see Commons_Bo_BaseBo::getFieldMap()
+     */
+    protected function getFieldMap() {
+        return Array(self::COL_ID => Array('id', self::TYPE_INT),
+                self::COL_POSITION => Array('position', self::TYPE_INT),
+                self::COL_PARENT_ID => Array('parentId', self::TYPE_INT),
+                self::COL_TITLE => Array('title'),
+                self::COL_DESCRIPTION => Array('description'));
+    }
 
     /**
      * Gets the URL to delete the category.
@@ -67,24 +85,6 @@ class Vlistings_Bo_Listings_BoCategory {
             $this->urlView = $_SERVER['SCRIPT_NAME'] . '/category/' . $this->id . '/';
         }
         return $this->urlView;
-    }
-
-    /**
-     * Populates the business object with a record set.
-     *
-     * @param Array $rs
-     */
-    public function populate($rs) {
-        $id = $rs['id'];
-        $position = $rs['position'];
-        $parentId = $rs['parentId'];
-        $title = $rs['title'];
-        $desc = $rs['description'];
-        $this->setId((int)$id);
-        $this->setPosition((int)$position);
-        $this->setParentId(isset($parentId) ? (int)$parentId : NULL);
-        $this->setTitle($title);
-        $this->setDescription($desc);
     }
 
     public function getId() {

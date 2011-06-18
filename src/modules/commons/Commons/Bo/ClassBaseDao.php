@@ -1,5 +1,5 @@
 <?php
-abstract class Vlistings_Bo_BaseDao extends Ddth_Dao_AbstractSqlStatementDao {
+abstract class Commons_Bo_BaseDao extends Ddth_Dao_AbstractSqlStatementDao {
     /**
      * Fetches result from the result set and returns as an associative array.
      *

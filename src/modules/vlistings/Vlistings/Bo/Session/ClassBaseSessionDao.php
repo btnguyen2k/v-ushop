@@ -1,5 +1,5 @@
 <?php
-abstract class Vlistings_Bo_Session_BaseSessionDao extends Vlistings_Bo_BaseDao implements
+abstract class Vlistings_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao implements
         Vlistings_Bo_Session_ISessionDao {
 
     /**

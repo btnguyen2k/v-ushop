@@ -1,5 +1,5 @@
 <?php
-abstract class Vlistings_Bo_Listings_BaseListingsDao extends Vlistings_Bo_BaseDao implements
+abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao implements
         Vlistings_Bo_Listings_IListingsDao {
 
     /**

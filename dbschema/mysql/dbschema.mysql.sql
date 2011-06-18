@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS app_log;
 DROP TABLE IF EXISTS http_session;
 DROP TABLE IF EXISTS vlistings_group;
 DROP TABLE IF EXISTS vlistings_user;
+DROP TABLE IF EXISTS vlistings_paperclip;
 DROP TABLE IF EXISTS vlistings_item;
 DROP TABLE IF EXISTS vlistings_category;
 DROP TABLE IF EXISTS vlistings_app_config;
@@ -93,4 +94,15 @@ CREATE TABLE vlistings_item (
     istock          INT                     NOT NULL DEFAULT 0,
         INDEX istock(istock),
     PRIMARY KEY (iid)
+) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE vlistings_paperclip (
+    pid             VARCHAR(64)             NOT NULL,
+    pfilename       VARCHAR(64)             NOT NULL,
+    pfilesize       BIGINT                  NOT NULL DEFAULT 0,
+    pfilecontent    MEDIUMBLOB,
+    pthumbnail      BLOB,
+    pmimetype       VARCHAR(64)             NOT NULL DEFAULT '',
+    ptimestamp      INT                     NOT NULL DEFAULT 0,
+    PRIMARY KEY (pid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
