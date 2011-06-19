@@ -1,5 +1,5 @@
 <?php
-interface Vlistings_Bo_Session_ISessionDao extends Ddth_Dao_IDao {
+interface Vcatalog_Bo_Session_ISessionDao extends Ddth_Dao_IDao {
 
     /**
      * Deletes expired sessions.

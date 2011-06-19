@@ -1,6 +1,6 @@
 <?php
-abstract class Vlistings_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao implements
-        Vlistings_Bo_Session_ISessionDao {
+abstract class Vcatalog_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao implements
+        Vcatalog_Bo_Session_ISessionDao {
 
     /**
      * @var Ddth_Commons_Logging_ILog
@@ -13,7 +13,7 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao im
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Session_ISessionDao::deleteExpiredSessions()
+     * @see Vcatalog_Bo_Session_ISessionDao::deleteExpiredSessions()
      */
     public function deleteExpiredSessions($expiry) {
         if ($this->LOGGER->isDebugEnabled()) {
@@ -28,7 +28,7 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao im
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Session_ISessionDao::deleteSessionData()
+     * @see Vcatalog_Bo_Session_ISessionDao::deleteSessionData()
      */
     public function deleteSessionData($id) {
         if ($this->LOGGER->isDebugEnabled()) {
@@ -44,7 +44,7 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao im
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Session_ISessionDao::readSessionData()
+     * @see Vcatalog_Bo_Session_ISessionDao::readSessionData()
      */
     public function readSessionData($id) {
         if ($this->LOGGER->isDebugEnabled()) {
@@ -63,7 +63,7 @@ abstract class Vlistings_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao im
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Session_ISessionDao::writeSessionData()
+     * @see Vcatalog_Bo_Session_ISessionDao::writeSessionData()
      */
     public function writeSessionData($id, $data) {
         if ($this->LOGGER->isDebugEnabled()) {

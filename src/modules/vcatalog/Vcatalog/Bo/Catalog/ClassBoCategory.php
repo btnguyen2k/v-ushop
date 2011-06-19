@@ -1,5 +1,5 @@
 <?php
-class Vlistings_Bo_Listings_BoCategory extends Commons_Bo_BaseBo {
+class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
 
     const COL_ID = 'cid';
     const COL_POSITION = 'cposition';
@@ -138,7 +138,7 @@ class Vlistings_Bo_Listings_BoCategory extends Commons_Bo_BaseBo {
     /**
      * Adds a child category.
      *
-     * @param Vlistings_Bo_Listings_BoCategory $child
+     * @param Vcatalog_Bo_Catalog_BoCategory $child
      */
     public function addChild($child) {
         $this->children[] = $child;

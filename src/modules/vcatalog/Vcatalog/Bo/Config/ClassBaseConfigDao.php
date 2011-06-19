@@ -1,6 +1,6 @@
 <?php
-abstract class Vlistings_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao implements
-        Vlistings_Bo_Config_IConfigDao {
+abstract class Vcatalog_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao implements
+        Vcatalog_Bo_Config_IConfigDao {
 
     /**
      * @var Ddth_Commons_Logging_ILog
@@ -13,7 +13,7 @@ abstract class Vlistings_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao impl
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Config_IConfigDao::loadConfig()
+     * @see Vcatalog_Bo_Config_IConfigDao::loadConfig()
      */
     public function loadConfig($key) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -28,7 +28,7 @@ abstract class Vlistings_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao impl
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Config_IConfigDao::saveConfig()
+     * @see Vcatalog_Bo_Config_IConfigDao::saveConfig()
      */
     public function saveConfig($key, $value) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);

@@ -1,5 +1,5 @@
 <?php
-interface Vlistings_Bo_Listings_IListingsDao extends Ddth_Dao_IDao {
+interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
 
     /**
      * Creates a new category.

@@ -1,9 +1,9 @@
 <?php
-class Vlistings_Bo_Session_MysqlSessionDao extends Vlistings_Bo_Session_BaseSessionDao implements
+class Vcatalog_Bo_Catalog_MysqlCatalogDao extends Vcatalog_Bo_Catalog_BaseCatalogDao implements
         Ddth_Dao_Mysql_IMysqlDao {
 
     protected function initSqlStatementFactory() {
-        $this->setSqlStatementFile('Vlistings/Bo/Session/sql_session.mysql.properties');
+        $this->setSqlStatementFile('Vcatalog/Bo/Catalog/sql_catalog.mysql.properties');
         parent::initSqlStatementFactory();
     }
 

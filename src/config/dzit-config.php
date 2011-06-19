@@ -28,7 +28,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 global $DZIT_IGNORE_AUTOLOAD;
 $DZIT_IGNORE_AUTOLOAD = Array('/^Smarty_*/', '/^Yadif_*/');
 
-include 'vlistings-config-constants.php';
+include 'vcatalog-config-constants.php';
 
 include 'dzit-config-logging.php';
 
@@ -65,17 +65,17 @@ Dzit_Config::set(Dzit_Config::CONF_DISPATCHER, new $dispatcherClass());
  * </code>
  */
 /* NOTE: REMEMBER TO CONFIGURE YOUR OWN APPLICATION'S ROUTING HERE! */
-$router = Array('*' => 'Vlistings_Controller_HomeController',
-        'login' => 'Vlistings_Controller_LoginController',
-        'logout' => 'Vlistings_Controller_LogoutController',
-        'admin' => Array('*' => 'Vlistings_Controller_Admin_HomeController',
-                'categories' => 'Vlistings_Controller_Admin_CategoryListController',
-                'createCategory' => 'Vlistings_Controller_Admin_CreateCategoryController',
-                'deleteCategory' => 'Vlistings_Controller_Admin_DeleteCategoryController',
-                'editCategory' => 'Vlistings_Controller_Admin_EditCategoryController',
-                'moveCategoryDown' => 'Vlistings_Controller_Admin_MoveDownCategoryController',
-                'moveCategoryUp' => 'Vlistings_Controller_Admin_MoveUpCategoryController',
-                'siteSettings' => 'Vlistings_Controller_Admin_SiteSettingsController'));
+$router = Array('*' => 'Vcatalog_Controller_HomeController',
+        'login' => 'Vcatalog_Controller_LoginController',
+        'logout' => 'Vcatalog_Controller_LogoutController',
+        'admin' => Array('*' => 'Vcatalog_Controller_Admin_HomeController',
+                'categories' => 'Vcatalog_Controller_Admin_CategoryListController',
+                'createCategory' => 'Vcatalog_Controller_Admin_CreateCategoryController',
+                'deleteCategory' => 'Vcatalog_Controller_Admin_DeleteCategoryController',
+                'editCategory' => 'Vcatalog_Controller_Admin_EditCategoryController',
+                'moveCategoryDown' => 'Vcatalog_Controller_Admin_MoveDownCategoryController',
+                'moveCategoryUp' => 'Vcatalog_Controller_Admin_MoveUpCategoryController',
+                'siteSettings' => 'Vcatalog_Controller_Admin_SiteSettingsController'));
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 
 /*
@@ -86,8 +86,8 @@ Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
  * (type {@link Dzit_IController}) for a request {module:action}.
  */
 //$actionHandlerMappingClass = 'Dzit_DefaultActionHandlerMapping';
-require_once 'Vlistings/Controller/ClassActionHandlerMapping.php';
-$actionHandlerMappingClass = 'Vlistings_Controller_ActionHandlerMapping';
+require_once 'Vcatalog/Controller/ClassActionHandlerMapping.php';
+$actionHandlerMappingClass = 'Vcatalog_Controller_ActionHandlerMapping';
 Dzit_Config::set(Dzit_Config::CONF_ACTION_HANDLER_MAPPING, new $actionHandlerMappingClass($router));
 
 /*

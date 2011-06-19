@@ -18,7 +18,7 @@ class Dzit_SessionHandler {
     private $alive = TRUE;
 
     /**
-     * @var Vlistings_Bo_Session_ISessionDao
+     * @var Vcatalog_Bo_Session_ISessionDao
      */
     private $dao = NULL;
 
@@ -44,9 +44,9 @@ class Dzit_SessionHandler {
         $daoFactory = Ddth_Dao_BaseDaoFactory::getInstance();
         $this->dao = $daoFactory->getDao('dao.session');
         if ($this->dao === NULL) {
-            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Can not obtain Vlistings_Bo_Session_ISessionDao instance!";
+            $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Can not obtain Vcatalog_Bo_Session_ISessionDao instance!";
             $e = new Exception($msg);
-            $this->LOGGER->fatal("Can not obtain Vlistings_Bo_Session_ISessionDao instance!", $e);
+            $this->LOGGER->fatal("Can not obtain Vcatalog_Bo_Session_ISessionDao instance!", $e);
             throw $e;
         }
         return TRUE;

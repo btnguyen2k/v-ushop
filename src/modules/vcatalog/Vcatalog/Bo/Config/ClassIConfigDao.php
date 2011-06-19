@@ -1,5 +1,5 @@
 <?php
-interface Vlistings_Bo_Config_IConfigDao extends Ddth_Dao_IDao {
+interface Vcatalog_Bo_Config_IConfigDao extends Ddth_Dao_IDao {
     /**
      * Load a config by key.
      *

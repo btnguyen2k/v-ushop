@@ -1,6 +1,6 @@
 <?php
-abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao implements
-        Vlistings_Bo_Listings_IListingsDao {
+abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao implements
+        Vcatalog_Bo_Catalog_ICatalogDao {
 
     /**
      * @var Ddth_Commons_Logging_ILog
@@ -13,7 +13,7 @@ abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao 
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Listings_IListingsDao::createCategory()
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::createCategory()
      */
     public function createCategory($position, $parentId, $title, $description) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -29,7 +29,7 @@ abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao 
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Listings_IListingsDao::getCategoryById()
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryById()
      */
     public function getCategoryById($id) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -39,7 +39,7 @@ abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao 
         $rs = $sqlStm->execute($sqlConn->getConn(), $params);
         $row = $this->fetchResultAssoc($rs);
         if ($row !== NULL && $row !== FALSE) {
-            $cat = new Vlistings_Bo_Listings_BoCategory();
+            $cat = new Vcatalog_Bo_Catalog_BoCategory();
             $cat->populate($row);
         } else {
             $cat = NULL;
@@ -50,7 +50,7 @@ abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao 
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Listings_IListingsDao::getCategoryTree()
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryTree()
      */
     public function getCategoryTree() {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -61,7 +61,7 @@ abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao 
         $rs = $sqlStm->execute($sqlConn->getConn());
         $row = $this->fetchResultAssoc($rs);
         while ($row !== FALSE && $row !== NULL) {
-            $category = new Vlistings_Bo_Listings_BoCategory();
+            $category = new Vcatalog_Bo_Catalog_BoCategory();
             $category->populate($row);
             $id = $category->getId();
             $mResult[$id] = $category;
@@ -82,7 +82,7 @@ abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao 
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Listings_IListingsDao::countNumCategories()
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::countNumCategories()
      */
     public function countNumCategories() {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);

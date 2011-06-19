@@ -1,29 +1,29 @@
 DROP TABLE IF EXISTS app_log;
 DROP TABLE IF EXISTS http_session;
-DROP TABLE IF EXISTS vlistings_group;
-DROP TABLE IF EXISTS vlistings_user;
-DROP TABLE IF EXISTS vlistings_paperclip;
-DROP TABLE IF EXISTS vlistings_item;
-DROP TABLE IF EXISTS vlistings_category;
-DROP TABLE IF EXISTS vlistings_app_config;
+DROP TABLE IF EXISTS vcatalog_group;
+DROP TABLE IF EXISTS vcatalog_user;
+DROP TABLE IF EXISTS vcatalog_paperclip;
+DROP TABLE IF EXISTS vcatalog_item;
+DROP TABLE IF EXISTS vcatalog_category;
+DROP TABLE IF EXISTS vcatalog_app_config;
 
-CREATE TABLE vlistings_app_config (
+CREATE TABLE vcatalog_app_config (
     conf_key            VARCHAR(32)         NOT NULL,
     conf_value          TEXT,
     PRIMARY KEY (conf_key)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-INSERT INTO vlistings_app_config (conf_key, conf_value)
-VALUES('site_name', 'vListings');
-INSERT INTO vlistings_app_config (conf_key, conf_value)
-VALUES('site_title', 'Online Listing Management System');
-INSERT INTO vlistings_app_config (conf_key, conf_value)
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('site_name', 'vCatalog');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('site_title', 'Online Catalog Ecommerce System');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('site_slogan', 'Website slogan');
-INSERT INTO vlistings_app_config (conf_key, conf_value)
-VALUES('site_keywords', 'vlistings, listing');
-INSERT INTO vlistings_app_config (conf_key, conf_value)
-VALUES('site_description', 'Listing System');
-INSERT INTO vlistings_app_config (conf_key, conf_value)
-VALUES('site_copyright', '(C) 2011 by vListings/ddth.org | All Rights Reserved');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('site_keywords', 'catalog, ecommerce');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('site_description', 'Online Catalog Ecommerce System');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('site_copyright', '(C) 2011 by vCatalog/gpv.com.vn | All Rights Reserved');
 
 CREATE TABLE app_log(
     logid               INT                 NOT NULL AUTO_INCREMENT,
@@ -44,18 +44,18 @@ CREATE TABLE http_session (
     PRIMARY KEY(sid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE TABLE vlistings_group (
+CREATE TABLE vcatalog_group (
     gid             INT                 NOT NULL AUTO_INCREMENT,
     gname           VARCHAR(32),
     gdesc           VARCHAR(255),
     PRIMARY KEY (gid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-INSERT INTO vlistings_group (gid, gname, gdesc)
+INSERT INTO vcatalog_group (gid, gname, gdesc)
 VALUES (1, 'Administrator', 'Administrator has all permissions!');
-INSERT INTO vlistings_group (gid, gname, gdesc)
+INSERT INTO vcatalog_group (gid, gname, gdesc)
 VALUES (2, 'Member', 'Normal member user');
 
-CREATE TABLE vlistings_user (
+CREATE TABLE vcatalog_user (
     uid             INT                     NOT NULL AUTO_INCREMENT,
     uemail          VARCHAR(64)             NOT NULL,
         UNIQUE INDEX uemail(uemail),
@@ -65,10 +65,10 @@ CREATE TABLE vlistings_user (
     PRIMARY KEY (uid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 -- Administrator account, password is "password" (without quotes, of course!)
-INSERT INTO vlistings_user (uid, uemail, upassword, ugroup_id)
+INSERT INTO vcatalog_user (uid, uemail, upassword, ugroup_id)
 VALUES (1, 'admin@localhost', '5f4dcc3b5aa765d61d8327deb882cf99', 1);
 
-CREATE TABLE vlistings_category (
+CREATE TABLE vcatalog_category (
     cid             INT                     NOT NULL AUTO_INCREMENT,
     cposition       INT                     NOT NULL DEFAULT 0,
         INDEX cposition(cposition),
@@ -78,7 +78,7 @@ CREATE TABLE vlistings_category (
     PRIMARY KEY (cid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE TABLE vlistings_item (
+CREATE TABLE vcatalog_item (
     iid             INT                     NOT NULL AUTO_INCREMENT,
     icategory_id    INT                     NOT NULL,
         INDEX icategory_id(icategory_id),
@@ -96,7 +96,7 @@ CREATE TABLE vlistings_item (
     PRIMARY KEY (iid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE TABLE vlistings_paperclip (
+CREATE TABLE vcatalog_paperclip (
     pid             VARCHAR(64)             NOT NULL,
     pfilename       VARCHAR(64)             NOT NULL,
     pfilesize       BIGINT                  NOT NULL DEFAULT 0,
