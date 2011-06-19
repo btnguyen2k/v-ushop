@@ -28,6 +28,24 @@ $YADIF_CONFIG = Array(
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vlistings_Controller_Admin_CreateCategoryController' => Array(
+                'class' => 'Vlistings_Controller_Admin_CreateCategoryController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vlistings_Controller_Admin_DeleteCategoryController' => Array(
+                'class' => 'Vlistings_Controller_Admin_DeleteCategoryController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vlistings_Controller_Admin_EditCategoryController' => Array(
+                'class' => 'Vlistings_Controller_Admin_EditCategoryController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
         'Vlistings_Controller_Admin_SiteSettingsController' => Array(
                 'class' => 'Vlistings_Controller_Admin_SiteSettingsController',
                 'scope' => 'singleton',

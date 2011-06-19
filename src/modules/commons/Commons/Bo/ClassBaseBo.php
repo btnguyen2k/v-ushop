@@ -40,16 +40,16 @@ class Commons_Bo_BaseBo {
      * This function expects the parameter to be an associative array. It obtains the mapping
      * by calling {@link Commons_Bo_BaseBo::getFieldMap()} and uses setters to populate the BO.
      *
-     * @param mixed $rs
+     * @param mixed $dataRow
      */
-    public function populate($rs) {
-        if ($rs === NULL || !is_array($rs)) {
+    public function populate($dataRow) {
+        if ($dataRow === NULL || !is_array($dataRow)) {
             $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Invalid argument!";
             $this->LOGGER->warn($msg);
             return;
         }
         $fieldMap = $this->getFieldMap();
-        foreach ($rs as $key => $value) {
+        foreach ($dataRow as $key => $value) {
             $fieldInfo = isset($fieldMap[$key]) ? $fieldMap[$key] : NULL;
             if ($fieldInfo == NULL || !is_array($fieldInfo)) {
                 $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Can not map db column [$key] to class member variable!";

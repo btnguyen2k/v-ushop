@@ -13,6 +13,43 @@ abstract class Vlistings_Bo_Listings_BaseListingsDao extends Commons_Bo_BaseDao 
     }
 
     /* (non-PHPdoc)
+     * @see Vlistings_Bo_Listings_IListingsDao::createCategory()
+     */
+    public function createCategory($position, $parentId, $title, $description) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('position' => $position,
+                'parentId' => $parentId,
+                'title' => $title,
+                'description' => $description);
+        $sqlStm->execute($sqlConn->getConn(), $params);
+
+        $this->closeConnection();
+    }
+
+    /* (non-PHPdoc)
+     * @see Vlistings_Bo_Listings_IListingsDao::getCategoryById()
+     */
+    public function getCategoryById($id) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('id' => $id);
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+        $row = $this->fetchResultAssoc($rs);
+        if ($row !== NULL && $row !== FALSE) {
+            $cat = new Vlistings_Bo_Listings_BoCategory();
+            $cat->populate($row);
+        } else {
+            $cat = NULL;
+        }
+
+        $this->closeConnection();
+        return $cat;
+    }
+
+    /* (non-PHPdoc)
      * @see Vlistings_Bo_Listings_IListingsDao::getCategoryTree()
      */
     public function getCategoryTree() {

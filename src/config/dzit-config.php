@@ -70,6 +70,11 @@ $router = Array('*' => 'Vlistings_Controller_HomeController',
         'logout' => 'Vlistings_Controller_LogoutController',
         'admin' => Array('*' => 'Vlistings_Controller_Admin_HomeController',
                 'categories' => 'Vlistings_Controller_Admin_CategoryListController',
+                'createCategory' => 'Vlistings_Controller_Admin_CreateCategoryController',
+                'deleteCategory' => 'Vlistings_Controller_Admin_DeleteCategoryController',
+                'editCategory' => 'Vlistings_Controller_Admin_EditCategoryController',
+                'moveCategoryDown' => 'Vlistings_Controller_Admin_MoveDownCategoryController',
+                'moveCategoryUp' => 'Vlistings_Controller_Admin_MoveUpCategoryController',
                 'siteSettings' => 'Vlistings_Controller_Admin_SiteSettingsController'));
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 

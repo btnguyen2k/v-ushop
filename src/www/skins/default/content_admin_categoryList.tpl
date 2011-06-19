@@ -39,6 +39,15 @@
         <table cellpadding="2" style="width: 90%; margin-left: auto; margin-right: auto">
             <thead>
                 <tr>
+                    <th style="text-align: right;">
+                        <a href="[:$MODEL.urlCreateCategory:]">[:$MODEL.language->getMessage('msg.createCategory'):]</a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <table cellpadding="2" style="width: 90%; margin-left: auto; margin-right: auto">
+            <thead>
+                <tr>
                     <th>[:$MODEL.language->getMessage('msg.category'):]</td>
                     <th width="96px" style="text-align: center;" colspan="2">[:$MODEL.language->getMessage('msg.actions'):]</td>
                 </tr>
@@ -52,6 +61,15 @@
                 </tr>
             [:/foreach:]
             </tbody>
+        </table>
+        <table cellpadding="2" style="width: 90%; margin-left: auto; margin-right: auto">
+            <thead>
+                <tr>
+                    <th style="text-align: right;">
+                        <a href="[:$MODEL.urlCreateCategory:]">[:$MODEL.language->getMessage('msg.createCategory'):]</a>
+                    </th>
+                </tr>
+            </thead>
         </table>
     </div>
 </div>
