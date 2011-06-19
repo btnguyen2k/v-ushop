@@ -1,18 +1,18 @@
 <?php
-class Vlistings_Controller_Admin_CreateCategoryController extends Vlistings_Controller_Admin_BaseController {
+class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Controller_Admin_BaseController {
     const VIEW_NAME = 'admin_createCategory';
 
     private $errorMsg = '';
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::getViewName()
+     * @see Vcatalog_Controller_BaseController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::getModelAndView_AfterPost()
+     * @see Vcatalog_Controller_BaseController::getModelAndView_AfterPost()
      */
     protected function getModelAndView_AfterPost() {
         $url = $_SERVER['SCRIPT_NAME'] . '/admin/categories';
@@ -21,7 +21,7 @@ class Vlistings_Controller_Admin_CreateCategoryController extends Vlistings_Cont
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::buildModel()
+     * @see Vcatalog_Controller_BaseController::buildModel()
      */
     protected function buildModel() {
         $model = parent::buildModel();
@@ -29,16 +29,16 @@ class Vlistings_Controller_Admin_CreateCategoryController extends Vlistings_Cont
             $model = Array();
         }
         /**
-         * @var Vlistings_Bo_Listings_IListingsDao
+         * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
-        $listingsDao = $this->getDao('dao.listings');
-        $catTree = $listingsDao->getCategoryTree();
+        $catalogDao = $this->getDao(DAO_CATALOG);
+        $catTree = $catalogDao->getCategoryTree();
         $model['categoryTree'] = $catTree;
         return $model;
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::buildModel_Form()
+     * @see Vcatalog_Controller_BaseController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'],
@@ -56,7 +56,7 @@ class Vlistings_Controller_Admin_CreateCategoryController extends Vlistings_Cont
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::validatePostData()
+     * @see Vcatalog_Controller_BaseController::validatePostData()
      */
     protected function validatePostData() {
         /**
@@ -67,10 +67,10 @@ class Vlistings_Controller_Admin_CreateCategoryController extends Vlistings_Cont
         $parentId = isset($_POST['parentId']) ? (int)$_POST['parentId'] : 0;
         if ($parentId > 0) {
             /**
-             * @var Vlistings_Bo_Listings_IListingsDao
+             * @var Vcatalog_Bo_Catalog_ICatalogDao
              */
-            $listingsDao = $this->getDao('dao.listings');
-            $cat = $listingsDao->getCategoryById($parentId);
+            $catalogDao = $this->getDao(DAO_CATALOG);
+            $cat = $catalogDao->getCategoryById($parentId);
             if ($cat === NULL || ($cat->getParentId() !== NULL && $cat->getParentId() !== 0)) {
                 $this->errorMsg = $lang->getMessage('error.invalidParentCategory');
                 return FALSE;
@@ -87,13 +87,13 @@ class Vlistings_Controller_Admin_CreateCategoryController extends Vlistings_Cont
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::doFormSubmission()
+     * @see Vcatalog_Controller_BaseController::doFormSubmission()
      */
     protected function doFormSubmission() {
         /**
-         * @var Vlistings_Bo_Listings_IListingsDao
+         * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
-        $listingsDao = $this->getDao('dao.listings');
+        $catalogDao = $this->getDao(DAO_CATALOG);
         $position = time();
         $parentId = isset($_POST['parentId']) ? (int)$_POST['parentId'] : NULL;
         if ($parentId < 1) {
@@ -101,7 +101,7 @@ class Vlistings_Controller_Admin_CreateCategoryController extends Vlistings_Cont
         }
         $title = isset($_POST['categoryTitle']) ? trim($_POST['categoryTitle']) : '';
         $desc = isset($_POST['categoryDescription']) ? trim($_POST['categoryDescription']) : '';
-        $listingsDao->createCategory($position, $parentId, $title, $desc);
+        $catalogDao->createCategory($position, $parentId, $title, $desc);
 
         return TRUE;
     }

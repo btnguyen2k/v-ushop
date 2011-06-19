@@ -2,6 +2,13 @@
 interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
 
     /**
+     * Counts number of current categories.
+     *
+     * @return int
+     */
+    public function countNumCategories();
+
+    /**
      * Creates a new category.
      *
      * @param int $position
@@ -15,8 +22,17 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * Gets a category by id.
      *
      * @param int $id
+     * @return Vcatalog_Bo_Catalog_BoCategory
      */
     public function getCategoryById($id);
+
+    /**
+     * Gets all children of a category.
+     *
+     * @param Vcatalog_Bo_Catalog_BoCategory $category
+     * @return Array() index array of Vcatalog_Bo_Catalog_BoCategory
+     */
+    public function getCategoryChildren($category);
 
     /**
      * Gets all categories as a tree.
@@ -26,9 +42,9 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     public function getCategoryTree();
 
     /**
-     * Counts number of current categories.
+     * Updates a category.
      *
-     * @return int
+     * @param Vcatalog_Bo_Catalog_BoCategory $category
      */
-    public function countNumCategories();
+    public function updateCategory($category);
 }

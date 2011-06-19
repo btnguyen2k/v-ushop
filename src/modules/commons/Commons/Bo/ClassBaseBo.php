@@ -68,7 +68,7 @@ class Commons_Bo_BaseBo {
                 continue;
             }
             $type = count($fieldInfo) > 1 ? $fieldInfo[1] : 0;
-            if ($type != 0) {
+            if ($type != 0 && $value !== NULL) {
                 switch ($type) {
                     case self::TYPE_BOOL:
                     case self::TYPE_BOOLEAN:

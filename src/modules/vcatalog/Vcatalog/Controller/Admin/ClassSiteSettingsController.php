@@ -1,28 +1,28 @@
 <?php
-class Vlistings_Controller_Admin_SiteSettingsController extends Vlistings_Controller_Admin_BaseController {
+class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controller_Admin_BaseController {
     const VIEW_NAME = 'admin_siteSettings';
     const VIEW_NAME_AFTER_POST = 'admin_siteSettings';
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::getViewName()
+     * @see Vcatalog_Controller_BaseController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::getViewName_AfterPost()
+     * @see Vcatalog_Controller_BaseController::getViewName_AfterPost()
      */
     protected function getViewName_AfterPost() {
         return self::VIEW_NAME_AFTER_POST;
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::buildModel_Form()
+     * @see Vcatalog_Controller_BaseController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmLogin');
-        $dao = $this->getDao('dao.config');
+        $dao = $this->getDao(DAO_CONFIG);
         $form['siteName'] = $dao->loadConfig('site_name');
         $form['siteTitle'] = $dao->loadConfig('site_title');
         $form['siteKeywords'] = $dao->loadConfig('site_keywords');
@@ -37,10 +37,10 @@ class Vlistings_Controller_Admin_SiteSettingsController extends Vlistings_Contro
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::doFormSubmission()
+     * @see Vcatalog_Controller_BaseController::doFormSubmission()
      */
     protected function doFormSubmission() {
-        $dao = $this->getDao('dao.config');
+        $dao = $this->getDao(DAO_CONFIG);
         $siteName = isset($_POST['siteName']) ? $_POST['siteName'] : '';
         $siteTitle = isset($_POST['siteTitle']) ? $_POST['siteTitle'] : '';
         $siteKeywords = isset($_POST['siteKeywords']) ? $_POST['siteKeywords'] : '';

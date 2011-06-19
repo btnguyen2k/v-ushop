@@ -1,24 +1,24 @@
 <?php
-class Vlistings_Controller_LoginController extends Vlistings_Controller_BaseController {
+class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseController {
     const VIEW_NAME = 'login';
     const VIEW_NAME_AFTER_POST = 'loginDone';
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::getViewName()
+     * @see Vcatalog_Controller_BaseController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::getViewName_AfterPost()
+     * @see Vcatalog_Controller_BaseController::getViewName_AfterPost()
      */
     protected function getViewName_AfterPost() {
         return self::VIEW_NAME_AFTER_POST;
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::buildModel_AfterPost()
+     * @see Vcatalog_Controller_BaseController::buildModel_AfterPost()
      */
     protected function buildModel_AfterPost() {
         $model = parent::buildModel_AfterPost();
@@ -36,7 +36,7 @@ class Vlistings_Controller_LoginController extends Vlistings_Controller_BaseCont
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::buildModel_Form()
+     * @see Vcatalog_Controller_BaseController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmLogin');
@@ -48,10 +48,10 @@ class Vlistings_Controller_LoginController extends Vlistings_Controller_BaseCont
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::validatePostData()
+     * @see Vcatalog_Controller_BaseController::validatePostData()
      */
     protected function validatePostData() {
-        $userDao = $this->getDao('dao.user');
+        $userDao = $this->getDao(DAO_USER);
         $email = isset($_POST['email']) ? $_POST['email'] : '';
         $password = isset($_POST['password']) ? $_POST['password'] : '';
 
@@ -73,7 +73,7 @@ class Vlistings_Controller_LoginController extends Vlistings_Controller_BaseCont
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::doFormSubmission()
+     * @see Vcatalog_Controller_BaseController::doFormSubmission()
      */
     protected function doFormSubmission() {
         $_SESSION[SESSION_USER_ID] = strtolower(trim($_POST['email']));

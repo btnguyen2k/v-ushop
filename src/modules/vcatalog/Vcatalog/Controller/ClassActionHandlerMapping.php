@@ -5,49 +5,61 @@ include_once 'Yadif/Container.php';
 
 global $YADIF_CONFIG;
 $YADIF_CONFIG = Array(
-        'Vlistings_Controller_HomeController' => Array(
-                'class' => 'Vlistings_Controller_HomeController',
+        'Vcatalog_Controller_HomeController' => Array(
+                'class' => 'Vcatalog_Controller_HomeController',
                 'scope' => 'singleton'),
-        'Vlistings_Controller_LoginController' => Array(
-                'class' => 'Vlistings_Controller_LoginController',
+        'Vcatalog_Controller_LoginController' => Array(
+                'class' => 'Vcatalog_Controller_LoginController',
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
-        'Vlistings_Controller_LogoutController' => Array(
-                'class' => 'Vlistings_Controller_LogoutController',
+        'Vcatalog_Controller_LogoutController' => Array(
+                'class' => 'Vcatalog_Controller_LogoutController',
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
-        'Vlistings_Controller_Admin_HomeController' => Array(
-                'class' => 'Vlistings_Controller_Admin_HomeController',
+        'Vcatalog_Controller_Admin_HomeController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_HomeController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
-        'Vlistings_Controller_Admin_CategoryListController' => Array(
-                'class' => 'Vlistings_Controller_Admin_CategoryListController',
+        'Vcatalog_Controller_Admin_CategoryListController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_CategoryListController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
-        'Vlistings_Controller_Admin_CreateCategoryController' => Array(
-                'class' => 'Vlistings_Controller_Admin_CreateCategoryController',
+        'Vcatalog_Controller_Admin_CreateCategoryController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_CreateCategoryController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
-        'Vlistings_Controller_Admin_DeleteCategoryController' => Array(
-                'class' => 'Vlistings_Controller_Admin_DeleteCategoryController',
+        'Vcatalog_Controller_Admin_DeleteCategoryController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_DeleteCategoryController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
-        'Vlistings_Controller_Admin_EditCategoryController' => Array(
-                'class' => 'Vlistings_Controller_Admin_EditCategoryController',
+        'Vcatalog_Controller_Admin_EditCategoryController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_EditCategoryController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
-        'Vlistings_Controller_Admin_SiteSettingsController' => Array(
-                'class' => 'Vlistings_Controller_Admin_SiteSettingsController',
+        'Vcatalog_Controller_Admin_MoveDownCategoryController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_MoveDownCategoryController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_MoveUpCategoryController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_MoveUpCategoryController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_SiteSettingsController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_SiteSettingsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
@@ -60,7 +72,7 @@ $YADIF_CONFIG = Array(
  * @author ThanhNB
  */
 
-class Vlistings_Controller_ActionHandlerMapping extends Dzit_DefaultActionHandlerMapping {
+class Vcatalog_Controller_ActionHandlerMapping extends Dzit_DefaultActionHandlerMapping {
 
     /**
      * @var Yadif_Container

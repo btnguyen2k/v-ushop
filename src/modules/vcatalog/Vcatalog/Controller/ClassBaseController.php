@@ -1,5 +1,5 @@
 <?php
-abstract class Vlistings_Controller_BaseController implements Dzit_IController {
+abstract class Vcatalog_Controller_BaseController implements Dzit_IController {
 
     private $module, $action;
     private $hasError = FALSE;
@@ -13,7 +13,7 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     private $LOGGER;
 
     public function __construct() {
-        $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog('Vlistings_Controller_BaseController');
+        $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
     }
 
     /**
@@ -97,7 +97,9 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
      * Gets non-POST view name.
      * @return string
      */
-    protected abstract function getViewName();
+    protected function getViewName() {
+        return '';
+    }
 
     /**
      * Gets view name for successful POST-request. This function return empty string. Sub-class overrides this method to supply its own view name.
@@ -226,7 +228,7 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
         $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
         if (isset($_SESSION[SESSION_USER_ID])) {
             $model['urlLogout'] = $_SERVER['SCRIPT_NAME'] . '/logout';
-            $userDao = $this->getDao('dao.user');
+            $userDao = $this->getDao(DAO_USER);
             //because we actually store email address in session, not user id
             $user = $userDao->getUserByEmail($_SESSION[SESSION_USER_ID]);
             if ($user !== NULL && $user['groupId'] === USER_GROUP_ADMIN) {
@@ -318,32 +320,32 @@ abstract class Vlistings_Controller_BaseController implements Dzit_IController {
     }
 
     protected function getPageTitle() {
-        $dao = $this->getDao('dao.config');
+        $dao = $this->getDao(DAO_CONFIG);
         $siteName = $dao->loadConfig('site_name');
         $siteTitle = $dao->loadConfig('site_title');
         return "$siteName | $siteTitle";
     }
 
     protected function getPageKeywords() {
-        $dao = $this->getDao('dao.config');
+        $dao = $this->getDao(DAO_CONFIG);
         $siteKeywords = $dao->loadConfig('site_keywords');
         return $siteKeywords;
     }
 
     protected function getPageDescription() {
-        $dao = $this->getDao('dao.config');
+        $dao = $this->getDao(DAO_CONFIG);
         $siteDesc = $dao->loadConfig('site_description');
         return $siteDesc;
     }
 
     protected function getPageCopyright() {
-        $dao = $this->getDao('dao.config');
+        $dao = $this->getDao(DAO_CONFIG);
         $siteCopyright = $dao->loadConfig('site_copyright');
         return $siteCopyright;
     }
 
     protected function getPageSlogan() {
-        $dao = $this->getDao('dao.config');
+        $dao = $this->getDao(DAO_CONFIG);
         $siteSlogan = $dao->loadConfig('site_slogan');
         return $siteSlogan;
     }

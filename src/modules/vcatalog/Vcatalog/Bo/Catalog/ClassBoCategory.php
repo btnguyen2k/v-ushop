@@ -133,6 +133,9 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
 
     public function setChildren($children) {
         $this->children = $children;
+        if (!is_array($this->children)) {
+            $this->children = Array();
+        }
     }
 
     /**

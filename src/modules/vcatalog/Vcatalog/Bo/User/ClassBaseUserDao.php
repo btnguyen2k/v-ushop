@@ -1,6 +1,6 @@
 <?php
-abstract class Vlistings_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implements
-        Vlistings_Bo_User_IUserDao {
+abstract class Vcatalog_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implements
+        Vcatalog_Bo_User_IUserDao {
 
     /**
      * @var Ddth_Commons_Logging_ILog
@@ -26,7 +26,7 @@ abstract class Vlistings_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implemen
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Session_ISessionDao::getUserById()
+     * @see Vcatalog_Bo_Session_ISessionDao::getUserById()
      */
     public function getUserById($id) {
         $id = (int)$id; //to make sure it's integer
@@ -36,7 +36,7 @@ abstract class Vlistings_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implemen
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Bo_Session_ISessionDao::getUserByEmail()
+     * @see Vcatalog_Bo_Session_ISessionDao::getUserByEmail()
      */
     public function getUserByEmail($email) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);

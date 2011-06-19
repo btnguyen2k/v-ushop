@@ -1,5 +1,5 @@
 <?php
-interface Vlistings_Bo_User_IUserDao extends Ddth_Dao_IDao {
+interface Vcatalog_Bo_User_IUserDao extends Ddth_Dao_IDao {
 
     /**
      * Gets a user account by user id.

@@ -1,7 +1,7 @@
 <?php
-abstract class Vlistings_Controller_Admin_BaseController extends Vlistings_Controller_BaseController {
+abstract class Vcatalog_Controller_Admin_BaseController extends Vcatalog_Controller_BaseController {
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::buildModel()
+     * @see Vcatalog_Controller_BaseController::buildModel()
      */
     protected function buildModel() {
         $model = parent::buildModel();

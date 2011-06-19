@@ -42,7 +42,7 @@ class Dzit_SessionHandler {
      */
     public function open($savePath, $sesionName) {
         $daoFactory = Ddth_Dao_BaseDaoFactory::getInstance();
-        $this->dao = $daoFactory->getDao('dao.session');
+        $this->dao = $daoFactory->getDao(DAO_SESSION);
         if ($this->dao === NULL) {
             $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Can not obtain Vcatalog_Bo_Session_ISessionDao instance!";
             $e = new Exception($msg);

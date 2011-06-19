@@ -2,12 +2,12 @@
 /**
  * This class extends the {@link Ddth_Commons_Logging_AbstractLog} and utilize MySQL to store logs.
  *
- * @package     Vlistings
+ * @package     Vcatalog
  * @subpackage  Logging
  * @author      Thanh Ba Nguyen <btnguyen2k@gmail.com>
  * @since       Class available since v0.1
  */
-class Vlistings_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
+class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
 
     const SETTING_MYSQL_HOST = 'mysql.host';
     const SETTING_MYSQL_PORT = 'mysql.port';

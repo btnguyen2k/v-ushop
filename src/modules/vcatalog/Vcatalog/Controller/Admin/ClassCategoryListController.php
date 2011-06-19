@@ -1,17 +1,17 @@
 <?php
-class Vlistings_Controller_Admin_CategoryListController extends Vlistings_Controller_Admin_BaseController {
+class Vcatalog_Controller_Admin_CategoryListController extends Vcatalog_Controller_Admin_BaseController {
 
     const VIEW_NAME = 'admin_categoryList';
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::getViewName()
+     * @see Vcatalog_Controller_BaseController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
     /* (non-PHPdoc)
-     * @see Vlistings_Controller_BaseController::buildModel()
+     * @see Vcatalog_Controller_BaseController::buildModel()
      */
     protected function buildModel() {
         $model = parent::buildModel();
@@ -19,10 +19,10 @@ class Vlistings_Controller_Admin_CategoryListController extends Vlistings_Contro
             $model = Array();
         }
         /**
-         * @var Vlistings_Bo_Listings_IListingsDao
+         * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
-        $listingsDao = $this->getDao('dao.listings');
-        $catTree = $listingsDao->getCategoryTree();
+        $catalogDao = $this->getDao(DAO_CATALOG);
+        $catTree = $catalogDao->getCategoryTree();
         $model['categoryTree'] = $catTree;
         return $model;
     }

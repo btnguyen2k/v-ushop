@@ -1,5 +1,5 @@
 <!-- MIDDLE COLUMN -->
-[:function name=displayCategoryTree level=0 category=NULL style="row-b":]
+[:function name=displayCategoryTree level=0 category=NULL style="row-b" first=FALSE last=FALSE:]
     <tr class="[:$style:]">
         <td>
             [:if $level gt 0:][:for $i=0 to $level:]&nbsp;[:/for:]+&nbsp;[:/if:]
@@ -7,15 +7,19 @@
         </td>
         <td style="text-align: center;" width="48px">
             <a href="[:$category->getUrlEdit():]"><img border="0" alt="" src="img/edit.png" /></a>
-            <a href="[:$category->getUrlDelete():]"><img border="0" alt="" src="img/delete.png" /></a>
+            [:if count($category->getChildren()) gt 0:]
+                <img border="0" alt="" width="16px" src="img/dot_background.gif" />
+            [:else:]
+                <a href="[:$category->getUrlDelete():]"><img border="0" alt="" src="img/delete.png" /></a>
+            [:/if:]
         </td>
         <td style="text-align: center;" width="48px">
-            [:if $category@first:]
+            [:if $first:]
                 <img border="0" alt="" width="16px" src="img/dot_background.gif" />
             [:else:]
                 <a href="[:$category->getUrlMoveUp():]"><img border="0" alt="" src="img/moveup.png" /></a>
             [:/if:]
-            [:if $category@last:]
+            [:if $last:]
                 <img border="0" alt="" width="16px" src="img/dot_background.gif" />
             [:else:]
                 <a href="[:$category->getUrlMoveDown():]"><img border="0" alt="" src="img/movedown.png" /></a>
@@ -24,7 +28,7 @@
     </tr>
     [:if $style=='row-a':][:$childStyle='row-b':][:else:][:$childStyle='row-a':][:/if:]
     [:foreach $category->getChildren() as $child:]
-        [:displayCategoryTree category=$child level=$level+1 style=$childStyle:]
+        [:displayCategoryTree category=$child level=$level+1 style=$childStyle first=$child@first last=$child@last:]
     [:/foreach:]
 [:/function:]
 <div id="middle-column"
@@ -54,7 +58,7 @@
             </thead>
             <tbody>
             [:foreach $MODEL.categoryTree as $cat:]
-                [:displayCategoryTree category=$cat:]
+                [:displayCategoryTree category=$cat first=$cat@first last=$cat@last:]
             [:foreachelse:]
                 <tr>
                     <td colspan="3">[:$MODEL.language->getMessage('msg.nodata'):]</td>

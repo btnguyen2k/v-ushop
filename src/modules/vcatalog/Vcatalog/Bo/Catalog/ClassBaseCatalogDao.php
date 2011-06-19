@@ -13,6 +13,18 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     }
 
     /* (non-PHPdoc)
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::countNumCategories()
+     */
+    public function countNumCategories() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+        $rs = $sqlStm->execute($sqlConn->getConn());
+        $result = $this->fetchResultArr($rs);
+        $this->closeConnection();
+        return (int)$result[0];
+    }
+
+    /* (non-PHPdoc)
      * @see Vcatalog_Bo_Catalog_ICatalogDao::createCategory()
      */
     public function createCategory($position, $parentId, $title, $description) {
@@ -50,6 +62,28 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     }
 
     /* (non-PHPdoc)
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryChildren()
+     */
+    public function getCategoryChildren($category) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $result = Array();
+        $params = Array('parentId' => $category->getId());
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+        $row = $this->fetchResultAssoc($rs);
+        while ($row !== FALSE && $row !== NULL) {
+            $category = new Vcatalog_Bo_Catalog_BoCategory();
+            $category->populate($row);
+            $result[] = $category;
+            $row = $this->fetchResultAssoc($rs);
+        }
+
+        $this->closeConnection();
+        return $result;
+    }
+
+    /* (non-PHPdoc)
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryTree()
      */
     public function getCategoryTree() {
@@ -82,14 +116,19 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     }
 
     /* (non-PHPdoc)
-     * @see Vcatalog_Bo_Catalog_ICatalogDao::countNumCategories()
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::updateCategory()
      */
-    public function countNumCategories() {
+    public function updateCategory($category) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
-        $rs = $sqlStm->execute($sqlConn->getConn());
-        $result = $this->fetchResultArr($rs);
+
+        $params = Array('id' => $category->getId(),
+                'position' => $category->getPosition(),
+                'parentId' => $category->getParentId(),
+                'title' => $category->getTitle(),
+                'description' => $category->getDescription());
+        $sqlStm->execute($sqlConn->getConn(), $params);
+
         $this->closeConnection();
-        return (int)$result[0];
     }
 }
