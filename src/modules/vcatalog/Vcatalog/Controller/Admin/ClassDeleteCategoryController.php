@@ -12,6 +12,20 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
     }
 
     /* (non-PHPdoc)
+     * @see Vcatalog_Controller_BaseController::getViewName()
+     */
+    protected function validateParams() {
+        /**
+         * @var Dzit_RequestParser
+         */
+        $requestParser = Dzit_RequestParser::getInstance();
+        $catId = $requestParser->getPathInfoParam(2);
+        $catalogDao = $this->getDao(DAO_CATALOG);
+        $cat = $catalogDao->getCategoryById($catId);
+        return $cat !== NULL;
+    }
+
+    /* (non-PHPdoc)
      * @see Vcatalog_Controller_BaseController::getModelAndView_AfterPost()
      */
     protected function getModelAndView_AfterPost() {
