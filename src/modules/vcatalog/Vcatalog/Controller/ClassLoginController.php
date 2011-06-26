@@ -1,56 +1,58 @@
 <?php
-class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseController {
+class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowController {
     const VIEW_NAME = 'login';
-    const VIEW_NAME_AFTER_POST = 'loginDone';
+    const VIEW_NAME_AFTER_POST = 'info';
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getViewName()
+    const FORM_FIELD_EMAIL = 'email';
+    const FORM_FIELD_PASSWORD = 'password';
+
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getViewName_AfterPost()
+    /**
+     * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
-    protected function getViewName_AfterPost() {
-        return self::VIEW_NAME_AFTER_POST;
-    }
-
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::buildModel_AfterPost()
-     */
-    protected function buildModel_AfterPost() {
-        $model = parent::buildModel_AfterPost();
+    protected function getModelAndView_FormSubmissionSuccessful() {
+        $viewName = self::VIEW_NAME_AFTER_POST;
+        $model = $this->buildModel();
+        if ($model == NULL) {
+            $model = Array();
+        }
 
         $lang = $this->getLanguage();
-        $model['infoMessage'] = $lang->getMessage('msg.login.done');
+        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.login.done'));
         if (isset($_SESSION[SESSION_LAST_ACCESS_URL])) {
             $urlTransit = $_SESSION[SESSION_LAST_ACCESS_URL];
         } else {
             $urlTransit = $_SERVER['SCRIPT_NAME'];
         }
-        $model['urlTransit'] = $urlTransit;
-        $model['transitMessage'] = $lang->getMessage('msg.transit', $urlTransit);
-        return $model;
+        $model[MODEL_URL_TRANSIT] = $urlTransit;
+        $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
+
+        return new Dzit_ModelAndView($viewName, $model);
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::buildModel_Form()
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmLogin');
+        $this->populateForm($form, Array(self::FORM_FIELD_EMAIL));
         if ($this->hasError()) {
-            $lang = $this->getLanguage();
-            $form['errorMessage'] = $lang->getMessage('error.loginFailed');
+            $form['errorMessages'] = $this->getErrorMessages();
         }
         return $form;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::validatePostData()
+    /**
+     * @see Dzit_Controller_FlowController::performFormSubmission()
      */
-    protected function validatePostData() {
+    protected function performFormSubmission() {
+        $lang = $this->getLanguage();
         $userDao = $this->getDao(DAO_USER);
         $email = isset($_POST['email']) ? $_POST['email'] : '';
         $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -59,23 +61,19 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseContro
         $password = trim($password);
 
         if ($email === '' || $password === '') {
+            $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
         }
 
         $user = $userDao->getUserByEmail($email);
         if ($user === NULL) {
+            $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
         }
         if (strtolower(md5($password)) !== strtolower($user['password'])) {
+            $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
         }
-        return TRUE;
-    }
-
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::doFormSubmission()
-     */
-    protected function doFormSubmission() {
         $_SESSION[SESSION_USER_ID] = strtolower(trim($_POST['email']));
         return TRUE;
     }

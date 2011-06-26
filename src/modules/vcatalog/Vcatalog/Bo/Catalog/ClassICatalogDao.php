@@ -19,6 +19,13 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     public function createCategory($position, $parentId, $title, $description);
 
     /**
+     * Deletes a category.
+     *
+     * @param Vcatalog_Bo_Catalog_BoCategory $category
+     */
+    public function deleteCategory($category);
+
+    /**
      * Gets a category by id.
      *
      * @param int $id

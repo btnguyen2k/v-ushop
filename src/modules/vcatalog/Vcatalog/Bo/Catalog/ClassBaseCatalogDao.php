@@ -41,6 +41,19 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     }
 
     /* (non-PHPdoc)
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::deleteCategory()
+     */
+    public function deleteCategory($category) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('id' => $category->getId());
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+
+        $this->closeConnection();
+    }
+
+    /* (non-PHPdoc)
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryById()
      */
     public function getCategoryById($id) {

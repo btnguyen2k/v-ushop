@@ -1,6 +1,7 @@
 <?php
 class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Controller_Admin_BaseController {
     const VIEW_NAME = 'admin_deleteCategory';
+    const VIEW_NAME_ERROR = 'error';
 
     private $errorMsg = '';
 
@@ -20,18 +21,24 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
          */
         $requestParser = Dzit_RequestParser::getInstance();
         $catId = $requestParser->getPathInfoParam(2);
+        /**
+         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $cat = $catalogDao->getCategoryById($catId);
-        return $cat !== NULL;
-    }
-
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getModelAndView_AfterPost()
-     */
-    protected function getModelAndView_AfterPost() {
-        $url = $_SERVER['SCRIPT_NAME'] . '/admin/categories';
-        $view = new Dzit_View_RedirectView($url);
-        return new Dzit_ModelAndView($view);
+        if ($cat === NULL) {
+            $lang = $this->getLanguage();
+            $this->errorMsg = $lang->getMessage('error.categoryNotFound', (int)$catId);
+            return FALSE;
+        } else {
+            $children = $catalogDao->getCategoryChildren($cat);
+            if (count($children) > 0) {
+                $lang = $this->getLanguage();
+                $this->errorMsg = $lang->getMessage('error.deleteNonEmptyCategory', (int)$catId);
+                return FALSE;
+            }
+        }
+        return TRUE;
     }
 
     /* (non-PHPdoc)
@@ -48,7 +55,28 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
         $model['categoryTree'] = $catTree;
+        if ($this->hasError()) {
+            $model['errorMessage'] = $this->errorMsg;
+        }
         return $model;
+    }
+
+    /* (non-PHPdoc)
+     * @see Vcatalog_Controller_BaseController::getModelAndView_ParamsValidationFails()
+     */
+    protected function getModelAndView_ParamsValidationFails() {
+        $viewName = self::VIEW_NAME_ERROR;
+        $model = $this->buildModel_NonPost();
+        return new Dzit_ModelAndView($viewName, $model);
+    }
+
+    /* (non-PHPdoc)
+     * @see Vcatalog_Controller_BaseController::getModelAndView_AfterPost()
+     */
+    protected function getModelAndView_AfterPost() {
+        $url = $_SERVER['SCRIPT_NAME'] . '/admin/categories';
+        $view = new Dzit_View_RedirectView($url);
+        return new Dzit_ModelAndView($view);
     }
 
     /* (non-PHPdoc)
@@ -57,66 +85,28 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'],
                 'actionCancel' => $_SERVER['SCRIPT_NAME'] . '/admin/categories',
-                'name' => 'frmCreateCategory');
+                'name' => 'frmDeleteCategory');
+        $requestParser = Dzit_RequestParser::getInstance();
+        $catId = $requestParser->getPathInfoParam(2);
+        $catalogDao = $this->getDao(DAO_CATALOG);
+        $cat = $catalogDao->getCategoryById($catId);
+        $lang = $this->getLanguage();
+        $form['infoMessage'] = $lang->getMessage('msg.deleteCategory.confirmation', htmlspecialchars($cat->getTitle()));
         if ($this->hasError()) {
             $form['errorMessage'] = $this->errorMsg;
         }
-        if (isset($_POST)) {
-            $form['parentId'] = isset($_POST['parentId']) ? (int)$_POST['parentId'] : 0;
-            $form['categoryTitle'] = isset($_POST['categoryTitle']) ? $_POST['categoryTitle'] : '';
-            $form['categoryDescription'] = isset($_POST['categoryDescription']) ? $_POST['categoryDescription'] : '';
-        }
         return $form;
-    }
-
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::validatePostData()
-     */
-    protected function validatePostData() {
-        /**
-         * @var Ddth_Mls_ILanguage
-         */
-        $lang = $this->getLanguage();
-
-        $parentId = isset($_POST['parentId']) ? (int)$_POST['parentId'] : 0;
-        if ($parentId > 0) {
-            /**
-             * @var Vcatalog_Bo_Catalog_ICatalogDao
-             */
-            $catalogDao = $this->getDao(DAO_CATALOG);
-            $cat = $catalogDao->getCategoryById($parentId);
-            if ($cat === NULL || ($cat->getParentId() !== NULL && $cat->getParentId() !== 0)) {
-                $this->errorMsg = $lang->getMessage('error.invalidParentCategory');
-                return FALSE;
-            }
-        }
-
-        $title = isset($_POST['categoryTitle']) ? trim($_POST['categoryTitle']) : '';
-        if ($title == '') {
-            $this->errorMsg = $lang->getMessage('error.emptyCategoryTitle');
-            return FALSE;
-        }
-
-        return TRUE;
     }
 
     /* (non-PHPdoc)
      * @see Vcatalog_Controller_BaseController::doFormSubmission()
      */
     protected function doFormSubmission() {
-        /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
-         */
+        $requestParser = Dzit_RequestParser::getInstance();
+        $catId = $requestParser->getPathInfoParam(2);
         $catalogDao = $this->getDao(DAO_CATALOG);
-        $position = time();
-        $parentId = isset($_POST['parentId']) ? (int)$_POST['parentId'] : NULL;
-        if ($parentId < 1) {
-            $parentId = NULL;
-        }
-        $title = isset($_POST['categoryTitle']) ? trim($_POST['categoryTitle']) : '';
-        $desc = isset($_POST['categoryDescription']) ? trim($_POST['categoryDescription']) : '';
-        $catalogDao->createCategory($position, $parentId, $title, $desc);
-
+        $cat = $catalogDao->getCategoryById($catId);
+        $catalogDao->deleteCategory($cat);
         return TRUE;
     }
 }

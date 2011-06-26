@@ -386,6 +386,7 @@ abstract class Vcatalog_Controller_BaseController implements Dzit_IController {
             /*
              * If the validation fails, we should present the error view.
              */
+            $this->markError();
             $modelAndView = $this->getModelAndView_ParamsValidationFails();
             if ($modelAndView === NULL) {
                 throw new Dzit_Exception('The ModelAndView is NULL!');
