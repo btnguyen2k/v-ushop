@@ -17,6 +17,7 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
         $model['urlCreateItem'] = $_SERVER['SCRIPT_NAME'] . '/admin/createItem';
 
         $model['urlPageManagement'] = $_SERVER['SCRIPT_NAME'] . '/admin/pages';
+        $model['urlCreatePage'] = $_SERVER['SCRIPT_NAME'] . '/admin/createPage';
 
         return $model;
     }

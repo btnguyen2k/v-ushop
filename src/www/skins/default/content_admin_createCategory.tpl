@@ -9,12 +9,7 @@
     <div class="middle-column-box-green">
         <div class="middle-column-box-title-green">[:$MODEL.language->getMessage('msg.createCategory'):]</div>
         <form method="post" action="[:$MODEL.form.action:]" name="[:$MODEL.form.name|escape:'html':]">
-            [:if isset($MODEL.form.errorMessage):]
-                <div class="errorMsg">[:$MODEL.form.errorMessage:]</div><br/>
-            [:/if:]
-            [:if isset($MODEL.form.infoMessage):]
-                <div class="infoMsg">[:$MODEL.form.infoMessage:]</div><br/>
-            [:/if:]
+            [:printFormHeader form=$MODEL.form:]
             <label>[:$MODEL.language->getMessage('msg.category.parent'):]:</label>
             <select name="parentId">
                 <option value="0"></option>

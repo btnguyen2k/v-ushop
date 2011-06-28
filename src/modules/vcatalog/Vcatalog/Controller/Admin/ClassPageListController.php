@@ -1,7 +1,7 @@
 <?php
-class Vcatalog_Controller_Admin_CategoryListController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vcatalog_Controller_Admin_PageListController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    const VIEW_NAME = 'admin_categoryList';
+    const VIEW_NAME = 'admin_pageList';
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -19,11 +19,11 @@ class Vcatalog_Controller_Admin_CategoryListController extends Vcatalog_Controll
             $model = Array();
         }
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vcatalog_Bo_Page_IPageDao
          */
-        $catalogDao = $this->getDao(DAO_CATALOG);
-        $catTree = $catalogDao->getCategoryTree();
-        $model[MODEL_CATEGORY_TREE] = $catTree;
+        $pageDao = $this->getDao(DAO_PAGE);
+        $allPages = $pageDao->getAllPages();
+        $model[MODEL_PAGE_LIST] = $allPages;
         return $model;
     }
 }

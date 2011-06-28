@@ -12,5 +12,6 @@
         <li><a href="[:$MODEL.urlCreateCategory:]">[:$MODEL.language->getMessage('msg.createCategory'):]</a>
         <li><a href="[:$MODEL.urlCreateItem:]">[:$MODEL.language->getMessage('msg.createItem'):]</a>
         <li><a class="left-navheader" href="[:$MODEL.urlPageManagement:]">[:$MODEL.language->getMessage('msg.pageManagement'):]</a></li>
+        <li><a href="[:$MODEL.urlCreatePage:]">[:$MODEL.language->getMessage('msg.createPage'):]</a>
     </ul>
 </div>

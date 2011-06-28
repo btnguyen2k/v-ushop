@@ -1,20 +1,20 @@
 <?php
-class Vcatalog_Controller_Admin_HomeController extends Vcatalog_Controller_Admin_BaseController {
+class Vcatalog_Controller_Admin_HomeController extends Vcatalog_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'admin_home';
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getViewName()
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::buildModel()
+    /**
+     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
-    protected function buildModel() {
-        $model = parent::buildModel();
+    protected function buildModel_Custom() {
+        $model = parent::buildModel_Custom();
         if ($model === NULL) {
             $model = Array();
         }

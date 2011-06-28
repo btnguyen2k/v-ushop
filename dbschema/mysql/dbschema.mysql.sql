@@ -6,6 +6,16 @@ DROP TABLE IF EXISTS vcatalog_paperclip;
 DROP TABLE IF EXISTS vcatalog_item;
 DROP TABLE IF EXISTS vcatalog_category;
 DROP TABLE IF EXISTS vcatalog_app_config;
+DROP TABLE IF EXISTS vcatalog_page;
+
+CREATE TABLE vcatalog_page (
+    pid                 VARCHAR(32)         NOT NULL,
+    ptitle              VARCHAR(128)        NOT NULL,
+    pposition           INT                 NOT NULL DEFAULT 0,
+        INDEX pposition (pposition),
+    pcontent            TEXT,
+    PRIMARY KEY (pid)
+) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_app_config (
     conf_key            VARCHAR(32)         NOT NULL,

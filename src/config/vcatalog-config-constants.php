@@ -7,6 +7,7 @@ define('CONFIG_SITE_SLOGAN', 'site_slogan');
 define('CONFIG_SITE_TITLE', 'site_title');
 
 define('MODEL_CATEGORY_TREE', 'categoryTree');
+define('MODEL_PAGE_LIST', 'pageList');
 define('MODEL_INFO_MESSAGES', 'infoMessages');
 define('MODEL_ERROR_MESSAGES', 'errorMessages');
 define('MODEL_TRANSIT_MESSAGE', 'transitMessage');
@@ -20,5 +21,6 @@ define('USER_GROUP_ADMIN', 1);
 
 define('DAO_CATALOG', 'dao.catalog');
 define('DAO_CONFIG', 'dao.config');
+define('DAO_PAGE', 'dao.page');
 define('DAO_SESSION', 'dao.session');
 define('DAO_USER', 'dao.user');

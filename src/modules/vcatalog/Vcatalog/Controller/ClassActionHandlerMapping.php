@@ -22,6 +22,30 @@ $YADIF_CONFIG = Array(
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_PageListController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_PageListController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_CreatePageController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_CreatePageController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_DeletePageController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_DeletePageController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_EditPageController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_EditPageController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
         'Vcatalog_Controller_Admin_CategoryListController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_CategoryListController',
                 'scope' => 'singleton',
@@ -58,6 +82,7 @@ $YADIF_CONFIG = Array(
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+
         'Vcatalog_Controller_Admin_SiteSettingsController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_SiteSettingsController',
                 'scope' => 'singleton',

@@ -1,31 +1,44 @@
 <?php
-class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Controller_Admin_BaseController {
+class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'admin_createCategory';
+    const VIEW_NAME_AFTER_POST = 'info';
 
-    private $errorMsg = '';
+    const FORM_FIELD_PARENT_ID = 'parentId';
+    const FORM_FIELD_CATEGORY_TITLE = 'categoryTitle';
+    const FORM_FIELD_CATEGORY_DESCRIPTION = 'categoryDescription';
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getViewName()
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getModelAndView_AfterPost()
+    /**
+     * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
-    protected function getModelAndView_AfterPost() {
-        $url = $_SERVER['SCRIPT_NAME'] . '/admin/categories';
-        $view = new Dzit_View_RedirectView($url);
-        return new Dzit_ModelAndView($view);
+    protected function getModelAndView_FormSubmissionSuccessful() {
+        $viewName = self::VIEW_NAME_AFTER_POST;
+        $model = $this->buildModel();
+        if ($model == NULL) {
+            $model = Array();
+        }
+
+        $lang = $this->getLanguage();
+        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.createCategory.done'));
+        $urlTransit = $this->getUrlCategoryManagement();
+        $model[MODEL_URL_TRANSIT] = $urlTransit;
+        $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
+
+        return new Dzit_ModelAndView($viewName, $model);
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::buildModel()
+    /**
+     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
-    protected function buildModel() {
-        $model = parent::buildModel();
-        if ($model === NULL) {
+    protected function buildModel_Custom() {
+        $model = parent::buildModel_Custom();
+        if ($model == NULL) {
             $model = Array();
         }
         /**
@@ -33,36 +46,39 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
-        $model['categoryTree'] = $catTree;
+        $model[MODEL_CATEGORY_TREE] = $catTree;
         return $model;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::buildModel_Form()
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'],
-                'actionCancel' => $_SERVER['SCRIPT_NAME'] . '/admin/categories',
+                'actionCancel' => $this->getUrlCategoryManagement(),
                 'name' => 'frmCreateCategory');
+        $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_DESCRIPTION,
+                self::FORM_FIELD_CATEGORY_TITLE,
+                self::FORM_FIELD_PARENT_ID));
         if ($this->hasError()) {
-            $form['errorMessage'] = $this->errorMsg;
-        }
-        if (isset($_POST)) {
-            $form['parentId'] = isset($_POST['parentId']) ? (int)$_POST['parentId'] : 0;
-            $form['categoryTitle'] = isset($_POST['categoryTitle']) ? $_POST['categoryTitle'] : '';
-            $form['categoryDescription'] = isset($_POST['categoryDescription']) ? $_POST['categoryDescription'] : '';
+            $form['errorMessages'] = $this->getErrorMessages();
         }
         return $form;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::validatePostData()
+    /**
+     * @see Dzit_Controller_FlowController::performFormSubmission()
      */
-    protected function validatePostData() {
+    protected function performFormSubmission() {
         /**
          * @var Ddth_Mls_ILanguage
          */
         $lang = $this->getLanguage();
+
+        /**
+         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         */
+        $catalogDao = $this->getDao(DAO_CATALOG);
 
         $parentId = isset($_POST['parentId']) ? (int)$_POST['parentId'] : 0;
         if ($parentId > 0) {
@@ -72,34 +88,23 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
             $catalogDao = $this->getDao(DAO_CATALOG);
             $cat = $catalogDao->getCategoryById($parentId);
             if ($cat === NULL || ($cat->getParentId() !== NULL && $cat->getParentId() !== 0)) {
-                $this->errorMsg = $lang->getMessage('error.invalidParentCategory');
-                return FALSE;
+                $this->addErrorMessage($lang->getMessage('error.invalidParentCategory'));
             }
         }
 
         $title = isset($_POST['categoryTitle']) ? trim($_POST['categoryTitle']) : '';
         if ($title == '') {
-            $this->errorMsg = $lang->getMessage('error.emptyCategoryTitle');
+            $this->addErrorMessage($lang->getMessage('error.emptyCategoryTitle'));
+        }
+
+        if ($this->hasError()) {
             return FALSE;
         }
 
-        return TRUE;
-    }
-
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::doFormSubmission()
-     */
-    protected function doFormSubmission() {
-        /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
-         */
-        $catalogDao = $this->getDao(DAO_CATALOG);
         $position = time();
-        $parentId = isset($_POST['parentId']) ? (int)$_POST['parentId'] : NULL;
         if ($parentId < 1) {
             $parentId = NULL;
         }
-        $title = isset($_POST['categoryTitle']) ? trim($_POST['categoryTitle']) : '';
         $desc = isset($_POST['categoryDescription']) ? trim($_POST['categoryDescription']) : '';
         $catalogDao->createCategory($position, $parentId, $title, $desc);
 
