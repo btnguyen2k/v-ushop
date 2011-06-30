@@ -27,11 +27,15 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
     /**
      * @see Vcatalog_Bo_Page_IPageDao::createPage()
      */
-    public function createPage($position, $title, $content) {
+    public function createPage($id, $position, $title, $content, $onMenu) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
-        $params = Array('position' => $position, 'title' => $title, 'content' => $content);
+        $params = Array('id' => $id,
+                'position' => $position,
+                'title' => $title,
+                'content' => $content,
+                'onMenu' => $onMenu ? 1 : 0);
         $sqlStm->execute($sqlConn->getConn(), $params);
 
         $this->closeConnection();
@@ -93,6 +97,27 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
     }
 
     /**
+     * @see Vcatalog_Bo_Page_IPageDao::getOnMenuPages()
+     */
+    public function getOnMenuPages() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $result = Array();
+        $rs = $sqlStm->execute($sqlConn->getConn());
+        $row = $this->fetchResultAssoc($rs);
+        while ($row !== FALSE && $row !== NULL) {
+            $page = new Vcatalog_Bo_Page_BoPage();
+            $page->populate($row);
+            $result[] = $page;
+            $row = $this->fetchResultAssoc($rs);
+        }
+
+        $this->closeConnection();
+        return $result;
+    }
+
+    /**
      * @see Vcatalog_Bo_Page_IPageDao::updatePage()
      */
     public function updatePage($page) {
@@ -102,7 +127,8 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
         $params = Array('id' => $page->getId(),
                 'position' => $page->getPosition(),
                 'title' => $page->getTitle(),
-                'page' => $page->getContent());
+                'content' => $page->getContent(),
+                'onMenu' => $page->getOnMenu() ? 1 : 0);
 
         $sqlStm->execute($sqlConn->getConn(), $params);
 

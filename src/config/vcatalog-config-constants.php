@@ -8,6 +8,7 @@ define('CONFIG_SITE_TITLE', 'site_title');
 
 define('MODEL_CATEGORY_TREE', 'categoryTree');
 define('MODEL_PAGE_LIST', 'pageList');
+define('MODEL_ONMENU_PAGES', 'onMenuPages');
 define('MODEL_INFO_MESSAGES', 'infoMessages');
 define('MODEL_ERROR_MESSAGES', 'errorMessages');
 define('MODEL_TRANSIT_MESSAGE', 'transitMessage');

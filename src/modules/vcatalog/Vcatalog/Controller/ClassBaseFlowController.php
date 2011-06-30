@@ -70,8 +70,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * @param string $errorMessage
      */
     protected function setErrorMessage($errorMessage) {
-        $this->errorMessages = Array(
-                $errorMessage);
+        $this->errorMessages = Array($errorMessage);
     }
 
     /**
@@ -277,8 +276,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             return NULL;
         }
         $model = $this->buildModel();
-        return new Dzit_ModelAndView(
-                $viewName, $model);
+        return new Dzit_ModelAndView($viewName, $model);
     }
 
     /**
@@ -334,6 +332,21 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             $model['urlLogin'] = $this->getUrlLogin();
             $model['urlRegister'] = $this->getUrlRegister();
         }
+
+        /**
+         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         */
+        $catalogDao = $this->getDao(DAO_CATALOG);
+        $catTree = $catalogDao->getCategoryTree();
+        $model[MODEL_CATEGORY_TREE] = $catTree;
+
+        /**
+         * @var Vcatalog_Bo_Page_IPageDao
+         */
+        $pageDao = $this->getDao(DAO_PAGE);
+        $onMenuPages = $pageDao->getOnMenuPages();
+        $model[MODEL_ONMENU_PAGES] = $onMenuPages;
+
         return $model;
     }
 
@@ -343,7 +356,8 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * @return Array
      */
     protected function buildModel_Custom() {
-        return NULL;
+        $model = Array();
+        return $model;
     }
 
     /**
@@ -370,8 +384,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $pageCopyright = $this->getPageCopyright();
         $pageSlogan = $this->getPageSlogan();
 
-        $modelPage = Array(
-                'title' => $pageTitle,
+        $modelPage = Array('title' => $pageTitle,
                 'keywords' => $pageKeywords,
                 'description' => $pageDescription,
                 'copyright' => $pageCopyright,

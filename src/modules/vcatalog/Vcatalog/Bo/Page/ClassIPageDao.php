@@ -11,11 +11,13 @@ interface Vcatalog_Bo_Page_IPageDao extends Ddth_Dao_IDao {
     /**
      * Creates a new page.
      *
+     * @param string $id
      * @param int $position
      * @param string $title
      * @param string $content
+     * @param string $onMenu
      */
-    public function createPage($position, $title, $content);
+    public function createPage($id, $position, $title, $content, $onMenu);
 
     /**
      * Deletes a page.
@@ -38,6 +40,13 @@ interface Vcatalog_Bo_Page_IPageDao extends Ddth_Dao_IDao {
      * @return Array
      */
     public function getAllPages();
+
+    /**
+     * Gets all "on-menu" pages as a list.
+     *
+     * @return Array
+     */
+    public function getOnMenuPages();
 
     /**
      * Updates a page.

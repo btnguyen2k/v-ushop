@@ -400,7 +400,8 @@ body {
 	width: 100%;
 	margin: 0em 0em 1.5em 0em;
 	padding: 0em 0em 0em 0em;
-	background-color: rgb(187,211,247);
+	/* background-color: rgb(187,211,247); */
+	background-color: rgb(226,238,252);
 }
 
 .middle-column-box-yellow {

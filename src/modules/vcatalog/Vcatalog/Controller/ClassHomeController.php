@@ -1,25 +1,23 @@
 <?php
-class Vcatalog_Controller_HomeController extends Vcatalog_Controller_BaseController {
+class Vcatalog_Controller_HomeController extends Vcatalog_Controller_BaseFlowController {
     const VIEW_NAME = 'home';
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getViewName()
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::buildModel()
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::buildModel_Custom()
      */
-    protected function buildModel() {
-        $model = parent::buildModel();
+    protected function buildModel_Custom() {
+        $model = parent::buildModel_Custom();
         if ($model === NULL) {
             $model = Array();
         }
-        $catalogDao = $this->getDao(DAO_CATALOG);
-        $catTree = $catalogDao->getCategoryTree();
-        $model['categoryTree'] = $catTree;
+
         return $model;
     }
 }

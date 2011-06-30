@@ -80,7 +80,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
 
-        $parentId = isset($_POST['parentId']) ? (int)$_POST['parentId'] : 0;
+        $parentId = isset($_POST[self::FORM_FIELD_PARENT_ID]) ? (int)$_POST[self::FORM_FIELD_PARENT_ID] : 0;
         if ($parentId > 0) {
             /**
              * @var Vcatalog_Bo_Catalog_ICatalogDao
@@ -92,7 +92,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
             }
         }
 
-        $title = isset($_POST['categoryTitle']) ? trim($_POST['categoryTitle']) : '';
+        $title = isset($_POST[self::FORM_FIELD_CATEGORY_TITLE]) ? trim($_POST[self::FORM_FIELD_CATEGORY_TITLE]) : '';
         if ($title == '') {
             $this->addErrorMessage($lang->getMessage('error.emptyCategoryTitle'));
         }
@@ -105,7 +105,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
         if ($parentId < 1) {
             $parentId = NULL;
         }
-        $desc = isset($_POST['categoryDescription']) ? trim($_POST['categoryDescription']) : '';
+        $desc = isset($_POST[self::FORM_FIELD_CATEGORY_DESCRIPTION]) ? trim($_POST[self::FORM_FIELD_CATEGORY_DESCRIPTION]) : '';
         $catalogDao->createCategory($position, $parentId, $title, $desc);
 
         return TRUE;

@@ -68,6 +68,7 @@ Dzit_Config::set(Dzit_Config::CONF_DISPATCHER, new $dispatcherClass());
 $router = Array('*' => 'Vcatalog_Controller_HomeController',
         'login' => 'Vcatalog_Controller_LoginController',
         'logout' => 'Vcatalog_Controller_LogoutController',
+        'page' => 'Vcatalog_Controller_ViewPageController',
         'admin' => Array('*' => 'Vcatalog_Controller_Admin_HomeController',
                 'categories' => 'Vcatalog_Controller_Admin_CategoryListController',
                 'createCategory' => 'Vcatalog_Controller_Admin_CreateCategoryController',

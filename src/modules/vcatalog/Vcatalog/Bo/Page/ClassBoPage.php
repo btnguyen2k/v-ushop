@@ -5,23 +5,27 @@ class Vcatalog_Bo_Page_BoPage extends Commons_Bo_BaseBo {
     const COL_POSITION = 'pposition';
     const COL_TITLE = 'ptitle';
     const COL_CONTENT = 'pcontent';
+    const COL_ONMENU = 'ponmenu';
 
-    private $id, $position, $title, $content;
+    private $id, $position, $title, $content, $onMenu;
 
     private $urlDelete = NULL;
     private $urlEdit = NULL;
     private $urlMoveUp = NULL;
     private $urlMoveDown = NULL;
     private $urlView = NULL;
+    private $urlPin = NULL;
+    private $urlUnpin = NULL;
 
     /* (non-PHPdoc)
      * @see Commons_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
-        return Array(self::COL_ID => Array('id', self::TYPE_INT),
+        return Array(self::COL_ID => Array('id'),
                 self::COL_POSITION => Array('position', self::TYPE_INT),
                 self::COL_TITLE => Array('title'),
-                self::COL_CONTENT => Array('content'));
+                self::COL_CONTENT => Array('content'),
+                self::COL_ONMENU => Array('onMenu', self::TYPE_BOOLEAN));
     }
 
     /**
@@ -84,6 +88,30 @@ class Vcatalog_Bo_Page_BoPage extends Commons_Bo_BaseBo {
         return $this->urlView;
     }
 
+    /**
+     * Gets the URL to "pin" the page.
+     *
+     * @return string
+     */
+    public function getUrlPin() {
+        if ($this->urlPin === NULL) {
+            $this->urlPin = $_SERVER['SCRIPT_NAME'] . '/admin/pinPage/' . $this->id;
+        }
+        return $this->urlPin;
+    }
+
+    /**
+     * Gets the URL to "unpin" the page.
+     *
+     * @return string
+     */
+    public function getUrlUnpin() {
+        if ($this->urlUnpin === NULL) {
+            $this->urlUnpin = $_SERVER['SCRIPT_NAME'] . '/admin/unpinPage/' . $this->id;
+        }
+        return $this->urlUnpin;
+    }
+
     public function getId() {
         return $this->id;
     }
@@ -114,5 +142,13 @@ class Vcatalog_Bo_Page_BoPage extends Commons_Bo_BaseBo {
 
     public function setContent($content) {
         $this->content = $content;
+    }
+
+    public function getOnMenu() {
+        return $this->onMenu;
+    }
+
+    public function setOnMenu($onMenu) {
+        $this->onMenu = $onMenu;
     }
 }

@@ -7,11 +7,15 @@
 <div id="header">
     <ul>
         <li><a href="[:$MODEL.urlHome:]">[:$MODEL.language->getMessage('msg.home'):]</a></li>
+        [:foreach $MODEL.onMenuPages as $page:]
+            <li><a href="[:$page->getUrlView():]">[:$page->getTitle()|escape:'html':]</a></li>
+        [:/foreach:]
+
         [:if isset($MODEL.urlLogout):]
-            <li><a href="[:$MODEL.urlLogout:]">[:$MODEL.language->getMessage('msg.logout'):]</a></li>
+            <li class="float-right"><a href="[:$MODEL.urlLogout:]">[:$MODEL.language->getMessage('msg.logout'):]</a></li>
         [:else:]
-            <li><a href="[:$MODEL.urlLogin:]">[:$MODEL.language->getMessage('msg.login'):]</a></li>
-            <li><a href="[:$MODEL.urlRegister:]">[:$MODEL.language->getMessage('msg.register'):]</a></li>
+            <li class="float-right"><a href="[:$MODEL.urlLogin:]">[:$MODEL.language->getMessage('msg.login'):]</a></li>
+            <li class="float-right"><a href="[:$MODEL.urlRegister:]">[:$MODEL.language->getMessage('msg.register'):]</a></li>
         [:/if:]
         [:if isset($MODEL.urlAdmin):]
             <li class="float-right"><a href="[:$MODEL.urlAdmin:]">[:$MODEL.language->getMessage('msg.adminCp'):]</a></li>

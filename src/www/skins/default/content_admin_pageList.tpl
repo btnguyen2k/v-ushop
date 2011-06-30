@@ -21,26 +21,31 @@
             <thead>
                 <tr>
                     <th>[:$MODEL.language->getMessage('msg.page'):]</td>
-                    <th width="96px" style="text-align: center;" colspan="2">[:$MODEL.language->getMessage('msg.actions'):]</td>
+                    <th width="112px" style="text-align: center;" colspan="2">[:$MODEL.language->getMessage('msg.actions'):]</td>
                 </tr>
             </thead>
             <tbody>
             [:foreach $MODEL.pageList as $page:]
                 <tr class="[:if $page@index%2==0:]row-a[:else:]row-a[:/if:]">
                     <td>
-                        [:$page->getTitle()|escape:'html':]
+                        <a href="[:$page->getUrlView():]" target="_blank">[:$page->getTitle()|escape:'html':]</a>
                     </td>
-                    <td style="text-align: center;" width="48px">
+                    <td style="text-align: center;" width="64px">
                         <a href="[:$page->getUrlEdit():]"><img border="0" alt="" src="img/edit.png" /></a>
                         <a href="[:$page->getUrlDelete():]"><img border="0" alt="" src="img/delete.png" /></a>
+                        [:if $page->getOnMenu():]
+                            <a href="[:$page->getUrlUnpin():]"><img border="0" alt="" src="img/arrow_down.png" /></a>
+                        [:else:]
+                            <a href="[:$page->getUrlPin():]"><img border="0" alt="" src="img/arrow_up.png" /></a>
+                        [:/if:]
                     </td>
                     <td style="text-align: center;" width="48px">
-                        [:if $first:]
+                        [:if $page@first:]
                             <img border="0" alt="" width="16px" src="img/dot_background.gif" />
                         [:else:]
                             <a href="[:$page->getUrlMoveUp():]"><img border="0" alt="" src="img/moveup.png" /></a>
                         [:/if:]
-                        [:if $last:]
+                        [:if $page@last:]
                             <img border="0" alt="" width="16px" src="img/dot_background.gif" />
                         [:else:]
                             <a href="[:$page->getUrlMoveDown():]"><img border="0" alt="" src="img/movedown.png" /></a>

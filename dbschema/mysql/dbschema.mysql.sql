@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS vcatalog_page;
 
 CREATE TABLE vcatalog_page (
     pid                 VARCHAR(32)         NOT NULL,
+    ponmenu               INT                 NOT NULL DEFAULT 0,
+        INDEX ponmenu(ponmenu),
     ptitle              VARCHAR(128)        NOT NULL,
     pposition           INT                 NOT NULL DEFAULT 0,
         INDEX pposition (pposition),
