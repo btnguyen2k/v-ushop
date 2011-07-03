@@ -10,11 +10,11 @@ DROP TABLE IF EXISTS vcatalog_page;
 
 CREATE TABLE vcatalog_page (
     pid                 VARCHAR(32)         NOT NULL,
-    ponmenu               INT                 NOT NULL DEFAULT 0,
+    ponmenu             INT                 NOT NULL DEFAULT 0,
         INDEX ponmenu(ponmenu),
-    ptitle              VARCHAR(128)        NOT NULL,
     pposition           INT                 NOT NULL DEFAULT 0,
         INDEX pposition (pposition),
+    ptitle              VARCHAR(128)        NOT NULL,
     pcontent            TEXT,
     PRIMARY KEY (pid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -92,7 +92,9 @@ CREATE TABLE vcatalog_category (
 
 CREATE TABLE vcatalog_item (
     iid             INT                     NOT NULL AUTO_INCREMENT,
-    icategory_id    INT                     NOT NULL,
+    iactive         INT                     NOT NULL DEFAULT 1,
+        INDEX iactive(iactive),
+    icategory_id    INT,
         INDEX icategory_id(icategory_id),
     ititle          VARCHAR(64)             NOT NULL,
     idesc           TEXT,
@@ -103,7 +105,7 @@ CREATE TABLE vcatalog_item (
     iprice          DECIMAL(10,2)           NOT NULL,
         INDEX iprice(iprice),
     iold_price      DECIMAL(10,2),
-    istock          INT                     NOT NULL DEFAULT 0,
+    istock          DECIMAL(10,2)           NOT NULL DEFAULT 0.00,
         INDEX istock(istock),
     PRIMARY KEY (iid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;

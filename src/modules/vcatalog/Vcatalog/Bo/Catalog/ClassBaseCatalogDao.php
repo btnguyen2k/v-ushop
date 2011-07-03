@@ -12,7 +12,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         parent::__construct();
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::countNumCategories()
      */
     public function countNumCategories() {
@@ -24,7 +24,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         return (int)$result[0];
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::createCategory()
      */
     public function createCategory($position, $parentId, $title, $description) {
@@ -40,7 +40,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         $this->closeConnection();
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::deleteCategory()
      */
     public function deleteCategory($category) {
@@ -53,7 +53,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         $this->closeConnection();
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryById()
      */
     public function getCategoryById($id) {
@@ -74,7 +74,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         return $cat;
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryChildren()
      */
     public function getCategoryChildren($category) {
@@ -96,7 +96,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         return $result;
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryTree()
      */
     public function getCategoryTree() {
@@ -128,7 +128,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         return $aResult;
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::updateCategory()
      */
     public function updateCategory($category) {
@@ -140,6 +140,113 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
                 'parentId' => $category->getParentId(),
                 'title' => $category->getTitle(),
                 'description' => $category->getDescription());
+        $sqlStm->execute($sqlConn->getConn(), $params);
+
+        $this->closeConnection();
+    }
+
+    /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::createItem()
+     */
+    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('categoryId' => $categoryId,
+                'title' => $title,
+                'description' => $description,
+                'vendor' => $vendor,
+                'timestamp' => $timestamp,
+                'price' => $price,
+                'oldPrice' => $oldPrice,
+                'stock' => $stock);
+
+        $sqlStm->execute($sqlConn->getConn(), $params);
+
+        $this->closeConnection();
+    }
+
+    /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::deleteItem()
+     */
+    public function deleteItem($item) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('id' => $item->getId());
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+
+        $this->closeConnection();
+    }
+
+    /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::getAllItems()
+     */
+    public function getAllItems() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $result = Array();
+        $rs = $sqlStm->execute($sqlConn->getConn());
+        $row = $this->fetchResultAssoc($rs);
+        while ($row !== FALSE && $row !== NULL) {
+            $itemId = $row['id'];
+            $item = $this->getItemById($itemId);
+            //$item = new Vcatalog_Bo_Catalog_BoItem();
+            //$item->populate($row);
+            $result[] = $item;
+            $row = $this->fetchResultAssoc($rs);
+        }
+
+        $this->closeConnection();
+        return $result;
+    }
+
+    /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::getItemById()
+     */
+    public function getItemById($id) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('id' => $id);
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+        $row = $this->fetchResultAssoc($rs);
+        if ($row !== NULL && $row !== FALSE) {
+            $item = new Vcatalog_Bo_Catalog_BoItem();
+            $item->populate($row);
+        } else {
+            $item = NULL;
+        }
+
+        if ($item !== NULL) {
+            $cat = $this->getCategoryById($item->getCategoryId());
+            if ($cat !== NULL) {
+                $item->setCategory($cat);
+            }
+        }
+
+        $this->closeConnection();
+        return $item;
+    }
+
+    /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::updateItem()
+     */
+    public function updateItem($item) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('id' => $item->getId(),
+                'active' => $item->isActive(),
+                'categoryId' => $item->getCategoryId(),
+                'title' => $item->getTitle(),
+                'descrpition' => $item->getDescription(),
+                'vendor' => $item->getVendor(),
+                'price' => $item->getPrice(),
+                'oldPrice' => $item->getOldPrice(),
+                'stock' => $item->getStock());
+
         $sqlStm->execute($sqlConn->getConn(), $params);
 
         $this->closeConnection();

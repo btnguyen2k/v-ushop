@@ -59,6 +59,22 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     }
 
     /**
+     * @see Dzit_Controller_FlowController::getModelAndView_Error()
+     */
+    protected function getModelAndView_Error() {
+        $viewName = self::VIEW_NAME_ERROR;
+        $model = $this->buildModel();
+        if ($model == NULL) {
+            $model = Array();
+        }
+
+        $lang = $this->getLanguage();
+        $model[MODEL_ERROR_MESSAGES] = $this->getErrorMessages();
+
+        return new Dzit_ModelAndView($viewName, $model);
+    }
+
+    /**
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -69,14 +85,12 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         }
 
         $lang = $this->getLanguage();
-        $model[MODEL_INFO_MESSAGES] = Array(
-                $lang->getMessage('msg.editCategory.done'));
+        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.editCategory.done'));
         $urlTransit = $this->getUrlCategoryManagement();
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
 
-        return new Dzit_ModelAndView(
-                $viewName, $model);
+        return new Dzit_ModelAndView($viewName, $model);
     }
 
     /**
@@ -108,15 +122,16 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
-        $form = Array(
-                'action' => $_SERVER['REQUEST_URI'],
+        if ($this->category === NULL) {
+            return NULL;
+        }
+        $form = Array('action' => $_SERVER['REQUEST_URI'],
                 'actionCancel' => $this->getUrlCategoryManagement(),
                 'name' => 'frmEditCategory');
         $form[self::FORM_FIELD_PARENT_ID] = $this->category->getParentId();
         $form[self::FORM_FIELD_CATEGORY_TITLE] = $this->category->getTitle();
         $form[self::FORM_FIELD_CATEGORY_DESCRIPTION] = $this->category->getDescription();
-        $this->populateForm($form, Array(
-                self::FORM_FIELD_CATEGORY_DESCRIPTION,
+        $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_DESCRIPTION,
                 self::FORM_FIELD_CATEGORY_TITLE,
                 self::FORM_FIELD_PARENT_ID));
         if ($this->hasError()) {

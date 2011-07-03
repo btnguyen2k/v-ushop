@@ -7,7 +7,7 @@
 <div id="header">
     <ul>
         <li><a href="[:$MODEL.urlHome:]">[:$MODEL.language->getMessage('msg.home'):]</a></li>
-        <li><a href="[:$MODEL.urlCategoryManagement:]">[:$MODEL.language->getMessage('msg.categoryManagement'):]</a></li>
+        <li><a href="[:$MODEL.urlCategoryManagement:]">[:$MODEL.language->getMessage('msg.catalogManagement'):]</a></li>
         <li><a href="[:$MODEL.urlPageManagement:]">[:$MODEL.language->getMessage('msg.pageManagement'):]</a></li>
         <li class="float-right"><a href="[:$MODEL.urlLogout:]">[:$MODEL.language->getMessage('msg.logout'):]</a></li>
     </ul>

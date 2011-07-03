@@ -14,6 +14,7 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
 
         $model['urlCategoryManagement'] = $this->getUrlCategoryManagement();
         $model['urlCreateCategory'] = $_SERVER['SCRIPT_NAME'] . '/admin/createCategory';
+        $model['urlItemManagement'] = $this->getUrlItemManagement();
         $model['urlCreateItem'] = $_SERVER['SCRIPT_NAME'] . '/admin/createItem';
 
         $model['urlPageManagement'] = $this->getUrlPageManagement();
@@ -24,6 +25,10 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
 
     protected function getUrlCategoryManagement() {
         return $_SERVER['SCRIPT_NAME'] . '/admin/categories';
+    }
+
+    protected function getUrlItemManagement() {
+        return $_SERVER['SCRIPT_NAME'] . '/admin/items';
     }
 
     protected function getUrlPageManagement() {

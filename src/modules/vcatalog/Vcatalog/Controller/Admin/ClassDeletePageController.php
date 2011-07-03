@@ -1,14 +1,14 @@
 <?php
-class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_deleteCategory';
+class Vcatalog_Controller_Admin_DeletePageController extends Vcatalog_Controller_Admin_BaseFlowController {
+    const VIEW_NAME = 'admin_deletePage';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
     /**
-     * @var Vcatalog_Bo_Catalog_BoCategory
+     * @var Vcatalog_Bo_Page_BoPage
      */
-    private $category = NULL;
-    private $categoryId;
+    private $page = NULL;
+    private $pageId;
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -18,7 +18,7 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
     }
 
     /**
-     * Populates categoryId and category instance.
+     * Populates pageId and page instance.
      *
      * @see Dzit_Controller_FlowController::populateParams()
      */
@@ -27,34 +27,26 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $this->categoryId = (int)$requestParser->getPathInfoParam(2);
+        $this->pageId = $requestParser->getPathInfoParam(2);
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vcatalog_Bo_Page_IPageDao
          */
-        $catalogDao = $this->getDao(DAO_CATALOG);
-        $this->category = $catalogDao->getCategoryById($this->categoryId);
-        if ($this->category != NULL) {
-            $children = $catalogDao->getCategoryChildren($this->category);
-            $this->category->setChildren($children);
-        }
+        $pageDao = $this->getDao(DAO_PAGE);
+        $this->page = $pageDao->getPageById($this->pageId);
     }
 
     /**
-     * Test if the category to be deleted is valid.
+     * Test if the page to be deleted is valid.
      *
      * @see Dzit_Controller_FlowController::validateParams()
      */
     protected function validateParams() {
-        $cat = $this->category;
-        $catId = $this->categoryId;
+        $page = $this->page;
+        $pageId = $this->pageId;
         $lang = $this->getLanguage();
-        if ($cat === NULL) {
-            //the category must exist
-            $this->addErrorMessage($lang->getMessage('error.categoryNotFound', $catId));
-            return FALSE;
-        } else if (count($cat->getChildren()) > 0) {
-            //the category must not have any child
-            $this->addErrorMessage($lang->getMessage('error.deleteNonEmptyCategory', htmlspecialchars($cat->getTitle())));
+        if ($page === NULL) {
+            //the page must exist
+            $this->addErrorMessage($lang->getMessage('error.pageNotFound', htmlspecialchars($pageId)));
             return FALSE;
         }
         return TRUE;
@@ -87,8 +79,9 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
         }
 
         $lang = $this->getLanguage();
-        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.deleteCategory.done'));
-        $urlTransit = $this->getUrlCategoryManagement();
+        $model[MODEL_INFO_MESSAGES] = Array(
+                $lang->getMessage('msg.deletePage.done', htmlspecialchars($this->pageId)));
+        $urlTransit = $this->getUrlPageManagement();
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
 
@@ -99,15 +92,15 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
-        if ($this->category === NULL) {
+        if ($this->page === NULL) {
             return NULL;
         }
         $form = Array('action' => $_SERVER['REQUEST_URI'],
-                'actionCancel' => $this->getUrlCategoryManagement(),
-                'name' => 'frmDeleteCategory');
+                'actionCancel' => $this->getUrlPageManagement(),
+                'name' => 'frmDeletePage');
         $lang = $this->getLanguage();
-        $cat = $this->category;
-        $infoMsg = $lang->getMessage('msg.deleteCategory.confirmation', htmlspecialchars($cat->getTitle()));
+        $page = $this->page;
+        $infoMsg = $lang->getMessage('msg.deletePage.confirmation', htmlspecialchars($page->getTitle()));
         $form['infoMessages'] = Array($infoMsg);
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
@@ -120,10 +113,10 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
      */
     protected function performFormSubmission() {
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vcatalog_Bo_Page_IPageDao
          */
-        $catalogDao = $this->getDao(DAO_CATALOG);
-        $catalogDao->deleteCategory($this->category);
+        $pageDao = $this->getDao(DAO_PAGE);
+        $pageDao->deletePage($this->page);
         return TRUE;
     }
 }

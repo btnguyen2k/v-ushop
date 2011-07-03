@@ -54,4 +54,47 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param Vcatalog_Bo_Catalog_BoCategory $category
      */
     public function updateCategory($category);
+
+    /**
+     * Creates a new item.
+     *
+     * @param int $categoryId
+     * @param string $title
+     * @param string $description
+     * @param string $vendor
+     * @param int $timestamp
+     * @param double $price
+     * @param double $oldPrice
+     * @param double $stock
+     */
+    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock);
+
+    /**
+     * Deletes an existing items.
+     *
+     * @param Vcatalog_Bo_Catalog_BoItem $item
+     */
+    public function deleteItem($item);
+
+    /**
+     * Gets all available items as a list.
+     *
+     * @return Array
+     */
+    public function getAllItems();
+
+    /**
+     * Gets an item by id.
+     *
+     * @param int $id
+     * @return Vcatalog_Bo_Catalog_BoItem
+     */
+    public function getItemById($id);
+
+    /**
+     * Updates an existing item.
+     *
+     * @param Vcatalog_Bo_Catalog_BoItem $item
+     */
+    public function updateItem($item);
 }

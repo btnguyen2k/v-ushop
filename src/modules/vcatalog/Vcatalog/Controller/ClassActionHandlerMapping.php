@@ -8,9 +8,11 @@ $YADIF_CONFIG = Array(
         'Vcatalog_Controller_HomeController' => Array(
                 'class' => 'Vcatalog_Controller_HomeController',
                 'scope' => 'singleton'),
+
         'Vcatalog_Controller_ViewPageController' => Array(
                 'class' => 'Vcatalog_Controller_ViewPageController',
                 'scope' => 'singleton'),
+
         'Vcatalog_Controller_LoginController' => Array(
                 'class' => 'Vcatalog_Controller_LoginController',
                 'scope' => 'singleton',
@@ -19,12 +21,14 @@ $YADIF_CONFIG = Array(
                 'class' => 'Vcatalog_Controller_LogoutController',
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
+
         'Vcatalog_Controller_Admin_HomeController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_HomeController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+
         'Vcatalog_Controller_Admin_PageListController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_PageListController',
                 'scope' => 'singleton',
@@ -49,6 +53,7 @@ $YADIF_CONFIG = Array(
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+
         'Vcatalog_Controller_Admin_CategoryListController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_CategoryListController',
                 'scope' => 'singleton',
@@ -81,6 +86,31 @@ $YADIF_CONFIG = Array(
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
         'Vcatalog_Controller_Admin_MoveUpCategoryController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_MoveUpCategoryController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+
+        'Vcatalog_Controller_Admin_ItemListController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_ItemListController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_CreateItemController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_CreateItemController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_EditItemController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_EditItemController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_DeleteItemController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_DeleteItemController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),

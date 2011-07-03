@@ -1,14 +1,14 @@
 <?php
-class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_deleteCategory';
+class Vcatalog_Controller_Admin_DeleteItemController extends Vcatalog_Controller_Admin_BaseFlowController {
+    const VIEW_NAME = 'admin_deleteItem';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
     /**
-     * @var Vcatalog_Bo_Catalog_BoCategory
+     * @var Vcatalog_Bo_Catalog_BoItem
      */
-    private $category = NULL;
-    private $categoryId;
+    private $item = NULL;
+    private $itemId;
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -18,7 +18,7 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
     }
 
     /**
-     * Populates categoryId and category instance.
+     * Populates itemId and item instance.
      *
      * @see Dzit_Controller_FlowController::populateParams()
      */
@@ -27,34 +27,26 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $this->categoryId = (int)$requestParser->getPathInfoParam(2);
+        $this->itemId = (int)$requestParser->getPathInfoParam(2);
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
-        $this->category = $catalogDao->getCategoryById($this->categoryId);
-        if ($this->category != NULL) {
-            $children = $catalogDao->getCategoryChildren($this->category);
-            $this->category->setChildren($children);
-        }
+        $this->item = $catalogDao->getItemById($this->itemId);
     }
 
     /**
-     * Test if the category to be deleted is valid.
+     * Test if the item to be deleted is valid.
      *
      * @see Dzit_Controller_FlowController::validateParams()
      */
     protected function validateParams() {
-        $cat = $this->category;
-        $catId = $this->categoryId;
+        $item = $this->item;
+        $itemId = $this->itemId;
         $lang = $this->getLanguage();
-        if ($cat === NULL) {
-            //the category must exist
-            $this->addErrorMessage($lang->getMessage('error.categoryNotFound', $catId));
-            return FALSE;
-        } else if (count($cat->getChildren()) > 0) {
-            //the category must not have any child
-            $this->addErrorMessage($lang->getMessage('error.deleteNonEmptyCategory', htmlspecialchars($cat->getTitle())));
+        if ($item === NULL) {
+            //the item must exist
+            $this->addErrorMessage($lang->getMessage('error.itemNotFound', $itemId));
             return FALSE;
         }
         return TRUE;
@@ -87,8 +79,8 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
         }
 
         $lang = $this->getLanguage();
-        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.deleteCategory.done'));
-        $urlTransit = $this->getUrlCategoryManagement();
+        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.deleteItem.done', $this->itemId));
+        $urlTransit = $this->getUrlItemManagement();
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
 
@@ -99,15 +91,15 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
-        if ($this->category === NULL) {
+        if ($this->item === NULL) {
             return NULL;
         }
         $form = Array('action' => $_SERVER['REQUEST_URI'],
-                'actionCancel' => $this->getUrlCategoryManagement(),
-                'name' => 'frmDeleteCategory');
+                'actionCancel' => $this->getUrlItemManagement(),
+                'name' => 'frmDeleteItem');
         $lang = $this->getLanguage();
-        $cat = $this->category;
-        $infoMsg = $lang->getMessage('msg.deleteCategory.confirmation', htmlspecialchars($cat->getTitle()));
+        $item = $this->item;
+        $infoMsg = $lang->getMessage('msg.deleteItem.confirmation', htmlspecialchars($item->getTitle()));
         $form['infoMessages'] = Array($infoMsg);
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
@@ -123,7 +115,7 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
-        $catalogDao->deleteCategory($this->category);
+        $catalogDao->deleteItem($this->item);
         return TRUE;
     }
 }
