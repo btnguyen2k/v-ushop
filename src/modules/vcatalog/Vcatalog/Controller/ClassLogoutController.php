@@ -1,16 +1,8 @@
 <?php
-class Vcatalog_Controller_LogoutController extends Vcatalog_Controller_BaseController {
-    const VIEW_NAME = 'logout';
+class Vcatalog_Controller_LogoutController extends Vcatalog_Controller_BaseFlowController {
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getViewName()
-     */
-    protected function getViewName() {
-        return self::VIEW_NAME;
-    }
-
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::execute()
+    /**
+     * @see Dzit_Controller_FlowController::execute()
      */
     public function execute($module, $action) {
         unset($_SESSION[SESSION_USER_ID]);

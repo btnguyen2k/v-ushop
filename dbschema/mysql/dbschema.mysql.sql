@@ -3,6 +3,9 @@ DROP TABLE IF EXISTS http_session;
 DROP TABLE IF EXISTS vcatalog_group;
 DROP TABLE IF EXISTS vcatalog_user;
 DROP TABLE IF EXISTS vcatalog_paperclip;
+DROP TABLE IF EXISTS vcatalog_order_history;
+DROP TABLE IF EXISTS vcatalog_cart_detail;
+DROP TABLE IF EXISTS vcatalog_cart;
 DROP TABLE IF EXISTS vcatalog_item;
 DROP TABLE IF EXISTS vcatalog_category;
 DROP TABLE IF EXISTS vcatalog_app_config;
@@ -108,6 +111,25 @@ CREATE TABLE vcatalog_item (
     istock          DECIMAL(10,2)           NOT NULL DEFAULT 0.00,
         INDEX istock(istock),
     PRIMARY KEY (iid)
+) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE vcatalog_cart (
+    csession_id         VARCHAR(32)             NOT NULL,
+    cstatus             INT                     NOT NULL DEFAULT 0,
+        INDEX cstatus(cstatus),
+    cupdate_timestamp   INT                     NOT NULL DEFAULT 0,
+        INDEX cupdate_timestamp(cupdate_timestamp),
+    cuser_id            INT                     NOT NULL DEFAULT 0,
+        INDEX cuser_id(cuser_id),
+    PRIMARY KEY (csession_id)
+) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE vcatalog_cart_item (
+    csession_id         VARCHAR(64)             NOT NULL,
+    citem_id            INT                     NOT NULL,
+    cquantity           DECIMAL(10,2)           NOT NULL,
+    cprice              DECIMAL(10,2)           NOT NULL,
+    PRIMARY KEY (csession_id, citem_id)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_paperclip (

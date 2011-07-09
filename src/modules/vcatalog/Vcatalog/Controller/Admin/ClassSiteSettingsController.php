@@ -1,27 +1,39 @@
 <?php
-class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controller_Admin_BaseController {
+class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controller_Admin_BaseFlowController {
+
     const VIEW_NAME = 'admin_siteSettings';
     const VIEW_NAME_AFTER_POST = 'admin_siteSettings';
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getViewName()
+    const FORM_FIELD_SITE_NAME = 'siteName';
+    const FORM_FIELD_SITE_TITLE = 'siteTitle';
+    const FORM_FIELD_SITE_KEYWORDS = 'siteKeywords';
+    const FORM_FIELD_SITE_DESCRIPTION = 'siteDescription';
+    const FORM_FIELD_SITE_COPYRIGHT = 'siteCopyright';
+
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::getViewName_AfterPost()
+    /**
+     * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
-    protected function getViewName_AfterPost() {
-        return self::VIEW_NAME_AFTER_POST;
+    protected function getModelAndView_FormSubmissionSuccessful() {
+        $viewName = self::VIEW_NAME_AFTER_POST;
+        $model = $this->buildModel();
+        if ($model == NULL) {
+            $model = Array();
+        }
+        return new Dzit_ModelAndView($viewName, $model);
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::buildModel_Form()
+    /**
+     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
-        $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmLogin');
+        $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmSiteSettings');
         $dao = $this->getDao(DAO_CONFIG);
         $form['siteName'] = $dao->loadConfig('site_name');
         $form['siteTitle'] = $dao->loadConfig('site_title');
@@ -36,10 +48,10 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
         return $form;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::doFormSubmission()
+    /**
+     * @see Dzit_Controller_FlowController::performFormSubmission()
      */
-    protected function doFormSubmission() {
+    protected function performFormSubmission() {
         $dao = $this->getDao(DAO_CONFIG);
         $siteName = isset($_POST['siteName']) ? $_POST['siteName'] : '';
         $siteTitle = isset($_POST['siteTitle']) ? $_POST['siteTitle'] : '';

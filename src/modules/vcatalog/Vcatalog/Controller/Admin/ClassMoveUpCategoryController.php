@@ -1,8 +1,8 @@
 <?php
-class Vcatalog_Controller_Admin_MoveUpCategoryController extends Vcatalog_Controller_Admin_BaseController {
+class Vcatalog_Controller_Admin_MoveUpCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Controller_BaseController::execute()
+    /**
+     * @see Dzit_Controller_FlowController::execute()
      */
     public function execute($module, $action) {
         /**

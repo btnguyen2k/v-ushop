@@ -8,9 +8,9 @@
 ><!-- Middle column full box -->
     <div class="middle-column-box-blue">
         <div class="middle-column-box-title-blue">[:$MODEL.language->getMessage('msg.categories'):]</div>
-        [:if count($MODEL.categoryList) gt 0:]
+        [:if count($MODEL.categoryObj->getChildren()) gt 0:]
             <table style="width: 90%; margin-left: auto; margin-right: auto">
-            [:foreach $MODEL.categoryList as $cat:]
+            [:foreach $MODEL.categoryObj->getChildren() as $cat:]
                 [:if $cat@index % 4 == 0:][:if !$cat@first:]</tr>[:/if:]<tr>[:/if:]
                 <td width="25%" align="center"><a href="[:$cat->getUrlView():]">[:$cat->getTitle()|escape:'html':]</a></td>
                 [:if $cat@last:]

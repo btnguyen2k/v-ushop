@@ -1,3 +1,32 @@
+[:function name=displayCategoryItem cart=NULL item=NULL picAlign='left':]
+    <div style="height: 50px">
+        <img src="./img/img_general.jpg" class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="50" alt="" />
+        <small>
+            [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:$_item->getPrice():]</strong>
+            <br />
+            [:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$_item->getVendor()|escape:'html':]</strong>
+        </small>
+    </div>
+    <div>
+        <form action="post" action="[:$smarty.server.SCRIPT_NAME:]">
+            <small>
+                <a href="[:$_cart->getUrlView():]">[:$MODEL.language->getMessage('msg.inCart'):]: <strong>
+                    [:if $_cart->existInCart($_item):]
+                        [:$_cart->getItem($_item)->getQuantity():]
+                    [:else:]
+                        0
+                    [:/if:]
+                </strong></a>
+                <br />
+                [:$MODEL.language->getMessage('msg.addToCart'):]:
+                <input type="hidden" value="[:$_item->getId():]" />
+                <input type="text" value="1" style="width: 20px"/>
+                <input type="submit" value="[:$MODEL.language->getMessage('msg.add'):]" style="font-size: xx-small;"/>
+            </small>
+         </form>
+     </div>
+[:/function:]
+
 [:function name=printFormHeader form=NULL:]
     [:if isset($form.errorMessages) && count($form.errorMessages) gt 0:]
         [:foreach $form.errorMessages as $msg:]

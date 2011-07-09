@@ -357,6 +357,15 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      */
     protected function buildModel_Custom() {
         $model = Array();
+
+        /**
+         * @var Vcatalog_Bo_Cart_ICartDao
+         */
+        $cartDao = $this->getDao(DAO_CART);
+        $sessionId = session_id();
+        $cart = $cartDao->getCart($sessionId);
+        $model[MODEL_CART] = $cart;
+
         return $model;
     }
 

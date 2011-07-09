@@ -18,6 +18,16 @@ class Vcatalog_Controller_HomeController extends Vcatalog_Controller_BaseFlowCon
             $model = Array();
         }
 
+        /**
+         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         */
+        $catalogDao = $this->getDao(DAO_CATALOG);
+        $catTree = $catalogDao->getCategoryTree();
+        $model[MODEL_CATEGORY_LIST] = $catTree;
+
+        $allItems = $catalogDao->getAllItems();
+        $model[MODEL_ITEM_LIST] = $allItems;
+
         return $model;
     }
 }

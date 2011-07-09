@@ -13,6 +13,14 @@ $YADIF_CONFIG = Array(
                 'class' => 'Vcatalog_Controller_ViewPageController',
                 'scope' => 'singleton'),
 
+        'Vcatalog_Controller_ViewCartController' => Array(
+                'class' => 'Vcatalog_Controller_ViewCartController',
+                'scope' => 'singleton'),
+
+        'Vcatalog_Controller_ViewCategoryController' => Array(
+                'class' => 'Vcatalog_Controller_ViewCategoryController',
+                'scope' => 'singleton'),
+
         'Vcatalog_Controller_LoginController' => Array(
                 'class' => 'Vcatalog_Controller_LoginController',
                 'scope' => 'singleton',

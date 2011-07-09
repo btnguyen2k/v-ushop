@@ -92,6 +92,13 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     public function getItemById($id);
 
     /**
+     * Gets all items within a category as a list.
+     *
+     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     */
+    public function getItemsForCategory($cat);
+
+    /**
      * Updates an existing item.
      *
      * @param Vcatalog_Bo_Catalog_BoItem $item
