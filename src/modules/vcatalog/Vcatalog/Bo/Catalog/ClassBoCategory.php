@@ -115,6 +115,16 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
         return $this->title;
     }
 
+    public function getTitleForDisplay($maxLength = 20) {
+        if ($maxLength < 10) {
+            $maxLength = 10;
+        }
+        if (strlen($this->title) <= $maxLength) {
+            return $this->title;
+        }
+        return mb_substr($this->title, 0, $maxLength-3) . '...';
+    }
+
     public function setTitle($title) {
         $this->title = $title;
     }

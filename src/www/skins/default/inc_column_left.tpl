@@ -4,9 +4,9 @@
         <ul>
             <li class="left-navheader-first">[:$MODEL.language->getMessage('msg.categories'):]</li>
             [:foreach $MODEL.categoryTree as $cat:]
-                <li><a class="left-navheader" href="[:$cat->getUrlView():]">[:$cat->getTitle()|escape:'html':]</a></li>
+                <li><a title="[:$cat->getTitle()|escape:'html':]" class="left-navheader" href="[:$cat->getUrlView():]">[:$cat->getTitleForDisplay(17)|escape:'html':]</a></li>
                 [:foreach $cat->getChildren() as $child:]
-                    <li><a href="[:$child->getUrlView():]">[:$child->getTitle()|escape:'html':]</a></li>
+                    <li><a title="[:$child->getTitle()|escape:'html':]" href="[:$child->getUrlView():]">[:$child->getTitleForDisplay(17)|escape:'html':]</a></li>
                 [:foreachelse:]
                     [:$MODEL.language->getMessage('msg.nodata'):]
                 [:/foreach:]
