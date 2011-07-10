@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_Cart_BoCartItem extends Commons_Bo_BaseBo {
+class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
 
     const COL_SESSION_ID = 'csession_id';
     const COL_ITEM_ID = 'citem_id';
@@ -14,10 +14,12 @@ class Vcatalog_Bo_Cart_BoCartItem extends Commons_Bo_BaseBo {
      * @see Commons_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
-        return Array(self::COL_ITEM_ID => Array('itemId', self::TYPE_INT),
+        $parentPieldMap = parent::getFieldMap();
+        $myFieldMap = Array(self::COL_ITEM_ID => Array('itemId', self::TYPE_INT),
                 self::COL_PRICE => Array('price', self::TYPE_DOUBLE),
                 self::COL_QUANTITY => Array('quantity', self::TYPE_DOUBLE),
                 self::COL_SESSION_ID => Array('sessionId'));
+        return array_merge($parentPieldMap, $myFieldMap);
     }
 
     /**

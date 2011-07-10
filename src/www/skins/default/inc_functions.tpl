@@ -8,7 +8,7 @@
         </small>
     </div>
     <div>
-        <form action="post" action="[:$smarty.server.SCRIPT_NAME:]">
+        <form method="post" action="[:$smarty.server.SCRIPT_NAME:]/addToCart">
             <small>
                 <a href="[:$_cart->getUrlView():]">[:$MODEL.language->getMessage('msg.inCart'):]: <strong>
                     [:if $_cart->existInCart($_item):]
@@ -19,8 +19,8 @@
                 </strong></a>
                 <br />
                 [:$MODEL.language->getMessage('msg.addToCart'):]:
-                <input type="hidden" value="[:$_item->getId():]" />
-                <input type="text" value="1" style="width: 20px"/>
+                <input type="hidden" name="item" value="[:$_item->getId():]" />
+                <input type="text" name="quantity" value="1" style="width: 20px"/>
                 <input type="submit" value="[:$MODEL.language->getMessage('msg.add'):]" style="font-size: xx-small;"/>
             </small>
          </form>

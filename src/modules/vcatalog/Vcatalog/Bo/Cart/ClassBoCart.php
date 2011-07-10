@@ -139,10 +139,11 @@ class Vcatalog_Bo_Cart_BoCart extends Commons_Bo_BaseBo {
      * @param double $quantity
      */
     public function addItem($item, $quantity = 1) {
-        $itemId = $item->getId();
         if ($item instanceof Vcatalog_Bo_Cart_BoCartItem) {
-            $this->cartItems[$itemId] = $item;
+            $this->cartItems[$item->getItemId()] = $item;
         } else {
+            //assuming $item is of type Vcatalog_Bo_Catalog_BoItem
+            $itemId = $item->getId();
             if (!isset($this->cartItems[$itemId])) {
                 $this->cartItems[$itemId] = new Vcatalog_Bo_Cart_BoCartItem();
                 $this->cartItems[$itemId]->setPrice($item->getPrice());

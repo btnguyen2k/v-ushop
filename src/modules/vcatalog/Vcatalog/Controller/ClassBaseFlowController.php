@@ -36,6 +36,26 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     * Gets the current cart.
+     *
+     * @return Vcatalog_Bo_Cart_BoCart
+     */
+    protected function getCurrentCart() {
+        /**
+         * @var Vcatalog_Bo_Cart_ICartDao
+         */
+        $cartDao = $this->getDao(DAO_CART);
+        $sessionId = session_id();
+        $cart = $cartDao->getCart($sessionId);
+        if ($cart === NULL) {
+            $user = $this->getCurrentUser();
+            $userId = $user !== NULL ? $user['id'] : 0;
+            $cart = $cartDao->createCart($sessionId, $userId);
+        }
+        return $cart;
+    }
+
+    /**
      * Gets the currently logged in user.
      *
      * @return mixed
@@ -358,13 +378,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     protected function buildModel_Custom() {
         $model = Array();
 
-        /**
-         * @var Vcatalog_Bo_Cart_ICartDao
-         */
-        $cartDao = $this->getDao(DAO_CART);
-        $sessionId = session_id();
-        $cart = $cartDao->getCart($sessionId);
-        $model[MODEL_CART] = $cart;
+        $model[MODEL_CART] = $this->getCurrentCart();
 
         if (IN_DEV_ENV) {
             $model[MODEL_DEBUG] = new Commons_DebugInfo();
