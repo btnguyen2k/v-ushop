@@ -32,6 +32,8 @@ include 'vcatalog-config-constants.php';
 
 include 'dzit-config-logging.php';
 
+include 'dzit-config-cache.php';
+
 include 'dzit-config-dao.php';
 
 include 'dzit-config-mls.php';

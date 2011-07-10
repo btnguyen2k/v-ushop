@@ -1,5 +1,60 @@
 <?php
 abstract class Commons_Bo_BaseDao extends Ddth_Dao_AbstractSqlStatementDao {
+
+    private $cacheL1 = Array();
+    private $cacheL2;
+
+    public function __construct() {
+        parent::__construct();
+        $cacheManager = Ddth_Cache_CacheManager::getInstance();
+        $this->cacheL2 = $cacheManager->getCache('default');
+    }
+
+    /**
+     * Put an entry to cache.
+     *
+     * @param string $key
+     * @param mixed $value
+     * @param boolean $includeCacheL2
+     */
+    protected function putToCache($key, $value, $includeCacheL2 = TRUE) {
+        $this->cacheL1[$key] = $value;
+        if ($includeCacheL2) {
+            $this->cacheL2->put($key, $value);
+        }
+    }
+
+    /**
+     * Gets an entry from cache.
+     *
+     * @param string $key
+     * @param boolean $includeCacheL2
+     * @return mixed
+     */
+    protected function getFromCache($key, $includeCacheL2 = TRUE) {
+        $result = isset($this->cacheL1[$key]) ? $this->cacheL1[$key] : NULL;
+        if ($result === NULL && $includeCacheL2) {
+            $result = $this->cacheL2->get($key);
+            if ($result !== NULL) {
+                $this->cacheL1[$key] = $result;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Deletes an entry from cache.
+     *
+     * @param string $key
+     * @param boolean $includeCacheL2
+     */
+    protected function deleteFromCache($key, $includeCacheL2 = TRUE) {
+        unset($this->cacheL1[$key]);
+        if ($includeCacheL2) {
+            $this->cacheL2->put($key, NULL);
+        }
+    }
+
     /**
      * Fetches result from the result set and returns as an associative array.
      *

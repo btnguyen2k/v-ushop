@@ -12,22 +12,30 @@ abstract class Vcatalog_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao imple
         parent::__construct();
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Config_IConfigDao::loadConfig()
      */
     public function loadConfig($key) {
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $sqlConn = $this->getConnection();
+        $cacheKey = "CONFIG_$key";
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $sqlConn = $this->getConnection();
 
-        $params = Array('key' => $key);
-        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
-        $result = $this->fetchResultAssoc($rs);
+            $params = Array('key' => $key);
+            $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+            $result = $this->fetchResultAssoc($rs);
 
-        $this->closeConnection();
-        return $result !== FALSE ? $result['value'] : NULL;
+            $this->closeConnection();
+            $result = $result !== FALSE ? $result['value'] : NULL;
+            if ($result !== NULL) {
+                $this->putToCache($cacheKey, $result);
+            }
+        }
+        return $result;
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Config_IConfigDao::saveConfig()
      */
     public function saveConfig($key, $value) {
@@ -37,5 +45,7 @@ abstract class Vcatalog_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao imple
         $params = Array('key' => $key, 'value' => $value);
         $sqlStm->execute($sqlConn->getConn(), $params);
         $this->closeConnection();
+        $cacheKey = "CONFIG_$key";
+        $this->putToCache($cacheKey, $value);
     }
 }

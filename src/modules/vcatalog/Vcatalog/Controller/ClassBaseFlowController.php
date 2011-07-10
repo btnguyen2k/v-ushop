@@ -366,6 +366,10 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $cart = $cartDao->getCart($sessionId);
         $model[MODEL_CART] = $cart;
 
+        if (IN_DEV_ENV) {
+            $model[MODEL_DEBUG] = new Commons_DebugInfo();
+        }
+
         return $model;
     }
 
