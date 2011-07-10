@@ -6,6 +6,8 @@ define('CONFIG_SITE_NAME', 'site_name');
 define('CONFIG_SITE_SLOGAN', 'site_slogan');
 define('CONFIG_SITE_TITLE', 'site_title');
 
+define('MODEL_APP_VERSION', 'APP_VERSION');
+
 define('MODEL_CATEGORY_TREE', 'categoryTree');
 define('MODEL_CATEGORY_LIST', 'categoryList');
 define('MODEL_CART', 'cart');

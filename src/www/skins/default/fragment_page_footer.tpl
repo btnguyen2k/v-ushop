@@ -2,7 +2,7 @@
 <div id="footer">
     [:$MODEL.page.copyright:]
     <br/>
-    Powered by <a href="http://code.google.com/p/vcatalog/">vCatalog</a>
+    Powered by <a href="http://code.google.com/p/vcatalog/">vCatalog ([:$MODEL.APP_VERSION:])</a>
     |
     Theme designed by <a href="mailto:gw@actamail.com">Gerhard Erbes</a>
     <!--
