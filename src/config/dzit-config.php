@@ -30,6 +30,8 @@ $DZIT_IGNORE_AUTOLOAD = Array('/^Smarty_*/', '/^Yadif_*/');
 
 include 'vcatalog-config-constants.php';
 
+include 'vcatalog-config-version.php';
+
 include 'dzit-config-logging.php';
 
 include 'dzit-config-cache.php';
