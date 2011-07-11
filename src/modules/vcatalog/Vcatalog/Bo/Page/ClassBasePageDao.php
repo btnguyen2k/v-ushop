@@ -47,7 +47,7 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
             $result = $result[0];
             $this->putToCache($cacheKey, $result);
         }
-        return $result;
+        return (int)$result;
     }
 
     /**
@@ -118,12 +118,14 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
 
             $result = Array();
             $rs = $sqlStm->execute($sqlConn->getConn());
-            $row = $this->fetchResultAssoc($rs);
+            $row = $this->fetchResultArr($rs);
             while ($row !== FALSE && $row !== NULL) {
-                $page = new Vcatalog_Bo_Page_BoPage();
-                $page->populate($row);
+                $pageId = $row[0];
+                $page = $this->getPageById($pageId);
+                //$page = new Vcatalog_Bo_Page_BoPage();
+                //$page->populate($row);
                 $result[] = $page;
-                $row = $this->fetchResultAssoc($rs);
+                $row = $this->fetchResultArr($rs);
             }
 
             $this->closeConnection();
@@ -136,7 +138,7 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
      * @see Vcatalog_Bo_Page_IPageDao::getOnMenuPages()
      */
     public function getOnMenuPages() {
-        $cacheKey = self::CACHE_KEY_PAGE_ALL;
+        $cacheKey = self::CACHE_KEY_PAGE_ON_MENU;
         $result = $this->getFromCache($cacheKey);
         if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -144,12 +146,14 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
 
             $result = Array();
             $rs = $sqlStm->execute($sqlConn->getConn());
-            $row = $this->fetchResultAssoc($rs);
+            $row = $this->fetchResultArr($rs);
             while ($row !== FALSE && $row !== NULL) {
-                $page = new Vcatalog_Bo_Page_BoPage();
-                $page->populate($row);
+                $pageId = $row[0];
+                $page = $this->getPageById($pageId);
+                //$page = new Vcatalog_Bo_Page_BoPage();
+                //$page->populate($row);
                 $result[] = $page;
-                $row = $this->fetchResultAssoc($rs);
+                $row = $this->fetchResultArr($rs);
             }
 
             $this->closeConnection();
