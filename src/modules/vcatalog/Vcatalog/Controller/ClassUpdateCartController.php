@@ -1,6 +1,5 @@
 <?php
-class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFlowController {
-    const VIEW_NAME_ERROR = 'error';
+class Vcatalog_Controller_UpdateCartController extends Vcatalog_Controller_BaseFlowController {
     const VIEW_NAME_AFTER_POST = 'info';
 
     const FORM_FIELD_ITEM = 'item';
@@ -32,38 +31,6 @@ class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFl
     }
 
     /**
-     * Test if the item to be added is valid.
-     *
-     * @see Dzit_Controller_FlowController::validateParams()
-     */
-    protected function validateParams() {
-        $item = $this->item;
-        $itemId = $this->itemId;
-        if ($item === NULL) {
-            $lang = $this->getLanguage();
-            $this->addErrorMessage($lang->getMessage('error.itemNotFound', (int)$itemId));
-            return FALSE;
-        }
-        return TRUE;
-    }
-
-    /**
-     * @see Dzit_Controller_FlowController::getModelAndView_Error()
-     */
-    protected function getModelAndView_Error() {
-        $viewName = self::VIEW_NAME_ERROR;
-        $model = $this->buildModel();
-        if ($model == NULL) {
-            $model = Array();
-        }
-
-        $lang = $this->getLanguage();
-        $model[MODEL_ERROR_MESSAGES] = $this->getErrorMessages();
-
-        return new Dzit_ModelAndView($viewName, $model);
-    }
-
-    /**
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -74,12 +41,8 @@ class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFl
         }
 
         $lang = $this->getLanguage();
-        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.addToCart.done'));
-        if (isset($_SESSION[SESSION_LAST_ACCESS_URL])) {
-            $urlTransit = $_SESSION[SESSION_LAST_ACCESS_URL];
-        } else {
-            $urlTransit = $_SERVER['SCRIPT_NAME'];
-        }
+        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.updateCart.done'));
+        $urlTransit = $this->getCurrentCart()->getUrlView();
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
 
@@ -102,16 +65,12 @@ class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFl
         $cartDao = $this->getDao(DAO_CART);
         if ($cart->existInCart($item)) {
             $cartItem = $cart->getItem($item);
-            $currentQuantity = $cartItem->getQuantity();
-            $currentQuantity += $quantity;
-            if ($currentQuantity > 0) {
-                $cartItem->setQuantity($currentQuantity);
+            if ($quantity > 0) {
+                $cartItem->setQuantity($quantity);
                 $cartDao->updateCartItem($cartItem);
             } else {
                 $cartDao->deleteCartItem($cartItem);
             }
-        } else if ($quantity > 0) {
-            $cartDao->createCartItem($cart, $item->getId(), $quantity, $item->getPrice());
         }
         return TRUE;
     }

@@ -10,6 +10,7 @@ class Vcatalog_Bo_Cart_BoCart extends Commons_Bo_BaseBo {
     private $cartItems = Array();
 
     private $urlView = NULL;
+    private $urlCheckout = NULL;
 
     /**
      * @see Commons_Bo_BaseBo::getFieldMap()
@@ -19,6 +20,18 @@ class Vcatalog_Bo_Cart_BoCart extends Commons_Bo_BaseBo {
                 self::COL_STATUS => Array('status', self::TYPE_INT),
                 self::COL_UPDATE_TIMESTAMP => Array('updateTimestamp', self::TYPE_INT),
                 self::COL_USER_ID => Array('userId', self::TYPE_INT));
+    }
+
+    /**
+     * Gets the URL to checkout the cart.
+     *
+     * @return string
+     */
+    public function getUrlCheckout() {
+        if ($this->urlCheckout === NULL) {
+            $this->urlCheckout = $_SERVER['SCRIPT_NAME'] . '/checkout';
+        }
+        return $this->urlCheckout;
     }
 
     /**

@@ -9,6 +9,7 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
     const FORM_FIELD_SITE_KEYWORDS = 'siteKeywords';
     const FORM_FIELD_SITE_DESCRIPTION = 'siteDescription';
     const FORM_FIELD_SITE_COPYRIGHT = 'siteCopyright';
+    const FORM_FIELD_SITE_SLOGAN = 'siteSlogan';
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -35,15 +36,15 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmSiteSettings');
         $dao = $this->getDao(DAO_CONFIG);
-        $form['siteName'] = $dao->loadConfig('site_name');
-        $form['siteTitle'] = $dao->loadConfig('site_title');
-        $form['siteKeywords'] = $dao->loadConfig('site_keywords');
-        $form['siteDescription'] = $dao->loadConfig('site_description');
-        $form['siteSlogan'] = $dao->loadConfig('site_slogan');
-        $form['siteCopyright'] = $dao->loadConfig('site_copyright');
+        $form[self::FORM_FIELD_SITE_NAME] = $dao->loadConfig(CONFIG_SITE_NAME);
+        $form[self::FORM_FIELD_SITE_TITLE] = $dao->loadConfig(CONFIG_SITE_TITLE);
+        $form[self::FORM_FIELD_SITE_KEYWORDS] = $dao->loadConfig(CONFIG_SITE_KEYWORDS);
+        $form[self::FORM_FIELD_SITE_DESCRIPTION] = $dao->loadConfig(CONFIG_SITE_DESCRIPTION);
+        $form[self::FORM_FIELD_SITE_SLOGAN] = $dao->loadConfig(CONFIG_SITE_SLOGAN);
+        $form[self::FORM_FIELD_SITE_COPYRIGHT] = $dao->loadConfig(CONFIG_SITE_COPYRIGHT);
         if (isset($_POST)) {
             $lang = $this->getLanguage();
-            $form['infoMessage'] = $lang->getMessage('msg.siteSettings.done');
+            $form[FORM_INFO_MESSAGES] = Array($lang->getMessage('msg.siteSettings.done'));
         }
         return $form;
     }

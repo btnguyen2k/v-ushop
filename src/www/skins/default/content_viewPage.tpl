@@ -1,5 +1,4 @@
 <!-- MIDDLE COLUMN -->
-<!-- MIDDLE COLUMN -->
 <div id="middle-column"
     [:if isset($DISABLE_COLUMN_LEFT) && isset($DISABLE_COLUMN_RIGHT):]
         style="width: 98%"

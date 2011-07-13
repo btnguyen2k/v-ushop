@@ -39,6 +39,22 @@ INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('site_description', 'Online Catalog Ecommerce System');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('site_copyright', '(C) 2011 by vCatalog/gpv.com.vn | All Rights Reserved');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('use_smtp', '1');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('smtp_host', 'localhost');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('smtp_port', '25');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('smtp_ssl', '0');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('smtp_username', '');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('smtp_password', '');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('email_outgoing', 'your_outgoing_email@here');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('email_order_notification', 'your_email_to_receive_order_notification@here');
 
 CREATE TABLE app_log(
     logid               INT                 NOT NULL AUTO_INCREMENT,

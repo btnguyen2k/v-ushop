@@ -17,6 +17,10 @@ $YADIF_CONFIG = Array(
                 'class' => 'Vcatalog_Controller_ViewCartController',
                 'scope' => 'singleton'),
 
+        'Vcatalog_Controller_UpdateCartController' => Array(
+                'class' => 'Vcatalog_Controller_UpdateCartController',
+                'scope' => 'singleton'),
+
         'Vcatalog_Controller_ViewCategoryController' => Array(
                 'class' => 'Vcatalog_Controller_ViewCategoryController',
                 'scope' => 'singleton'),
@@ -131,6 +135,13 @@ $YADIF_CONFIG = Array(
 
         'Vcatalog_Controller_Admin_SiteSettingsController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_SiteSettingsController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+
+        'Vcatalog_Controller_Admin_EmailSettingsController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_EmailSettingsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),

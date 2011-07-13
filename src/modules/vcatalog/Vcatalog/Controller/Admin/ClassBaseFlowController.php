@@ -10,6 +10,7 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
             $model = Array();
         }
 
+        $model['urlEmailSettings'] = $_SERVER['SCRIPT_NAME'] . '/admin/emailSettings';
         $model['urlSiteSettings'] = $_SERVER['SCRIPT_NAME'] . '/admin/siteSettings';
 
         $model['urlCategoryManagement'] = $this->getUrlCategoryManagement();
