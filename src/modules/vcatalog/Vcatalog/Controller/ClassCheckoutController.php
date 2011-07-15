@@ -133,9 +133,10 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
                 'ORDER_PHONE' => $orderPhone,
                 'ORDER_OTHER_INFO' => $orderOtherInfo,
                 'PAYMENT_METHOD' => $orderPaymentMethod ? $lang->getMessage('msg.order.paymentMethod.cash') : $lang->getMessage('msg.order.paymentMethod.transfer'));
-        $mailer->IsHTML(TRUE);
+        //$mailer->IsHTML(TRUE);
         $mailer->Subject = $this->renderEmail($subject, $replacements);
-        $mailer->Body = $this->renderEmail($body, $replacements);
+        $mailer->MsgHTML($this->renderEmail($body, $replacements));
+        print_r($this->renderEmail($body, $replacements));
 
         if ($configDao->loadConfig(CONFIG_USE_SMTP) != 0) {
             $mailer->IsSMTP();
