@@ -30,6 +30,11 @@ $YADIF_CONFIG = Array(
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
 
+        'Vcatalog_Controller_CheckoutController' => Array(
+                'class' => 'Vcatalog_Controller_CheckoutController',
+                'scope' => 'singleton',
+                'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
+
         'Vcatalog_Controller_LoginController' => Array(
                 'class' => 'Vcatalog_Controller_LoginController',
                 'scope' => 'singleton',

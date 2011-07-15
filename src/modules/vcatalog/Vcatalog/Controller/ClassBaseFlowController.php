@@ -429,6 +429,11 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * @param Array $fieldNames
      */
     protected function populateForm(&$form, $fieldNames = Array()) {
+        if (is_array($fieldNames)) {
+            foreach ($fieldNames as $fieldName) {
+                $form[$fieldName] = '';
+            }
+        }
         if (!$this->isPostRequest() || !is_array($fieldNames)) {
             return;
         }

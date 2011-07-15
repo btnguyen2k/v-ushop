@@ -52,9 +52,19 @@ VALUES('smtp_username', '');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('smtp_password', '');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
-VALUES('email_outgoing', 'your_outgoing_email@here');
+VALUES('email_outgoing', 'your_outgoing_email@here.con');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
-VALUES('email_order_notification', 'your_email_to_receive_order_notification@here');
+VALUES('email_order_notification', 'your_email_to_receive_order_notification@here.com');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('email_on_subject', '{SITE_NAME} New order from {ORDER_NAME}');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('email_on_body',
+'<p>You have a new order from <b>{ORDER_NAME}</b> <i>(Email: {ORDER_EMAIL} / Phone: {ORDER_PHONE})</i></p>
+<p>Order details:</p>
+{ORDER_ITEMS}
+<p>Payment method: <b>{PAYMENT_METHOD}</b></p>
+<p>Additional information:</p>
+{ORDER_OTHER_INFO}');
 
 CREATE TABLE app_log(
     logid               INT                 NOT NULL AUTO_INCREMENT,

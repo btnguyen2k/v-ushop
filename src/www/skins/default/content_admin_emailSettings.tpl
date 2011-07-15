@@ -36,6 +36,14 @@
             (<small>[:$MODEL.language->getMessage('msg.emailSettings.emailOrderNotification.info'):]</small>)
             <input type="text" name="emailOrderNotification" value="[:$MODEL.form.emailOrderNotification|escape:'html':]" style="width: 98%" />
             <br/>
+            <label>[:$MODEL.language->getMessage('msg.emailSettings.emailOnSubject'):]:</label>
+            (<small>[:$MODEL.language->getMessage('msg.emailSettings.emailOnSubject.info'):]</small>)
+            <input type="text" name="emailOnSubject" value="[:$MODEL.form.emailOnSubject|escape:'html':]" style="width: 98%" />
+            <br/>
+            <label>[:$MODEL.language->getMessage('msg.emailSettings.emailOnBody'):]:</label>
+            (<small>[:$MODEL.language->getMessage('msg.emailSettings.emailOnBody.info'):]</small>)
+            <textarea rows="6" style="width: 98%" name="emailOnBody">[:$MODEL.form.emailOnBody|escape:'html':]</textarea>
+            <br />
 
             <input type="submit" value="[:$MODEL.language->getMessage('msg.save'):]" style="width: 64px" />
         </form>

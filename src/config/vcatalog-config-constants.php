@@ -17,6 +17,8 @@ define('CONFIG_SMTP_USERNAME', 'smtp_username');
 define('CONFIG_SMTP_PASSWORD', 'smtp_password');
 define('CONFIG_EMAIL_OUTGOING', 'email_outgoing');
 define('CONFIG_EMAIL_ORDER_NOTIFICATION', 'email_order_notification');
+define('CONFIG_EMAIL_ON_SUBJECT', 'email_on_subject');
+define('CONFIG_EMAIL_ON_BODY', 'email_on_body');
 
 define('MODEL_APP_VERSION', 'APP_VERSION');
 

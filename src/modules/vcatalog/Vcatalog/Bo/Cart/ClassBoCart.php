@@ -179,4 +179,13 @@ class Vcatalog_Bo_Cart_BoCart extends Commons_Bo_BaseBo {
         }
         return isset($this->cartItems[$item]);
     }
+
+    /**
+     * Checks if the cart is empty.
+     *
+     * @return boolean
+     */
+    public function isEmpty() {
+        return count($this->cartItems) == 0;
+    }
 }
