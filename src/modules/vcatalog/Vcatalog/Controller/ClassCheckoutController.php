@@ -120,8 +120,8 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         $mailer = new PHPMailer(TRUE);
         $mailer->SetFrom($configDao->loadConfig(CONFIG_EMAIL_OUTGOING));
         $mailer->AddAddress($configDao->loadConfig(CONFIG_EMAIL_ORDER_NOTIFICATION));
-        $mailer->ContentType = 'text/html';
-        $mailer->Encoding = 'UTF-8';
+        //$mailer->ContentType = 'text/html';
+        $mailer->CharSet = 'UTF-8';
         $subject = $configDao->loadConfig(CONFIG_EMAIL_ON_SUBJECT);
         $body = $configDao->loadConfig(CONFIG_EMAIL_ON_BODY);
         $replacements = Array('SITE_NAME' => $configDao->loadConfig(CONFIG_SITE_NAME),
@@ -133,7 +133,7 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
                 'ORDER_PHONE' => $orderPhone,
                 'ORDER_OTHER_INFO' => $orderOtherInfo,
                 'PAYMENT_METHOD' => $orderPaymentMethod ? $lang->getMessage('msg.order.paymentMethod.cash') : $lang->getMessage('msg.order.paymentMethod.transfer'));
-        $mailer->IsHTML(TRUE);
+        //$mailer->IsHTML(TRUE);
         $mailer->Subject = $this->renderEmail($subject, $replacements);
         $mailer->AltBody = 'To view the message, please use an HTML compatible email viewer!';
         $mailer->MsgHTML($this->renderEmail($body, $replacements));
