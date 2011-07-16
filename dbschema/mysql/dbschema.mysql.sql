@@ -52,7 +52,7 @@ VALUES('smtp_username', '');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('smtp_password', '');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
-VALUES('email_outgoing', 'your_outgoing_email@here.con');
+VALUES('email_outgoing', 'your_outgoing_email@here.com');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('email_order_notification', 'your_email_to_receive_order_notification@here.com');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)

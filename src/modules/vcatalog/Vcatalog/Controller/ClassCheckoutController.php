@@ -124,20 +124,49 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         $mailer->CharSet = 'UTF-8';
         $subject = $configDao->loadConfig(CONFIG_EMAIL_ON_SUBJECT);
         $body = $configDao->loadConfig(CONFIG_EMAIL_ON_BODY);
-        $replacements = Array('SITE_NAME' => $configDao->loadConfig(CONFIG_SITE_NAME),
-                'SITE_TITLE' => $configDao->loadConfig(CONFIG_SITE_TITLE),
-                'SITE_SLOGAN' => $configDao->loadConfig(CONFIG_SITE_SLOGAN),
-                'SITE_COPYRIGHT' => $configDao->loadConfig(CONFIG_SITE_COPYRIGHT),
-                'ORDER_NAME' => $orderName,
-                'ORDER_EMAIL' => $orderEmail,
-                'ORDER_PHONE' => $orderPhone,
-                'ORDER_OTHER_INFO' => $orderOtherInfo,
+        $orderItems = '<table><thread><tr><th style="text-align: center;">';
+        $orderItems .= $lang->getMessage('msg.item') . '</th>';
+        $orderItems .= '<th style="text-align: center;" width="64px">';
+        $orderItems .= $lang->getMessage('msg.price') . '</th>';
+        $orderItems .= '<th style="text-align: center;" width="64px">';
+        $orderItems .= $lang->getMessage('msg.quantity') . '</th>';
+        $orderItems .= '<th style="text-align: center;" width="100px">';
+        $orderItems .= $lang->getMessage('msg.total') . '</th>';
+        $orderItems .= '</thead>';
+        $orderItems .= '<tbody>';
+        $cart = $this->getCurrentCart();
+        $grandTotal = 0;
+        foreach ($cart->getItems() as $item) {
+            $total = $item->getPrice() * $item->getQuantity();
+            $grandTotal += $total;
+            $orderItems .= '<tr>';
+            $orderItems .= '<td>' . htmlspecialchars($item->getTitle()) . '</td>';
+            $orderItems .= '<td align="right">' . number_format($item->getPrice(), 2, '.', ',') . '</td>';
+            $orderItems .= '<td align="center">' . $item->getQuantity() . '</td>';
+            $orderItems .= '<td align="right">' . number_format($total, 2, '.', ',') . '</td>';
+            $orderItems .= '</tr>';
+        }
+        $orderItems .= '</tbody>';
+        $orderItems .= '<tfoot><tr>';
+        $orderItems .= '<th style="text-align: center;" colspan="3">' . $lang->getMessage('msg.grandTotal') . '</th>';
+        $orderItems .= '<th style="text-align: right;">' . number_format($grandTotal, 2, ',', '.') . '</th>';
+        $orderItems .= '</tr></tfoot></table>';
+
+        $replacements = Array(
+                'SITE_NAME' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_NAME)),
+                'SITE_TITLE' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_TITLE)),
+                'SITE_SLOGAN' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_SLOGAN)),
+                'SITE_COPYRIGHT' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_COPYRIGHT)),
+                'ORDER_NAME' => htmlspecialchars($orderName),
+                'ORDER_EMAIL' => htmlspecialchars($orderEmail),
+                'ORDER_PHONE' => htmlspecialchars($orderPhone),
+                'ORDER_OTHER_INFO' => htmlspecialchars($orderOtherInfo),
+                'ORDER_ITEMS' => $orderItems,
                 'PAYMENT_METHOD' => $orderPaymentMethod ? $lang->getMessage('msg.order.paymentMethod.cash') : $lang->getMessage('msg.order.paymentMethod.transfer'));
         //$mailer->IsHTML(TRUE);
         $mailer->Subject = $this->renderEmail($subject, $replacements);
         $mailer->AltBody = 'To view the message, please use an HTML compatible email viewer!';
         $mailer->MsgHTML($this->renderEmail($body, $replacements));
-        print_r($this->renderEmail($body, $replacements));
 
         if ($configDao->loadConfig(CONFIG_USE_SMTP) != 0) {
             $mailer->IsSMTP();
@@ -168,6 +197,12 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
             $LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
             $msg = "Can not send email: " . $e->getMessage();
             $LOGGER->error($msg, $e);
+        }
+
+        //clear the cart
+        $cartDao = $this->getDao(DAO_CART);
+        foreach ($cart->getItems() as $item) {
+            $cartDao->deleteCartItem($item);
         }
 
         return TRUE;
