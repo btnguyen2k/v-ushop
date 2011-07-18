@@ -8,7 +8,7 @@
                 [:foreach $cat->getChildren() as $child:]
                     <li><a title="[:$child->getTitle()|escape:'html':]" href="[:$child->getUrlView():]">[:$child->getTitleForDisplay(17)|escape:'html':]</a></li>
                 [:foreachelse:]
-                    [:$MODEL.language->getMessage('msg.nodata'):]
+                    <li>[:$MODEL.language->getMessage('msg.nodata'):]</li>
                 [:/foreach:]
             [:/foreach:]
         </ul>

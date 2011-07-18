@@ -44,6 +44,12 @@ $YADIF_CONFIG = Array(
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
 
+        'Vcatalog_Controller_ProfileCp_ProfileController' => Array(
+                'class' => 'Vcatalog_Controller_ProfileCp_ProfileController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)))),
+
         'Vcatalog_Controller_Admin_HomeController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_HomeController',
                 'scope' => 'singleton',

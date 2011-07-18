@@ -21,7 +21,10 @@
                 [:$MODEL.language->getMessage('msg.addToCart'):]:
                 <input type="hidden" name="item" value="[:$_item->getId():]" />
                 <input type="text" name="quantity" value="1" style="width: 20px"/>
+                <input type="image" src="img/cart_put.png" align="top" title="[:$MODEL.language->getMessage('msg.add'):]"/>
+                <!--
                 <input type="submit" value="[:$MODEL.language->getMessage('msg.add'):]" style="font-size: xx-small;"/>
+                -->
             </small>
          </form>
      </div>
@@ -38,6 +41,7 @@
         [:foreach $form.infoMessages as $msg:]
             <div class="infoMsg">[:$msg:]</div>
         [:/foreach:]
+        <br />
     [:/if:]
 [:/function:]
 

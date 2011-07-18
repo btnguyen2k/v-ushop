@@ -23,9 +23,9 @@
                     <th colspan="3">Memory Info</th>
                 </tr>
                 <tr>
-                    <th>Usage</td>
-                    <th>Peak</td>
-                    <th>Limit</td>
+                    <th>Usage</th>
+                    <th>Peak</th>
+                    <th>Limit</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,13 +61,11 @@
                         <td colspan="3">No data</td>
                     </tr>
                 [:/foreach:]
-            </tbody>
-            <tfoot>
                 <tr>
                     <th colspan="2">Total</th>
                     <th align="right">[:round($_sqlTimeTotal,5):]</th>
                 </tr>
-            </tfoot>
+            </tbody>
         </table>
     </div>
 [:/if:]

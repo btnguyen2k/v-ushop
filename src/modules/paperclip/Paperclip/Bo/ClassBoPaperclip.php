@@ -8,6 +8,7 @@ class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
     const COL_THUMBNAIL = 'pthumbnail';
     const COL_MIMETYPE = 'pmimetype';
     const COL_TIMESTAMP = 'ptimestamp';
+    const COL_IS_DRAFT = 'pis_draft';
 
     private $id;
     private $filename;
@@ -16,8 +17,9 @@ class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
     private $thumbnail;
     private $mimetype;
     private $timestamp;
+    private $isDraft;
 
-    /* (non-PHPdoc)
+    /**
      * @see Commons_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
@@ -27,7 +29,8 @@ class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
                 self::COL_FILECONTENT => Array('filecontent'),
                 self::COL_THUMBNAIL => Array('thumbnail'),
                 self::COL_MIMETYPE => Array('mimetype'),
-                self::COL_TIMESTAMP => Array('timestamp', self::TYPE_INT));
+                self::COL_TIMESTAMP => Array('timestamp', self::TYPE_INT),
+                self::COL_IS_DRAFT => Array('isDraft', self::TYPE_BOOLEAN));
     }
 
     /**
@@ -156,4 +159,30 @@ class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
         $this->timestamp = $timestamp;
     }
 
+    /**
+     * Getter for $isDraft.
+     *
+     * @return boolean
+     */
+    public function getIsDraft() {
+        return $this->isDraft;
+    }
+
+    /**
+     * Setter for $isDraft.
+     *
+     * @param boolean $isDraft
+     */
+    public function setIsDraft($isDraft) {
+        $this->isDraft = $isDraft;
+    }
+
+    /**
+     * Checks if the item is in "draft" state.
+     *
+     * @return boolean
+     */
+    public function isDraft() {
+        return $this->isDraft;
+    }
 }

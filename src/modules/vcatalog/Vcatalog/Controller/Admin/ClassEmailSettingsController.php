@@ -50,7 +50,7 @@ class Vcatalog_Controller_Admin_EmailSettingsController extends Vcatalog_Control
         $form[self::FORM_FIELD_SMTP_PORT] = $dao->loadConfig(CONFIG_SMTP_PORT);
         $form[self::FORM_FIELD_SMTP_SSL] = $dao->loadConfig(CONFIG_SMTP_SSL);
         $form[self::FORM_FIELD_SMTP_USERNAME] = $dao->loadConfig(CONFIG_SMTP_USERNAME);
-        if (isset($_POST)) {
+        if ($this->isPostRequest()) {
             $lang = $this->getLanguage();
             $form[FORM_INFO_MESSAGES] = Array($lang->getMessage('msg.emailSettings.done'));
         }

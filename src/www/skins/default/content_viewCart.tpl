@@ -25,7 +25,10 @@
                         <form method="post" action="[:$smarty.server.SCRIPT_NAME:]/updateCart">
                             <input type="hidden" name="item" value="[:$item->getId():]"/>
                             <input style="margin-top: auto; margin-bottom: auto; width: 64px" type="text" name="quantity" value="[:$item->getQuantity():]"/>
+                            <input type="image" src="img/cart_edit.png" align="top" title="[:$MODEL.language->getMessage('msg.update'):]"/>
+                            <!--
                             <input style="margin-top: auto; margin-bottom: auto; font-size: xx-small;" type="submit" value="[:$MODEL.language->getMessage('msg.update'):]" />
+                            -->
                         </form>
                     </td>
                     <td align="right">[:number_format($item->getPrice()*$item->getQuantity(), 2, '.', ','):]</td>
@@ -45,7 +48,7 @@
         </tfoot>
         </table>
         <p align="center">
-            <a href="[:$MODEL.cart->getUrlCheckout():]">[:$MODEL.language->getMessage('msg.checkout'):]</a>
+            <a href="[:$MODEL.cart->getUrlCheckout():]"><img src="img/cart_go.png" border="0"/> [:$MODEL.language->getMessage('msg.checkout'):]</a>
         </p>
     </div>
 </div>

@@ -270,6 +270,15 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     * Get the url to access ProfileCP.
+     *
+     * @return string
+     */
+    protected function getUrlProfileCp() {
+        return $_SERVER['SCRIPT_NAME'] . '/profilecp';
+    }
+
+    /**
      * Get the url for member registration action.
      *
      * @return string
@@ -344,6 +353,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
         if (isset($_SESSION[SESSION_USER_ID])) {
             $model['urlLogout'] = $this->getUrlLogout();
+            $model['urlProfileCp'] = $this->getUrlProfileCp();
             $user = $this->getCurrentUser();
             if ($user !== NULL && $user['groupId'] === USER_GROUP_ADMIN) {
                 $model['urlAdmin'] = $this->getUrlAdmin();

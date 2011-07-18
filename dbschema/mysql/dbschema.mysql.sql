@@ -166,5 +166,8 @@ CREATE TABLE vcatalog_paperclip (
     pthumbnail      BLOB,
     pmimetype       VARCHAR(64)             NOT NULL DEFAULT '',
     ptimestamp      INT                     NOT NULL DEFAULT 0,
+        INDEX ptimestamp (ptimestamp),
+    pis_draft       INT                     NOT NULL DEFAULT 0,
+        INDEX pis_draft (pis_draft),
     PRIMARY KEY (pid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;

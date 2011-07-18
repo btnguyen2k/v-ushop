@@ -43,4 +43,21 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implement
         $params = Array('email' => $email);
         return $this->getUser($sqlStm, $params);
     }
+
+    /**
+     * (non-PHPdoc)
+     * @see Vcatalog_Bo_User_IUserDao::updateUser()
+     */
+    public function updateUser($user) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('id' => (int)$user['id'],
+                'email' => $user['email'],
+                'password' => $user['password'],
+                'groupId' => (int)$user['groupId']);
+        $sqlStm->execute($sqlConn->getConn(), $params);
+
+        $this->closeConnection();
+    }
 }
