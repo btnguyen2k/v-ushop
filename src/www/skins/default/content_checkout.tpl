@@ -20,9 +20,9 @@
             [:foreach $MODEL.cart->getItems() as $item:]
                 <tr>
                     <td>[:$item->getTitle()|escape:'html':]</td>
-                    <td align="right">[:number_format($item->getPrice(), 2, '.', ','):]</td>
+                    <td align="right">[:number_format($item->getPrice(), 2, ',', '.'):]</td>
                     <td align="center">[:$item->getQuantity():]</td>
-                    <td align="right">[:number_format($item->getPrice()*$item->getQuantity(), 2, '.', ','):]</td>
+                    <td align="right">[:number_format($item->getPrice()*$item->getQuantity(), 2, ',', '.'):]</td>
                     [:assign var='_grandTotal' value=$_grandTotal+$item->getPrice()*$item->getQuantity():]
                 </tr>
             [:foreachelse:]

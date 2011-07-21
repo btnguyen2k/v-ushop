@@ -20,7 +20,7 @@
             [:foreach $MODEL.cart->getItems() as $item:]
                 <tr>
                     <td>[:$item->getTitle()|escape:'html':]</td>
-                    <td align="right">[:number_format($item->getPrice(), 2, '.', ','):]</td>
+                    <td align="right">[:number_format($item->getPrice(), 2, ',', '.'):]</td>
                     <td>
                         <form method="post" action="[:$smarty.server.SCRIPT_NAME:]/updateCart">
                             <input type="hidden" name="item" value="[:$item->getId():]"/>
@@ -31,7 +31,7 @@
                             -->
                         </form>
                     </td>
-                    <td align="right">[:number_format($item->getPrice()*$item->getQuantity(), 2, '.', ','):]</td>
+                    <td align="right">[:number_format($item->getPrice()*$item->getQuantity(), 2, ',', '.'):]</td>
                     [:assign var='_grandTotal' value=$_grandTotal+$item->getPrice()*$item->getQuantity():]
                 </tr>
             [:foreachelse:]

@@ -2,7 +2,7 @@
     <div style="height: 50px">
         <img src="./img/img_general.jpg" class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="50" alt="" />
         <small>
-            [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:$_item->getPrice():]</strong>
+            [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:number_format($item->getPrice(), 2, ',', '.'):]</strong>
             <br />
             [:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$_item->getVendor()|escape:'html':]</strong>
         </small>

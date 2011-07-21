@@ -34,7 +34,7 @@
                         <small>
                             [:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$item->getVendor()|escape:'html':]</strong>
                             |
-                            [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:$item->getPrice():]</strong>
+                            [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:number_format($item->getPrice(), 2, ',', '.'):]</strong>
                         </small>
                     </td>
                     <td>
