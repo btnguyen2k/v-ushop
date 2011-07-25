@@ -8,8 +8,18 @@
 ><!-- Middle column full box -->
     <div class="middle-column-box-green">
         <div class="middle-column-box-title-green">[:$MODEL.language->getMessage('msg.editCategory'):]</div>
-        <form method="post" action="[:$MODEL.form.action:]" name="[:$MODEL.form.name|escape:'html':]">
+        <form method="post" action="[:$MODEL.form.action:]" name="[:$MODEL.form.name|escape:'html':]" enctype="multipart/form-data">
+            [:if isset($MODEL.form.urlCategoryImage):]
+                <p style="float: right; text-align: center;">
+                    <img border="0" src="[:$MODEL.form.urlCategoryImage:]" width="100px" height="100px"/>
+                    <br />
+                    <small>[:$MODEL.language->getMessage('msg.category.image'):]</small>
+                </p>
+            [:/if:]
             [:printFormHeader form=$MODEL.form:]
+            [:if (!isset($form.errorMessages) || count($form.errorMessages) == 0) && (!isset($form.infoMessages) || count($form.infoMessages) == 0):]
+                <br /><br/>
+            [:/if:]
             <label>[:$MODEL.language->getMessage('msg.category.parent'):]:</label>
             <select name="parentId">
                 <option value="0"></option>
@@ -19,11 +29,15 @@
             </select>
             <br/>
             <label>[:$MODEL.language->getMessage('msg.category.title'):]:</label>
-            <input type="text" name="categoryTitle" value="[:$MODEL.form.categoryTitle|escape:'html':]" style="width: 98%" />
+            <input type="text" name="categoryTitle" value="[:$MODEL.form.categoryTitle|escape:'html':]" style="width: 75%" />
             <br/>
             <label>[:$MODEL.language->getMessage('msg.category.description'):]:</label>
             <textarea rows="6" name="categoryDescription" style="width: 98%">[:$MODEL.form.categoryDescription|escape:'html':]</textarea>
             <br/>
+            <label>[:$MODEL.language->getMessage('msg.category.image'):]:</label>
+            <input type="file" name="categoryImage" style="width: 98%" />
+            <input type="hidden" name="categoryImageId" value="[:$MODEL.form.categoryImageId|escape:'html':]" />
+            <br />
             <input type="submit" value="[:$MODEL.language->getMessage('msg.save'):]" style="width: 64px" />
             <input type="button" onclick="javascript:location.href='[:$MODEL.form.actionCancel:]';"
                 value="[:$MODEL.language->getMessage('msg.cancel'):]" style="width: 64px" />

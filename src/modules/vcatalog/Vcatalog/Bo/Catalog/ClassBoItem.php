@@ -11,18 +11,21 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
     const COL_PRICE = 'iprice';
     const COL_OLD_PRICE = 'iold_price';
     const COL_STOCK = 'istock';
+    const COL_IMAGE_ID = 'iimage_id';
 
     private $id, $active, $categoryId, $title, $description, $vendor;
     private $timestamp;
     private $price, $oldPrice, $stock;
+    private $imageId;
 
     private $category;
 
     private $urlDelete = NULL;
     private $urlEdit = NULL;
     private $urlView = NULL;
+    private $urlThumbnail = NULL;
 
-    /* (non-PHPdoc)
+    /**
      * @see Commons_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
@@ -35,7 +38,8 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
                 self::COL_TIMESTAMP => Array('timestamp', self::TYPE_INT),
                 self::COL_PRICE => Array('price', self::TYPE_DOUBLE),
                 self::COL_OLD_PRICE => Array('oldPrice', self::TYPE_DOUBLE),
-                self::COL_STOCK => Array('stock', self::TYPE_DOUBLE));
+                self::COL_STOCK => Array('stock', self::TYPE_DOUBLE),
+                self::COL_IMAGE_ID => Array('imageId'));
     }
 
     /**
@@ -72,6 +76,21 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
             $this->urlView = $_SERVER['SCRIPT_NAME'] . '/item/' . $this->id;
         }
         return $this->urlView;
+    }
+
+    /**
+     * Gets the URL to view the category's image as thumbnail.
+     *
+     * @return string
+     */
+    public function getUrlThumbnail() {
+        if ($this->urlThumbnail === NULL) {
+            $this->urlThumbnail = Paperclip_Utils::createUrlThumbnail($this->imageId);
+            if ($this->urlThumbnail === NULL) {
+                $this->urlThumbnail = '';
+            }
+        }
+        return $this->urlThumbnail;
     }
 
     public function getId() {
@@ -164,5 +183,13 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
 
     public function setStock($stock) {
         $this->stock = $stock;
+    }
+
+    public function getImageId() {
+        return $this->imageId;
+    }
+
+    public function setImageId($imageId) {
+        $this->imageId = $imageId;
     }
 }

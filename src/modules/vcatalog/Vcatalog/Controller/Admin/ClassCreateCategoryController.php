@@ -6,6 +6,16 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
     const FORM_FIELD_PARENT_ID = 'parentId';
     const FORM_FIELD_CATEGORY_TITLE = 'categoryTitle';
     const FORM_FIELD_CATEGORY_DESCRIPTION = 'categoryDescription';
+    const FORM_FIELD_CATEGORY_IMAGE = 'categoryImage';
+    const FORM_FIELD_CATEGORY_IMAGE_ID = 'categoryImageId';
+    const FORM_FIELD_URL_CATEGORY_IMAGE = 'urlCategoryImage';
+
+    private $sessionKey;
+
+    public function __construct() {
+        parent::__construct();
+        $this->sessionKey = __CLASS__ . '_fileId';
+    }
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -47,6 +57,10 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
         $model[MODEL_CATEGORY_TREE] = $catTree;
+        //$model[MODEL_CATEGORY_TREE] = Array();
+        //foreach ($catTree as $cat) {
+        //    $model[MODEL_CATEGORY_TREE][] = $cat;
+        //}
         return $model;
     }
 
@@ -59,7 +73,12 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
                 'name' => 'frmCreateCategory');
         $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_DESCRIPTION,
                 self::FORM_FIELD_CATEGORY_TITLE,
-                self::FORM_FIELD_PARENT_ID));
+                self::FORM_FIELD_PARENT_ID,
+                self::FORM_FIELD_CATEGORY_IMAGE_ID));
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        if ($paperclipId !== NULL) {
+            $form[self::FORM_FIELD_URL_CATEGORY_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
+        }
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
         }
@@ -97,6 +116,15 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
             $this->addErrorMessage($lang->getMessage('error.emptyCategoryTitle'));
         }
 
+        //take care of the uploaded file
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        $paperclipItem = $this->processUploadFile(self::FORM_FIELD_CATEGORY_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
+        if ($paperclipItem !== NULL) {
+            $_SESSION[$this->sessionKey] = $paperclipItem->getId();
+        } else {
+            $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+        }
+
         if ($this->hasError()) {
             return FALSE;
         }
@@ -106,7 +134,15 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
             $parentId = NULL;
         }
         $desc = isset($_POST[self::FORM_FIELD_CATEGORY_DESCRIPTION]) ? trim($_POST[self::FORM_FIELD_CATEGORY_DESCRIPTION]) : '';
-        $catalogDao->createCategory($position, $parentId, $title, $desc);
+        $catalogDao->createCategory($position, $parentId, $title, $desc, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL);
+
+        //clean-up
+        unset($_SESSION[$this->sessionKey]);
+        if ($paperclipItem !== NULL) {
+            $paperclipItem->setIsDraft(FALSE);
+            $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+            $paperclipDao->updateAttachment($paperclipItem);
+        }
 
         return TRUE;
     }

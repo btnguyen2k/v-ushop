@@ -7,9 +7,11 @@ interface Paperclip_Bo_IPaperclipDao extends Ddth_Dao_IDao {
      * @param string $pathToFileContent path to the file on disk to load
      * @param string $filename name of the to store in db
      * @param string $mimeType
+     * @param boolean $isDraft
+     * @param string $thumbnail
      * @return Paperclip_Bo_BoPaperclip
      */
-    public function createAttachment($pathToFileContent, $filename, $mimeType);
+    public function createAttachment($pathToFileContent, $filename, $mimeType, $isDraft = FALSE, $thumbnail = NULL);
 
     /**
      * Deletes an attachment.

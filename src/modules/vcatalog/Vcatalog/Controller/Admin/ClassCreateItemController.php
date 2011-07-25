@@ -8,6 +8,16 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     const FORM_FIELD_DESCRIPTION = 'itemDescription';
     const FORM_FIELD_VENDOR = 'itemVendor';
     const FORM_FIELD_PRICE = 'itemPrice';
+    const FORM_FIELD_IMAGE = 'itemImage';
+    const FORM_FIELD_IMAGE_ID = 'itemImageId';
+    const FORM_FIELD_URL_IMAGE = 'urlItemImage';
+
+    private $sessionKey;
+
+    public function __construct() {
+        parent::__construct();
+        $this->sessionKey = __CLASS__ . '_fileId';
+    }
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -63,7 +73,12 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
                 self::FORM_FIELD_DESCRIPTION,
                 self::FORM_FIELD_PRICE,
                 self::FORM_FIELD_TITLE,
-                self::FORM_FIELD_VENDOR));
+                self::FORM_FIELD_VENDOR,
+                self::FORM_FIELD_IMAGE_ID));
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        if ($paperclipId !== NULL) {
+            $form[self::FORM_FIELD_URL_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
+        }
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
         }
@@ -103,6 +118,15 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
             $this->addErrorMessage($lang->getMessage('error.emptyItemTitle'));
         }
 
+        //take care of the uploaded file
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
+        if ($paperclipItem !== NULL) {
+            $_SESSION[$this->sessionKey] = $paperclipItem->getId();
+        } else {
+            $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+        }
+
         if ($this->hasError()) {
             return FALSE;
         }
@@ -111,7 +135,15 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
         $oldPrice = 0.0;
         $stock = 0.0;
 
-        $catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock);
+        $catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL);
+
+        //clean-up
+        unset($_SESSION[$this->sessionKey]);
+        if ($paperclipItem !== NULL) {
+            $paperclipItem->setIsDraft(FALSE);
+            $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+            $paperclipDao->updateAttachment($paperclipItem);
+        }
 
         return TRUE;
     }

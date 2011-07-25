@@ -29,6 +29,13 @@ class Commons_DebugInfo {
     }
 
     public function getSqlLog() {
-        return Ddth_Dao_BaseDaoFactory::getQueryLog();
+        $sqlLog = Ddth_Dao_BaseDaoFactory::getQueryLog();
+        for ($i = 0; $i < count($sqlLog); $i++) {
+            $sql = $sqlLog[$i][0];
+            if (strlen($sql) > 200) {
+                $sqlLog[$i][0] = substr($sql, 0, 197) . '...';
+            }
+        }
+        return $sqlLog;
     }
 }

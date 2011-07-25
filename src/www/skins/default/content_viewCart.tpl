@@ -49,6 +49,8 @@
         </table>
         <p align="center">
             <a href="[:$MODEL.cart->getUrlCheckout():]"><img src="img/cart_go.png" border="0"/> [:$MODEL.language->getMessage('msg.checkout'):]</a>
+            &nbsp;
+            <a href="[:$smarty.server.SCRIPT_NAME:]"><img src="img/home.png" border="0"/> [:$MODEL.language->getMessage('msg.continueShopping'):]</a>
         </p>
     </div>
 </div>

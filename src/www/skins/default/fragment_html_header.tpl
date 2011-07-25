@@ -9,6 +9,6 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <title>[:$MODEL.page.title|escape:'html':]</title>
     [:if isset($MODEL.urlTransit):]
-        <meta http-equiv="refresh" content="2; [:$MODEL.urlTransit:]" />
+        <meta http-equiv="refresh" content="2; url=[:$MODEL.urlTransit:]" />
     [:/if:]
 </head>

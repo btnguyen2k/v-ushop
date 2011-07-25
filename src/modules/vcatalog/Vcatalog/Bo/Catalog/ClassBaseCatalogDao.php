@@ -67,14 +67,15 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::createCategory()
      */
-    public function createCategory($position, $parentId, $title, $description) {
+    public function createCategory($position, $parentId, $title, $description, $imageId) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
         $params = Array('position' => $position,
                 'parentId' => $parentId,
                 'title' => $title,
-                'description' => $description);
+                'description' => $description,
+                'imageId' => $imageId);
         $sqlStm->execute($sqlConn->getConn(), $params);
 
         $this->closeConnection();
@@ -93,6 +94,14 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
 
         $this->closeConnection();
         $this->invalidateCategoryCache($category);
+
+        //delete the attachment too!
+        $paperclipId = $category->getImageId();
+        $paperclipDao = $this->getDaoFactory()->getDao(DAO_PAPERCLIP);
+        $paperclipItem = $paperclipDao->getAttachment($paperclipId);
+        if ($paperclipItem !== NULL) {
+            $paperclipDao->deleteAttachment($paperclipItem);
+        }
     }
 
     /**
@@ -219,7 +228,8 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
                 'position' => $category->getPosition(),
                 'parentId' => $category->getParentId(),
                 'title' => $category->getTitle(),
-                'description' => $category->getDescription());
+                'description' => $category->getDescription(),
+                'imageId' => $category->getImageId());
         $sqlStm->execute($sqlConn->getConn(), $params);
 
         $this->closeConnection();
@@ -229,7 +239,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::createItem()
      */
-    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock) {
+    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
@@ -240,7 +250,8 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
                 'timestamp' => $timestamp,
                 'price' => $price,
                 'oldPrice' => $oldPrice,
-                'stock' => $stock);
+                'stock' => $stock,
+                'imageId' => $imageId);
 
         $sqlStm->execute($sqlConn->getConn(), $params);
 
@@ -260,6 +271,14 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
 
         $this->closeConnection();
         $this->invalidateItemCache($item);
+
+        //delete the attachment too!
+        $paperclipId = $item->getImageId();
+        $paperclipDao = $this->getDaoFactory()->getDao(DAO_PAPERCLIP);
+        $paperclipItem = $paperclipDao->getAttachment($paperclipId);
+        if ($paperclipItem !== NULL) {
+            $paperclipDao->deleteAttachment($paperclipItem);
+        }
     }
 
     /**
@@ -363,7 +382,8 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
                 'vendor' => $item->getVendor(),
                 'price' => $item->getPrice(),
                 'oldPrice' => $item->getOldPrice(),
-                'stock' => $item->getStock());
+                'stock' => $item->getStock(),
+                'imageId' => $item->getImageId());
 
         $sqlStm->execute($sqlConn->getConn(), $params);
 

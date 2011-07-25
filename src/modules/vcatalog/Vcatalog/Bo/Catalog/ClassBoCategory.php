@@ -6,8 +6,9 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
     const COL_PARENT_ID = 'cparent_id';
     const COL_TITLE = 'ctitle';
     const COL_DESCRIPTION = 'cdesc';
+    const COL_IMAGE_ID = 'cimage_id';
 
-    private $id, $position, $parentId, $title, $description;
+    private $id, $position, $parentId, $title, $description, $imageId;
     private $children = Array();
 
     private $urlDelete = NULL;
@@ -15,8 +16,9 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
     private $urlMoveUp = NULL;
     private $urlMoveDown = NULL;
     private $urlView = NULL;
+    private $urlThumbnail = NULL;
 
-    /* (non-PHPdoc)
+    /**
      * @see Commons_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
@@ -24,7 +26,8 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
                 self::COL_POSITION => Array('position', self::TYPE_INT),
                 self::COL_PARENT_ID => Array('parentId', self::TYPE_INT),
                 self::COL_TITLE => Array('title'),
-                self::COL_DESCRIPTION => Array('description'));
+                self::COL_DESCRIPTION => Array('description'),
+                self::COL_IMAGE_ID => Array('imageId'));
     }
 
     /**
@@ -87,6 +90,21 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
         return $this->urlView;
     }
 
+    /**
+     * Gets the URL to view the category's image as thumbnail.
+     *
+     * @return string
+     */
+    public function getUrlThumbnail() {
+        if ($this->urlThumbnail === NULL) {
+            $this->urlThumbnail = Paperclip_Utils::createUrlThumbnail($this->imageId);
+            if ($this->urlThumbnail === NULL) {
+                $this->urlThumbnail = '';
+            }
+        }
+        return $this->urlThumbnail;
+    }
+
     public function getId() {
         return $this->id;
     }
@@ -122,7 +140,7 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
         if (strlen($this->title) <= $maxLength) {
             return $this->title;
         }
-        return mb_substr($this->title, 0, $maxLength-3) . '...';
+        return mb_substr($this->title, 0, $maxLength - 3) . '...';
     }
 
     public function setTitle($title) {
@@ -135,6 +153,14 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
 
     public function setDescription($description) {
         $this->description = $description;
+    }
+
+    public function getImageId() {
+        return $this->imageId;
+    }
+
+    public function setImageId($imageId) {
+        $this->imageId = $imageId;
     }
 
     public function getChildren() {

@@ -1,6 +1,7 @@
 [:function name=displayCategoryItem cart=NULL item=NULL picAlign='left':]
     <div style="height: 50px">
-        <img src="./img/img_general.jpg" class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="50" alt="" />
+        <img src="[:if $item->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$item->getUrlThumbnail():][:/if:]"
+            class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="50" height="50" alt="" />
         <small>
             [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:number_format($item->getPrice(), 2, ',', '.'):]</strong>
             <br />

@@ -11,10 +11,13 @@
         [:if count($MODEL.categoryList) gt 0:]
             <table style="width: 90%; margin-left: auto; margin-right: auto">
             [:foreach $MODEL.categoryList as $cat:]
-                [:if $cat@index % 4 == 0:][:if !$cat@first:]</tr>[:/if:]<tr>[:/if:]
-                <td width="25%" align="center"><a href="[:$cat->getUrlView():]">[:$cat->getTitle()|escape:'html':]</a></td>
+                [:if $cat@index % 3 == 0:][:if !$cat@first:]</tr>[:/if:]<tr>[:/if:]
+                <td width="25%">
+                    <a href="[:$cat->getUrlView():]"><img border="1" width="50" height="50" alt="" style="float: left; margin: 4px"
+                        src="[:if $cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$cat->getUrlThumbnail():][:/if:]"/><small>[:$cat->getTitle()|escape:'html':]</small></a>
+                </td>
                 [:if $cat@last:]
-                    [:for $i=($cat@index % 4) to 2:]
+                    [:for $i=($cat@index % 3) to 1:]
                         <td>&nbsp;</td>
                     [:/for:]
                     </tr>

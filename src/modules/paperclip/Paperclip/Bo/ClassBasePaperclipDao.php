@@ -12,24 +12,17 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
         parent::__construct();
     }
 
-    private function makeThumbnail() {
-        return NULL;
-    }
-
-    /* (non-PHPdoc)
+    /**
      * @see Paperclip_Bo_IPaperclipDao::createAttachment()
      */
-    public function createAttachment($pathToFileContent, $filename, $mimeType) {
+    public function createAttachment($pathToFileContent, $filename, $mimeType, $isDraft = FALSE, $thumbnail = NULL) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
         $id = uniqid('', TRUE);
         $timestamp = time();
         $filesize = filesize($pathToFileContent);
-        $fp = fopen($pathToFileContent, 'rb');
-        $filecontent = fread($fp, $filesize);
-        fclose($fp);
-        $thumbnail = $this->makeThumbnail($pathToFileContent, $mimeType);
+        $filecontent = Commons_Utils_FileUtils::getFileContent($pathToFileContent);
 
         $params = Array('id' => $id,
                 'filename' => $filename,
@@ -37,14 +30,15 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
                 'filecontent' => $filecontent,
                 'thumbnail' => $thumbnail,
                 'mimetype' => $mimeType,
-                'timestamp' => $timestamp);
+                'timestamp' => $timestamp,
+                'isDraft' => $isDraft ? 1 : 0);
         $sqlStm->execute($sqlConn->getConn(), $params);
         $this->closeConnection();
 
         return $this->getAttachment($id);
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Paperclip_Bo_IPaperclipDao::deleteAttachment()
      */
     public function deleteAttachment($attachment) {
@@ -56,7 +50,7 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
         $this->closeConnection();
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Paperclip_Bo_IPaperclipDao::getAttachment()
      */
     public function getAttachment($id) {
@@ -73,10 +67,17 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
         }
 
         $this->closeConnection();
+
+        $timestamp = time();
+        if ($result !== NULL && $result->getTimestamp() + 24 * 3600 < $timestamp) {
+            //update timestamp if needed
+            $result->setTimestamp($timestamp);
+            $this->updateAttachment($result);
+        }
         return $result;
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Paperclip_Bo_IPaperclipDao::updateAttachment()
      */
     public function updateAttachment($attachment) {
@@ -89,7 +90,8 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
                 'filecontent' => $attachment->getFilecontent(),
                 'thumbnail' => $attachment->getThumbnail(),
                 'mimetype' => $attachment->getMimetype(),
-                'timestamp' => $attachment->getTimestamp());
+                'timestamp' => $attachment->getTimestamp(),
+                'isDraft' => $attachment->isDraft() ? 1 : 0);
         $sqlStm->execute($sqlConn->getConn(), $params);
         $this->closeConnection();
     }

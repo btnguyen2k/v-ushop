@@ -12,22 +12,28 @@ abstract class Vcatalog_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao imp
         parent::__construct();
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Session_ISessionDao::deleteExpiredSessions()
      */
     public function deleteExpiredSessions($expiry) {
+        return;
         if ($this->LOGGER->isDebugEnabled()) {
             $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Expiry: {$expiry}";
             $this->LOGGER->debug($msg);
         }
-        $sqlStm = $this->getStatement('sql.deleteExpiredSessions');
-        $wrappedConn = $this->getConnection();
+        $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Expiry: {$expiry}";
+        print_r($msg);
+        return;
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
 
-        $sqlStm->execute($wrappedConn->getConn());
+        $params = Array('expiry' => $expiry);
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+
         $this->closeConnection();
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Session_ISessionDao::deleteSessionData()
      */
     public function deleteSessionData($id) {
@@ -35,15 +41,16 @@ abstract class Vcatalog_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao imp
             $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Session Id: {$id}";
             $this->LOGGER->debug($msg);
         }
-        $sqlStm = $this->getStatement('sql.deleteSessionById');
-        $wrappedConn = $this->getConnection();
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
 
-        $params = Array('sid' => $id);
-        $sqlStm->execute($wrappedConn->getConn(), $params);
+        $params = Array('id' => $id);
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+
         $this->closeConnection();
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Session_ISessionDao::readSessionData()
      */
     public function readSessionData($id) {
@@ -51,7 +58,7 @@ abstract class Vcatalog_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao imp
             $msg = '[' . __CLASS__ . '::' . __FUNCTION__ . "]Session Id: {$id}";
             $this->LOGGER->debug($msg);
         }
-        $sqlStm = $this->getStatement('sql.readSession');
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
         $params = Array('id' => $id);
@@ -62,7 +69,7 @@ abstract class Vcatalog_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao imp
         return $result !== FALSE ? $result['data'] : NULL;
     }
 
-    /* (non-PHPdoc)
+    /**
      * @see Vcatalog_Bo_Session_ISessionDao::writeSessionData()
      */
     public function writeSessionData($id, $data) {
@@ -78,7 +85,7 @@ abstract class Vcatalog_Bo_Session_BaseSessionDao extends Commons_Bo_BaseDao imp
         }
         $sqlConn = $this->getConnection();
 
-        $params = Array('id' => $id, 'data' => $data);
+        $params = Array('id' => $id, 'data' => $data, 'timestamp' => time());
         $sqlStm->execute($sqlConn->getConn(), $params);
         $this->closeConnection();
     }

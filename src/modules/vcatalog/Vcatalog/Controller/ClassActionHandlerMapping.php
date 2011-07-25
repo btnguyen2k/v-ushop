@@ -5,6 +5,12 @@ include_once 'Yadif/Container.php';
 
 global $YADIF_CONFIG;
 $YADIF_CONFIG = Array(
+        'Paperclip_Controller_ViewThumbnailController' => Array(
+                'class' => 'Paperclip_Controller_ViewThumbnailController',
+                'scope' => 'singleton'),
+        //'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
+
+
         'Vcatalog_Controller_HomeController' => Array(
                 'class' => 'Vcatalog_Controller_HomeController',
                 'scope' => 'singleton'),

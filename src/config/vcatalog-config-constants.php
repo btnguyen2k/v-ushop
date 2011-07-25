@@ -6,6 +6,12 @@ define('CONFIG_SITE_NAME', 'site_name');
 define('CONFIG_SITE_SLOGAN', 'site_slogan');
 define('CONFIG_SITE_TITLE', 'site_title');
 
+define('MAX_UPLOAD_FILESIZE', 300000);
+define('ALLOWED_UPLOAD_FILE_TYPES', '*.gif,*.jpg;.*.png');
+
+define('THUMBNAIL_WIDTH', 150);
+define('THUMBNAIL_HEIGHT', 150);
+
 define('FORM_ERROR_MESSAGES', 'errorMessages');
 define('FORM_INFO_MESSAGES', 'infoMessages');
 
@@ -44,5 +50,6 @@ define('DAO_CATALOG', 'dao.catalog');
 define('DAO_CART', 'dao.cart');
 define('DAO_CONFIG', 'dao.config');
 define('DAO_PAGE', 'dao.page');
+define('DAO_PAPERCLIP', 'dao.paperclip');
 define('DAO_SESSION', 'dao.session');
 define('DAO_USER', 'dao.user');

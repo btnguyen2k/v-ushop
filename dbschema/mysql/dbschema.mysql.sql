@@ -81,6 +81,8 @@ CREATE TABLE app_log(
 
 CREATE TABLE http_session (
     sid             VARCHAR(32)             NOT NULL,
+    stimestamp      INT                     NOT NULL DEFAULT 0,
+        INDEX stimestamp(stimestamp),
     sdata           TEXT,
     PRIMARY KEY(sid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -116,6 +118,8 @@ CREATE TABLE vcatalog_category (
     cparent_id      INT,
     ctitle          VARCHAR(64),
     cdesc           VARCHAR(255),
+    cimage_id       VARCHAR(64),
+        INDEX cimage_id (cimage_id),
     PRIMARY KEY (cid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
@@ -136,6 +140,8 @@ CREATE TABLE vcatalog_item (
     iold_price      DECIMAL(10,2),
     istock          DECIMAL(10,2)           NOT NULL DEFAULT 0.00,
         INDEX istock(istock),
+    iimage_id       VARCHAR(64),
+        INDEX iimage_id (iimage_id),
     PRIMARY KEY (iid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 

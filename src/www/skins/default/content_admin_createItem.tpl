@@ -8,7 +8,14 @@
 ><!-- Middle column full box -->
     <div class="middle-column-box-green">
         <div class="middle-column-box-title-green">[:$MODEL.language->getMessage('msg.createItem'):]</div>
-        <form method="post" action="[:$MODEL.form.action:]" name="[:$MODEL.form.name|escape:'html':]">
+        <form method="post" action="[:$MODEL.form.action:]" name="[:$MODEL.form.name|escape:'html':]" enctype="multipart/form-data">
+            [:if isset($MODEL.form.urlItemImage):]
+                <p style="float: right; text-align: center;">
+                    <img border="0" src="[:$MODEL.form.urlItemImage:]" width="100px" height="100px"/>
+                    <br />
+                    <small>[:$MODEL.language->getMessage('msg.item.image'):]</small>
+                </p>
+            [:/if:]
             [:printFormHeader form=$MODEL.form:]
             <label>[:$MODEL.language->getMessage('msg.item.category'):]:</label>
             <select name="categoryId">
@@ -32,7 +39,10 @@
             <br/>
             <label>[:$MODEL.language->getMessage('msg.item.description'):]:</label>
             <textarea id="createItemDescription" rows="16" name="itemDescription" style="width: 98%">[:$MODEL.form.itemDescription|escape:'html':]</textarea>
-            <br/>
+            <label>[:$MODEL.language->getMessage('msg.item.image'):]:</label>
+            <input type="file" name="itemImage" style="width: 98%" />
+            <input type="hidden" name="itemImageId" value="[:$MODEL.form.itemImageId|escape:'html':]" />
+            <br />
             <input type="submit" value="[:$MODEL.language->getMessage('msg.save'):]" style="width: 64px" />
             <input type="button" onclick="javascript:location.href='[:$MODEL.form.actionCancel:]';"
                 value="[:$MODEL.language->getMessage('msg.cancel'):]" style="width: 64px" />

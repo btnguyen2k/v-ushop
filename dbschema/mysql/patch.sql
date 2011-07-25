@@ -1,3 +1,5 @@
-ALTER TABLE vcatalog_paperclip ADD COLUMN pis_draft INT NOT NULL DEFAULT 0;
-CREATE INDEX pis_draft ON vcatalog_paperclip (pis_draft);
-CREATE INDEX ptimestamp ON vcatalog_paperclip (ptimestamp);
+ALTER TABLE vcatalog_category ADD COLUMN cimage_id VARCHAR(64);
+CREATE INDEX cimage_id ON vcatalog_category (cimage_id);
+
+ALTER TABLE vcatalog_item ADD COLUMN iimage_id VARCHAR(64);
+CREATE INDEX iimage_id ON vcatalog_item (iimage_id);

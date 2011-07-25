@@ -15,8 +15,9 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param int $parentId
      * @param string $title
      * @param string $description
+     * @param string $imageId
      */
-    public function createCategory($position, $parentId, $title, $description);
+    public function createCategory($position, $parentId, $title, $description, $imageId);
 
     /**
      * Deletes a category.
@@ -66,8 +67,9 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param double $price
      * @param double $oldPrice
      * @param double $stock
+     * @param string $imageId
      */
-    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock);
+    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId);
 
     /**
      * Deletes an existing items.

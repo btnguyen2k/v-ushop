@@ -23,6 +23,16 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     * @see Dzit_Controller_FlowController::execute()
+     */
+    public function execute($module, $action) {
+        if ($this->saveUrl) {
+            $_SESSION[SESSION_LAST_ACCESS_URL] = $_SERVER['REQUEST_URI'];
+        }
+        return parent::execute($module, $action);
+    }
+
+    /**
      * Gets the "baseHref".
      *
      * @return string
@@ -152,7 +162,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      *
      * @param Array
      */
-    public function getAllowedUserGroups() {
+    protected function getAllowedUserGroups() {
         return $this->allowedUserGroups;
     }
 
@@ -288,6 +298,15 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     * Gets the url to handle file uploading.
+     *
+     * @return string
+     */
+    protected function getUrlUploadHandler() {
+        return $_SERVER['SCRIPT_NAME'] . '/paperclip/uploadHandler';
+    }
+
+    /**
      * Gets the name of view for {@link getModelAndView()} function.
      *
      * @return string
@@ -306,6 +325,15 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         }
         $model = $this->buildModel();
         return new Dzit_ModelAndView($viewName, $model);
+    }
+
+    /**
+     * @see Dzit_Controller_FlowController::getModelAndView_Login()
+     */
+    protected function getModelAndView_Login() {
+        $url = $this->getUrlLogin();
+        $view = new Dzit_View_RedirectView($url);
+        return new Dzit_ModelAndView($view, NULL);
     }
 
     /**
@@ -362,10 +390,12 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             $model['urlLogin'] = $this->getUrlLogin();
             $model['urlRegister'] = $this->getUrlRegister();
         }
+        $model['urlUploadHandler'] = $this->getUrlUploadHandler();
 
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
+
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
         $model[MODEL_CATEGORY_TREE] = $catTree;
@@ -454,6 +484,68 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
                 $form[$fieldName] = $_POST[$fieldName];
             }
         }
+    }
+
+    protected function processUploadFile($formFieldName, $maxFileSize, $allowedFileTypes, $paperclipId = NULL) {
+        if (!isset($_FILES[$formFieldName]) || $_FILES[$formFieldName]['error'] === UPLOAD_ERR_NO_FILE) {
+            return NULL;
+        }
+        /**
+         * @var Ddth_Mls_ILanguage
+         */
+        $lang = $this->getLanguage();
+        $file = $_FILES[$formFieldName];
+        $hasError = FALSE;
+        if ($file['error']) {
+            $this->addErrorMessage($lang->getMessage('error.uploadError'));
+            $hasError = TRUE;
+        }
+        if ($maxFileSize > 0 && $file['size'] > $maxFileSize) {
+            $this->addErrorMessage($lang->getMessage('error.uploadedFileTooLarge', MAX_UPLOAD_FILESIZE . ' b'));
+            $hasError = TRUE;
+        }
+        if (!Commons_Utils_FileUtils::isValidFileExtension($file['name'], $allowedFileTypes)) {
+            $this->addErrorMessage($lang->getMessage('error.invalidFileType', $allowedFileTypes));
+            $hasError = TRUE;
+        }
+        if (!$hasError) {
+            $thumbnail = Commons_Utils_ImageUtils::createThumbnailJpeg($file['tmp_name'], THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+            if ($thumbnail === NULL) {
+                $this->addErrorMessage($lang->getMessage('error.invalidImageFile'));
+            } else {
+                //taking care of the filename
+                $pathinfo = pathinfo($file['name']);
+                if (!isset($pathinfo['extension'])) {
+                    $pathinfo['extension'] = '';
+                }
+                $filename = str_replace('.', '_', uniqid('', TRUE));
+                if (strlen($pathinfo['extension']) > 0 && strlen($pathinfo['extension']) < 5) {
+                    $filename = $filename . '.' . $pathinfo['extension'];
+                }
+
+                /**
+                 * @var Paperclip_Bo_IPaperclipDao
+                 */
+                $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+                /**
+                 * @var Paperclip_Bo_BoPaperclip
+                 */
+                $paperclipItem = $paperclipId !== NULL ? $paperclipDao->getAttachment($paperclipId) : NULL;
+                if ($paperclipItem === NULL) {
+                    $paperclipItem = $paperclipDao->createAttachment($file['tmp_name'], $filename, $file['type'], TRUE, $thumbnail);
+                } else {
+                    $filecontent = Commons_Utils_FileUtils::getFileContent($file['tmp_name']);
+                    $paperclipItem->setFilecontent($filecontent);
+                    $paperclipItem->setFilename($filename);
+                    $paperclipItem->setFilesize($file['size']);
+                    $paperclipItem->setMimetype($file['type']);
+                    $paperclipItem->setThumbnail($thumbnail);
+                    $paperclipDao->updateAttachment($paperclipItem);
+                }
+                return $paperclipItem;
+            }
+        }
+        return NULL;
     }
 
     /**

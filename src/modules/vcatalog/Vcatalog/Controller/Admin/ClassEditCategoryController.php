@@ -6,12 +6,22 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     const FORM_FIELD_PARENT_ID = 'parentId';
     const FORM_FIELD_CATEGORY_TITLE = 'categoryTitle';
     const FORM_FIELD_CATEGORY_DESCRIPTION = 'categoryDescription';
+    const FORM_FIELD_CATEGORY_IMAGE = 'categoryImage';
+    const FORM_FIELD_CATEGORY_IMAGE_ID = 'categoryImageId';
+    const FORM_FIELD_URL_CATEGORY_IMAGE = 'urlCategoryImage';
 
     /**
      * @var Vcatalog_Bo_Catalog_BoCategory
      */
     private $category = NULL;
     private $categoryId;
+
+    private $sessionKey;
+
+    public function __construct() {
+        parent::__construct();
+        $this->sessionKey = __CLASS__ . '_fileId';
+    }
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -39,6 +49,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         if ($this->category != NULL) {
             $children = $catalogDao->getCategoryChildren($this->category);
             $this->category->setChildren($children);
+            $_SESSION[$this->sessionKey] = $this->category->getImageId();
         }
     }
 
@@ -131,9 +142,15 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         $form[self::FORM_FIELD_PARENT_ID] = $this->category->getParentId();
         $form[self::FORM_FIELD_CATEGORY_TITLE] = $this->category->getTitle();
         $form[self::FORM_FIELD_CATEGORY_DESCRIPTION] = $this->category->getDescription();
+        $form[self::FORM_FIELD_CATEGORY_IMAGE_ID] = $this->category->getImageId();
         $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_DESCRIPTION,
                 self::FORM_FIELD_CATEGORY_TITLE,
-                self::FORM_FIELD_PARENT_ID));
+                self::FORM_FIELD_PARENT_ID,
+                self::FORM_FIELD_CATEGORY_IMAGE_ID));
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        if ($paperclipId !== NULL) {
+            $form[self::FORM_FIELD_URL_CATEGORY_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
+        }
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
         }
@@ -171,6 +188,13 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
             $this->addErrorMessage($lang->getMessage('error.emptyCategoryTitle'));
         }
 
+        //take care of the uploaded file
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        $paperclipItem = $this->processUploadFile(self::FORM_FIELD_CATEGORY_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
+        if ($paperclipItem !== NULL) {
+            $_SESSION[$this->sessionKey] = $paperclipItem->getId();
+        }
+
         if ($this->hasError()) {
             return FALSE;
         }
@@ -182,7 +206,18 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         $this->category->setTitle($title);
         $desc = isset($_POST[self::FORM_FIELD_CATEGORY_DESCRIPTION]) ? $_POST[self::FORM_FIELD_CATEGORY_DESCRIPTION] : '';
         $this->category->setDescription($desc);
+        if ($paperclipItem !== NULL) {
+            $this->category->setImageId($paperclipItem->getId());
+        }
         $catalogDao->updateCategory($this->category);
+
+        //clean-up
+        unset($_SESSION[$this->sessionKey]);
+        if ($paperclipItem !== NULL) {
+            $paperclipItem->setIsDraft(FALSE);
+            $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+            $paperclipDao->updateAttachment($paperclipItem);
+        }
 
         return TRUE;
     }
