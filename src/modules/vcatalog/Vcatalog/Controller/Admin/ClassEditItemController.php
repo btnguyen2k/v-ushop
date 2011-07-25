@@ -9,12 +9,22 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     const FORM_FIELD_DESCRIPTION = 'itemDescription';
     const FORM_FIELD_VENDOR = 'itemVendor';
     const FORM_FIELD_PRICE = 'itemPrice';
+    const FORM_FIELD_IMAGE = 'itemImage';
+    const FORM_FIELD_IMAGE_ID = 'itemImageId';
+    const FORM_FIELD_URL_IMAGE = 'urlItemImage';
 
     /**
      * @var Vcatalog_Bo_Catalog_BoItem
      */
     private $item = NULL;
     private $itemId;
+
+    private $sessionKey;
+
+    public function __construct() {
+        parent::__construct();
+        $this->sessionKey = __CLASS__ . '_fileId';
+    }
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -39,6 +49,9 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->item = $catalogDao->getItemById($this->itemId);
+        if ($this->item !== NULL) {
+            $_SESSION[$this->sessionKey] = $this->item->getImageId();
+        }
     }
 
     /**
@@ -108,12 +121,18 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $form[self::FORM_FIELD_PRICE] = $this->item->getPrice();
         $form[self::FORM_FIELD_TITLE] = $this->item->getTitle();
         $form[self::FORM_FIELD_VENDOR] = $this->item->getVendor();
+        $form[self::FORM_FIELD_IMAGE_ID] = $this->item->getImageId();
 
         $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_ID,
                 self::FORM_FIELD_DESCRIPTION,
                 self::FORM_FIELD_PRICE,
                 self::FORM_FIELD_TITLE,
-                self::FORM_FIELD_VENDOR));
+                self::FORM_FIELD_VENDOR,
+                self::FORM_FIELD_IMAGE_ID));
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        if ($paperclipId !== NULL) {
+            $form[self::FORM_FIELD_URL_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
+        }
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
         }
@@ -153,6 +172,15 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
             $this->addErrorMessage($lang->getMessage('error.emptyItemTitle'));
         }
 
+        //take care of the uploaded file
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
+        if ($paperclipItem !== NULL) {
+            $_SESSION[$this->sessionKey] = $paperclipItem->getId();
+        } else {
+            $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+        }
+
         if ($this->hasError()) {
             return FALSE;
         }
@@ -162,8 +190,18 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $this->item->setDescription($description);
         $this->item->setVendor($vendor);
         $this->item->setPrice($price);
-
+        if ($paperclipItem !== NULL) {
+            $this->item->setImageId($paperclipItem->getId());
+        }
         $catalogDao->updateItem($this->item);
+
+        //clean-up
+        unset($_SESSION[$this->sessionKey]);
+        if ($paperclipItem !== NULL) {
+            $paperclipItem->setIsDraft(FALSE);
+            $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+            $paperclipDao->updateAttachment($paperclipItem);
+        }
 
         return TRUE;
     }

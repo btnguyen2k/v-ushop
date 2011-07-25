@@ -139,10 +139,12 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         $form = Array('action' => $_SERVER['REQUEST_URI'],
                 'actionCancel' => $this->getUrlCategoryManagement(),
                 'name' => 'frmEditCategory');
+
         $form[self::FORM_FIELD_PARENT_ID] = $this->category->getParentId();
         $form[self::FORM_FIELD_CATEGORY_TITLE] = $this->category->getTitle();
         $form[self::FORM_FIELD_CATEGORY_DESCRIPTION] = $this->category->getDescription();
         $form[self::FORM_FIELD_CATEGORY_IMAGE_ID] = $this->category->getImageId();
+
         $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_DESCRIPTION,
                 self::FORM_FIELD_CATEGORY_TITLE,
                 self::FORM_FIELD_PARENT_ID,
@@ -193,6 +195,8 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         $paperclipItem = $this->processUploadFile(self::FORM_FIELD_CATEGORY_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
         if ($paperclipItem !== NULL) {
             $_SESSION[$this->sessionKey] = $paperclipItem->getId();
+        } else {
+            $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
         }
 
         if ($this->hasError()) {
