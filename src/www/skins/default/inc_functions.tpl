@@ -1,9 +1,27 @@
+[:function name="displaySubCategoryList" categotyList=NULL:]
+<table style="width: 98%; margin-left: auto; margin-right: auto">
+    [:foreach $categoryList as $cat:]
+        [:if $cat@index % 3 == 0:][:if !$cat@first:]</tr>[:/if:]<tr>[:/if:]
+        <td width="25%">
+            <a href="[:$cat->getUrlView():]"><img border="1" width="50" height="50" alt="" style="float: left; margin: 4px"
+                src="[:if $cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$cat->getUrlThumbnail():][:/if:]"/><small>[:$cat->getTitle()|escape:'html':]</small></a>
+        </td>
+        [:if $cat@last:]
+            [:for $i=($cat@index % 3) to 1:]
+                <td>&nbsp;</td>
+            [:/for:]
+            </tr>
+        [:/if:]
+    [:/foreach:]
+</table>
+[:/function:]
+
 [:function name=displayCategoryItem cart=NULL item=NULL picAlign='left':]
-    <div style="height: 50px">
-        <img src="[:if $item->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$item->getUrlThumbnail():][:/if:]"
-            class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="50" height="50" alt="" />
+    <div>
+        <a href="[:$item->getUrlView():]"><img src="[:if $item->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$item->getUrlThumbnail():][:/if:]"
+            class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="100" height="100" alt="" /></a>
         <small>
-            [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:number_format($item->getPrice(), 2, ',', '.'):]</strong>
+            [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:$item->getPriceForDisplay():]</strong>
             <br />
             [:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$_item->getVendor()|escape:'html':]</strong>
         </small>
@@ -19,7 +37,7 @@
                     [:/if:]
                 </strong></a>
                 <br />
-                [:$MODEL.language->getMessage('msg.addToCart'):]:
+                <!-- [:$MODEL.language->getMessage('msg.addToCart'):]: -->
                 <input type="hidden" name="item" value="[:$_item->getId():]" />
                 <input type="text" name="quantity" value="1" style="width: 20px"/>
                 <input type="image" src="img/cart_put.png" align="top" title="[:$MODEL.language->getMessage('msg.add'):]"/>

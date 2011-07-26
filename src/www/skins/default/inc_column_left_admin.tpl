@@ -7,6 +7,7 @@
         <!-- <li><a href="[:$MODEL.urlAdmin:]">[:$MODEL.language->getMessage('msg.adminCp'):]</a> -->
         <li><a href="[:$MODEL.urlSiteSettings:]">[:$MODEL.language->getMessage('msg.siteSettings'):]</a>
         <li><a href="[:$MODEL.urlEmailSettings:]">[:$MODEL.language->getMessage('msg.emailSettings'):]</a>
+        <li><a href="[:$MODEL.urlCatalogSettings:]">[:$MODEL.language->getMessage('msg.catalogSettings'):]</a>
 
         <li><a class="left-navheader" href="[:$MODEL.urlCategoryManagement:]">[:$MODEL.language->getMessage('msg.catalogManagement'):]</a></li>
         <li><a href="[:$MODEL.urlCategoryManagement:]">[:$MODEL.language->getMessage('msg.categoryList'):]</a>

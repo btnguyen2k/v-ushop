@@ -96,7 +96,8 @@ $router = Array('*' => 'Vcatalog_Controller_HomeController',
                 'deletePage' => 'Vcatalog_Controller_Admin_DeletePageController',
                 'editPage' => 'Vcatalog_Controller_Admin_EditPageController',
                 'siteSettings' => 'Vcatalog_Controller_Admin_SiteSettingsController',
-                'emailSettings' => 'Vcatalog_Controller_Admin_EmailSettingsController'));
+                'emailSettings' => 'Vcatalog_Controller_Admin_EmailSettingsController',
+                'catalogSettings' => 'Vcatalog_Controller_Admin_CatalogSettingsController'));
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 
 /*

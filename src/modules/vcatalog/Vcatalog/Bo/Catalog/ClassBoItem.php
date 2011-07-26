@@ -161,6 +161,15 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
         $this->timestamp = $timestamp;
     }
 
+    public function getPriceForDisplay() {
+        $configDao = Ddth_Dao_BaseDaoFactory::getInstance()->getDao(DAO_CONFIG);
+        $currency = $configDao->loadConfig(CONFIG_CURRENCY);
+        $priceDecimalPlaces = $configDao->loadConfig(CONFIG_PRICE_DECIMAL_PLACES);
+        $decimalSeparator = $configDao->loadConfig(CONFIG_DECIMAL_SEPARATOR);
+        $thousandsSeparator = $configDao->loadConfig(CONFIG_THOUSANDS_SEPARATOR);
+        return number_format($this->price, $priceDecimalPlaces, $decimalSeparator, $thousandsSeparator) . $currency;
+    }
+
     public function getPrice() {
         return $this->price;
     }

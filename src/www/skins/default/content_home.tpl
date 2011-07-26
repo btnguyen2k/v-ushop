@@ -9,21 +9,7 @@
     <div class="middle-column-box-blue">
         <div class="middle-column-box-title-blue">[:$MODEL.language->getMessage('msg.categories'):]</div>
         [:if count($MODEL.categoryList) gt 0:]
-            <table style="width: 90%; margin-left: auto; margin-right: auto">
-            [:foreach $MODEL.categoryList as $cat:]
-                [:if $cat@index % 3 == 0:][:if !$cat@first:]</tr>[:/if:]<tr>[:/if:]
-                <td width="25%">
-                    <a href="[:$cat->getUrlView():]"><img border="1" width="50" height="50" alt="" style="float: left; margin: 4px"
-                        src="[:if $cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$cat->getUrlThumbnail():][:/if:]"/><small>[:$cat->getTitle()|escape:'html':]</small></a>
-                </td>
-                [:if $cat@last:]
-                    [:for $i=($cat@index % 3) to 1:]
-                        <td>&nbsp;</td>
-                    [:/for:]
-                    </tr>
-                [:/if:]
-            [:/foreach:]
-            </table>
+            [:displaySubCategoryList categoryList=$MODEL.categoryList:]
         [:/if:]
     </div>
 
@@ -33,7 +19,7 @@
             [:assign var="_item" value=$MODEL.itemList[$i]:]
             <!-- Middle column left box -->
             <div class="middle-column-box-left-white">
-                <div class="middle-column-box-title-grey">[:$_item->getTitle()|escape:'html':]</div>
+                <div class="middle-column-box-title-grey"><a href="[:$_item->getUrlView():]">[:$_item->getTitle()|escape:'html':]</a></div>
                 [:displayCategoryItem cart=$_cart item=$_item picAlign='left':]
             </div>
         [:/for:]
@@ -44,7 +30,7 @@
             [:assign var="_item" value=$MODEL.itemList[$i]:]
             <!-- Middle column right box -->
             <div class="middle-column-box-right-white">
-                <div class="middle-column-box-title-grey">[:$_item->getTitle()|escape:'html':]</div>
+                <div class="middle-column-box-title-grey"><a href="[:$_item->getUrlView():]">[:$_item->getTitle()|escape:'html':]</a></div>
                 [:displayCategoryItem cart=$_cart item=$_item picAlign='left':]
             </div>
         [:/for:]

@@ -6,15 +6,6 @@ define('CONFIG_SITE_NAME', 'site_name');
 define('CONFIG_SITE_SLOGAN', 'site_slogan');
 define('CONFIG_SITE_TITLE', 'site_title');
 
-define('MAX_UPLOAD_FILESIZE', 300000);
-define('ALLOWED_UPLOAD_FILE_TYPES', '*.gif,*.jpg;.*.png');
-
-define('THUMBNAIL_WIDTH', 150);
-define('THUMBNAIL_HEIGHT', 150);
-
-define('FORM_ERROR_MESSAGES', 'errorMessages');
-define('FORM_INFO_MESSAGES', 'infoMessages');
-
 define('CONFIG_USE_SMTP', 'use_smtp');
 define('CONFIG_SMTP_HOST', 'smtp_host');
 define('CONFIG_SMTP_PORT', 'smtp_port');
@@ -25,6 +16,21 @@ define('CONFIG_EMAIL_OUTGOING', 'email_outgoing');
 define('CONFIG_EMAIL_ORDER_NOTIFICATION', 'email_order_notification');
 define('CONFIG_EMAIL_ON_SUBJECT', 'email_on_subject');
 define('CONFIG_EMAIL_ON_BODY', 'email_on_body');
+
+define('CONFIG_CURRENCY', 'currency');
+define('CONFIG_PRICE_DECIMAL_PLACES', 'price_decimal_places');
+define('CONFIG_QUANTITY_DECIMAL_PLACES', 'quantity_decimal_places');
+define('CONFIG_DECIMAL_SEPARATOR', 'decimal_separator');
+define('CONFIG_THOUSANDS_SEPARATOR', 'thousands_separator');
+
+define('MAX_UPLOAD_FILESIZE', 300000);
+define('ALLOWED_UPLOAD_FILE_TYPES', '*.gif,*.jpg;.*.png');
+
+define('THUMBNAIL_WIDTH', 150);
+define('THUMBNAIL_HEIGHT', 150);
+
+define('FORM_ERROR_MESSAGES', 'errorMessages');
+define('FORM_INFO_MESSAGES', 'infoMessages');
 
 define('MODEL_APP_VERSION', 'APP_VERSION');
 

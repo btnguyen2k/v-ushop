@@ -1,5 +1,10 @@
-ALTER TABLE vcatalog_category ADD COLUMN cimage_id VARCHAR(64);
-CREATE INDEX cimage_id ON vcatalog_category (cimage_id);
-
-ALTER TABLE vcatalog_item ADD COLUMN iimage_id VARCHAR(64);
-CREATE INDEX iimage_id ON vcatalog_item (iimage_id);
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('currency', 'VND');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('price_decimal_places', '0');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('quantity_decimal_places', '0');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('decimal_separator', ',');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('thousands_separator', '.');
