@@ -21,7 +21,7 @@
         <a href="[:$item->getUrlView():]"><img src="[:if $item->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$item->getUrlThumbnail():][:/if:]"
             class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="100" height="100" alt="" /></a>
         <small>
-            [:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:$item->getPriceForDisplay():]</strong>
+            <!-- [:$MODEL.language->getMessage('msg.item.price'):]: --><strong>[:$item->getPriceForDisplay():]</strong>
             <br />
             [:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$_item->getVendor()|escape:'html':]</strong>
         </small>
