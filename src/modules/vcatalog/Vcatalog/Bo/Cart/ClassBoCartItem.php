@@ -6,7 +6,7 @@ class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
     const COL_QUANTITY = 'cquantity';
     const COL_PRICE = 'cprice';
 
-    private $sessionId, $itemId, $quantity, $price;
+    private $sessionId, $itemId, $quantity;
 
     private $urlView = NULL;
 
@@ -81,6 +81,15 @@ class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
     }
 
     /**
+     * Gets the quantity value for displaying purpose.
+     *
+     * @return double
+     */
+    public function getQuantityForDisplay() {
+        return Vcatalog_Utils::formatQuantity($this->getQuantity());
+    }
+
+    /**
      * Getter for $quantity.
      *
      * @return double
@@ -99,12 +108,19 @@ class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
     }
 
     /**
+     * @see Vcatalog_Bo_Catalog_BoItem::getPriceForDisplay()
+     */
+    public function getPriceForDisplay() {
+        return parent::getPriceForDisplay();
+    }
+
+    /**
      * Getter for $price.
      *
      * @return double
      */
     public function getPrice() {
-        return $this->price;
+        return parent::getPrice();
     }
 
     /**
@@ -113,6 +129,24 @@ class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
      * @param double $price
      */
     public function setPrice($price) {
-        $this->price = $price;
+        parent::setPrice($price);
+    }
+
+    /**
+     * Gets total value (= price * quantity)
+     *
+     * @return double
+     */
+    public function getTotal() {
+        return $this->getPrice() * $this->getQuantity();
+    }
+
+    /**
+     * Gets total value (= price * quantity) for displaying purpose.
+     *
+     * @return double
+     */
+    public function getTotalForDisplay() {
+        return Vcatalog_Utils::formatPrice($this->getTotal());
     }
 }

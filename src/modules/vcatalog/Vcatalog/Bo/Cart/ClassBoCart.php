@@ -188,4 +188,26 @@ class Vcatalog_Bo_Cart_BoCart extends Commons_Bo_BaseBo {
     public function isEmpty() {
         return count($this->cartItems) == 0;
     }
+
+    /**
+     * Gets the grand total value of the cart (=sum of all items' price * quantity)
+     *
+     * @return double
+     */
+    public function getGrandTotal() {
+        $result = 0;
+        foreach ($this->cartItems as $item) {
+            $result += $item->getTotal();
+        }
+        return $result;
+    }
+
+    /**
+     * Gets the grand total value of the cart (=sum of all items' price * quantity) for displaying purpose.
+     *
+     * @return double
+     */
+    public function getGrandTotalForDisplay() {
+        return Vcatalog_Utils::formatPrice($this->getGrandTotal());
+    }
 }

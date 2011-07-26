@@ -124,7 +124,8 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         $mailer->CharSet = 'UTF-8';
         $subject = $configDao->loadConfig(CONFIG_EMAIL_ON_SUBJECT);
         $body = $configDao->loadConfig(CONFIG_EMAIL_ON_BODY);
-        $orderItems = '<table><thread><tr><th style="text-align: center;">';
+        $cart = $this->getCurrentCart();
+        $orderItems = '<table border="1"><thread><tr><th style="text-align: center;">';
         $orderItems .= $lang->getMessage('msg.item') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
         $orderItems .= $lang->getMessage('msg.price') . '</th>';
@@ -133,24 +134,21 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         $orderItems .= '<th style="text-align: center;" width="100px">';
         $orderItems .= $lang->getMessage('msg.total') . '</th>';
         $orderItems .= '</thead>';
+        $orderItems .= '<tfoot><tr>';
+        $orderItems .= '<th style="text-align: center;" colspan="3">' . $lang->getMessage('msg.grandTotal') . '</th>';
+        $orderItems .= '<th style="text-align: right;">' . $cart->getGrandTotalForDisplay() . '</th>';
+        $orderItems .= '</tr></tfoot>';
         $orderItems .= '<tbody>';
-        $cart = $this->getCurrentCart();
-        $grandTotal = 0;
         foreach ($cart->getItems() as $item) {
-            $total = $item->getPrice() * $item->getQuantity();
-            $grandTotal += $total;
             $orderItems .= '<tr>';
             $orderItems .= '<td>' . htmlspecialchars($item->getTitle()) . '</td>';
-            $orderItems .= '<td align="right">' . number_format($item->getPrice(), 2, '.', ',') . '</td>';
-            $orderItems .= '<td align="center">' . $item->getQuantity() . '</td>';
-            $orderItems .= '<td align="right">' . number_format($total, 2, '.', ',') . '</td>';
+            $orderItems .= '<td align="right">' . $item->getPriceForDisplay() . '</td>';
+            $orderItems .= '<td align="center">' . $item->getQuantityForDisplay() . '</td>';
+            $orderItems .= '<td align="right">' . $item->getTotalForDisplay() . '</td>';
             $orderItems .= '</tr>';
         }
         $orderItems .= '</tbody>';
-        $orderItems .= '<tfoot><tr>';
-        $orderItems .= '<th style="text-align: center;" colspan="3">' . $lang->getMessage('msg.grandTotal') . '</th>';
-        $orderItems .= '<th style="text-align: right;">' . number_format($grandTotal, 2, ',', '.') . '</th>';
-        $orderItems .= '</tr></tfoot></table>';
+        $orderItems .= '</table>';
 
         $replacements = Array(
                 'SITE_NAME' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_NAME)),

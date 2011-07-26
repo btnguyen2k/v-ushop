@@ -1,5 +1,5 @@
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
-VALUES('currency', 'VND');
+VALUES('currency', ' VND');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('price_decimal_places', '0');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
