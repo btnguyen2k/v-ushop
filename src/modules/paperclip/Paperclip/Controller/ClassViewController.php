@@ -1,5 +1,5 @@
 <?php
-class Paperclip_Controller_ViewThumbnailController implements Dzit_IController {
+class Paperclip_Controller_ViewController implements Dzit_IController {
     /**
      * @see Dzit_IController::execute()
      */
@@ -19,8 +19,11 @@ class Paperclip_Controller_ViewThumbnailController implements Dzit_IController {
         if ($item !== NULL) {
             header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
             header("Expires: Sat, 1 Jan 2011 00:00:00 GMT"); // Date in the past
-            header('Content-type: image/jpeg');
-            echo $item->getThumbnail();
+            if ($item->getMimetype()) {
+                header('Content-type: ' . $item->getMimeType());
+            }
+            header('Content-length: ' . $item->getFilesize());
+            echo $item->getFilecontent();
         } else {
             header('HTTP/1.0 404 Not Found', TRUE, 404);
         }

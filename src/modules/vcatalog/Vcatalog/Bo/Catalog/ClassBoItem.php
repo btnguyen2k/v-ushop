@@ -24,6 +24,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
     private $urlEdit = NULL;
     private $urlView = NULL;
     private $urlThumbnail = NULL;
+    private $urlImage = NULL;
 
     /**
      * @see Commons_Bo_BaseBo::getFieldMap()
@@ -79,7 +80,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
     }
 
     /**
-     * Gets the URL to view the category's image as thumbnail.
+     * Gets the URL to view the item's image as thumbnail.
      *
      * @return string
      */
@@ -91,6 +92,21 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
             }
         }
         return $this->urlThumbnail;
+    }
+
+    /**
+     * Gets the URL to view the item's image.
+     *
+     * @return string
+     */
+    public function getUrlImage() {
+        if ($this->urlImage === NULL) {
+            $this->urlImage = Paperclip_Utils::createUrlView($this->imageId);
+            if ($this->urlImage === NULL) {
+                $this->urlImage = '';
+            }
+        }
+        return $this->urlImage;
     }
 
     public function getId() {

@@ -8,6 +8,12 @@ $YADIF_CONFIG = Array(
         'Paperclip_Controller_ViewThumbnailController' => Array(
                 'class' => 'Paperclip_Controller_ViewThumbnailController',
                 'scope' => 'singleton'),
+        'Paperclip_Controller_ViewController' => Array(
+                'class' => 'Paperclip_Controller_ViewController',
+                'scope' => 'singleton'),
+        'Paperclip_Controller_DownloadController' => Array(
+                'class' => 'Paperclip_Controller_DownloadController',
+                'scope' => 'singleton'),
         //'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
 
 
@@ -29,6 +35,10 @@ $YADIF_CONFIG = Array(
 
         'Vcatalog_Controller_ViewCategoryController' => Array(
                 'class' => 'Vcatalog_Controller_ViewCategoryController',
+                'scope' => 'singleton'),
+
+        'Vcatalog_Controller_ViewItemController' => Array(
+                'class' => 'Vcatalog_Controller_ViewItemController',
                 'scope' => 'singleton'),
 
         'Vcatalog_Controller_AddToCartController' => Array(

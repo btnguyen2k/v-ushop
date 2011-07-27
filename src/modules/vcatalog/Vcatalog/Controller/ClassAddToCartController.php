@@ -75,11 +75,14 @@ class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFl
 
         $lang = $this->getLanguage();
         $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.addToCart.done'));
+        $urlTransit = $this->getCurrentCart()->getUrlView();
+        /*
         if (isset($_SESSION[SESSION_LAST_ACCESS_URL])) {
             $urlTransit = $_SESSION[SESSION_LAST_ACCESS_URL];
         } else {
             $urlTransit = $_SERVER['SCRIPT_NAME'];
         }
+        */
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
 

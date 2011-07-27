@@ -29,9 +29,9 @@
     <div>
         <form method="post" action="[:$smarty.server.SCRIPT_NAME:]/addToCart">
             <small>
-                <a href="[:$_cart->getUrlView():]">[:$MODEL.language->getMessage('msg.inCart'):]: <strong>
-                    [:if $_cart->existInCart($_item):]
-                        [:$_cart->getItem($_item)->getQuantity():]
+                <a href="[:$cart->getUrlView():]">[:$MODEL.language->getMessage('msg.inCart'):]: <strong>
+                    [:if $cart->existInCart($_item):]
+                        [:$cart->getItem($_item)->getQuantity():]
                     [:else:]
                         0
                     [:/if:]

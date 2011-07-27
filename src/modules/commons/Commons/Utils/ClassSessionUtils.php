@@ -13,4 +13,13 @@ class Commons_Utils_SessionUtils {
         }
         return $value;
     }
+
+    /**
+     * Deletes a session entry.
+     *
+     * @param string $key
+     */
+    public static function deleteSessionEntry($key) {
+        unset($_SESSION[$key]);
+    }
 }
