@@ -11,16 +11,22 @@ class Commons_Utils_ImageUtils {
      * [1] is the image height,
      * [2] is a binary string containing content of the image source;
      */
-    private static function createImageSource($imagePath) {
-        $imageInfo = @getImageSize($imagePath);
-        if ($imageInfo === FALSE) {
-            return NULL;
+    public static function createImageSource($imagePath) {
+        $cacheKey = "Commons_Utils_ImageUtils_$imagePath";
+        $imageInfo = Commons_Utils_CacheUtils::get($cacheKey);
+        if ($imageInfo === NULL) {
+            $imageInfo = @getImageSize($imagePath);
+            if ($imageInfo === FALSE) {
+                return NULL;
+            }
+            $imageSrc = @imageCreateFromString(file_get_contents($imagePath));
+            if ($imageSrc === FALSE) {
+                return NULL;
+            }
+            $imageInfo = Array($imageInfo[0], $imageInfo[1], $imageSrc);
+            Commons_Utils_CacheUtils::put($cacheKey, $imageInfo);
         }
-        $imageSrc = @imageCreateFromString(file_get_contents($imagePath));
-        if ($imageSrc === FALSE) {
-            return NULL;
-        }
-        return Array($imageInfo[0], $imageInfo[1], $imageSrc);
+        return $imageInfo;
     }
 
     /**
@@ -36,7 +42,7 @@ class Commons_Utils_ImageUtils {
             return NULL;
         }
         $imageSource = self::createImageSource($orgImgPath);
-        if ($imageSource == NULL) {
+        if ($imageSource === NULL) {
             return NULL;
         }
         $orgWidth = $imageSource[0];

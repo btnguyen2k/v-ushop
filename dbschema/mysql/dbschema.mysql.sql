@@ -179,6 +179,8 @@ CREATE TABLE vcatalog_paperclip (
     pfilename       VARCHAR(64)             NOT NULL,
     pfilesize       BIGINT                  NOT NULL DEFAULT 0,
     pfilecontent    MEDIUMBLOB,
+    pimg_width      INT                     NOT NULL DEFAULT 0,
+    pimg_height     INT                     NOT NULL DEFAULT 0,
     pthumbnail      BLOB,
     pmimetype       VARCHAR(64)             NOT NULL DEFAULT '',
     ptimestamp      INT                     NOT NULL DEFAULT 0,

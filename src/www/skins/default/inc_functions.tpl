@@ -1,3 +1,38 @@
+[:function name="displayCategoryList" categotyList=NULL:]
+    [:assign var="_styleOuterLeft" value=['middle-column-box-left-blue','middle-column-box-left-green','middle-column-box-left-yellow','middle-column-box-left-red']:]
+    [:assign var="_styleOuterRight" value=['middle-column-box-right-blue','middle-column-box-right-green','middle-column-box-right-yellow','middle-column-box-right-red']:]
+    [:assign var="_styleInner" value=['middle-column-box-title-blue','middle-column-box-title-green','middle-column-box-title-yellow','middle-column-box-title-red']:]
+    [:assign var="_counter" value=0:]
+    <div class="middle-column-left">
+        [:for $i = 0 to round(count($categoryList)/2)-1:]
+            [:assign var="_cat" value=$categoryList[$i]:]
+            <!-- Middle column left box -->
+            <div class="[:$_styleOuterLeft[$_counter]:]">
+                <div class="[:$_styleInner[$_counter]:]"><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></div>
+                <p align="center"><a href="[:$_cat->getUrlView():]"><img border="0" width="150" height="150" alt=""
+                    src="[:if $_cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$_cat->getUrlThumbnail():][:/if:]"/></a>
+            </div>
+            [:assign var="_counter" value=$_counter+1:]
+            [:if $_counter ge count($_styleOuterLeft):][:assign var="_counter" value=0:][:/if:]
+        [:/for:]
+    </div>
+
+    [:if $_counter ge count($_styleOuterRight):][:assign var="_counter" value=0:][:/if:]
+    <div class="middle-column-right">
+        [:for $i = round(count($categoryList)/2) to count($categoryList)-1:]
+            [:assign var="_cat" value=$categoryList[$i]:]
+            <!-- Middle column right box -->
+            <div class="[:$_styleOuterRight[$_counter]:]">
+                <div class="[:$_styleInner[$_counter]:]"><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></div>
+                <p align="center"><a href="[:$_cat->getUrlView():]"><img border="0" width="150" height="150" alt=""
+                    src="[:if $_cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$_cat->getUrlThumbnail():][:/if:]"/></a>
+            </div>
+            [:assign var="_counter" value=$_counter+1:]
+            [:if $_counter ge count($_styleOuterRight):][:assign var="_counter" value=0:][:/if:]
+        [:/for:]
+    </div>
+[:/function:]
+
 [:function name="displaySubCategoryList" categotyList=NULL:]
 <table style="width: 98%; margin-left: auto; margin-right: auto">
     [:foreach $categoryList as $cat:]
@@ -18,7 +53,17 @@
 
 [:function name=displayCategoryItem cart=NULL item=NULL picAlign='left':]
     <div>
-        <a href="[:$item->getUrlView():]"><img src="[:if $item->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$item->getUrlThumbnail():][:/if:]"
+        [:if $item->getUrlThumbnail()=='':]
+            [:assign var="_urlThumbnail" value="img/img_general.jpg":]
+        [:else:]
+            [:assign var="_urlThumbnail" value=$item->getUrlThumbnail():]
+        [:/if:]
+        [:if $item->getUrlImage()=='':]
+            [:assign var="_urlImage" value="img/img_general.jpg":]
+        [:else:]
+            [:assign var="_urlImage" value=$item->getUrlImage():]
+        [:/if:]
+        <a href="[:$item->getUrlView():]" onmouseover="ddrivetip('<img src=\'[:$_urlImage:]\' alt=\'\' border=\'0\';>', 'white'[:if $item->getImageWidth() gt 0:], [:$item->getImageWidth():][:else:], 100[:/if:]);" onmouseout="hideddrivetip();"><img src="[:$_urlThumbnail:]"
             class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="100" height="100" alt="" /></a>
         <small>
             <!-- [:$MODEL.language->getMessage('msg.item.price'):]: --><strong>[:$item->getPriceForDisplay():]</strong>

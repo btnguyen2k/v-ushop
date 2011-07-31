@@ -16,7 +16,9 @@
             <li class="float-right"><a href="[:$MODEL.urlProfileCp:]">[:$MODEL.language->getMessage('msg.profileCp'):]</a></li>
         [:else:]
             <li class="float-right"><a href="[:$MODEL.urlLogin:]">[:$MODEL.language->getMessage('msg.login'):]</a></li>
-            <li class="float-right"><a href="[:$MODEL.urlRegister:]">[:$MODEL.language->getMessage('msg.register'):]</a></li>
+            [:if isset($MODEL.urlRegister):]
+                <li class="float-right"><a href="[:$MODEL.urlRegister:]">[:$MODEL.language->getMessage('msg.register'):]</a></li>
+            [:/if:]
         [:/if:]
         [:if isset($MODEL.urlAdmin):]
             <li class="float-right"><a href="[:$MODEL.urlAdmin:]">[:$MODEL.language->getMessage('msg.adminCp'):]</a></li>

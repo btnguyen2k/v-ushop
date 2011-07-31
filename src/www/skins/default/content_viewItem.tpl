@@ -18,10 +18,17 @@
     </script>
     <div class="middle-column-box-blue">
         <div class="middle-column-box-title-blue">[:$_item->getTitle()|escape:'html':]</div>
-        [:if $_item->getUrlImage()!='':]<a href="[:$_item->getUrlImage():]" onclick="return openImage('[:$_item->getUrlImage():]');">[:/if:]<img
-            border="1" width="150" height="150" alt="" style="float: left; margin: 0px 8px 4px 8px;"
-            src="[:if $_item->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$_item->getUrlThumbnail():][:/if:]"
-        />[:if $_item->getUrlImage()!='':]</a>[:/if:]
+        [:if $_item->getUrlThumbnail()=='':]
+            [:assign var="_urlThumbnail" value="img/img_general.jpg":]
+        [:else:]
+            [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
+        [:/if:]
+        [:if $_item->getUrlImage()=='':]
+            [:assign var="_urlImage" value="img/img_general.jpg":]
+        [:else:]
+            [:assign var="_urlImage" value=$_item->getUrlImage():]
+        [:/if:]
+        <img border="0" width="150" height="150" alt="" style="float: left; margin: 0px 8px 4px 8px;" src="[:$_urlThumbnail:]"/>
         <p>[:$MODEL.language->getMessage('msg.item.price'):]: <strong>[:$_item->getPriceForDisplay():]</strong></p>
         <p>[:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$_item->getVendor()|escape:'html':]</strong></p>
         <hr style="margin-right: 4px"/>
@@ -42,5 +49,9 @@
         </form>
         <hr style="margin-right: 4px"/>
         <span>[:$_item->getDescription():]</span>
+    </div>
+    <div class="middle-column-box-white">
+        <div class="middle-column-box-title-grey">[:$MODEL.language->getMessage('msg.item.image'):]</div>
+        <p align="center"><img border="0" alt="" src="[:$_urlImage:]" /></p>
     </div>
 </div>

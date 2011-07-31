@@ -22,12 +22,15 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
         $id = uniqid('', TRUE);
         $timestamp = time();
         $filesize = filesize($pathToFileContent);
+        $imgSource = Commons_Utils_ImageUtils::createImageSource($pathToFileContent);
         $filecontent = Commons_Utils_FileUtils::getFileContent($pathToFileContent);
 
         $params = Array('id' => $id,
                 'filename' => $filename,
                 'filesize' => $filesize,
                 'filecontent' => $filecontent,
+                'imgWidth' => $imgSource != NULL ? $imgSource[0] : 0,
+                'imgHeight' => $imgSource != NULL ? $imgSource[1] : 0,
                 'thumbnail' => $thumbnail,
                 'mimetype' => $mimeType,
                 'timestamp' => $timestamp,
@@ -88,6 +91,8 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
                 'filename' => $attachment->getFilename(),
                 'filesize' => $attachment->getFilesize(),
                 'filecontent' => $attachment->getFilecontent(),
+                'imgWidth' => $attachment->getImgWidth(),
+                'imgHeight' => $attachment->getImgHeight(),
                 'thumbnail' => $attachment->getThumbnail(),
                 'mimetype' => $attachment->getMimetype(),
                 'timestamp' => $attachment->getTimestamp(),

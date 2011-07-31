@@ -2,12 +2,10 @@
 abstract class Commons_Bo_BaseDao extends Ddth_Dao_AbstractSqlStatementDao {
 
     private $cacheL1 = Array();
-    private $cacheL2;
 
     public function __construct() {
         parent::__construct();
         $cacheManager = Ddth_Cache_CacheManager::getInstance();
-        $this->cacheL2 = $cacheManager->getCache('default');
     }
 
     /**
@@ -20,7 +18,7 @@ abstract class Commons_Bo_BaseDao extends Ddth_Dao_AbstractSqlStatementDao {
     protected function putToCache($key, $value, $includeCacheL2 = TRUE) {
         $this->cacheL1[$key] = $value;
         if ($includeCacheL2) {
-            $this->cacheL2->put($key, $value);
+            Commons_Utils_CacheUtils::put($key, $value, 'default');
         }
     }
 
@@ -34,7 +32,7 @@ abstract class Commons_Bo_BaseDao extends Ddth_Dao_AbstractSqlStatementDao {
     protected function getFromCache($key, $includeCacheL2 = TRUE) {
         $result = isset($this->cacheL1[$key]) ? $this->cacheL1[$key] : NULL;
         if ($result === NULL && $includeCacheL2) {
-            $result = $this->cacheL2->get($key);
+            $result = Commons_Utils_CacheUtils::get($key, 'default');
             if ($result !== NULL) {
                 $this->cacheL1[$key] = $result;
             }
@@ -51,7 +49,7 @@ abstract class Commons_Bo_BaseDao extends Ddth_Dao_AbstractSqlStatementDao {
     protected function deleteFromCache($key, $includeCacheL2 = TRUE) {
         unset($this->cacheL1[$key]);
         if ($includeCacheL2) {
-            $this->cacheL2->put($key, NULL);
+            Commons_Utils_CacheUtils::delete($key);
         }
     }
 

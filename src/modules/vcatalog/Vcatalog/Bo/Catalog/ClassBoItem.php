@@ -210,6 +210,14 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
         $this->stock = $stock;
     }
 
+    public function getImageWidth() {
+        return Paperclip_Utils::getImageWidth($this->imageId);
+    }
+
+    public function getImageHeight() {
+        return Paperclip_Utils::getImageHeight($this->imageId);
+    }
+
     public function getImageId() {
         return $this->imageId;
     }

@@ -392,6 +392,8 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         }
         $model['urlUploadHandler'] = $this->getUrlUploadHandler();
 
+        $model['user'] = $this->getCurrentUser();
+
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
@@ -535,9 +537,12 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
                     $paperclipItem = $paperclipDao->createAttachment($file['tmp_name'], $filename, $file['type'], TRUE, $thumbnail);
                 } else {
                     $filecontent = Commons_Utils_FileUtils::getFileContent($file['tmp_name']);
+                    $imgSource = Commons_Utils_ImageUtils::createImageSource($file['tmp_name']);
                     $paperclipItem->setFilecontent($filecontent);
                     $paperclipItem->setFilename($filename);
                     $paperclipItem->setFilesize($file['size']);
+                    $paperclipItem->setImgWidth($imgSource[0]);
+                    $paperclipItem->setImgHeight($imgSource[1]);
                     $paperclipItem->setMimetype($file['type']);
                     $paperclipItem->setThumbnail($thumbnail);
                     $paperclipDao->updateAttachment($paperclipItem);

@@ -1,3 +1,5 @@
+<div id="dhtmltooltip"></div>
+<script type="text/javascript" src="js/dhtmltooltip.js"></script>
 <!-- FOOTER -->
 <div id="footer">
     [:$MODEL.page.copyright:]

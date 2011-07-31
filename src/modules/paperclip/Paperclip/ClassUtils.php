@@ -6,6 +6,40 @@ class Paperclip_Utils {
     }
 
     /**
+     * Gets an attached image's dimensions (width and height).
+     *
+     * @param string $id
+     * @param Array first element is image's width, second image is image's height
+     */
+    public static function getImageDemensions($id) {
+        $dao = self::getDao(DAO_PAPERCLIP);
+        $item = $dao->getAttachment($id);
+        return $item !== NULL ? Array($item->getImgWidth(), $item->getImgheight()) : Array(0, 0);
+    }
+
+    /**
+     * Gets an attached image's width.
+     *
+     * @param string $id
+     * @param int
+     */
+    public static function getImageWidth($id) {
+        $dim = self::getImageDemensions($id);
+        return $dim[0];
+    }
+
+    /**
+     * Gets an attached image's height.
+     *
+     * @param string $id
+     * @param int
+     */
+    public static function getImageHeight($id) {
+        $dim = self::getImageDemensions($id);
+        return $dim[1];
+    }
+
+    /**
      * Creates a URL to view a paperclip item as thumbnail.
      *
      * @param string $id

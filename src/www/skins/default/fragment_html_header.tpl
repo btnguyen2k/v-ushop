@@ -6,7 +6,8 @@
     <meta name="description" content="[:$MODEL.page.description|escape:'html':]" />
     <meta name="keywords" content="[:$MODEL.page.keywords|escape:'html':]" />
     <meta name="author" content="GPV.COM.VN/" />
-    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/dhtmltooltip.css" />
     <title>[:$MODEL.page.title|escape:'html':]</title>
     [:if isset($MODEL.urlTransit):]
         <meta http-equiv="refresh" content="2; url=[:$MODEL.urlTransit:]" />

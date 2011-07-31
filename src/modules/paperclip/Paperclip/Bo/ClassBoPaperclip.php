@@ -9,6 +9,8 @@ class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
     const COL_MIMETYPE = 'pmimetype';
     const COL_TIMESTAMP = 'ptimestamp';
     const COL_IS_DRAFT = 'pis_draft';
+    const COL_IMG_WIDTH = 'pimg_width';
+    const COL_IMG_HEIGHT = 'pimg_height';
 
     private $id;
     private $filename;
@@ -18,6 +20,8 @@ class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
     private $mimetype;
     private $timestamp;
     private $isDraft;
+    private $imgWidth;
+    private $imgHeight;
 
     /**
      * @see Commons_Bo_BaseBo::getFieldMap()
@@ -30,7 +34,9 @@ class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
                 self::COL_THUMBNAIL => Array('thumbnail'),
                 self::COL_MIMETYPE => Array('mimetype'),
                 self::COL_TIMESTAMP => Array('timestamp', self::TYPE_INT),
-                self::COL_IS_DRAFT => Array('isDraft', self::TYPE_BOOLEAN));
+                self::COL_IS_DRAFT => Array('isDraft', self::TYPE_BOOLEAN),
+                self::COL_IMG_WIDTH => Array('imgWidth', self::TYPE_INT),
+                self::COL_IMG_HEIGHT => Array('imgHeight', self::TYPE_INT));
     }
 
     /**
@@ -103,6 +109,42 @@ class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
      */
     public function setFilecontent($filecontent) {
         $this->filecontent = $filecontent;
+    }
+
+    /**
+     * Getter for $imgWidth.
+     *
+     * @return int
+     */
+    public function getImgWidth() {
+        return $this->imgWidth;
+    }
+
+    /**
+     * Setter for $imgWidth.
+     *
+     * @param int $imgWidth
+     */
+    public function setImgWidth($imgWidth) {
+        $this->imgWidth = $imgWidth;
+    }
+
+    /**
+     * Getter for $imgHeight.
+     *
+     * @return int
+     */
+    public function getImgHeight() {
+        return $this->imgHeight;
+    }
+
+    /**
+     * Setter for $imgHeight.
+     *
+     * @param int $imgHeight
+     */
+    public function setImgHeight($imgHeight) {
+        $this->imgHeight = $imgHeight;
     }
 
     /**
