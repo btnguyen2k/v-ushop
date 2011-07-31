@@ -137,7 +137,7 @@ class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
         if ($maxLength < 10) {
             $maxLength = 10;
         }
-        if (strlen($this->title) <= $maxLength) {
+        if (mb_strlen($this->title) <= $maxLength) {
             return $this->title;
         }
         return mb_substr($this->title, 0, $maxLength - 3) . '...';
