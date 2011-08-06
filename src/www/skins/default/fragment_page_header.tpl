@@ -6,11 +6,11 @@
     src="./img/KNbabyshop-banner-01.jpg" alt="" /></div>
  -->
 <div id="header-section" style="height: 120px">
-    <div style="float: left; width: 145px; height: 120px;">
-        <p style="font-weight: bold; text-align: center; margin-top: 16px;">KHÁNH NGỌC<br/>BABY SHOP</p>
+    <div style="float: left; width: 144px; height: 120px; overflow: hidden;">
+        <p style="font-weight: bold; text-align: center; margin-top: 10px; font-size: medium;">KHÁNH NGỌC<br/>BABY SHOP</p>
         <p style="text-align: center;">260/9A Nguyễn Thái Bình, P12, QTB, TpHCM</p>
         <p style="text-align: center;">ĐT: <strong>0983208247 (Thuý)</strong></p>
-    </div><div style=""><img id="header-background-right" src="./img/KNbabyshop-banner-01.jpg"
+    </div><div><img id="header-background-right" src="./img/KNbabyshop-banner-01.jpg"
         alt="" /></div>
 </div>
 <!-- Navigation -->
