@@ -1,20 +1,21 @@
 <!-- RIGHT COLUMN -->
 <div id="right-column">
     <div class="right-column-box-green">
-        <div class="right-column-box-title-green">[:$MODEL.language->getMessage('msg.cart'):]</div>
+        <div class="right-column-box-title-green" align="center" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.cart'):]</div>
         [:foreach $MODEL.cart->getItems() as $item:]
             &#187; [:$item->getTitle()|escape:'html':] ([:$item->getQuantity():])<br/>
         [:foreachelse:]
             [:$MODEL.language->getMessage('msg.nodata'):]
         [:/foreach:]
         [:if count($MODEL.cart->getItems()) gt 0:]
-            <br/>
-            <a href="[:$MODEL.cart->getUrlView():]">[:$MODEL.language->getMessage('msg.viewCart'):]</a>
+            <p align="center">
+                <a href="[:$MODEL.cart->getUrlView():]">[:$MODEL.language->getMessage('msg.viewCart'):]</a>
+            </p>
         [:/if:]
     </div>
     [:if isset($MODEL.hotItems):]
         <div class="right-column-box-blue" align="center">
-            <div class="right-column-box-title-blue">[:$MODEL.language->getMessage('msg.item.isHot'):]</div>
+            <div class="right-column-box-title-blue" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.item.isHot'):]</div>
             <marquee behavior="scroll" direction="up" loop="-1" style="text-align: center;" height="400"
                     scrollamount="1" scrolldelay="20" truespeed="truespeed" onmouseover="this.stop()" onmouseout="this.start()">
                 [:foreach $MODEL.hotItems as $item:]
