@@ -7,9 +7,9 @@
  -->
 <div id="header-section" style="height: 120px">
     <div style="float: left; width: 144px; height: 120px; overflow: hidden;">
-        <p style="font-weight: bold; text-align: center; margin-top: 10px; font-size: medium;">KHÁNH NGỌC<br/>BABY SHOP</p>
-        <p style="text-align: center;">260/9A Nguyễn Thái Bình, P12, QTB, TpHCM</p>
-        <p style="text-align: center;">ĐT: <strong>0983208247 (Thuý)</strong></p>
+        <p style="color: #F36178; font-weight: bold; text-align: center; margin-top: 10px; font-size: medium;">KHÁNH NGỌC<br/>BABY SHOP</p>
+        <p style="color: #000000; text-align: center;">260/9A Nguyễn Thái Bình, P12, QTB, TpHCM</p>
+        <p style="color: #89D2DB; text-align: center;"><strong>ĐT: 0983208247 (Thuý)</strong></p>
     </div><div><img id="header-background-right" src="./img/KNbabyshop-banner-01.jpg"
         alt="" /></div>
 </div>
