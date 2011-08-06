@@ -14,14 +14,21 @@
     </div>
     [:if isset($MODEL.hotItems):]
         <div class="right-column-box-blue" align="center">
-            <marquee behavior="scroll" direction="up" loop="-1" style="text-align: center;" scrolldelay="150">
+            <div class="right-column-box-title-blue">[:$MODEL.language->getMessage('msg.item.isHot'):]</div>
+            <marquee behavior="scroll" direction="up" loop="-1" style="text-align: center;" height="400"
+                    scrollamount="1" scrolldelay="20" truespeed="truespeed" onmouseover="this.stop()" onmouseout="this.start()">
                 [:foreach $MODEL.hotItems as $item:]
                     [:if $item->getUrlThumbnail():]
                         [:assign var="urlThumbnail" value=$item->getUrlThumbnail():]
                     [:else:]
                         [:assign var="urlThumbnail" value="img/img_general.jpg":]
                     [:/if:]
-                    <a href="[:$item->getUrlView():]" title="[:$item->getTitle()|escape:'html':]"><img border="0" alt="" src="[:$urlThumbnail:]" width="100"/></a>
+                    <a href="[:$item->getUrlView():]" title="[:$item->getTitle()|escape:'html':]" style="text-decoration: none;">
+                        <strong>[:$item->getTitle()|escape:'html':]</strong>
+                        <br />
+                        <img border="0" alt="" src="[:$urlThumbnail:]" width="115"/>
+                    </a>
+                    <br /><br />
                 [:/foreach:]
             </marquee>
         </div>
