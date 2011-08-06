@@ -147,6 +147,18 @@ textarea[disabled],textarea[readonly] {
     background-color: #f7f7f7;
 }
 
+.blockTitle a, .blockTitle a:visited {
+    color: #551a8b;
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+.blockTitle a:hover {
+    color: #0000ff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
 /*****************/
 /*   MAIN BODY   */
 /*****************/

@@ -8,7 +8,7 @@
             [:assign var="_cat" value=$categoryList[$i]:]
             <!-- Middle column left box -->
             <div class="[:$_styleOuterLeft[$_counter]:]">
-                <div class="[:$_styleInner[$_counter]:]"><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></div>
+                <div class="[:$_styleInner[$_counter]:] blockTitle"><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></div>
                 <p align="center"><a href="[:$_cat->getUrlView():]"><img border="0" width="150" height="150" alt=""
                     src="[:if $_cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$_cat->getUrlThumbnail():][:/if:]"/></a>
             </div>
@@ -23,7 +23,7 @@
             [:assign var="_cat" value=$categoryList[$i]:]
             <!-- Middle column right box -->
             <div class="[:$_styleOuterRight[$_counter]:]">
-                <div class="[:$_styleInner[$_counter]:]"><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></div>
+                <div class="[:$_styleInner[$_counter]:] blockTitle"><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></div>
                 <p align="center"><a href="[:$_cat->getUrlView():]"><img border="0" width="150" height="150" alt=""
                     src="[:if $_cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$_cat->getUrlThumbnail():][:/if:]"/></a>
             </div>

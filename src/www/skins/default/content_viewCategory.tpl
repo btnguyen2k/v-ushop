@@ -15,7 +15,7 @@
                 [:assign var="_item" value=$MODEL.itemList[$i]:]
                 <!-- Middle column left box -->
                 <div class="middle-column-box-left-white">
-                    <div class="middle-column-box-title-grey"><a href="[:$_item->getUrlView():]">[:$_item->getTitle()|escape:'html':]</a></div>
+                    <div class="middle-column-box-title-grey blockTitle"><a href="[:$_item->getUrlView():]">[:$_item->getTitle()|escape:'html':]</a></div>
                     [:displayCategoryItem cart=$_cart item=$_item picAlign='left':]
                 </div>
             [:/for:]
@@ -26,7 +26,7 @@
                 [:assign var="_item" value=$MODEL.itemList[$i]:]
                 <!-- Middle column right box -->
                 <div class="middle-column-box-right-white">
-                    <div class="middle-column-box-title-grey"><a href="[:$_item->getUrlView():]">[:$_item->getTitle()|escape:'html':]</a></div>
+                    <div class="middle-column-box-title-grey blockTitle"><a href="[:$_item->getUrlView():]">[:$_item->getTitle()|escape:'html':]</a></div>
                     [:displayCategoryItem cart=$_cart item=$_item picAlign='left':]
                 </div>
             [:/for:]
