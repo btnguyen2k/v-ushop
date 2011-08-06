@@ -39,6 +39,7 @@ define('MODEL_CATEGORY_LIST', 'categoryList');
 define('MODEL_CART', 'cart');
 define('MODEL_PAGE_LIST', 'pageList');
 define('MODEL_ITEM_LIST', 'itemList');
+define('MODEL_HOT_ITEMS', 'hotItems');
 define('MODEL_ONMENU_PAGES', 'onMenuPages');
 define('MODEL_INFO_MESSAGES', 'infoMessages');
 define('MODEL_ERROR_MESSAGES', 'errorMessages');

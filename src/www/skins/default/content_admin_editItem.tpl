@@ -28,6 +28,9 @@
                 [:/foreach:]
             </select>
             <br />
+            <label style="display: inline;">[:$MODEL.language->getMessage('msg.item.isHot'):]:</label>
+            <input type="checkbox"" name="itemHot" value="1" [:if $MODEL.form.itemHot:]checked="checked"[:/if:]/>
+            <br /><br />
             <label>[:$MODEL.language->getMessage('msg.item.vendor'):]:</label>
             <input type="text" name="itemVendor" value="[:$MODEL.form.itemVendor|escape:'html':]" style="width: 50%" />
             <br/>

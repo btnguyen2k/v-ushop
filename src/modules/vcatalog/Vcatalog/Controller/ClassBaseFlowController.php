@@ -409,6 +409,13 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $onMenuPages = $pageDao->getOnMenuPages();
         $model[MODEL_ONMENU_PAGES] = $onMenuPages;
 
+        $model[MODEL_CART] = $this->getCurrentCart();
+
+        $hotItems = $catalogDao->getHotItems(5);
+        if ($hotItems !== NULL && count($hotItems) > 0) {
+            $model[MODEL_HOT_ITEMS] = $hotItems;
+        }
+
         return $model;
     }
 
@@ -419,8 +426,6 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      */
     protected function buildModel_Custom() {
         $model = Array();
-
-        $model[MODEL_CART] = $this->getCurrentCart();
 
         $model[MODEL_APP_VERSION] = VCATALOG_VERSION;
 

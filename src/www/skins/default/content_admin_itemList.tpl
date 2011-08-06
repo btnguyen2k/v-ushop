@@ -29,6 +29,9 @@
             [:foreach $MODEL.itemList as $item:]
                 <tr class="[:if $item@index%2==0:]row-a[:else:]row-a[:/if:]">
                     <td>
+                        [:if $item->isHotItem():]
+                            <span class="hot">[:$MODEL.language->getMessage('msg.hot'):]</span>
+                        [:/if:]
                         <a href="[:$item->getUrlView():]" target="_blank">[:$item->getTitle()|escape:'html':]</a>
                         <br />
                         <small>
@@ -38,11 +41,13 @@
                         </small>
                     </td>
                     <td>
-                        [:if $item->getCategory()!==NULL:]
-                            [:$item->getCategory()->getTitle()|escape:'html':]
-                        [:else:]
-                            &nbsp;
-                        [:/if:]
+                        <small>
+                            [:if $item->getCategory()!==NULL:]
+                                [:$item->getCategory()->getTitle()|escape:'html':]
+                            [:else:]
+                                &nbsp;
+                            [:/if:]
+                        </small>
                     </td>
                     <td style="text-align: center;" width="64px">
                         <a href="[:$item->getUrlEdit():]"><img border="0" alt="" src="img/edit.png" /></a>

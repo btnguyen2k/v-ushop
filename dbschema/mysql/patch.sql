@@ -1,2 +1,2 @@
-ALTER TABLE vcatalog_paperclip ADD COLUMN pimg_width INT NOT NULL DEFAULT 0;
-ALTER TABLE vcatalog_paperclip ADD COLUMN pimg_height INT NOT NULL DEFAULT 0;
+ALTER TABLE vcatalog_item ADD COLUMN ihot_item INT NOT NULL DEFAULT 0;
+CREATE INDEX ihot_item ON vcatalog_item(ihot_item);

@@ -31,6 +31,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     }
 
     const CACHE_KEY_ITEM_ALL = 'ITEM_ALL';
+    const CACHE_KEY_ITEM_HOT = 'ITEM_HOT';
 
     /**
      * Invalidates the item cache due to change.
@@ -44,6 +45,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
             $this->deleteFromCache($cacheKey);
         }
         $this->deleteFromCache(self::CACHE_KEY_ITEM_ALL);
+        $this->deleteFromCache(self::CACHE_KEY_ITEM_HOT);
     }
 
     /**
@@ -239,7 +241,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::createItem()
      */
-    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId) {
+    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId, $hotItem = TRUE) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
@@ -251,7 +253,8 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
                 'price' => $price,
                 'oldPrice' => $oldPrice,
                 'stock' => $stock,
-                'imageId' => $imageId);
+                'imageId' => $imageId,
+                'hotItem' => $hotItem ? 1 : 0);
 
         $sqlStm->execute($sqlConn->getConn(), $params);
 
@@ -368,6 +371,33 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     }
 
     /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::getHotItems()
+     */
+    public function getHotItems($numItems = 10) {
+        $cacheKey = self::CACHE_KEY_ITEM_HOT;
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $sqlConn = $this->getConnection();
+
+            $result = Array();
+            $params = Array('numItems' => $numItems);
+            $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+            $row = $this->fetchResultAssoc($rs);
+            while ($row !== FALSE && $row !== NULL) {
+                $itemId = $row['id'];
+                $item = $this->getItemById($itemId);
+                $result[] = $item;
+                $row = $this->fetchResultAssoc($rs);
+            }
+
+            $this->closeConnection();
+            $this->putToCache($cacheKey, $result);
+        }
+        return $result;
+    }
+
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::updateItem()
      */
     public function updateItem($item) {
@@ -375,7 +405,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         $sqlConn = $this->getConnection();
 
         $params = Array('id' => $item->getId(),
-                'active' => $item->isActive(),
+                'active' => $item->isActive() ? 1 : 0,
                 'categoryId' => $item->getCategoryId(),
                 'title' => $item->getTitle(),
                 'descrpition' => $item->getDescription(),
@@ -383,7 +413,8 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
                 'price' => $item->getPrice(),
                 'oldPrice' => $item->getOldPrice(),
                 'stock' => $item->getStock(),
-                'imageId' => $item->getImageId());
+                'imageId' => $item->getImageId(),
+                'hotItem' => $item->isHotItem() ? 1 : 0);
 
         $sqlStm->execute($sqlConn->getConn(), $params);
 

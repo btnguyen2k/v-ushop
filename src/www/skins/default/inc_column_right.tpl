@@ -12,4 +12,18 @@
             <a href="[:$MODEL.cart->getUrlView():]">[:$MODEL.language->getMessage('msg.viewCart'):]</a>
         [:/if:]
     </div>
+    [:if isset($MODEL.hotItems):]
+        <div class="right-column-box-blue" align="center">
+            <marquee behavior="scroll" direction="up" loop="-1" style="text-align: center;" scrolldelay="150">
+                [:foreach $MODEL.hotItems as $item:]
+                    [:if $item->getUrlThumbnail():]
+                        [:assign var="urlThumbnail" value=$item->getUrlThumbnail():]
+                    [:else:]
+                        [:assign var="urlThumbnail" value="img/img_general.jpg":]
+                    [:/if:]
+                    <a href="[:$item->getUrlView():]" title="[:$item->getTitle()|escape:'html':]"><img border="0" alt="" src="[:$urlThumbnail:]" width="100"/></a>
+                [:/foreach:]
+            </marquee>
+        </div>
+    [:/if:]
 </div>

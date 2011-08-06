@@ -68,8 +68,9 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param double $oldPrice
      * @param double $stock
      * @param string $imageId
+     * @param boolean $hotItem
      */
-    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId);
+    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId, $hotItem=TRUE);
 
     /**
      * Deletes an existing items.
@@ -99,6 +100,14 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
      */
     public function getItemsForCategory($cat);
+
+    /**
+     * Gets "hot" items.
+     *
+     * @param int $numItems number of items to retrieve
+     * @return Array
+     */
+    public function getHotItems($numItems=10);
 
     /**
      * Updates an existing item.
