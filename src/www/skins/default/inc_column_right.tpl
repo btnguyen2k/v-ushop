@@ -14,8 +14,8 @@
         [:/if:]
     </div>
     [:if isset($MODEL.hotItems):]
-        <div class="right-column-box-blue" align="center">
-            <div class="right-column-box-title-blue" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.item.isHot'):]</div>
+        <div class="right-column-box-white" align="center">
+            <div class="right-column-box-title-purple" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.item.isHot'):]</div>
             <marquee behavior="scroll" direction="up" loop="-1" style="text-align: center;" height="400"
                     scrollamount="1" scrolldelay="20" truespeed="truespeed" onmouseover="this.stop()" onmouseout="this.start()">
                 [:foreach $MODEL.hotItems as $item:]

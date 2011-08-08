@@ -1,7 +1,7 @@
 #dhtmltooltip {
     position: absolute;
     width: 150px;
-    border: 2px solid black;
+    border: 1px solid #f0f0f0;
     padding: 2px;
     background-color: lightyellow;
     visibility: hidden;

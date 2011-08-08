@@ -212,12 +212,26 @@ body {
     border: none;
 }
 
+/*
 #header {
     clear: both;
     margin: 0em 0em 1.5em 0em;
     border-top: solid 0.1em rgb(175, 175, 175);
     border-bottom: solid 0.1em rgb(175, 175, 175);
     background-color: rgb(235, 235, 235);
+    text-transform: uppercase;
+    line-height: 2.0em;
+    height: 2.0em;
+    color: rgb(50, 50, 50);
+}
+*/
+/* pink color */
+#header {
+    clear: both;
+    margin: 0em 0em 1.5em 0em;
+    border-top: solid 0.1em #e01789;
+    border-bottom: solid 0.1em #e01789;
+    background-color: #ed50a9;
     text-transform: uppercase;
     line-height: 2.0em;
     height: 2.0em;
@@ -241,6 +255,7 @@ body {
     float: right;
 }
 
+/*
 #header li a {
     display: block;
     padding: 0em 1.0em 0em 1.0em;
@@ -249,13 +264,33 @@ body {
     text-decoration: none;
     color: rgb(50, 50, 50);
 }
+*/
+/* pink color */
+#header li a {
+    display: block;
+    padding: 0em 1.0em 0em 1.0em;
+    border-right: solid 0.1em #e01789;
+    background-color: #ed50a9;
+    text-decoration: none;
+    color: #f8f8f8;
+}
 
+/*
 #header a:hover {
     border-right: solid 0.1em rgb(175, 175, 175);
     background-color: rgb(220, 220, 220);
     text-transform: uppercase;
     text-decoration: none;
     color: rgb(50, 50, 50);
+}
+*/
+/* pink color */
+#header a:hover {
+    border-right: solid 0.1em #f0f0f0;
+    background-color: #ed50a9;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 #header .selected {
@@ -272,6 +307,14 @@ body {
 /***********************/
 /***   LEFT COLUMN   ***/
 /***********************/
+#left-column {
+    width: 20%;
+    float: left;
+    vertical-align: top;
+    background-color: rgb(255, 255, 255);
+    font-size: 1.1em;
+    color: rgb(50, 50, 50);
+}
 #left-column {
     width: 20%;
     float: left;
@@ -377,6 +420,16 @@ body {
 
 /* Box titlebars */
 /*****************/
+.middle-column-box-title-white {
+    clear: both;
+    display: block;
+    margin: 0em 0em 0.5em 0em;
+    padding: 0.2em 0em 0.2em 0.3em;
+    background-color: #ffffff;
+    font-weight: bold;
+    color: rgb(50, 50, 50);
+}
+
 .middle-column-box-title-grey {
     clear: both;
     display: block;
@@ -839,6 +892,16 @@ body {
     background-color: rgb(255, 255, 255);
     color: rgb(100, 100, 100);
     font-size: 1.1em;
+}
+
+.right-column-box-title-purple {
+    clear: both;
+    display: block;
+    margin: 0em 0em 0.2em 0em;
+    padding: 0.2em 0.2em 0.2em 0.2em;
+    background-color: #d83190;
+    font-weight: bold;
+    color: white;
 }
 
 .right-column-box-title-grey {
