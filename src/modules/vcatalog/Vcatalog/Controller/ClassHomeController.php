@@ -17,6 +17,7 @@ class Vcatalog_Controller_HomeController extends Vcatalog_Controller_BaseFlowCon
         if ($model === NULL) {
             $model = Array();
         }
+        $model[MODEL_REQUEST_MODULE] = 'home';
 
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao

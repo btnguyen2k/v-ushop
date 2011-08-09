@@ -375,6 +375,8 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      */
     protected function buildModel_Common() {
         $model = Array();
+        $model[MODEL_REQUEST_MODULE] = $this->getModule();
+        $model[MODEL_REQUEST_ACTION] = $this->getAction();
         $model['basehref'] = $this->getBaseHref();
         $model['page'] = $this->buildModel_Page();
         $model['language'] = $this->getLanguage();

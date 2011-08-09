@@ -34,6 +34,9 @@ define('FORM_INFO_MESSAGES', 'infoMessages');
 
 define('MODEL_APP_VERSION', 'APP_VERSION');
 
+define('MODEL_REQUEST_MODULE', 'reqModule');
+define('MODEL_REQUEST_ACTION', 'reqAction');
+
 define('MODEL_CATEGORY_TREE', 'categoryTree');
 define('MODEL_CATEGORY_LIST', 'categoryList');
 define('MODEL_CART', 'cart');
