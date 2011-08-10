@@ -148,13 +148,13 @@ textarea[disabled],textarea[readonly] {
 }
 
 .blockTitle a,.blockTitle a:visited {
-    color: #551a8b;
+    color: #0000ff;
     text-decoration: underline;
     background-color: transparent;
 }
 
 .blockTitle a:hover {
-    color: #0000ff;
+    color: #e93098;
     text-decoration: none;
     background-color: transparent;
 }
@@ -315,14 +315,6 @@ body {
     font-size: 1.1em;
     color: rgb(50, 50, 50);
 }
-#left-column {
-    width: 20%;
-    float: left;
-    vertical-align: top;
-    background-color: rgb(255, 255, 255);
-    font-size: 1.1em;
-    color: rgb(50, 50, 50);
-}
 
 #left-column ul {
     width: 95%;
@@ -337,6 +329,7 @@ body {
     white-space: nowrap;
 }
 
+/*
 #left-column li a {
     display: block;
     padding: 0.3em 0.7em 0.2em 1.2em;
@@ -348,12 +341,33 @@ body {
     color: rgb(50, 50, 50);
     height: 1.3em;
 }
-
+*/
+/* pink color */
+#left-column li a {
+    display: block;
+    padding: 0.3em 0.7em 0.2em 1.2em;
+    border-left: solid 0.5em #ffffff;
+    border-top: solid 0.1em #E93098;
+    background-color: #ffffff;
+    text-decoration: none;
+    font-weight: normal;
+    color: #ed50a9;
+    height: 1.3em;
+}
+/*
 #left-column a:hover {
     border-left: solid 0.5em rgb(175, 175, 175);
     background-color: rgb(220, 220, 220);
     text-decoration: none;
     color: rgb(50, 50, 50);
+}
+*/
+/* pink color */
+#left-column a:hover {
+    border-left: solid 0.5em #E93098;
+    background-color: #d72f8e;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 #left-column .selected {
@@ -366,6 +380,7 @@ body {
     color: rgb(50, 50, 50);
 }
 
+/*
 #left-column .left-navheader-first {
     display: block;
     margin: 0em 0em 1.0em 0em;
@@ -377,7 +392,21 @@ body {
     font-weight: bold;
     color: rgb(50, 50, 50);
 }
+*/
+/* pink color */
+#left-column .left-navheader-first {
+    display: block;
+    margin: 0em 0em 1.0em 0em;
+    padding: 0.3em 0.7em 0.3em 0.9em;
+    border-left: solid 0em #E2178A;
+    background-color: #d72f8e;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    color: #ffffff;
+}
 
+/*
 #left-column .left-navheader {
     display: block;
     margin: 1.0em 0em 0em 0em;
@@ -388,6 +417,22 @@ body {
     text-decoration: none;
     font-weight: bold;
     color: rgb(50, 50, 50);
+    white-space: nowrap;
+    letter-spacing: -1px;
+    word-spacing: -1px;
+}
+*/
+/* pink color */
+#left-column .left-navheader {
+    display: block;
+    margin: 1.0em 0em 0em 0em;
+    padding: 0.3em 0.7em 0.2em 0.4em;
+    border-left: solid 0.5em #E2178A;
+    background-color: #d72f8e;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    color: #ffffff;
     white-space: nowrap;
     letter-spacing: -1px;
     word-spacing: -1px;
