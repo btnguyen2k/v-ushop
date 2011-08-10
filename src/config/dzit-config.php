@@ -127,7 +127,7 @@ Dzit_Config::set(Dzit_Config::CONF_ACTION_HANDLER_MAPPING, new $actionHandlerMap
  */
 include_once ('Smarty.class.php');
 
-define('SKIN_DIR', 'skins/default/');
+define('SKIN_DIR', 'skins/knbabyshop/');
 $params = Array('templateDir' => SKIN_DIR,
         'prefix' => 'page_',
         'suffix' => '.tpl',
