@@ -113,16 +113,30 @@
                     <ul class="categories_list">
                         [:foreach $MODEL.categoryTree as $cat:]
                             <li>
-                                <a title="[:$cat->getTitle()|escape:'html':]" href="[:$cat->getUrlView():]">[:$cat->getTitleForDisplay(30)|escape:'html':]</a>
-                                <!--
-                                [:if count($cat->getChildren()) gt 0:]
+                                [:assign var="_displayChildren" value=FALSE:]
+                                [:if $MODEL.reqModule=='category':]
+                                    [:if $MODEL.reqAction==$cat->getId():]
+                                        [:assign var="_displayChildren" value=TRUE:]
+                                    [:else:]
+                                        [:foreach $cat->getChildren() as $child:]
+                                            [:if $MODEL.reqAction==$child->getId():]
+                                                [:assign var="_displayChildren" value=TRUE:]
+                                            [:/if:]
+                                        [:/foreach:]
+                                    [:/if:]
+                                [:/if:]
+                                <a title="[:$cat->getTitle()|escape:'html':]" href="[:$cat->getUrlView():]">
+                                    [:if $_displayChildren:]<strong>[:/if:][:$cat->getTitleForDisplay(30)|escape:'html':][:if $_displayChildren:]<strong>[:/if:]
+                                </a>
+                                [:if $_displayChildren && count($cat->getChildren()) gt 0:]
                                     <ul style="list-style-type: none; padding-left: 20px">
                                         [:foreach $cat->getChildren() as $child:]
-                                            <li><a title="[:$child->getTitle()|escape:'html':]" href="[:$child->getUrlView():]">[:$child->getTitleForDisplay(30)|escape:'html':]</a></li>
+                                            <li><a title="[:$child->getTitle()|escape:'html':]" href="[:$child->getUrlView():]">
+                                                [:if $MODEL.reqAction==$child->getId():]<strong>[:/if:][:$child->getTitleForDisplay(30)|escape:'html':][:if $MODEL.reqAction==$child->getId():]</strong>[:/if:]
+                                            </a></li>
                                         [:/foreach:]
                                     </ul>
                                 [:/if:]
-                                -->
                             </li>
                         [:/foreach:]
                     </ul>
@@ -150,11 +164,11 @@
                 [:/foreach:]
                 <li class="last_menu"><a href="[:$MODEL.cart->getUrlView():]">[:$MODEL.language->getMessage('msg.cart'):]</a></li>
             </ul>
-
-        Copyright © 2048 <a href="#">Your Company Name</a> |
-        <a href="http://www.iwebsitetemplate.com" target="_parent">Website Templates</a> by <a href="http://www.templatemo.com" target="_parent">Free CSS Template</a></div>
-	<!-- end of footer -->
-
-</div> <!-- end of footer_wrapper -->
-<div align=center>This template  downloaded form <a href='http://all-free-download.com/free-website-templates/'>free website templates</a></div></body>
+            [:$MODEL.page.copyright:]
+            |
+            Powered by <a href="http://code.google.com/p/vcatalog/">vCatalog ([:$MODEL.APP_VERSION:])</a>
+            <br/>
+            Theme designed by <a href="http://www.templatemo.com" target="_blank">Free CSS Template</a>
+        </div> <!-- end of footer -->
+    </div> <!-- end of footer_wrapper -->
 </html>
