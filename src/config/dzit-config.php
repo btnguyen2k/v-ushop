@@ -79,6 +79,7 @@ $router = Array('*' => 'Vcatalog_Controller_HomeController',
         'cart' => 'Vcatalog_Controller_ViewCartController',
         'updateCart' => 'Vcatalog_Controller_UpdateCartController',
         'checkout' => 'Vcatalog_Controller_CheckoutController',
+        'search' => 'Vcatalog_Controller_SearchController',
         'profilecp' => Array('*' => 'Vcatalog_Controller_ProfileCp_ProfileController'),
         'paperclip' => Array('thumbnail' => 'Paperclip_Controller_ViewThumbnailController',
                 'view' => 'Paperclip_Controller_ViewController',
@@ -100,7 +101,8 @@ $router = Array('*' => 'Vcatalog_Controller_HomeController',
                 'editPage' => 'Vcatalog_Controller_Admin_EditPageController',
                 'siteSettings' => 'Vcatalog_Controller_Admin_SiteSettingsController',
                 'emailSettings' => 'Vcatalog_Controller_Admin_EmailSettingsController',
-                'catalogSettings' => 'Vcatalog_Controller_Admin_CatalogSettingsController'));
+                'catalogSettings' => 'Vcatalog_Controller_Admin_CatalogSettingsController',
+                'updateIndex' => 'Vcatalog_Controller_Admin_UpdateIndexController'));
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 
 /*

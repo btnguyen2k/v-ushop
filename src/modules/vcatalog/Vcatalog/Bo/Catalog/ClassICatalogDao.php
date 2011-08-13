@@ -70,7 +70,7 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param string $imageId
      * @param boolean $hotItem
      */
-    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId, $hotItem=TRUE);
+    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId, $hotItem = TRUE);
 
     /**
      * Deletes an existing items.
@@ -82,9 +82,11 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Gets all available items as a list.
      *
+     * @param int $pageNum
+     * @param int $pageSize
      * @return Array
      */
-    public function getAllItems();
+    public function getAllItems($pageNum = 1, $pageSize = 999);
 
     /**
      * Gets an item by id.
@@ -97,9 +99,11 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Gets all items within a category as a list.
      *
+     * @param int $pageNum
+     * @param int $pageSize
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
      */
-    public function getItemsForCategory($cat);
+    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999);
 
     /**
      * Gets "hot" items.
@@ -107,7 +111,19 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param int $numItems number of items to retrieve
      * @return Array
      */
-    public function getHotItems($numItems=10);
+    public function getHotItems($numItems = 10);
+
+    /**
+     * Searches for items.
+     *
+     * @param string $searchQuery
+     * @param int $searchType 0 = search in title, 1 = search in description/content, 2 = search in both
+     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     * @param int $pageNum
+     * @param int $pageSize
+     * @return Array
+     */
+    public function searchItems($searchQuery, $searchType = 2, $cat = NULL, $pageNum = 1, $pageSize = 10);
 
     /**
      * Updates an existing item.

@@ -1,4 +1,6 @@
 <?php
+define('WORD_SPLIT_PATTERN', '/[\s,\."\';:]+/');
+
 define('CONFIG_SITE_COPYRIGHT', 'site_copyright');
 define('CONFIG_SITE_DESCRIPTION', 'site_description');
 define('CONFIG_SITE_KEYWORDS', 'site_keywords');

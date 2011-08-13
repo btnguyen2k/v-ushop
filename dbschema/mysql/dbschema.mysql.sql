@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS app_log;
 DROP TABLE IF EXISTS http_session;
+DROP TABLE IF EXISTS vcatalog_tag;
 DROP TABLE IF EXISTS vcatalog_group;
 DROP TABLE IF EXISTS vcatalog_user;
 DROP TABLE IF EXISTS vcatalog_paperclip;
@@ -155,6 +156,15 @@ CREATE TABLE vcatalog_item (
     ihot_item       INT                     NOT NULL DEFAULT 0,
         INDEX ihot_item(ihot_item),
     PRIMARY KEY (iid)
+) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE vcatalog_tag (
+    titem_id        INT                     NOT NULL,
+    ttag            VARCHAR(32)             COLLATE utf8_bin NOT NULL,
+        INDEX ttag(ttag),
+    ttype           INT                     NOT NULL DEFAULT 0,
+        INDEX ttype(ttype),
+    PRIMARY KEY (titem_id, ttag, ttype)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_cart (

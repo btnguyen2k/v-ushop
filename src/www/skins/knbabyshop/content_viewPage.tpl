@@ -6,7 +6,7 @@
         style="width: 77.9%"
     [:/if:]
 ><!-- Middle column full box -->
-    <div class="middle-column-box-blue">
+    <div class="middle-column-box-whilte">
         <!-- <div class="middle-column-box-title-blue">[:$MODEL.pageObj->getTitle()|escape:'html':]</div>  -->
         [:$MODEL.pageObj->getContent():]
     </div>

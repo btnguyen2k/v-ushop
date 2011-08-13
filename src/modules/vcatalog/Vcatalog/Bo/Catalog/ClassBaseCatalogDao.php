@@ -260,6 +260,10 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
 
         $this->closeConnection();
         $this->invalidateItemCache();
+
+        $item = $this->getItemJustCreated($timestamp);
+        $this->updateIndexItem($item);
+        return $item;
     }
 
     /**
@@ -287,7 +291,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getAllItems()
      */
-    public function getAllItems() {
+    public function getAllItems($pageNum = 1, $pageSize = 999) {
         $cacheKey = self::CACHE_KEY_ITEM_ALL;
         $result = $this->getFromCache($cacheKey);
         if ($result === NULL) {
@@ -310,6 +314,29 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
             $this->putToCache($cacheKey, $result);
         }
         return $result;
+    }
+
+    /**
+     * Gets the item that has just been created.
+     *
+     * @param int $timestamp
+     * @param string $title
+     * @return Vcatalog_Bo_Catalog_BoItem
+     */
+    protected function getItemJustCreated($timestamp, $title) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $itemId = 0;
+        $params = Array('timestamp' => $timestamp, 'title' => $title);
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+        $row = $this->fetchResultArr($rs);
+        if ($row !== NULL && $row !== FALSE) {
+            $itemId = $row[0];
+        }
+
+        $this->closeConnection();
+        return $this->getItemById($itemId);
     }
 
     /**
@@ -344,7 +371,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getItemsForCategory()
      */
-    public function getItemsForCategory($cat) {
+    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
@@ -398,6 +425,78 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     }
 
     /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::searchItems()
+     */
+    public function searchItems($searchQuery, $searchType = 2, $cat = NULL, $pageNum = 1, $pageSize = 10) {
+        $tokens = preg_split(WORD_SPLIT_PATTERN, strip_tags($searchQuery));
+        $searchTerms = Array();
+        foreach ($tokens as $token) {
+            if (mb_strlen($token) > 2) {
+                $temp = mb_strtolower($token, 'UTF-8');
+                $searchTerms[$temp] = 1;
+            }
+        }
+
+        if (count($searchTerms) === 0) {
+            return Array();
+        }
+
+        $pageNum = (int)$pageNum;
+        if ($pageNum < 1) {
+            $pageNum = 1;
+        }
+
+        $pageSize = (int)$pageSize;
+        if ($pageSize < 1) {
+            $pageSize = 1;
+        }
+
+        $paramSearchTerms = array_keys($searchTerms);
+
+        $paramCats = Array();
+        if ($cat !== NULL) {
+            $paramCats[] = $cat->getId();
+            foreach ($cat->getChildren() as $child) {
+                $paramCats[] = $child->getId();
+            }
+        }
+
+        switch ($searchType) {
+            case 0:
+                $paramSearchTypes = Array(0);
+                break;
+            case 1:
+                $paramSearchTypes = Array(0);
+                break;
+            default:
+                $paramSearchTypes = Array(0, 1);
+                break;
+        }
+
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($paramCats) === 0 ? 'NoCategory' : 'Category'));
+        $sqlConn = $this->getConnection();
+
+        $params = Array('searchTypes' => $paramSearchTypes,
+                'tags' => $paramSearchTerms,
+                'categoryIds' => $paramCats,
+                'pageNum' => $pageNum,
+                'startOffset' => ($pageNum - 1) * $pageSize,
+                'pageSize' => $pageSize);
+
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+        $row = $this->fetchResultAssoc($rs);
+        while ($row !== FALSE && $row !== NULL) {
+            $itemId = $row['id'];
+            $item = $this->getItemById($itemId);
+            $result[] = $item;
+            $row = $this->fetchResultAssoc($rs);
+        }
+
+        $this->closeConnection();
+        return $result;
+    }
+
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::updateItem()
      */
     public function updateItem($item) {
@@ -420,5 +519,59 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
 
         $this->closeConnection();
         $this->invalidateItemCache($item);
+
+        $this->updateIndexItem($item);
+    }
+
+    private function updateIndexItem($item) {
+        $this->deleteIndexItem($item);
+
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('itemId' => $item->getId());
+
+        $params['type'] = 0;
+        $tokens = preg_split(WORD_SPLIT_PATTERN, strip_tags($item->getTitle()));
+        $tags = Array();
+        foreach ($tokens as $token) {
+            $token = mb_strtolower($token, 'UTF-8');
+            $tags[$token] = 1;
+        }
+        foreach ($tags as $tag => $dummy) {
+            if (mb_strlen($tag) > 2) {
+                $params['tag'] = $tag;
+                $sqlStm->execute($sqlConn->getConn(), $params);
+            }
+        }
+
+        $params['type'] = 1;
+        $tokens = preg_split(WORD_SPLIT_PATTERN, strip_tags($item->getDescription()));
+        $tags = Array();
+        foreach ($tokens as $token) {
+            $token = mb_strtolower($token, 'UTF-8');
+            $tags[$token] = 1;
+        }
+        foreach ($tags as $tag => $dummy) {
+            if (mb_strlen($tag) > 2) {
+                $params['tag'] = $tag;
+                $sqlStm->execute($sqlConn->getConn(), $params);
+            }
+        }
+
+        $this->closeConnection();
+    }
+
+    private function deleteIndexItem($item) {
+        if ($item === NULL) {
+            return;
+        }
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $params = Array('itemId' => $item->getId());
+        $sqlStm->execute($sqlConn->getConn(), $params);
+
+        $this->closeConnection();
     }
 }

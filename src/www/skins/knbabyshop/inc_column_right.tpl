@@ -1,5 +1,32 @@
 <!-- RIGHT COLUMN -->
+<style>
+.searchHolder {
+    width: 138px;
+    height: 27px;
+    background: url(img/search_background.gif) no-repeat;
+    float: left;
+}
+
+#searchInput {
+    width: 106px;
+    border: none;
+    color: #000000;
+    margin-left: 4px;
+    padding-left: 20px;
+    font-size: 12px;
+    background: url(img/find.png) no-repeat;
+    margin-top: 5px;
+}
+</style>
 <div id="right-column">
+    <div class="right-column-box-white">
+        <div class="right-column-box-title-purple" align="center" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.search'):]</div>
+        <form method="get" action="[:$smarty.server.SCRIPT_NAME:]/search" style="margin: 0; padding: 0;">
+            <div class="searchHolder">
+                <input type="text" name="q" id="searchInput" />
+            </div>
+        </form>
+    </div>
     <div class="right-column-box-white">
         <div class="right-column-box-title-purple" align="center" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.cart'):]</div>
         [:foreach $MODEL.cart->getItems() as $item:]

@@ -51,6 +51,10 @@ $YADIF_CONFIG = Array(
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
 
+        'Vcatalog_Controller_SearchController' => Array(
+                'class' => 'Vcatalog_Controller_SearchController',
+                'scope' => 'singleton'),
+
         'Vcatalog_Controller_LoginController' => Array(
                 'class' => 'Vcatalog_Controller_LoginController',
                 'scope' => 'singleton',
@@ -176,6 +180,13 @@ $YADIF_CONFIG = Array(
 
         'Vcatalog_Controller_Admin_CatalogSettingsController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_CatalogSettingsController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+
+        'Vcatalog_Controller_Admin_UpdateIndexController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_UpdateIndexController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
