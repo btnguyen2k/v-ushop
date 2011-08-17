@@ -8,6 +8,7 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
      */
     private $category = NULL;
     private $categoryId;
+    private $itemSorting;
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -35,8 +36,16 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
         if ($this->category != NULL) {
             $children = $catalogDao->getCategoryChildren($this->category);
             $this->category->setChildren($children);
-            //print_r($children);
         }
+
+        $this->itemSorting = isset($_SESSION[SESSION_ITEM_SORTING]) ? $_SESSION[SESSION_ITEM_SORTING] : DEFAULT_ITEM_SORTING;
+        if (isset($_GET['s'])) {
+            $this->itemSorting = $_GET['s'];
+        }
+        if ($this->itemSorting !== ITEM_SORTING_PRICEASC && $this->itemSorting !== ITEM_SORTING_PRICEDESC && $this->itemSorting !== ITEM_SORTING_TIMEASC && $this->itemSorting !== ITEM_SORTING_TIMEDESC && $this->itemSorting !== ITEM_SORTING_TITLE) {
+            $this->itemSorting = DEFAULT_ITEM_SORTING;
+        }
+        $_SESSION[SESSION_ITEM_SORTING] = $this->itemSorting;
     }
 
     /**
@@ -86,7 +95,10 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
-        $allItems = $catalogDao->getItemsForCategory($this->category);
+        $pageNum = 1;
+        $pageSize = 999;
+        $itemSorting = $this->itemSorting;
+        $allItems = $catalogDao->getItemsForCategory($this->category, $pageNum, $pageSize, $itemSorting);
         $model[MODEL_ITEM_LIST] = $allItems;
 
         return $model;

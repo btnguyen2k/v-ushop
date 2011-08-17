@@ -52,9 +52,17 @@ define('MODEL_TRANSIT_MESSAGE', 'transitMessage');
 define('MODEL_URL_TRANSIT', 'urlTransit');
 define('MODEL_DEBUG', 'debug');
 
+define('SESSION_ITEM_SORTING', 'ITEM_SORTING');
 define('SESSION_LAST_ACCESS_URL', 'LAST_ACCESS_URL');
 define('SESSION_USER_ID', 'USER_ID');
 define('SESSION_LANGUAGE_NAME', 'LANGUAGE_NAME');
+
+define('DEFAULT_ITEM_SORTING', 'timedesc');
+define('ITEM_SORTING_TIMEDESC', 'timedesc');
+define('ITEM_SORTING_TIMEASC', 'timeasc');
+define('ITEM_SORTING_PRICEDESC', 'pricedesc');
+define('ITEM_SORTING_PRICEASC', 'priceasc');
+define('ITEM_SORTING_TITLE', 'title');
 
 define('USER_GROUP_ADMIN', 1);
 

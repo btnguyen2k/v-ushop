@@ -99,11 +99,13 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Gets all items within a category as a list.
      *
+     * @param Vcatalog_Bo_Catalog_BoCategory $cat
      * @param int $pageNum
      * @param int $pageSize
+     * @param string $itemSorting
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
      */
-    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999);
+    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999, $itemSorting=DEFAULT_ITEM_SORTING);
 
     /**
      * Gets "hot" items.

@@ -371,7 +371,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getItemsForCategory()
      */
-    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999) {
+    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999, $itemSorting = DEFAULT_ITEM_SORTING) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
@@ -382,6 +382,27 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
             $params[] = $child->getId();
         }
         $params = Array('categoryIds' => $params);
+        switch ($itemSorting) {
+            case ITEM_SORTING_TITLE:
+                $params['sortingField'] = new Ddth_Dao_ParamAsIs('title');
+                $params['sorting'] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            case ITEM_SORTING_PRICEASC:
+                $params['sortingField'] = new Ddth_Dao_ParamAsIs('price');
+                $params['sorting'] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            case ITEM_SORTING_PRICEDESC:
+                $params['sortingField'] = new Ddth_Dao_ParamAsIs('price');
+                $params['sorting'] = new Ddth_Dao_ParamAsIs('DESC');
+                break;
+            case ITEM_SORTING_TIMEASC:
+                $params['sortingField'] = new Ddth_Dao_ParamAsIs('timestamp');
+                $params['sorting'] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            default:
+                $params['sortingField'] = new Ddth_Dao_ParamAsIs('timestamp');
+                $params['sorting'] = new Ddth_Dao_ParamAsIs('DESC');
+        }
         $rs = $sqlStm->execute($sqlConn->getConn(), $params);
         $row = $this->fetchResultAssoc($rs);
         while ($row !== FALSE && $row !== NULL) {
