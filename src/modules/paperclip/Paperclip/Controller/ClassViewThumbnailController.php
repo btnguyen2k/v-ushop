@@ -17,8 +17,14 @@ class Paperclip_Controller_ViewThumbnailController implements Dzit_IController {
         }
         $item = $dao->getAttachment($id);
         if ($item !== NULL) {
-            header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-            header("Expires: Sat, 1 Jan 2011 00:00:00 GMT"); // Date in the past
+            if ($viewValue['onetime']) {
+                header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+                header("Expires: Sat, 1 Jan 2011 00:00:00 GMT"); // Date in the past
+            } else {
+                header("Cache-Control: max-age=3600"); // HTTP/1.1
+                header("Last-Modified: " . gmdate("D, d M Y H:i:s", $item->getTimestamp()) . " GMT");
+                header("Expires: " . gmdate("D, d M Y H:i:s", time() + 3600) . " GMT");
+            }
             header('Content-type: image/jpeg');
             echo $item->getThumbnail();
         } else {
