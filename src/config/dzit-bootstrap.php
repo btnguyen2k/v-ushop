@@ -2,6 +2,8 @@
 defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
+ob_start("ob_gzhandler");
+
 /*
  * From http://www.daniweb.com/web-development/php/code/216305
  */
