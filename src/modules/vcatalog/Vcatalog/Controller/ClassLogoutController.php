@@ -11,6 +11,11 @@ class Vcatalog_Controller_LogoutController extends Vcatalog_Controller_BaseFlowC
         } else {
             $url = $_SERVER['SCRIPT_NAME'];
         }
+
+        header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+        header("Expires: Sat, 1 Jan 2011 00:00:00 GMT"); // Date in the past
+        header("Pragma: no-cache");
+
         $view = new Dzit_View_RedirectView($url);
         return new Dzit_ModelAndView($view, NULL);
     }

@@ -33,6 +33,10 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowCo
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
 
+        header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+        header("Expires: Sat, 1 Jan 2011 00:00:00 GMT"); // Date in the past
+        header("Pragma: no-cache");
+
         return new Dzit_ModelAndView($viewName, $model);
     }
 
