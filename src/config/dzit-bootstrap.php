@@ -122,7 +122,7 @@ class Dzit_SessionHandler {
     }
 }
 $sessionHandler = new Dzit_SessionHandler();
-session_cache_limiter('private');
+session_cache_limiter('private_no_expire');
 session_start();
 ob_start("ob_gzhandler");
 
