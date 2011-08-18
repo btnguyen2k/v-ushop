@@ -2,8 +2,6 @@
 defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-ob_start("ob_gzhandler");
-
 /*
  * From http://www.daniweb.com/web-development/php/code/216305
  */
@@ -124,7 +122,9 @@ class Dzit_SessionHandler {
     }
 }
 $sessionHandler = new Dzit_SessionHandler();
+session_cache_limiter('private_no_expire');
 session_start();
+ob_start("ob_gzhandler");
 
 /**
  * Dzit's core bootstrap file.
