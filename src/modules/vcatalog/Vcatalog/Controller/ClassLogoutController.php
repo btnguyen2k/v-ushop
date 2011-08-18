@@ -16,7 +16,7 @@ class Vcatalog_Controller_LogoutController extends Vcatalog_Controller_BaseFlowC
         header("Expires: Sat, 1 Jan 2011 00:00:00 GMT"); // Date in the past
         header("Pragma: no-cache");
 
-        if (strpos('?', $url) >= 0) {
+        if (strpos($url, '?') >= 0) {
             $url .= '&' . rand();
         } else {
             $url .= '?' . rand();

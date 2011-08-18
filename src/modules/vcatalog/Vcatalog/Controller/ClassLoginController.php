@@ -30,7 +30,7 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowCo
         } else {
             $urlTransit = $_SERVER['SCRIPT_NAME'];
         }
-        if (strpos('?', $urlTransit) >= 0) {
+        if (strpos($urlTransit, '?') >= 0) {
             $urlTransit .= '&' . rand();
         } else {
             $urlTransit .= '?' . rand();
