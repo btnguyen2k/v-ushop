@@ -261,7 +261,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         $this->closeConnection();
         $this->invalidateItemCache();
 
-        $item = $this->getItemJustCreated($timestamp);
+        $item = $this->getItemJustCreated($timestamp, $title);
         $this->updateIndexItem($item);
         return $item;
     }

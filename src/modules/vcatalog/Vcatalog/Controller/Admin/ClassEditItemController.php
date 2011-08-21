@@ -51,6 +51,8 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->item = $catalogDao->getItemById($this->itemId);
         if ($this->item !== NULL) {
+            $r = md5($this->item->getImageId());
+            $this->sessionKey .= $r;
             $_SESSION[$this->sessionKey] = $this->item->getImageId();
         }
     }
@@ -122,7 +124,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $form[self::FORM_FIELD_PRICE] = $this->item->getPrice();
         $form[self::FORM_FIELD_TITLE] = $this->item->getTitle();
         $form[self::FORM_FIELD_VENDOR] = $this->item->getVendor();
-        $form[self::FORM_FIELD_IMAGE_ID] = $this->item->getImageId();
+        $form[self::FORM_FIELD_IMAGE_ID] = md5($this->item->getImageId());
         $form[self::FORM_FIELD_HOT] = $this->item->isHotItem() ? 1 : 0;
 
         $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_ID,

@@ -70,6 +70,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
         $form = Array('action' => $_SERVER['REQUEST_URI'],
                 'actionCancel' => $this->getUrlItemManagement(),
                 'name' => 'frmCreateItem');
+        $form[self::FORM_FIELD_IMAGE_ID] = md5(rand());
         $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_ID,
                 self::FORM_FIELD_DESCRIPTION,
                 self::FORM_FIELD_PRICE,
@@ -77,6 +78,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
                 self::FORM_FIELD_VENDOR,
                 self::FORM_FIELD_IMAGE_ID,
                 self::FORM_FIELD_HOT));
+        $this->sessionKey .= $form[self::FORM_FIELD_IMAGE_ID];
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         if ($paperclipId !== NULL) {
             $form[self::FORM_FIELD_URL_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);

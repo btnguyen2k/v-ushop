@@ -545,6 +545,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
                 } else {
                     $filecontent = Commons_Utils_FileUtils::getFileContent($file['tmp_name']);
                     $imgSource = Commons_Utils_ImageUtils::createImageSource($file['tmp_name']);
+                    $paperclipItem->setTimestamp(time());
                     $paperclipItem->setFilecontent($filecontent);
                     $paperclipItem->setFilename($filename);
                     $paperclipItem->setFilesize($file['size']);

@@ -22,7 +22,7 @@ class Paperclip_Controller_ViewThumbnailController implements Dzit_IController {
                 header("Expires: Sat, 1 Jan 2011 00:00:00 GMT"); // Date in the past
             } else {
                 header("Last-Modified: " . gmdate("D, d M Y H:i:s", $item->getTimestamp()) . " GMT");
-                header("Expires: " . gmdate("D, d M Y H:i:s", time() + 3600) . " GMT");
+                //header("Expires: " . gmdate("D, d M Y H:i:s", time() + 3600) . " GMT");
             }
             header('Content-type: image/jpeg');
             echo $item->getThumbnail();
