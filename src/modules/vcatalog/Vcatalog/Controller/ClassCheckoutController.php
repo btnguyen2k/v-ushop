@@ -128,6 +128,8 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         $orderItems = '<table border="1"><thread><tr><th style="text-align: center;">';
         $orderItems .= $lang->getMessage('msg.item') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
+        $orderItems .= $lang->getMessage('msg.item.vendor') . '</th>';
+        $orderItems .= '<th style="text-align: center;" width="64px">';
         $orderItems .= $lang->getMessage('msg.price') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
         $orderItems .= $lang->getMessage('msg.quantity') . '</th>';
@@ -138,6 +140,7 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         foreach ($cart->getItems() as $item) {
             $orderItems .= '<tr>';
             $orderItems .= '<td>' . htmlspecialchars($item->getTitle()) . '</td>';
+            $orderItems .= '<td>' . htmlspecialchars($item->getVendor()) . '</td>';
             $orderItems .= '<td align="right">' . $item->getPriceForDisplay() . '</td>';
             $orderItems .= '<td align="right">' . $item->getQuantityForDisplay() . '</td>';
             $orderItems .= '<td align="right">' . $item->getTotalForDisplay() . '</td>';
@@ -145,7 +148,7 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         }
         $orderItems .= '</tbody>';
         $orderItems .= '<tfoot><tr>';
-        $orderItems .= '<th style="text-align: center;" colspan="3">' . $lang->getMessage('msg.grandTotal') . '</th>';
+        $orderItems .= '<th style="text-align: center;" colspan="4">' . $lang->getMessage('msg.grandTotal') . '</th>';
         $orderItems .= '<th style="text-align: right;">' . $cart->getGrandTotalForDisplay() . '</th>';
         $orderItems .= '</tr></tfoot>';
         $orderItems .= '</table>';
@@ -160,7 +163,7 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
                 'ORDER_PHONE' => htmlspecialchars($orderPhone),
                 'ORDER_OTHER_INFO' => htmlspecialchars($orderOtherInfo),
                 'ORDER_ITEMS' => $orderItems,
-                'PAYMENT_METHOD' => $orderPaymentMethod ? $lang->getMessage('msg.order.paymentMethod.cash') : $lang->getMessage('msg.order.paymentMethod.transfer'));
+                'PAYMENT_METHOD' => $orderPaymentMethod==0 ? $lang->getMessage('msg.order.paymentMethod.cash') : $lang->getMessage('msg.order.paymentMethod.transfer'));
         //$mailer->IsHTML(TRUE);
         $mailer->Subject = $this->renderEmail($subject, $replacements);
         $mailer->AltBody = 'To view the message, please use an HTML compatible email viewer!';

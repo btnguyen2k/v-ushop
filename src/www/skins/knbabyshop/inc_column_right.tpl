@@ -40,14 +40,6 @@
             </p>
         [:/if:]
     </div>
-    <div class="right-column-box-white">
-        <div class="right-column-box-title-purple" align="center" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.support'):]</div>
-        <p>
-            [:assign var="_yahooid" value="kn_babyshop":]
-            <a href="ymsgr:sendIM?[:$_yahooid:]"><img border="0" src="http://opi.yahoo.com/online?u=[:$_yahooid:]&m=g&t=14&l=us" /></a>
-            <!-- <a href="http://edit.yahoo.com/config/send_webmesg?.target=[:$_yahooid:]&.src=pg" target="_blank"><img border="0" src="http://opi.yahoo.com/online?u=[:$_yahooid:]&m=g&t=14&l=us" /></a> -->
-        </p>
-    </div>
     [:if isset($MODEL.hotItems):]
         <div class="right-column-box-white" align="center">
             <div class="right-column-box-title-purple" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.hotItems'):]</div>
@@ -69,4 +61,12 @@
             </marquee>
         </div>
     [:/if:]
+    <div class="right-column-box-white">
+        <div class="right-column-box-title-purple" align="center" style="text-transform: uppercase;">[:$MODEL.language->getMessage('msg.support'):]</div>
+        <p align="center">
+            [:assign var="_yahooid" value="kn_babyshop":]
+            <a href="ymsgr:sendIM?[:$_yahooid:]"><img border="0" src="http://opi.yahoo.com/online?u=[:$_yahooid:]&m=g&t=2&l=us" /></a>
+            <!-- <a href="http://edit.yahoo.com/config/send_webmesg?.target=[:$_yahooid:]&.src=pg" target="_blank"><img border="0" src="http://opi.yahoo.com/online?u=[:$_yahooid:]&m=g&t=14&l=us" /></a> -->
+        </p>
+    </div>
 </div>

@@ -11,13 +11,14 @@
         <table style="width: 95%; margin-left: auto; margin-right: auto; font-size: smaller;">
         <thead>
             <th style="text-align: center;">[:$MODEL.language->getMessage('msg.item'):]</th>
+            <th style="text-align: center;" width="60px">[:$MODEL.language->getMessage('msg.item.vendor'):]</th>
             <th style="text-align: center;" width="80px">[:$MODEL.language->getMessage('msg.price'):]</th>
-            <th style="text-align: center;" width="64px">[:$MODEL.language->getMessage('msg.quantity'):]</th>
+            <th style="text-align: center;" width="60px">[:$MODEL.language->getMessage('msg.quantity'):]</th>
             <th style="text-align: center;" width="110px">[:$MODEL.language->getMessage('msg.total'):]</th>
         </thead>
         <tfoot>
             <tr>
-                <th style="text-align: center;" colspan="3">[:$MODEL.language->getMessage('msg.grandTotal'):]</th>
+                <th style="text-align: center;" colspan="4">[:$MODEL.language->getMessage('msg.grandTotal'):]</th>
                 <th style="text-align: right;">[:$MODEL.cart->getGrandTotalForDisplay():]</th>
             </tr>
         </tfoot>
@@ -25,13 +26,14 @@
             [:foreach $MODEL.cart->getItems() as $item:]
                 <tr>
                     <td>[:$item->getTitle()|escape:'html':]</td>
+                    <td>[:$item->getVendor()|escape:'html':]</td>
                     <td align="right">[:$item->getPriceForDisplay():]</td>
                     <td align="right">[:$item->getQuantityForDisplay():]</td>
                     <td align="right">[:$item->getTotalForDisplay():]</td>
                 </tr>
             [:foreachelse:]
                 <tr>
-                    <td colspan="4">[:$MODEL.language->getMessage('msg.nodata'):]</td>
+                    <td colspan="5">[:$MODEL.language->getMessage('msg.nodata'):]</td>
                 </tr>
             [:/foreach:]
         </tbody>

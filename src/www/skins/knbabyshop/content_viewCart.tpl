@@ -11,13 +11,14 @@
         <table style="width: 95%; margin-left: auto; margin-right: auto">
         <thead>
             <th style="text-align: center;">[:$MODEL.language->getMessage('msg.item'):]</th>
-            <th width="100px" style="text-align: center;">[:$MODEL.language->getMessage('msg.price'):]</th>
+            <th width="60px" style="text-align: center;">[:$MODEL.language->getMessage('msg.item.vendor'):]</th>
+            <th width="80px" style="text-align: center;">[:$MODEL.language->getMessage('msg.price'):]</th>
             <th width="85px" style="text-align: center;">[:$MODEL.language->getMessage('msg.quantity'):]</th>
-            <th width="140px" style="text-align: center;">[:$MODEL.language->getMessage('msg.total'):]</th>
+            <th width="110px" style="text-align: center;">[:$MODEL.language->getMessage('msg.total'):]</th>
         </thead>
         <tfoot>
             <tr>
-                <th colspan="3">[:$MODEL.language->getMessage('msg.grandTotal'):]</th>
+                <th colspan="4">[:$MODEL.language->getMessage('msg.grandTotal'):]</th>
                 <th style="text-align: right;">[:$MODEL.cart->getGrandTotalForDisplay():]</th>
             </tr>
         </tfoot>
@@ -25,6 +26,7 @@
             [:foreach $MODEL.cart->getItems() as $item:]
                 <tr>
                     <td>[:$item->getTitle()|escape:'html':]</td>
+                    <td>[:$item->getVendor()|escape:'html':]</td>
                     <td align="right">[:$item->getPriceForDisplay():]</td>
                     <td>
                         <form method="post" action="[:$smarty.server.SCRIPT_NAME:]/updateCart">
