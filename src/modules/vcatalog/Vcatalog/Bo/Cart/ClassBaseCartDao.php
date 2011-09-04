@@ -12,6 +12,18 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Commons_Bo_BaseDao implement
         parent::__construct();
     }
 
+    const CACHE_KEY_PREFIX = 'CART_';
+
+    /**
+     * Invalidates the cache due to change.
+     *
+     * @param string $sessionId
+     */
+    protected function invalidateCache($sessionId) {
+        $cacheKey = self::CACHE_KEY_PREFIX . $sessionId;
+        $this->deleteFromCache($cacheKey);
+    }
+
     /**
      * @see Vcatalog_Bo_Cart_ICartDao::createCart()
      */
@@ -30,24 +42,29 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Commons_Bo_BaseDao implement
      * @see Vcatalog_Bo_Cart_ICartDao::getCart()
      */
     public function getCart($sessionId) {
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $sqlConn = $this->getConnection();
+        $cacheKey = self::CACHE_KEY_PREFIX . $sessionId;
+        $cart = $this->getFromCache($cacheKey);
+        if ($cart === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $sqlConn = $this->getConnection();
 
-        $params = Array('sessionId' => $sessionId);
-        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
-        $row = $this->fetchResultAssoc($rs);
-        if ($row !== NULL && $row !== FALSE) {
-            $cart = new Vcatalog_Bo_Cart_BoCart();
-            $cart->populate($row);
-        } else {
-            $cart = NULL;
-        }
+            $params = Array('sessionId' => $sessionId);
+            $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+            $row = $this->fetchResultAssoc($rs);
+            if ($row !== NULL && $row !== FALSE) {
+                $cart = new Vcatalog_Bo_Cart_BoCart();
+                $cart->populate($row);
+            } else {
+                $cart = NULL;
+            }
 
-        $this->closeConnection();
-        if ($cart !== NULL) {
-            $items = $this->getItemsInCart($cart);
-            foreach ($items as $item) {
-                $cart->addItem($item);
+            $this->closeConnection();
+            if ($cart !== NULL) {
+                $items = $this->getItemsInCart($cart);
+                foreach ($items as $item) {
+                    $cart->addItem($item);
+                }
+                $this->putToCache($cacheKey, $cart);
             }
         }
         return $cart;
@@ -89,6 +106,7 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Commons_Bo_BaseDao implement
         $sqlStm->execute($sqlConn->getConn(), $params);
 
         $this->closeConnection();
+        $this->invalidateCache($cart->getSessionId());
     }
 
     /**
@@ -103,6 +121,7 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Commons_Bo_BaseDao implement
         $sqlStm->execute($sqlConn->getConn(), $params);
 
         $this->closeConnection();
+        $this->invalidateCache($cartItem->getSessionId());
     }
 
     /**
@@ -119,5 +138,6 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Commons_Bo_BaseDao implement
         $sqlStm->execute($sqlConn->getConn(), $params);
 
         $this->closeConnection();
+        $this->invalidateCache($cartItem->getSessionId());
     }
 }

@@ -26,10 +26,14 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * @see Dzit_Controller_FlowController::execute()
      */
     public function execute($module, $action) {
+        $startTime = microtime(TRUE);
         if ($this->saveUrl) {
             $_SESSION[SESSION_LAST_ACCESS_URL] = $_SERVER['REQUEST_URI'];
         }
-        return parent::execute($module, $action);
+        $modelAndView = parent::execute($module, $action);
+        $endTime = microtime(TRUE);
+        //error_log($endTime - $startTime, 0);
+        return $modelAndView;
     }
 
     /**

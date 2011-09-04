@@ -25,23 +25,36 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implement
         return $result;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Bo_Session_ISessionDao::getUserById()
+    /**
+     * @see Vcatalog_Bo_User_IUserDao::getUserById()
      */
     public function getUserById($id) {
         $id = (int)$id; //to make sure it's integer
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array('id' => $id);
-        return $this->getUser($sqlStm, $params);
+        $cacheKey = 'USER_' . $id;
+        $result = $this->getFromCache($cacheKey, FALSE);
+        if ($result === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $params = Array('id' => $id);
+            $result = $this->getUser($sqlStm, $params);
+            $this->putToCache($cacheKey, $result, FALSE);
+        }
+        return $result;
     }
 
-    /* (non-PHPdoc)
-     * @see Vcatalog_Bo_Session_ISessionDao::getUserByEmail()
+    /**
+     * (non-PHPdoc)
+     * @see Vcatalog_Bo_User_IUserDao::getUserByEmail()
      */
     public function getUserByEmail($email) {
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array('email' => $email);
-        return $this->getUser($sqlStm, $params);
+        $cacheKey = 'USER_' . $email;
+        $result = $this->getFromCache($cacheKey, FALSE);
+        if ($result === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $params = Array('email' => $email);
+            $result = $this->getUser($sqlStm, $params);
+            $this->putToCache($cacheKey, $result, FALSE);
+        }
+        return $result;
     }
 
     /**

@@ -12,6 +12,21 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
         parent::__construct();
     }
 
+    const CACHE_KEY_PREFIX = 'PAPERCLIP_';
+
+    /**
+     * Invalidates the cache due to change.
+     *
+     * @param Paperclip_Bo_BoPaperclip $attachment
+     */
+    protected function invalidateCache($attachment = NULL) {
+        if ($attachment !== NULL) {
+            $attachmentId = $attachment->getId();
+            $cacheKey = self::CACHE_KEY_PREFIX . $attachmentId;
+            $this->deleteFromCache($cacheKey);
+        }
+    }
+
     /**
      * @see Paperclip_Bo_IPaperclipDao::createAttachment()
      */
@@ -51,31 +66,40 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
         $params = Array('id' => $attachment->getId());
         $sqlStm->execute($sqlConn->getConn(), $params);
         $this->closeConnection();
+        $this->invalidateCache($attachment);
     }
 
     /**
      * @see Paperclip_Bo_IPaperclipDao::getAttachment()
      */
     public function getAttachment($id) {
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $sqlConn = $this->getConnection();
-
-        $params = Array('id' => $id);
-        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
-        $rs = $this->fetchResultAssoc($rs);
-        $result = NULL;
-        if ($rs !== NULL && $rs !== FALSE) {
-            $result = new Paperclip_Bo_BoPaperclip();
-            $result->populate($rs);
+        if ($id === NULL) {
+            return NULL;
         }
+        $cacheKey = self::CACHE_KEY_PREFIX . $id;
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
 
-        $this->closeConnection();
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $sqlConn = $this->getConnection();
 
+            $params = Array('id' => $id);
+            $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+            $rs = $this->fetchResultAssoc($rs);
+            $result = NULL;
+            if ($rs !== NULL && $rs !== FALSE) {
+                $result = new Paperclip_Bo_BoPaperclip();
+                $result->populate($rs);
+                $this->putToCache($cacheKey, $result);
+            }
+            $this->closeConnection();
+        }
         $timestamp = time();
         if ($result !== NULL && $result->getTimestamp() + 24 * 3600 < $timestamp) {
             //update timestamp if needed
             $result->setTimestamp($timestamp);
             $this->updateAttachment($result);
+            $this->putToCache($cacheKey, $result);
         }
         return $result;
     }
@@ -99,5 +123,6 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Commons_Bo_BaseDao implemen
                 'isDraft' => $attachment->isDraft() ? 1 : 0);
         $sqlStm->execute($sqlConn->getConn(), $params);
         $this->closeConnection();
+        $this->invalidateCache($attachment);
     }
 }

@@ -33,7 +33,7 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->category = $catalogDao->getCategoryById($this->categoryId);
-        if ($this->category != NULL) {
+        if ($this->category !== NULL) {
             $children = $catalogDao->getCategoryChildren($this->category);
             $this->category->setChildren($children);
         }

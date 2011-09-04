@@ -42,7 +42,7 @@
                 </tr>
             [:foreachelse:]
                 <tr>
-                    <td colspan="4">[:$MODEL.language->getMessage('msg.nodata'):]</td>
+                    <td colspan="5">[:$MODEL.language->getMessage('msg.nodata'):]</td>
                 </tr>
             [:/foreach:]
         </tbody>

@@ -1,7 +1,7 @@
 <?php
 abstract class Commons_Bo_BaseDao extends Ddth_Dao_AbstractSqlStatementDao {
 
-    private $cacheL1 = Array();
+    protected $cacheL1 = Array();
 
     public function __construct() {
         parent::__construct();

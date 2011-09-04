@@ -14,6 +14,25 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
 
     const CACHE_KEY_CATEGORY_COUNT = 'CATEGORY_COUNT';
     const CACHE_KEY_CATEGORY_TREE = 'CATEGORY_TREE';
+    const CACHE_KEY_CATEGORY_PREFIX = 'CATEGORY_';
+    const CACHE_KEY_CATEGORY_CHILDREN_PREFIX = 'CATEGORY_CHILDREN_';
+
+    private function getAllCategoryIds() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $result = Array();
+        $rs = $sqlStm->execute($sqlConn->getConn());
+        $row = $this->fetchResultArr($rs);
+        while ($row !== FALSE && $row !== NULL) {
+            $cid = $row[0];
+            $result[] = $cid;
+            $row = $this->fetchResultArr($rs);
+        }
+
+        $this->closeConnection();
+        return $result;
+    }
 
     /**
      * Invalidates the category cache due to change.
@@ -21,11 +40,14 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
      */
     protected function invalidateCategoryCache($cat = NULL) {
-        if ($cat !== NULL) {
-            $catId = $cat->getId();
-            $cacheKey = "CATEGORY_$catId";
+        $catIds = $this->getAllCategoryIds();
+        foreach ($catIds as $catId) {
+            $cacheKey = self::CACHE_KEY_CATEGORY_PREFIX . $catId;
+            $this->deleteFromCache($cacheKey);
+            $cacheKey = self::CACHE_KEY_CATEGORY_CHILDREN_PREFIX . $catId;
             $this->deleteFromCache($cacheKey);
         }
+
         $this->deleteFromCache(self::CACHE_KEY_CATEGORY_COUNT);
         $this->deleteFromCache(self::CACHE_KEY_CATEGORY_TREE);
     }
@@ -33,6 +55,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     const CACHE_KEY_ITEM_ALL = 'ITEM_ALL';
     const CACHE_KEY_ITEM_HOT = 'ITEM_HOT';
     const CACHE_KEY_ITEM_COUNT = 'ITEM_COUNT';
+    const CACHE_KEY_ITEM_PREFIX = 'ITEM_';
 
     /**
      * Invalidates the item cache due to change.
@@ -42,7 +65,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     protected function invalidateItemCache($item = NULL) {
         if ($item !== NULL) {
             $itemId = $item->getId();
-            $cacheKey = "ITEM_$itemId";
+            $cacheKey = self::CACHE_KEY_ITEM_PREFIX . $itemId;
             $this->deleteFromCache($cacheKey);
         }
         $this->deleteFromCache(self::CACHE_KEY_ITEM_ALL);
@@ -112,7 +135,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryById()
      */
     public function getCategoryById($id) {
-        $cacheKey = "CATEGORY_$id";
+        $cacheKey = self::CACHE_KEY_CATEGORY_PREFIX . $id;
         $category = $this->getFromCache($cacheKey);
         if ($category === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -127,11 +150,16 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
                 $this->putToCache($cacheKey, $category);
             }
             $this->closeConnection();
+            if ($category !== NULL) {
+                $children = $this->getCategoryChildren($category);
+                $category->setChildren($children);
+            }
+
         }
-        if ($category !== NULL) {
-            $children = $this->getCategoryChildren($category);
-            $category->setChildren($children);
-        }
+        //if ($category !== NULL) {
+        //    $children = $this->getCategoryChildren($category);
+        //    $category->setChildren($children);
+        //}
         return $category;
     }
 
@@ -139,29 +167,29 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getCategoryChildren()
      */
     public function getCategoryChildren($category) {
-        $catId = $category->getId();
-        $cacheKey = "CATEGORY_CHILDREN_$catId";
-        $result = $this->getFromCache($cacheKey, FALSE);
-        if ($result === NULL) {
-            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $sqlConn = $this->getConnection();
-
-            $result = Array();
-            $params = Array('parentId' => $category->getId());
-            $rs = $sqlStm->execute($sqlConn->getConn(), $params);
-            $row = $this->fetchResultArr($rs);
-            while ($row !== FALSE && $row !== NULL) {
-                $catId = (int)($row['0']);
-                $category = $this->getCategoryById($catId);
-                //$category = new Vcatalog_Bo_Catalog_BoCategory();
-                //$category->populate($row);
-                $result[] = $category;
-                $row = $this->fetchResultArr($rs);
-            }
-
-            $this->closeConnection();
-            $this->putToCache($cacheKey, $result, FALSE);
+        if ($category === NULL) {
+            return Array();
         }
+        $catId = $category->getId();
+        //$cacheKey = "CATEGORY_CHILDREN_$catId";
+        //$result = $this->getFromCache($cacheKey, FALSE);
+        //if ($result === NULL) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $result = Array();
+        $params = Array('parentId' => $category->getId());
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+        $row = $this->fetchResultArr($rs);
+        while ($row !== FALSE && $row !== NULL) {
+            $catId = (int)($row['0']);
+            $category = $this->getCategoryById($catId);
+            $result[] = $category;
+            $row = $this->fetchResultArr($rs);
+        }
+        $this->closeConnection();
+        //$this->putToCache($cacheKey, $result, FALSE);
+        //}
         return $result;
     }
 
@@ -387,7 +415,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getItemById()
      */
     public function getItemById($id) {
-        $cacheKey = "ITEM_$id";
+        $cacheKey = self::CACHE_KEY_ITEM_PREFIX . $id;
         $item = $this->getFromCache($cacheKey);
         if ($item === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -416,6 +444,10 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getItemsForCategory()
      */
     public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999, $itemSorting = DEFAULT_ITEM_SORTING) {
+        if ($cat === NULL) {
+            return Array();
+        }
+
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $sqlConn = $this->getConnection();
 
