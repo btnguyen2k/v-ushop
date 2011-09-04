@@ -32,6 +32,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
 
     const CACHE_KEY_ITEM_ALL = 'ITEM_ALL';
     const CACHE_KEY_ITEM_HOT = 'ITEM_HOT';
+    const CACHE_KEY_ITEM_COUNT = 'ITEM_COUNT';
 
     /**
      * Invalidates the item cache due to change.
@@ -46,6 +47,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         }
         $this->deleteFromCache(self::CACHE_KEY_ITEM_ALL);
         $this->deleteFromCache(self::CACHE_KEY_ITEM_HOT);
+        $this->deleteFromCache(self::CACHE_KEY_ITEM_COUNT);
     }
 
     /**
@@ -239,6 +241,45 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
     }
 
     /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::countNumItems()
+     */
+    public function countNumItems() {
+        $cacheKey = self::CACHE_KEY_ITEM_COUNT;
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $sqlConn = $this->getConnection();
+            $rs = $sqlStm->execute($sqlConn->getConn());
+            $result = $this->fetchResultArr($rs);
+            $this->closeConnection();
+            $result = $result[0];
+            $this->putToCache($cacheKey, $result);
+        }
+        return (int)$result;
+    }
+
+    /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::countNumItemsForCategory()
+     */
+    public function countNumItemsForCategory($cat) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $sqlConn = $this->getConnection();
+
+        $result = Array();
+        //count items within this category and its children too
+        $params = Array($cat->getId());
+        foreach ($cat->getChildren() as $child) {
+            $params[] = $child->getId();
+        }
+        $params = Array('categoryIds' => $params);
+        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
+        $result = $this->fetchResultArr($rs);
+        $this->closeConnection();
+        $result = $result[0];
+        return $result;
+    }
+
+    /**
      * @see Vcatalog_Bo_Catalog_ICatalogDao::createItem()
      */
     public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId, $hotItem = TRUE) {
@@ -292,14 +333,16 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getAllItems()
      */
     public function getAllItems($pageNum = 1, $pageSize = 999) {
-        $cacheKey = self::CACHE_KEY_ITEM_ALL;
-        $result = $this->getFromCache($cacheKey);
+        //$cacheKey = self::CACHE_KEY_ITEM_ALL;
+        //$result = $this->getFromCache($cacheKey);
+        $result = NULL;
         if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
             $sqlConn = $this->getConnection();
 
+            $params = Array('startOffset' => ($pageNum - 1) * $pageSize, 'pageSize' => $pageSize);
             $result = Array();
-            $rs = $sqlStm->execute($sqlConn->getConn());
+            $rs = $sqlStm->execute($sqlConn->getConn(), $params);
             $row = $this->fetchResultAssoc($rs);
             while ($row !== FALSE && $row !== NULL) {
                 $itemId = $row['id'];
@@ -311,7 +354,8 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
             }
 
             $this->closeConnection();
-            $this->putToCache($cacheKey, $result);
+
+     //$this->putToCache($cacheKey, $result);
         }
         return $result;
     }
@@ -381,7 +425,9 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Commons_Bo_BaseDao imp
         foreach ($cat->getChildren() as $child) {
             $params[] = $child->getId();
         }
-        $params = Array('categoryIds' => $params);
+        $params = Array('categoryIds' => $params,
+                'startOffset' => ($pageNum - 1) * $pageSize,
+                'pageSize' => $pageSize);
         switch ($itemSorting) {
             case ITEM_SORTING_TITLE:
                 $params['sortingField'] = new Ddth_Dao_ParamAsIs('title');

@@ -23,6 +23,7 @@ class Vcatalog_Controller_Admin_HomeController extends Vcatalog_Controller_Admin
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $model['numCategories'] = $catalogDao->countNumCategories();
+        $model['numItems'] = $catalogDao->countNumItems();
         return $model;
     }
 }

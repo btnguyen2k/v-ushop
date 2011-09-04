@@ -1,3 +1,16 @@
+[:function name="displayCategoryTreeForSelectBox" categoryTree=NULL selectedIndex=0 indent=0:]
+    [:foreach $categoryTree as $cat:]
+        <option value="[:$cat->getId():]" [:if $cat->getId()==$selectedIndex:]selected="selected" style="font-weight: bold"[:/if:]>
+            [:for $tmp=1 to $indent:]&nbsp;&nbsp;&nbsp;&nbsp;[:/for:]+-- [:$cat->getTitle()|escape:'html':]
+            [:if count($cat->getChildren()) gt 0:]
+                [:foreach $cat->getChildren() as $child:]
+                    [:displayCategoryTreeForSelectBox categoryTree=$cat->getChildren() selectedIndex=$selectedIndex indent=$indent+1:]
+                [:/foreach:]
+            [:/if:]
+        </option>
+    [:/foreach:]
+[:/function:]
+
 [:function name="displayCategoryList" categotyList=NULL:]
     [:assign var="_styleOuterLeft" value=['middle-column-box-left-blue','middle-column-box-left-green','middle-column-box-left-yellow','middle-column-box-left-red']:]
     [:assign var="_styleOuterRight" value=['middle-column-box-right-blue','middle-column-box-right-green','middle-column-box-right-yellow','middle-column-box-right-red']:]

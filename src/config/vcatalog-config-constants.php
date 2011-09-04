@@ -50,6 +50,7 @@ define('MODEL_INFO_MESSAGES', 'infoMessages');
 define('MODEL_ERROR_MESSAGES', 'errorMessages');
 define('MODEL_TRANSIT_MESSAGE', 'transitMessage');
 define('MODEL_URL_TRANSIT', 'urlTransit');
+define('MODEL_PAGINATOR', 'paginator');
 define('MODEL_DEBUG', 'debug');
 
 define('SESSION_ITEM_SORTING', 'ITEM_SORTING');
@@ -63,6 +64,8 @@ define('ITEM_SORTING_TIMEASC', 'timeasc');
 define('ITEM_SORTING_PRICEDESC', 'pricedesc');
 define('ITEM_SORTING_PRICEASC', 'priceasc');
 define('ITEM_SORTING_TITLE', 'title');
+
+define('DEFAULT_PAGE_SIZE', 10);
 
 define('USER_GROUP_ADMIN', 1);
 

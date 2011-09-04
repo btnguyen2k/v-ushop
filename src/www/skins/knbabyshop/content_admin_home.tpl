@@ -9,5 +9,6 @@
     <div class="middle-column-box-white">
         <div class="middle-column-box-title-blue">Thống Kê</div>
         <p>Số lượng danh mục: <strong>[:$MODEL.numCategories:]</strong></p>
+        <p>Số lượng mặt hàng: <strong>[:$MODEL.numItems:]</strong></p>
     </div>
 </div>

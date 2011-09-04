@@ -57,6 +57,20 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     public function updateCategory($category);
 
     /**
+     * Counts number of current items.
+     *
+     * @return int
+     */
+    public function countNumItems();
+
+    /**
+     * Counts number of current items within a category.
+     *
+     * @return int
+     */
+    public function countNumItemsForCategory($cat);
+
+    /**
      * Creates a new item.
      *
      * @param int $categoryId

@@ -11,8 +11,37 @@
         <table cellpadding="2" style="width: 90%; margin-left: auto; margin-right: auto">
             <thead>
                 <tr>
-                    <th style="text-align: right;">
-                        <a href="[:$MODEL.urlCreateItem:]">[:$MODEL.language->getMessage('msg.createItem'):]</a>
+                    <th style="text-align: center;">
+                        <script type="text/javascript">
+                        //<![CDATA[
+                        function refreshView(form) {
+                            form.submit();
+                        }
+                        //]]>
+                        </script>
+                        <form action="[:$smarty.server.SCRIPT_NAME:]/admin/items" method="get">
+                            [:$MODEL.language->getMessage('msg.category'):]:
+                            <select name="c" onchange="refreshView(this.form);">
+                                [:if isset($MODEL.objCategory):]
+                                    <option value="0">&gt;&gt;[:$MODEL.language->getMessage('msg.all'):]&lt;&lt;</option>
+                                    [:displayCategoryTreeForSelectBox categoryTree=$MODEL.categoryTree selectedIndex=$MODEL.objCategory->getId():]
+                                [:else:]
+                                    <option value="0" style="font-weight: bold;">&gt;&gt;[:$MODEL.language->getMessage('msg.all'):]&lt;&lt;</option>
+                                    [:displayCategoryTreeForSelectBox categoryTree=$MODEL.categoryTree:]
+                                [:/if:]
+                            </select>
+                            <input type="hidden" name="p" value="1" />
+                            <p>
+                                [:$MODEL.language->getMessage('msg.page'):]:
+                                [:for $tmp=1 to $MODEL.paginator->getNumPages():]
+                                    [:if $tmp==$MODEL.paginator->getCurrentPage():]
+                                        &nbsp;<big>[:$tmp:]</big>&nbsp;
+                                    [:else:]
+                                        &nbsp;<a href="[:$MODEL.paginator->getUrlForPage($tmp):]">[:$tmp:]</a>&nbsp;
+                                    [:/if:]
+                                [:/for:]
+                            </p>
+                        </form>
                     </th>
                 </tr>
             </thead>
@@ -20,7 +49,7 @@
         <table cellpadding="2" style="width: 90%; margin-left: auto; margin-right: auto">
             <thead>
                 <tr>
-                    <th>[:$MODEL.language->getMessage('msg.page'):]</td>
+                    <th>[:$MODEL.language->getMessage('msg.item'):]</td>
                     <th width="96px" style="text-align: center;">[:$MODEL.language->getMessage('msg.category'):]</th>
                     <th width="80px" style="text-align: center;">[:$MODEL.language->getMessage('msg.actions'):]</td>
                 </tr>
@@ -64,7 +93,7 @@
         <table cellpadding="2" style="width: 90%; margin-left: auto; margin-right: auto">
             <thead>
                 <tr>
-                    <th style="text-align: right;">
+                    <th style="text-align: center;">
                         <a href="[:$MODEL.urlCreateItem:]">[:$MODEL.language->getMessage('msg.createItem'):]</a>
                     </th>
                 </tr>
