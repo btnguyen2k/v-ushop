@@ -124,7 +124,10 @@ class Dzit_SessionHandler {
 $sessionHandler = new Dzit_SessionHandler();
 session_cache_limiter('no-cache');
 session_start();
-ob_start("ob_gzhandler");
+
+if ( !(ini_get('output_handler') || ini_get('zlib.output_compression')) ) {
+    ob_start("ob_gzhandler");
+}
 
 /**
  * Dzit's core bootstrap file.
