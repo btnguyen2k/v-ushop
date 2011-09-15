@@ -91,11 +91,11 @@ CREATE TABLE app_log(
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE http_session (
-    sid             VARCHAR(32)             NOT NULL,
-    stimestamp      INT                     NOT NULL DEFAULT 0,
-        INDEX stimestamp(stimestamp),
-    sdata           TEXT,
-    PRIMARY KEY(sid)
+    session_id                  VARCHAR(32)             NOT NULL,
+    session_timestamp           INT                     NOT NULL DEFAULT 0,
+        INDEX session_timestamp(session_timestamp),
+    session_data               LONGTEXT,
+    PRIMARY KEY(session_id)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_group (
