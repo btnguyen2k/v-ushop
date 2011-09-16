@@ -1,11 +1,11 @@
 <?php
 class Vcatalog_Bo_Page_BoPage extends Commons_Bo_BaseBo {
 
-    const COL_ID = 'pid';
-    const COL_POSITION = 'pposition';
-    const COL_TITLE = 'ptitle';
-    const COL_CONTENT = 'pcontent';
-    const COL_ONMENU = 'ponmenu';
+    const COL_ID = 'pageId';
+    const COL_POSITION = 'pagePosition';
+    const COL_TITLE = 'pageTitle';
+    const COL_CONTENT = 'pageContent';
+    const COL_ONMENU = 'pageOnMenu';
 
     private $id, $position, $title, $content, $onMenu;
 

@@ -1,11 +1,18 @@
 <?php
-abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implements
+abstract class Vcatalog_Bo_Page_BasePageDao extends Quack_Bo_BaseDao implements
         Vcatalog_Bo_Page_IPageDao {
 
     /**
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
+
+    /* Virtual columns */
+    const COL_ID = 'pageId';
+    const COL_POSITION = 'pagePosition';
+    const COL_TITLE = 'pageTitle';
+    const COL_CONTENT = 'pageContent';
+    const COL_ON_MENU = 'pageOnMenu';
 
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
@@ -40,11 +47,7 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
         $result = $this->getFromCache($cacheKey);
         if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $sqlConn = $this->getConnection();
-            $rs = $sqlStm->execute($sqlConn->getConn());
-            $result = $this->fetchResultArr($rs);
-            $this->closeConnection();
-            $result = $result[0];
+            $result = $this->execCount($sqlStm);
             $this->putToCache($cacheKey, $result);
         }
         return (int)$result;
@@ -55,16 +58,12 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
      */
     public function createPage($id, $position, $title, $content, $onMenu) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $sqlConn = $this->getConnection();
-
-        $params = Array('id' => $id,
-                'position' => $position,
-                'title' => $title,
-                'content' => $content,
-                'onMenu' => $onMenu ? 1 : 0);
-        $sqlStm->execute($sqlConn->getConn(), $params);
-
-        $this->closeConnection();
+        $params = Array(self::COL_ID => $id,
+                self::COL_POSITION => $position,
+                self::COL_TITLE => $title,
+                self::COL_CONTENT => $content,
+                self::COL_ON_MENU => $onMenu ? 1 : 0);
+        $this->execNonSelect($sqlStm, $params);
         $this->invalidatePageCache();
     }
 
@@ -73,13 +72,10 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
      */
     public function deletePage($page) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $sqlConn = $this->getConnection();
-
-        $params = Array('id' => $page->getId());
-        $rs = $sqlStm->execute($sqlConn->getConn(), $params);
-
-        $this->closeConnection();
+        $params = Array(self::COL_ID => $page->getId());
+        $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidatePageCache($page);
+        return $result;
     }
 
     /**
@@ -90,18 +86,13 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
         $page = $this->getFromCache($cacheKey);
         if ($page === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $sqlConn = $this->getConnection();
-
-            $params = Array('id' => $id);
-            $rs = $sqlStm->execute($sqlConn->getConn(), $params);
-            $row = $this->fetchResultAssoc($rs);
-            if ($row !== NULL && $row !== FALSE) {
+            $params = Array(self::COL_ID => $id);
+            $rows = $this->execSelect($sqlStm, $params);
+            if ($rows !== NULL && count($rows) > 0) {
                 $page = new Vcatalog_Bo_Page_BoPage();
-                $page->populate($row);
+                $page->populate($rows[0]);
                 $this->putToCache($cacheKey, $page);
             }
-
-            $this->closeConnection();
         }
         return $page;
     }
@@ -114,21 +105,15 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
         $result = $this->getFromCache($cacheKey);
         if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $sqlConn = $this->getConnection();
-
+            $rows = $this->execSelect($sqlStm);
             $result = Array();
-            $rs = $sqlStm->execute($sqlConn->getConn());
-            $row = $this->fetchResultArr($rs);
-            while ($row !== FALSE && $row !== NULL) {
-                $pageId = $row[0];
-                $page = $this->getPageById($pageId);
-                //$page = new Vcatalog_Bo_Page_BoPage();
-                //$page->populate($row);
-                $result[] = $page;
-                $row = $this->fetchResultArr($rs);
+            if ($rows !== NULL) {
+                foreach ($rows as $row) {
+                    $pageId = $row[self::COL_ID];
+                    $page = $this->getPageById($pageId);
+                    $result[] = $page;
+                }
             }
-
-            $this->closeConnection();
             $this->putToCache($cacheKey, $result);
         }
         return $result;
@@ -142,21 +127,15 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
         $result = $this->getFromCache($cacheKey);
         if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $sqlConn = $this->getConnection();
-
+            $rows = $this->execSelect($sqlStm);
             $result = Array();
-            $rs = $sqlStm->execute($sqlConn->getConn());
-            $row = $this->fetchResultArr($rs);
-            while ($row !== FALSE && $row !== NULL) {
-                $pageId = $row[0];
-                $page = $this->getPageById($pageId);
-                //$page = new Vcatalog_Bo_Page_BoPage();
-                //$page->populate($row);
-                $result[] = $page;
-                $row = $this->fetchResultArr($rs);
+            if ($rows !== NULL) {
+                foreach ($rows as $row) {
+                    $pageId = $row[self::COL_ID];
+                    $page = $this->getPageById($pageId);
+                    $result[] = $page;
+                }
             }
-
-            $this->closeConnection();
             $this->putToCache($cacheKey, $result);
         }
         return $result;
@@ -167,17 +146,13 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Commons_Bo_BaseDao implement
      */
     public function updatePage($page) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $sqlConn = $this->getConnection();
-
-        $params = Array('id' => $page->getId(),
-                'position' => $page->getPosition(),
-                'title' => $page->getTitle(),
-                'content' => $page->getContent(),
-                'onMenu' => $page->getOnMenu() ? 1 : 0);
-
-        $sqlStm->execute($sqlConn->getConn(), $params);
-
-        $this->closeConnection();
+        $params = Array(self::COL_ID => $page->getId(),
+                self::COL_POSITION => $page->getPosition(),
+                self::COL_TITLE => $page->getTitle(),
+                self::COL_CONTENT => $page->getContent(),
+                self::COL_ON_MENU => $page->getOnMenu() ? 1 : 0);
+        $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidatePageCache($page);
+        return $result;
     }
 }
