@@ -1,6 +1,7 @@
 <?php
-class Vcatalog_Bo_Cart_BoCart extends Commons_Bo_BaseBo {
+class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
 
+    /* Database table columns */
     const COL_SESSION_ID = 'csession_id';
     const COL_STATUS = 'cstatus';
     const COL_UPDATE_TIMESTAMP = 'cupdate_timestamp';

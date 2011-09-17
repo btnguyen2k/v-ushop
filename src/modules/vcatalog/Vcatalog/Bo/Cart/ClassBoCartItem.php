@@ -1,6 +1,7 @@
 <?php
 class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
 
+    /* Database table columns */
     const COL_SESSION_ID = 'csession_id';
     const COL_ITEM_ID = 'citem_id';
     const COL_QUANTITY = 'cquantity';
