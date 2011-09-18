@@ -1,6 +1,7 @@
 <?php
-class Vcatalog_Bo_Catalog_BoCategory extends Commons_Bo_BaseBo {
+class Vcatalog_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
 
+    /* Database table columns */
     const COL_ID = 'cid';
     const COL_POSITION = 'cposition';
     const COL_PARENT_ID = 'cparent_id';

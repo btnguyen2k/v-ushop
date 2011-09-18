@@ -10,6 +10,10 @@ defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
  */
 define('IN_DEV_ENV', getenv('DEV_ENV'));
 
+if ( IN_DEV_ENV ) {
+    define('REPORT_ERROR', TRUE);
+}
+
 /*
  * If CLI_MODE is TRUE, the application is running in CLI (command line interface) mode.
  */
