@@ -1,6 +1,28 @@
 <div id="dhtmltooltip"></div>
 <script type="text/javascript" src="js/dhtmltooltip.js"></script>
 <!-- FOOTER -->
+<div style="clear: both; float: left; width: 76em;">
+    <p align="center" style="font-weight: bold;">
+        <a href="[:$MODEL.urlHome:]">[:$MODEL.language->getMessage('msg.home'):]</a>
+        [:foreach $MODEL.onMenuPages as $page:]
+            |
+            <a href="[:$page->getUrlView():]">[:$page->getTitle()|escape:'html':]</a>
+        [:/foreach:]
+        [:if isset($MODEL.urlLogout):]
+            |
+            <a href="[:$MODEL.urlProfileCp:]">[:$MODEL.language->getMessage('msg.profileCp'):]</a>
+            |
+            <a href="[:$MODEL.urlLogout:]">[:$MODEL.language->getMessage('msg.logout'):]</a>
+        [:else:]
+            |
+            <a href="[:$MODEL.urlLogin:]">[:$MODEL.language->getMessage('msg.login'):]</a>
+        [:/if:]
+        [:if isset($MODEL.urlAdmin):]
+            |
+            <a href="[:$MODEL.urlAdmin:]" style="color: red;">[:$MODEL.language->getMessage('msg.adminCp'):]</a>
+        [:/if:]
+    </p>
+</div>
 <div id="footer">
     [:$MODEL.page.copyright:]
     <br/>
