@@ -21,6 +21,7 @@
             <li><a href="[:$page->getUrlView():]">[:$page->getTitle()|escape:'html':]</a></li>
         [:/foreach:]
 
+        <!--
         [:if isset($MODEL.urlLogout):]
             <li class="float-right"><a href="[:$MODEL.urlLogout:]">[:$MODEL.language->getMessage('msg.logout'):]</a></li>
             <li class="float-right"><a href="[:$MODEL.urlProfileCp:]">[:$MODEL.language->getMessage('msg.profileCp'):]</a></li>
@@ -33,6 +34,7 @@
         [:if isset($MODEL.urlAdmin):]
             <li class="float-right"><a href="[:$MODEL.urlAdmin:]">[:$MODEL.language->getMessage('msg.adminCp'):]</a></li>
         [:/if:]
+        -->
     </ul>
 </div>
 <!-- //HEADER -->
