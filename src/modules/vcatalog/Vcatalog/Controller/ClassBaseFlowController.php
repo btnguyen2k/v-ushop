@@ -436,7 +436,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model[MODEL_APP_VERSION] = VCATALOG_VERSION;
 
         if (IN_DEV_ENV) {
-            $model[MODEL_DEBUG] = new Commons_DebugInfo();
+            $model[MODEL_DEBUG] = new Quack_DebugInfo();
         }
 
         return $model;

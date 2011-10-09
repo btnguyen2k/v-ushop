@@ -37,7 +37,8 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
     public function createCart($sessionId, $userId = 0) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(self::COL_SESSION_ID => $sessionId, self::COL_USER_ID => (int)$userId);
-        $result = $this->execNonSelect($sqlStm, $params);
+        $this->execNonSelect($sqlStm, $params);
+        $result = $this->getCart($sessionId);
         return $result;
     }
 
