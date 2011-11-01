@@ -385,10 +385,11 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model['page'] = $this->buildModel_Page();
         $model['language'] = $this->getLanguage();
         $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
-        if (isset($_SESSION[SESSION_USER_ID])) {
+        $user = $this->getCurrentUser();
+        $model['user'] = $user;
+        if ($user !== NULL) {
             $model['urlLogout'] = $this->getUrlLogout();
             $model['urlProfileCp'] = $this->getUrlProfileCp();
-            $user = $this->getCurrentUser();
             if ($user !== NULL && $user['groupId'] === USER_GROUP_ADMIN) {
                 $model['urlAdmin'] = $this->getUrlAdmin();
             }
@@ -397,8 +398,6 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             $model['urlRegister'] = $this->getUrlRegister();
         }
         $model['urlUploadHandler'] = $this->getUrlUploadHandler();
-
-        $model['user'] = $this->getCurrentUser();
 
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
