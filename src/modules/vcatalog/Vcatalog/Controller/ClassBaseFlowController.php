@@ -387,15 +387,14 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
         $user = $this->getCurrentUser();
         $model['user'] = $user;
+        $model['urlLogout'] = $this->getUrlLogout();
+        $model['urlProfileCp'] = $this->getUrlProfileCp();
+        $model['urlLogin'] = $this->getUrlLogin();
+        $model['urlRegister'] = $this->getUrlRegister();
         if ($user !== NULL) {
-            $model['urlLogout'] = $this->getUrlLogout();
-            $model['urlProfileCp'] = $this->getUrlProfileCp();
             if ($user !== NULL && $user['groupId'] === USER_GROUP_ADMIN) {
                 $model['urlAdmin'] = $this->getUrlAdmin();
             }
-        } else {
-            $model['urlLogin'] = $this->getUrlLogin();
-            $model['urlRegister'] = $this->getUrlRegister();
         }
         $model['urlUploadHandler'] = $this->getUrlUploadHandler();
 
