@@ -413,6 +413,19 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $onMenuPages = $pageDao->getOnMenuPages();
         $model[MODEL_ONMENU_PAGES] = $onMenuPages;
 
+        $allPagesByCat = $pageDao->getAllPages();
+        $modelAllPagesByCat = Array();
+        foreach ($allPagesByCat as $page) {
+            $cat = $page->getCategory();
+            if ($cat === NULL) {
+                $cat = '';
+            }
+            $pages = isset($allPagesByCat[$cat]) ? $allPagesByCat[$cat] : Array();
+            $pages[] = $page;
+            $allPagesByCat[$cat] = $pages;
+        }
+        $model[MODEL_ALL_PAGES_BY_CATEGORY] = $allPagesByCat;
+
         $model[MODEL_CART] = $this->getCurrentCart();
 
         $hotItems = $catalogDao->getHotItems(5);

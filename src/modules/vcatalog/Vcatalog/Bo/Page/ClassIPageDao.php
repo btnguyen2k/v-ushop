@@ -13,11 +13,12 @@ interface Vcatalog_Bo_Page_IPageDao extends Ddth_Dao_IDao {
      *
      * @param string $id
      * @param int $position
+     * @param string $category
      * @param string $title
      * @param string $content
      * @param string $onMenu
      */
-    public function createPage($id, $position, $title, $content, $onMenu);
+    public function createPage($id, $position, $category, $title, $content, $onMenu);
 
     /**
      * Deletes a page.

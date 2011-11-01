@@ -3,11 +3,12 @@ class Vcatalog_Bo_Page_BoPage extends Commons_Bo_BaseBo {
 
     const COL_ID = 'pageId';
     const COL_POSITION = 'pagePosition';
+    const COL_CATEGORY = 'pageCategory';
     const COL_TITLE = 'pageTitle';
     const COL_CONTENT = 'pageContent';
     const COL_ONMENU = 'pageOnMenu';
 
-    private $id, $position, $title, $content, $onMenu;
+    private $id, $position, $category, $title, $content, $onMenu;
 
     private $urlDelete = NULL;
     private $urlEdit = NULL;
@@ -23,6 +24,7 @@ class Vcatalog_Bo_Page_BoPage extends Commons_Bo_BaseBo {
     protected function getFieldMap() {
         return Array(self::COL_ID => Array('id'),
                 self::COL_POSITION => Array('position', self::TYPE_INT),
+                self::COL_CATEGORY => Array('category'),
                 self::COL_TITLE => Array('title'),
                 self::COL_CONTENT => Array('content'),
                 self::COL_ONMENU => Array('onMenu', self::TYPE_BOOLEAN));
@@ -126,6 +128,14 @@ class Vcatalog_Bo_Page_BoPage extends Commons_Bo_BaseBo {
 
     public function setPosition($position) {
         $this->position = $position;
+    }
+
+    public function getCategory() {
+        return $this->category;
+    }
+
+    public function setCategory($category) {
+        $this->category = $category;
     }
 
     public function getTitle() {

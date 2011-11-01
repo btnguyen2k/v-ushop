@@ -10,6 +10,7 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Quack_Bo_BaseDao implements
     /* Virtual columns */
     const COL_ID = 'pageId';
     const COL_POSITION = 'pagePosition';
+    const COL_CATEGORY = 'pageCategory';
     const COL_TITLE = 'pageTitle';
     const COL_CONTENT = 'pageContent';
     const COL_ON_MENU = 'pageOnMenu';
@@ -56,10 +57,11 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Quack_Bo_BaseDao implements
     /**
      * @see Vcatalog_Bo_Page_IPageDao::createPage()
      */
-    public function createPage($id, $position, $title, $content, $onMenu) {
+    public function createPage($id, $position, $category, $title, $content, $onMenu) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(self::COL_ID => $id,
                 self::COL_POSITION => $position,
+                self::COL_CATEGORY => $category,
                 self::COL_TITLE => $title,
                 self::COL_CONTENT => $content,
                 self::COL_ON_MENU => $onMenu ? 1 : 0);
@@ -148,6 +150,7 @@ abstract class Vcatalog_Bo_Page_BasePageDao extends Quack_Bo_BaseDao implements
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(self::COL_ID => $page->getId(),
                 self::COL_POSITION => $page->getPosition(),
+                self::COL_CATEGORY => $page->getCategory(),
                 self::COL_TITLE => $page->getTitle(),
                 self::COL_CONTENT => $page->getContent(),
                 self::COL_ON_MENU => $page->getOnMenu() ? 1 : 0);

@@ -46,6 +46,7 @@ define('MODEL_PAGE_LIST', 'pageList');
 define('MODEL_ITEM_LIST', 'itemList');
 define('MODEL_HOT_ITEMS', 'hotItems');
 define('MODEL_ONMENU_PAGES', 'onMenuPages');
+define('MODEL_ALL_PAGES_BY_CATEGORY', 'allPagesByCat');
 define('MODEL_INFO_MESSAGES', 'infoMessages');
 define('MODEL_ERROR_MESSAGES', 'errorMessages');
 define('MODEL_TRANSIT_MESSAGE', 'transitMessage');

@@ -18,7 +18,9 @@ CREATE TABLE vcatalog_page (
         INDEX ponmenu(ponmenu),
     pposition           INT                 NOT NULL DEFAULT 0,
         INDEX pposition (pposition),
-    ptitle              VARCHAR(128)        NOT NULL,
+    pcategory           VARCHAR(64)         NOT NULL DEFAULT '',
+        INDEX pcategory (pcategory),
+    ptitle              VARCHAR(128)        NOT NULL DEFAULT '',
     pcontent            TEXT,
     PRIMARY KEY (pid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
