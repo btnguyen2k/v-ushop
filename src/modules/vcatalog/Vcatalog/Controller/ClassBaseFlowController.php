@@ -76,7 +76,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      */
     protected function getCurrentUser() {
         //because we store the user email in session, NOT the user ID
-        $userEmail = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : 0;
+        $userEmail = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : NULL;
         return $this->getDao(DAO_USER)->getUserByEmail($userEmail);
     }
 
