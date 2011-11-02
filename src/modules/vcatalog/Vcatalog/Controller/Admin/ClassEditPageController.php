@@ -4,6 +4,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
+    const FORM_FIELD_PAGE_CATEGORY = 'pageCategory';
     const FORM_FIELD_PAGE_TITLE = 'pageTitle';
     const FORM_FIELD_PAGE_CONTENT = 'pageContent';
     const FORM_FIELD_ON_MENU = 'onMenu';
@@ -108,8 +109,10 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
         $form[self::FORM_FIELD_ON_MENU] = $this->page->getOnMenu();
         $form[self::FORM_FIELD_PAGE_CONTENT] = $this->page->getContent();
         $form[self::FORM_FIELD_PAGE_TITLE] = $this->page->getTitle();
+        $form[self::FORM_FIELD_PAGE_CATEGORY] = $this->page->getCategory();
 
         $this->populateForm($form, Array(self::FORM_FIELD_PAGE_CONTENT,
+                self::FORM_FIELD_PAGE_CATEGORY,
                 self::FORM_FIELD_PAGE_TITLE,
                 self::FORM_FIELD_ON_MENU));
         if ($this->hasError()) {
@@ -132,6 +135,8 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
          */
         $pageDao = $this->getDao(DAO_PAGE);
 
+        $category = isset($_POST[self::FORM_FIELD_PAGE_CATEGORY]) ? trim($_POST[self::FORM_FIELD_PAGE_CATEGORY]) : '';
+
         $title = isset($_POST[self::FORM_FIELD_PAGE_TITLE]) ? trim($_POST[self::FORM_FIELD_PAGE_TITLE]) : '';
         if ($title == '') {
             $this->addErrorMessage($lang->getMessage('error.emptyPageTitle'));
@@ -146,6 +151,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
 
         $this->page->setContent($content);
         $this->page->setTitle($title);
+        $this->page->setCategory($category);
         $this->page->setOnMenu($onMenu);
 
         $pageDao->updatePage($this->page);
