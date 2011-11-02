@@ -4,6 +4,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
     const VIEW_NAME_AFTER_POST = 'info';
 
     const FORM_FIELD_PAGE_ID = 'pageId';
+    const FORM_FIELD_PAGE_CATEGORY = 'pageCategory';
     const FORM_FIELD_PAGE_TITLE = 'pageTitle';
     const FORM_FIELD_PAGE_CONTENT = 'pageContent';
     const FORM_FIELD_ON_MENU = 'onMenu';
@@ -43,6 +44,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
                 'name' => 'frmCreatePage');
         $this->populateForm($form, Array(self::FORM_FIELD_PAGE_CONTENT,
                 self::FORM_FIELD_PAGE_ID,
+                self::FORM_FIELD_PAGE_CATEGORY,
                 self::FORM_FIELD_PAGE_TITLE,
                 self::FORM_FIELD_ON_MENU));
         if ($this->hasError()) {
@@ -72,6 +74,8 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
             $this->addErrorMessage($lang->getMessage('error.invalidPageId', htmlspecialchars($pageId)));
         }
 
+        $category = isset($_POST[self::FORM_FIELD_PAGE_CATEGORY]) ? trim($_POST[self::FORM_FIELD_PAGE_CATEGORY]) : '';
+
         $title = isset($_POST[self::FORM_FIELD_PAGE_TITLE]) ? trim($_POST[self::FORM_FIELD_PAGE_TITLE]) : '';
         if ($title == '') {
             $this->addErrorMessage($lang->getMessage('error.emptyPageTitle'));
@@ -85,7 +89,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
         $onMenu = isset($_POST[self::FORM_FIELD_ON_MENU]) ? (boolean)$_POST[self::FORM_FIELD_ON_MENU] : FALSE;
 
         $content = isset($_POST[self::FORM_FIELD_PAGE_CONTENT]) ? trim($_POST[self::FORM_FIELD_PAGE_CONTENT]) : '';
-        $pageDao->createPage($pageId, $position, $title, $content, $onMenu);
+        $pageDao->createPage($pageId, $position, $category, $title, $content, $onMenu);
 
         return TRUE;
     }
