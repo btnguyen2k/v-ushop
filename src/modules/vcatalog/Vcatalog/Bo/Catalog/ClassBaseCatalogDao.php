@@ -48,7 +48,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
         $rows = $this->execSelect($sqlStm);
         if ($rows !== NULL && count($rows) > 0) {
             foreach ($rows as $row) {
-                $result = $row[self::COL_CAT_ID];
+                $result[] = $row[self::COL_CAT_ID];
             }
         }
         return $result;
