@@ -1,5 +1,5 @@
 <?php
-abstract class Vcatalog_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implements
+abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         Vcatalog_Bo_User_IUserDao {
 
     /**
@@ -7,38 +7,35 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implement
      */
     private $LOGGER;
 
+    /* Virtual columns */
+    const COL_ID = 'userId';
+    const COL_EMAIL = 'userEmail';
+    const COL_CATEGORY = 'userPassword';
+    const COL_GROUP_UD = 'userGroupId';
+
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
         parent::__construct();
-    }
-
-    private function getUser($stm, $params) {
-        $sqlConn = $this->getConnection();
-        $rs = $stm->execute($sqlConn->getConn(), $params);
-        $result = $this->fetchResultAssoc($rs);
-        $this->closeConnection();
-        if ($result === FALSE) {
-            return NULL;
-        }
-        $result['id'] = (int)$result['id'];
-        $result['groupId'] = (int)$result['groupId'];
-        return $result;
     }
 
     /**
      * @see Vcatalog_Bo_User_IUserDao::getUserById()
      */
     public function getUserById($id) {
-        $id = (int)$id; //to make sure it's integer
-        $cacheKey = 'USER_' . $id;
-        $result = $this->getFromCache($cacheKey, FALSE);
-        if ($result === NULL) {
+        $id = (int)$id;
+        $cacheKey = "USER_$id";
+        $user = $this->getFromCache($cacheKey);
+        if ($user === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $params = Array('id' => $id);
-            $result = $this->getUser($sqlStm, $params);
-            $this->putToCache($cacheKey, $result, FALSE);
+            $params = Array(self::COL_ID => $id);
+            $rows = $this->execSelect($sqlStm, $params);
+            if ($rows !== NULL && count($rows) > 0) {
+                $user = new Vcatalog_Bo_User_BoUser();
+                $user->populate($rows[0]);
+                $this->putToCache($cacheKey, $user);
+            }
         }
-        return $result;
+        return $user;
     }
 
     /**
@@ -46,15 +43,14 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Commons_Bo_BaseDao implement
      * @see Vcatalog_Bo_User_IUserDao::getUserByEmail()
      */
     public function getUserByEmail($email) {
-        $cacheKey = 'USER_' . $email;
-        $result = $this->getFromCache($cacheKey, FALSE);
-        if ($result === NULL) {
-            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $params = Array('email' => $email);
-            $result = $this->getUser($sqlStm, $params);
-            $this->putToCache($cacheKey, $result, FALSE);
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array(self::COL_EMAIL => $email);
+        $rows = $this->execSelect($sqlStm, $params);
+        if ($rows !== NULL && count($rows) > 0) {
+            $userId = $rows[0][self::COL_ID];
+            return $this->getUserById($userId);
         }
-        return $result;
+        return NULL;
     }
 
     /**

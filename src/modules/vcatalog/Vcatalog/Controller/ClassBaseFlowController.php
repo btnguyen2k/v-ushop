@@ -420,11 +420,11 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             if ($cat === NULL) {
                 $cat = '';
             }
-            $pages = isset($allPagesByCat[$cat]) ? $allPagesByCat[$cat] : Array();
+            $pages = isset($modelAllPagesByCat[$cat]) ? $modelAllPagesByCat[$cat] : Array();
             $pages[] = $page;
-            $allPagesByCat[$cat] = $pages;
+            $modelAllPagesByCat[$cat] = $pages;
         }
-        $model[MODEL_ALL_PAGES_BY_CATEGORY] = $allPagesByCat;
+        $model[MODEL_ALL_PAGES_BY_CATEGORY] = $modelAllPagesByCat;
 
         $model[MODEL_CART] = $this->getCurrentCart();
 
