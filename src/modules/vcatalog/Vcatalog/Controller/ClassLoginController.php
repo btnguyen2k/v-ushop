@@ -79,7 +79,7 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowCo
             $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
         }
-        if (strtolower(md5($password)) !== strtolower($user['password'])) {
+        if (strtolower(md5($password)) !== strtolower($user->getPassword())) {
             $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
         }

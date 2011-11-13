@@ -7,15 +7,22 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
      */
     private $LOGGER;
 
-    /* Virtual columns */
-    const COL_ID = 'userId';
-    const COL_EMAIL = 'userEmail';
-    const COL_CATEGORY = 'userPassword';
-    const COL_GROUP_UD = 'userGroupId';
-
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
         parent::__construct();
+    }
+
+    /**
+     * Invalidates the user cache due to change.
+     *
+     * @param Vcatalog_Bo_User_BoUser $user
+     */
+    protected function invalidatePageCache($user = NULL) {
+        if ($user !== NULL) {
+            $userId = $user->getId();
+            $cacheKey = "USER_$userId";
+            $this->deleteFromCache($cacheKey);
+        }
     }
 
     /**
@@ -27,7 +34,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         $user = $this->getFromCache($cacheKey);
         if ($user === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $params = Array(self::COL_ID => $id);
+            $params = Array(Vcatalog_Bo_User_BoUser::COL_ID => $id);
             $rows = $this->execSelect($sqlStm, $params);
             if ($rows !== NULL && count($rows) > 0) {
                 $user = new Vcatalog_Bo_User_BoUser();
@@ -43,11 +50,14 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
      * @see Vcatalog_Bo_User_IUserDao::getUserByEmail()
      */
     public function getUserByEmail($email) {
+        if ($email === NULL) {
+            return NULL;
+        }
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(self::COL_EMAIL => $email);
+        $params = Array(Vcatalog_Bo_User_BoUser::COL_EMAIL => $email);
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {
-            $userId = $rows[0][self::COL_ID];
+            $userId = $rows[0][Vcatalog_Bo_User_BoUser::COL_ID];
             return $this->getUserById($userId);
         }
         return NULL;
@@ -59,14 +69,12 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
      */
     public function updateUser($user) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $sqlConn = $this->getConnection();
-
-        $params = Array('id' => (int)$user['id'],
-                'email' => $user['email'],
-                'password' => $user['password'],
-                'groupId' => (int)$user['groupId']);
-        $sqlStm->execute($sqlConn->getConn(), $params);
-
-        $this->closeConnection();
+        $params = Array(Vcatalog_Bo_User_BoUser::COL_ID => (int)$user->getId(),
+                Vcatalog_Bo_User_BoUser::COL_EMAIL => $user->getEmail(),
+                Vcatalog_Bo_User_BoUser::COL_PASSWORD => $user->getPassword(),
+                Vcatalog_Bo_User_BoUser::COL_GROUP_ID => (int)$user->getGroupId());
+        $result = $this->execNonSelect($sqlStm, $params);
+        $this->invalidatePageCache($user);
+        return $result;
     }
 }

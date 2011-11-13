@@ -1,11 +1,11 @@
 <?php
 class Vcatalog_Bo_User_BoUser extends Commons_Bo_BaseBo {
 
-    /* Database table columns */
-    const COL_ID = 'uid';
-    const COL_EMAIL = 'uemail';
-    const COL_PASSWORD = 'upassword';
-    const COL_GROUP_ID = 'ugroup_id';
+    /* Database table columns: virtual columns */
+    const COL_ID = 'userId';
+    const COL_EMAIL = 'userEmail';
+    const COL_PASSWORD = 'userPassword';
+    const COL_GROUP_ID = 'userGroupId';
 
     private $id, $email, $password, $groupId;
 

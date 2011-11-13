@@ -34,7 +34,7 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmProfile');
         $user = $this->getCurrentUser();
-        $form[self::FORM_FIELD_EMAIL] = $user['email'];
+        $form[self::FORM_FIELD_EMAIL] = $user->getEmail();
         if ($this->hasError()) {
             $form[FORM_ERROR_MESSAGES] = $this->getErrorMessages();
         } else if ($this->isPostRequest()) {
@@ -57,7 +57,7 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
             $this->addErrorMessage($lang->getMessage('error.invalidEmail', $email));
         } else {
             $user = $userDao->getUserByEmail($email);
-            if ($user !== NULL && $user['email'] !== $currentUser['email']) {
+            if ($user !== NULL && $user->getEmail() !== $currentUser->getEmail()) {
                 $this->addErrorMessage($lang->getMessage('error.emailExists', htmlspecialchars($email)));
             }
         }
@@ -66,14 +66,14 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
         $newPassword = isset($_POST[self::FORM_FIELD_NEW_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_NEW_PASSWORD])) : '';
         $confirmedNewPassword = isset($_POST[self::FORM_FIELD_CONFIRMED_NEW_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_CONFIRMED_NEW_PASSWORD])) : '';
         if ($currentPassword !== '' && !$this->hasError()) {
-            if (strtolower(md5($currentPassword)) !== strtolower($currentUser['password'])) {
+            if (strtolower(md5($currentPassword)) !== strtolower($currentUser->getPassword())) {
                 $this->addErrorMessage($lang->getMessage('error.currentPasswordMismatches'));
             } else if ($newPassword === '') {
                 $this->addErrorMessage($lang->getMessage('error.emptyNewPassword'));
             } else if ($newPassword !== $confirmedNewPassword) {
                 $this->addErrorMessage($lang->getMessage('error.passwordsMismatch'));
             } else {
-                $currentUser['password'] = strtolower(md5($newPassword));
+                $currentUser->setPassword(strtolower(md5($newPassword)));
             }
         }
 
@@ -81,7 +81,7 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
             return FALSE;
         }
 
-        $currentUser['email'] = $email;
+        $currentUser->setEmail($email);
         $_SESSION[SESSION_USER_ID] = $email;
         $userDao->updateUser($currentUser);
 

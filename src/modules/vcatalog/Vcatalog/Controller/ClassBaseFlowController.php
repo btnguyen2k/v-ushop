@@ -30,6 +30,12 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         if ($this->saveUrl) {
             $_SESSION[SESSION_LAST_ACCESS_URL] = $_SERVER['REQUEST_URI'];
         }
+        if ($this->requireAuthentication && $this->getCurrentUser() === NULL) {
+            $url = $_SERVER['SCRIPT_NAME'].'/login';
+            $modelAndView = new Dzit_ModelAndView();
+            $modelAndView->setView(new Dzit_View_RedirectView($url));
+            return $modelAndView;
+        }
         $modelAndView = parent::execute($module, $action);
         $endTime = microtime(TRUE);
         //error_log($endTime - $startTime, 0);
@@ -392,7 +398,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model['urlLogin'] = $this->getUrlLogin();
         $model['urlRegister'] = $this->getUrlRegister();
         if ($user !== NULL) {
-            if ($user !== NULL && $user['groupId'] === USER_GROUP_ADMIN) {
+            if ($user !== NULL && $user->getGroupId() === USER_GROUP_ADMIN) {
                 $model['urlAdmin'] = $this->getUrlAdmin();
             }
         }
