@@ -59,6 +59,10 @@ $YADIF_CONFIG = Array(
                 'class' => 'Vcatalog_Controller_LoginController',
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
+        'Vcatalog_Controller_RegisterController' => Array(
+                'class' => 'Vcatalog_Controller_RegisterController',
+                'scope' => 'singleton',
+                'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
         'Vcatalog_Controller_LogoutController' => Array(
                 'class' => 'Vcatalog_Controller_LogoutController',
                 'scope' => 'singleton',

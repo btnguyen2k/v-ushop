@@ -53,6 +53,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         if ($email === NULL) {
             return NULL;
         }
+        $email = strtolower($email);
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(Vcatalog_Bo_User_BoUser::COL_EMAIL => $email);
         $rows = $this->execSelect($sqlStm, $params);
@@ -61,6 +62,22 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
             return $this->getUserById($userId);
         }
         return NULL;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see Vcatalog_Bo_User_IUserDao::createUser()
+     */
+    public function createUser($email, $password, $groupId, $title = '', $fullname = '', $location = '') {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array(Vcatalog_Bo_User_BoUser::COL_EMAIL => $email,
+                Vcatalog_Bo_User_BoUser::COL_PASSWORD => $password,
+                Vcatalog_Bo_User_BoUser::COL_GROUP_ID => (int)$groupId,
+                Vcatalog_Bo_User_BoUser::COL_TITLE => $title,
+                Vcatalog_Bo_User_BoUser::COL_FULLNAME => $fullname,
+                Vcatalog_Bo_User_BoUser::COL_LOCATION => $location);
+        $this->execNonSelect($sqlStm, $params);
+        $this->invalidatePageCache();
     }
 
     /**

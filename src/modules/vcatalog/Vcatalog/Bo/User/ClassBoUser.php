@@ -6,16 +6,13 @@ class Vcatalog_Bo_User_BoUser extends Commons_Bo_BaseBo {
     const COL_EMAIL = 'userEmail';
     const COL_PASSWORD = 'userPassword';
     const COL_GROUP_ID = 'userGroupId';
+    const COL_TITLE = 'userTitle';
+    const COL_FULLNAME = 'userFullname';
+    const COL_LOCATION = 'userLocation';
 
-    private $id, $email, $password, $groupId;
+    private $id, $email, $password, $groupId, $title, $fullname, $location;
 
-    private $urlDelete = NULL;
-    private $urlEdit = NULL;
-    private $urlMoveUp = NULL;
-    private $urlMoveDown = NULL;
-    private $urlView = NULL;
-    private $urlPin = NULL;
-    private $urlUnpin = NULL;
+    private $urlProfileCp = NULL;
 
     /* (non-PHPdoc)
      * @see Commons_Bo_BaseBo::getFieldMap()
@@ -24,7 +21,10 @@ class Vcatalog_Bo_User_BoUser extends Commons_Bo_BaseBo {
         return Array(self::COL_ID => Array('id', self::TYPE_INT),
                 self::COL_EMAIL => Array('email'),
                 self::COL_PASSWORD => Array('password'),
-                self::COL_GROUP_ID => Array('groupId', self::TYPE_INT));
+                self::COL_GROUP_ID => Array('groupId', self::TYPE_INT),
+                self::COL_TITLE => Array('title'),
+                self::COL_FULLNAME => Array('fullname'),
+                self::COL_LOCATION => Array('location'));
     }
 
     public function getId() {
@@ -57,5 +57,41 @@ class Vcatalog_Bo_User_BoUser extends Commons_Bo_BaseBo {
 
     public function setGroupId($groupId) {
         $this->groupId = $groupId;
+    }
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setTitle($title) {
+        $this->title = $title;
+    }
+
+    public function getFullname() {
+        return $this->fullname;
+    }
+
+    public function setFullname($fullname) {
+        $this->fullname = $fullname;
+    }
+
+    public function getLocation() {
+        return $this->location;
+    }
+
+    public function setLocation($location) {
+        $this->location = $location;
+    }
+
+    /**
+     * Gets the URL to access user's profile control panel.
+     *
+     * @return string
+     */
+    public function getUrlProfileCp() {
+        if ($this->urlProfileCp === NULL) {
+            $this->urlProfileCp = $_SERVER['SCRIPT_NAME'] . '/profilecp';
+        }
+        return $this->urlProfileCp;
     }
 }
