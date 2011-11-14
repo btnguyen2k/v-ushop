@@ -4,6 +4,9 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
     const VIEW_NAME = 'profilecp_profile';
     const VIEW_NAME_AFTER_POST = 'profilecp_profile';
 
+    const FORM_FIELD_TITLE = 'title';
+    const FORM_FIELD_FULLNAME = 'fullname';
+    const FORM_FIELD_LOCATION = 'location';
     const FORM_FIELD_EMAIL = 'email';
     const FORM_FIELD_CURRENT_PASSWORD = 'currentPassword';
     const FORM_FIELD_NEW_PASSWORD = 'newPassword';
@@ -34,7 +37,14 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmProfile');
         $user = $this->getCurrentUser();
+        $form[self::FORM_FIELD_TITLE] = $user->getTitle();
+        $form[self::FORM_FIELD_FULLNAME] = $user->getFullname();
+        $form[self::FORM_FIELD_LOCATION] = $user->getLocation();
         $form[self::FORM_FIELD_EMAIL] = $user->getEmail();
+        $this->populateForm($form, Array(self::FORM_FIELD_TITLE,
+                self::FORM_FIELD_FULLNAME,
+                self::FORM_FIELD_LOCATION,
+                self::FORM_FIELD_EMAIL));
         if ($this->hasError()) {
             $form[FORM_ERROR_MESSAGES] = $this->getErrorMessages();
         } else if ($this->isPostRequest()) {
@@ -81,7 +91,14 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
             return FALSE;
         }
 
+        $title = isset($_POST[self::FORM_FIELD_TITLE]) ? trim($_POST[self::FORM_FIELD_TITLE]) : '';
+        $fullname = isset($_POST[self::FORM_FIELD_FULLNAME]) ? trim($_POST[self::FORM_FIELD_FULLNAME]) : '';
+        $location = isset($_POST[self::FORM_FIELD_LOCATION]) ? trim($_POST[self::FORM_FIELD_LOCATION]) : '';
+
         $currentUser->setEmail($email);
+        $currentUser->setTitle($title);
+        $currentUser->setFullname($fullname);
+        $currentUser->setLocation($location);
         $_SESSION[SESSION_USER_ID] = $email;
         $userDao->updateUser($currentUser);
 

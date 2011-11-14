@@ -88,6 +88,9 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(Vcatalog_Bo_User_BoUser::COL_ID => (int)$user->getId(),
                 Vcatalog_Bo_User_BoUser::COL_EMAIL => $user->getEmail(),
+                Vcatalog_Bo_User_BoUser::COL_TITLE => $user->getTitle(),
+                Vcatalog_Bo_User_BoUser::COL_FULLNAME => $user->getFullname(),
+                Vcatalog_Bo_User_BoUser::COL_LOCATION => $user->getLocation(),
                 Vcatalog_Bo_User_BoUser::COL_PASSWORD => $user->getPassword(),
                 Vcatalog_Bo_User_BoUser::COL_GROUP_ID => (int)$user->getGroupId());
         $result = $this->execNonSelect($sqlStm, $params);
