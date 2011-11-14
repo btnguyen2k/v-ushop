@@ -118,6 +118,9 @@ CREATE TABLE vcatalog_user (
     upassword       VARCHAR(64)             NOT NULL,
     ugroup_id       INT                     NOT NULL DEFAULT 0,
         INDEX ugroup_id(ugroup_id),
+    utitle          VARCHAR(32),
+    ufullname       VARCHAR(64),
+    ulocation       VARCHAR(64),
     PRIMARY KEY (uid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 -- Administrator account, password is "password" (without quotes, of course!)
