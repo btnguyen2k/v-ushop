@@ -69,6 +69,7 @@ define('ITEM_SORTING_TITLE', 'title');
 define('DEFAULT_PAGE_SIZE', 10);
 
 define('USER_GROUP_ADMIN', 1);
+define('USER_GROUP_MEMBER', 2);
 
 define('DAO_CATALOG', 'dao.catalog');
 define('DAO_CART', 'dao.cart');
