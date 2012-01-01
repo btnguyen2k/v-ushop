@@ -486,6 +486,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
                 self::COL_CATEGORY_IDS => $paramCats,
                 self::COL_START_OFFSET => ($pageNum - 1) * $pageSize,
                 self::COL_PAGE_SIZE => $pageSize);
+        $result = Array();
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {
             foreach ($rows as $row) {
