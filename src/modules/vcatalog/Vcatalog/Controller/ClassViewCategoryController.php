@@ -9,6 +9,7 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
     private $category = NULL;
     private $categoryId;
     private $itemSorting;
+    private $pageNum;
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -46,6 +47,11 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
             $this->itemSorting = DEFAULT_ITEM_SORTING;
         }
         $_SESSION[SESSION_ITEM_SORTING] = $this->itemSorting;
+
+        $this->pageNum = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+        if ($this->pageNum < 1) {
+            $this->pageNum = 1;
+        }
     }
 
     /**
@@ -95,11 +101,16 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
-        $pageNum = 1;
-        $pageSize = 999;
+        $pageSize = DEFAULT_PAGE_SIZE;
         $itemSorting = $this->itemSorting;
-        $allItems = $catalogDao->getItemsForCategory($this->category, $pageNum, $pageSize, $itemSorting);
-        $model[MODEL_ITEM_LIST] = $allItems;
+        $itemsInPage = $catalogDao->getItemsForCategory($this->category, $this->pageNum, $pageSize, $itemSorting);
+        $model[MODEL_ITEM_LIST] = $itemsInPage;
+
+        $urlTemplate = $this->category->getUrlView() . '?p=${PAGE}';
+        $urlTemplate .= '&s=' . $this->itemSorting;
+        $numItems = $catalogDao->countNumItemsForCategory($this->category);
+        $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $pageSize, $this->pageNum);
+        $model[MODEL_PAGINATOR] = $paginator;
 
         return $model;
     }
