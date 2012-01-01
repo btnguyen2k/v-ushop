@@ -129,6 +129,50 @@ class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     }
 
     /**
+     * Gets number of items currently in the cart.
+     *
+     * @return int
+     */
+    public function getNumItems() {
+        return count($this->cartItems);
+    }
+
+    /**
+     * Gets total number of items currently in the cart.
+     *
+     * @return int
+     */
+    public function getTotalItems() {
+        $result = 0;
+        foreach ($this->cartItems as $item) {
+            $result += $item->getQuantity();
+        }
+        return $result;
+    }
+
+    /**
+     * Gets total price of items currently in the cart.
+     *
+     * @return int
+     */
+    public function getTotalPrice() {
+        $result = 0;
+        foreach ($this->cartItems as $item) {
+            $result += $item->getTotal();
+        }
+        return $result;
+    }
+
+    /**
+     * Gets total price of items currently in the cart (for displaying purpose).
+     *
+     * @return string
+     */
+    public function getTotalPriceForDisplay() {
+        return Vcatalog_Utils::formatPrice($this->getTotalPrice());
+    }
+
+    /**
      * Gets an item in the cart
      *
      * @param mixed $item
