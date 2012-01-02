@@ -429,10 +429,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
         return $result;
     }
 
-    /**
-     * @see Vcatalog_Bo_Catalog_ICatalogDao::searchItems()
-     */
-    public function searchItems($searchQuery, $searchType = 2, $cat = NULL, $pageNum = 1, $pageSize = 10) {
+    private function buildSearchParams($searchQuery, $searchType, $cat) {
         $tokens = preg_split(WORD_SPLIT_PATTERN, strip_tags($searchQuery));
         $searchTerms = Array();
         foreach ($tokens as $token) {
@@ -443,17 +440,8 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
         }
 
         if (count($searchTerms) === 0) {
-            return Array();
-        }
-
-        $pageNum = (int)$pageNum;
-        if ($pageNum < 1) {
-            $pageNum = 1;
-        }
-
-        $pageSize = (int)$pageSize;
-        if ($pageSize < 1) {
-            $pageSize = 1;
+            //no or empty search tearm(s), thus no search should be performed
+            return NULL;
         }
 
         $paramSearchTerms = array_keys($searchTerms);
@@ -478,14 +466,48 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
                 break;
         }
 
-        //pre-open a connection so that subsequence operations will reuse it
-        $conn = $this->getConnection();
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($paramCats) === 0 ? 'NoCategory' : 'Category'));
+        //build the final parameters and return
         $params = Array('searchTypes' => $paramSearchTypes,
                 'tags' => $paramSearchTerms,
-                self::COL_CATEGORY_IDS => $paramCats,
-                self::COL_START_OFFSET => ($pageNum - 1) * $pageSize,
-                self::COL_PAGE_SIZE => $pageSize);
+                self::COL_CATEGORY_IDS => $paramCats);
+        return $params;
+    }
+
+    /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::countSearchItems()
+     */
+    public function countSearchItems($searchQuery, $searchType = 2, $cat = NULL) {
+        $params = $this->buildSearchParams($searchQuery, $searchType, $cat);
+        if ($params === NULL) {
+            return 0;
+        }
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($params[self::COL_CATEGORY_IDS]) === 0 ? 'NoCategory' : 'Category'));
+        return $this->execCount($sqlStm, $params);
+    }
+
+    /**
+     * @see Vcatalog_Bo_Catalog_ICatalogDao::searchItems()
+     */
+    public function searchItems($searchQuery, $searchType = 2, $cat = NULL, $pageNum = 1, $pageSize = 10) {
+        $params = $this->buildSearchParams($searchQuery, $searchType, $cat);
+        if ($params === NULL) {
+            return Array();
+        }
+
+        $pageNum = (int)$pageNum;
+        if ($pageNum < 1) {
+            $pageNum = 1;
+        }
+        $pageSize = (int)$pageSize;
+        if ($pageSize < 1) {
+            $pageSize = 1;
+        }
+        $params[self::COL_START_OFFSET] = ($pageNum - 1) * $pageSize;
+        $params[self::COL_PAGE_SIZE] = $pageSize;
+
+        //pre-open a connection so that subsequence operations will reuse it
+        $conn = $this->getConnection();
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($params[self::COL_CATEGORY_IDS]) === 0 ? 'NoCategory' : 'Category'));
         $result = Array();
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {

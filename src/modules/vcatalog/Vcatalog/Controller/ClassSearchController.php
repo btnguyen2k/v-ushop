@@ -58,9 +58,16 @@ class Vcatalog_Controller_SearchController extends Vcatalog_Controller_BaseFlowC
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
+        $pageSize = DEFAULT_PAGE_SIZE;
+        $itemsInPage = $catalogDao->searchItems($this->searchTerm, 2, $this->category, $this->pageNum, $pageSize);
+        $model[MODEL_ITEM_LIST] = $itemsInPage;
 
-        $items = $catalogDao->searchItems($this->searchTerm, 2, $this->category, $this->pageNum, 999);
-        $model[MODEL_ITEM_LIST] = $items;
+        $urlTemplate = $_SERVER['SCRIPT_NAME'] . '/search?q=' . $this->searchTerm . '&c=';
+        $urlTemplate .= ($this->category !== NULL) ? $this->category->getId() : '0';
+        $urlTemplate .= '&p=${PAGE}';
+        $numItems = $catalogDao->countSearchItems($this->searchTerm, 2, $this->category);
+        $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $pageSize, $this->pageNum);
+        $model[MODEL_PAGINATOR] = $paginator;
 
         return $model;
     }

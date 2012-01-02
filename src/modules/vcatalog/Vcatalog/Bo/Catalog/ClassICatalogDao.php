@@ -142,6 +142,15 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     public function searchItems($searchQuery, $searchType = 2, $cat = NULL, $pageNum = 1, $pageSize = 10);
 
     /**
+     * Counts items that match a search query.
+     *
+     * @param string $searchQuery
+     * @param int $searchType 0 = search in title, 1 = search in description/content, 2 = search in both
+     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     */
+    public function countSearchItems($searchQuery, $searchType, $cat = NULL);
+
+    /**
      * Updates an existing item.
      *
      * @param Vcatalog_Bo_Catalog_BoItem $item
