@@ -13,22 +13,41 @@ abstract class Vcatalog_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao imple
     }
 
     /**
+     * (non-PHPdoc)
+     * @see Quack_Bo_BaseDao::getCacheName()
+     */
+    public function getCacheName() {
+        return 'IConfigDao';
+    }
+
+    protected function createCacheKeyConfig($configKey) {
+        return $configKey;
+    }
+
+    protected function invalidateCache($configKey = NULL, $configValue = NULL) {
+        if ($configKey !== NULL) {
+            $cacheKey = $this->createCacheKeyConfig($configKey);
+            if ($configValue === NULL) {
+                $this->deleteFromCache($cacheKey);
+            } else {
+                $this->putToCache($cacheKey, $configValue);
+            }
+
+        }
+    }
+
+    /**
      * @see Vcatalog_Bo_Config_IConfigDao::loadConfig()
      */
     public function loadConfig($key) {
-        $cacheKey = "CONFIG_$key";
+        $cacheKey = $this->createCacheKeyConfig($key);
         $result = $this->getFromCache($cacheKey);
         if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $sqlConn = $this->getConnection();
-
             $params = Array('key' => $key);
-            $rs = $sqlStm->execute($sqlConn->getConn(), $params);
-            $result = $this->fetchResultAssoc($rs);
-
-            $this->closeConnection();
-            $result = $result !== FALSE ? $result['value'] : NULL;
-            if ($result !== NULL) {
+            $rows = $this->execSelect($sqlStm, $params);
+            if ($rows !== NULL && count($rows) > 0) {
+                $result = $rows[0]['value'];
                 $this->putToCache($cacheKey, $result);
             }
         }
@@ -40,12 +59,9 @@ abstract class Vcatalog_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao imple
      */
     public function saveConfig($key, $value) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $sqlConn = $this->getConnection();
-
         $params = Array('key' => $key, 'value' => $value);
-        $sqlStm->execute($sqlConn->getConn(), $params);
-        $this->closeConnection();
-        $cacheKey = "CONFIG_$key";
-        $this->putToCache($cacheKey, $value);
+        $result = $this->execNonSelect($sqlStm, $params);
+        $this->invalidateCache($key, $value);
+        return $result;
     }
 }
