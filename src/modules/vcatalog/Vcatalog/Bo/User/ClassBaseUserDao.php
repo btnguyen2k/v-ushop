@@ -13,15 +13,38 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
     }
 
     /**
+     * (non-PHPdoc)
+     * @see Quack_Bo_BaseDao::getCacheName()
+     */
+    public function getCacheName() {
+        return 'IUserDao';
+    }
+
+    protected function createCacheKeyUserId($userId) {
+        return $userId;
+    }
+
+    protected function createCacheKeyUserLoginname($loginName) {
+        return "LOGIN_$loginName";
+    }
+
+    protected function createCacheKeyUserEmail($email) {
+        return "EMAIL_$email";
+    }
+
+    /**
      * Invalidates the user cache due to change.
      *
      * @param Vcatalog_Bo_User_BoUser $user
      */
-    protected function invalidatePageCache($user = NULL) {
+    protected function invalidateCache($user = NULL) {
         if ($user !== NULL) {
-            $userId = $user->getId();
-            $cacheKey = "USER_$userId";
-            $this->deleteFromCache($cacheKey);
+            $id = $user->getId();
+            $email = $user->getEmail();
+            //$loginname = $user->getLoginname();
+            $this->deleteFromCache($this->createCacheKeyUserId($id));
+            $this->deleteFromCache($this->createCacheKeyUserEmail($email));
+            //$this->deleteFromCache($this->createCacheKeyUserLoginname($loginname));
         }
     }
 
@@ -30,7 +53,21 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
      */
     public function getUserById($id) {
         $id = (int)$id;
-        $cacheKey = "USER_$id";
+        $cacheKey = $this->createCacheKeyUserId($id);
+        $user = NULL;
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array(Vcatalog_Bo_User_BoUser::COL_ID => $id);
+        $rows = $this->execSelect($sqlStm, $params, NULL, $cacheKey);
+        if ($rows !== NULL && count($rows) > 0) {
+            $user = new Vcatalog_Bo_User_BoUser();
+            $user->populate($rows[0]);
+        }
+        return $user;
+
+    /*
+        $id = (int)$id;
+        $cacheKey = $id;
+        //$cacheKey = "USER_$id";
         $user = $this->getFromCache($cacheKey);
         if ($user === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -43,6 +80,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
             }
         }
         return $user;
+        */
     }
 
     /**
@@ -54,6 +92,17 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
             return NULL;
         }
         $email = strtolower($email);
+        $cacheKey = $this->createCacheKeyUserEmail($email);
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array(Vcatalog_Bo_User_BoUser::COL_EMAIL => $email);
+        $rows = $this->execSelect($sqlStm, $params, NULL, $cacheKey);
+        if ($rows !== NULL && count($rows) > 0) {
+            $userId = $rows[0][Vcatalog_Bo_User_BoUser::COL_ID];
+            return $this->getUserById($userId);
+        }
+        return NULL;
+
+    /*
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(Vcatalog_Bo_User_BoUser::COL_EMAIL => $email);
         $rows = $this->execSelect($sqlStm, $params);
@@ -62,6 +111,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
             return $this->getUserById($userId);
         }
         return NULL;
+        */
     }
 
     /**
@@ -77,7 +127,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
                 Vcatalog_Bo_User_BoUser::COL_FULLNAME => $fullname,
                 Vcatalog_Bo_User_BoUser::COL_LOCATION => $location);
         $this->execNonSelect($sqlStm, $params);
-        $this->invalidatePageCache();
+        $this->invalidateCache();
     }
 
     /**
@@ -94,7 +144,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
                 Vcatalog_Bo_User_BoUser::COL_PASSWORD => $user->getPassword(),
                 Vcatalog_Bo_User_BoUser::COL_GROUP_ID => (int)$user->getGroupId());
         $result = $this->execNonSelect($sqlStm, $params);
-        $this->invalidatePageCache($user);
+        $this->invalidateCache($user);
         return $result;
     }
 }
