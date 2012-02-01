@@ -1,5 +1,5 @@
 <?php
-abstract class Vcatalog_Bo_Config_BaseConfigDao extends Commons_Bo_BaseDao implements
+abstract class Vcatalog_Bo_Config_BaseConfigDao extends Quack_Bo_BaseDao implements
         Vcatalog_Bo_Config_IConfigDao {
 
     /**

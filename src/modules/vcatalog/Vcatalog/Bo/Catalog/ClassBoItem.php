@@ -13,12 +13,13 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
     const COL_STOCK = 'istock';
     const COL_IMAGE_ID = 'iimage_id';
     const COL_HOT_ITEM = 'ihot_item';
+    const COL_NEW_ITEM = 'inew_item';
 
     private $id, $active, $categoryId, $title, $description, $vendor;
     private $timestamp;
     private $price, $oldPrice, $stock;
     private $imageId;
-    private $hotItem;
+    private $hotItem, $newItem;
 
     private $category;
 
@@ -43,7 +44,8 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
                 self::COL_OLD_PRICE => Array('oldPrice', self::TYPE_DOUBLE),
                 self::COL_STOCK => Array('stock', self::TYPE_DOUBLE),
                 self::COL_IMAGE_ID => Array('imageId'),
-                self::COL_HOT_ITEM => Array('hotItem', self::TYPE_BOOLEAN));
+                self::COL_HOT_ITEM => Array('hotItem', self::TYPE_BOOLEAN),
+                self::COL_NEW_ITEM => Array('newItem', self::TYPE_BOOLEAN));
     }
 
     /**
@@ -239,5 +241,17 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
 
     public function setHotItem($hotItem) {
         $this->hotItem = $hotItem;
+    }
+
+    public function getNewItem() {
+        return $this->newItem;
+    }
+
+    public function isNewItem() {
+        return $this->newItem;
+    }
+
+    public function setNewItem($newItem) {
+        $this->newItem = $newItem;
     }
 }

@@ -2,12 +2,12 @@
 class Vcatalog_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
 
     /* Database table columns */
-    const COL_ID = 'cid';
-    const COL_POSITION = 'cposition';
-    const COL_PARENT_ID = 'cparent_id';
-    const COL_TITLE = 'ctitle';
-    const COL_DESCRIPTION = 'cdesc';
-    const COL_IMAGE_ID = 'cimage_id';
+    const COL_ID = 'catId';
+    const COL_POSITION = 'catPosition';
+    const COL_PARENT_ID = 'catParentId';
+    const COL_TITLE = 'catTitle';
+    const COL_DESCRIPTION = 'catDesc';
+    const COL_IMAGE_ID = 'catImageId';
 
     private $id, $position, $parentId, $title, $description, $imageId;
     private $children = Array();
