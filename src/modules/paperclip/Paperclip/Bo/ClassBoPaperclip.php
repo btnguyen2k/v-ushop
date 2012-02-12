@@ -1,16 +1,16 @@
 <?php
 class Paperclip_Bo_BoPaperclip extends Commons_Bo_BaseBo {
 
-    const COL_ID = 'pid';
-    const COL_FILENAME = 'pfilename';
-    const COL_FILESIZE = 'pfilesize';
-    const COL_FILECONTENT = 'pfilecontent';
-    const COL_THUMBNAIL = 'pthumbnail';
-    const COL_MIMETYPE = 'pmimetype';
-    const COL_TIMESTAMP = 'ptimestamp';
-    const COL_IS_DRAFT = 'pis_draft';
-    const COL_IMG_WIDTH = 'pimg_width';
-    const COL_IMG_HEIGHT = 'pimg_height';
+    const COL_ID = 'pcId';
+    const COL_FILENAME = 'pcFilename';
+    const COL_FILESIZE = 'pcFilesize';
+    const COL_FILECONTENT = 'pcFilecontent';
+    const COL_THUMBNAIL = 'pcThumbnail';
+    const COL_MIMETYPE = 'pcMimeType';
+    const COL_TIMESTAMP = 'pcTimestamp';
+    const COL_IS_DRAFT = 'pcIsDraft';
+    const COL_IMG_WIDTH = 'pcImgWidth';
+    const COL_IMG_HEIGHT = 'pcImgHeight';
 
     private $id;
     private $filename;
