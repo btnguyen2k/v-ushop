@@ -17,7 +17,7 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
      * @see Quack_Bo_BaseDao::getCacheName()
      */
     public function getCacheName() {
-        return 'IUserDao';
+        return 'ICartDao';
     }
 
     protected function createCacheKeyCart($sessionId) {
