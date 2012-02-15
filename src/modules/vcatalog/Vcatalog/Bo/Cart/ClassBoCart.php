@@ -2,10 +2,10 @@
 class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
 
     /* Database table columns */
-    const COL_SESSION_ID = 'csession_id';
-    const COL_STATUS = 'cstatus';
-    const COL_UPDATE_TIMESTAMP = 'cupdate_timestamp';
-    const COL_USER_ID = 'cuser_id';
+    const COL_SESSION_ID = 'sessionId';
+    const COL_STATUS = 'cartStatus';
+    const COL_UPDATE_TIMESTAMP = 'updateTimestamp';
+    const COL_USER_ID = 'userId';
 
     private $sessionId, $status, $updateTimestamp, $userId;
     private $cartItems = Array();

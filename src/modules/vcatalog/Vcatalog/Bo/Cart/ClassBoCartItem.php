@@ -2,10 +2,10 @@
 class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
 
     /* Database table columns */
-    const COL_SESSION_ID = 'csession_id';
-    const COL_ITEM_ID = 'citem_id';
-    const COL_QUANTITY = 'cquantity';
-    const COL_PRICE = 'cprice';
+    const COL_SESSION_ID = 'sessionId';
+    const COL_ITEM_ID = 'itemId';
+    const COL_QUANTITY = 'itemQuantity';
+    const COL_PRICE = 'itemPrice';
 
     private $sessionId, $itemId, $quantity;
 
