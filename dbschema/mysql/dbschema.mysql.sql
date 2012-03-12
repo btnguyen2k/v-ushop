@@ -160,6 +160,8 @@ CREATE TABLE vcatalog_item (
         INDEX iimage_id (iimage_id),
     ihot_item       INT                     NOT NULL DEFAULT 0,
         INDEX ihot_item(ihot_item),
+    inew_item       INT                     NOT NULL DEFAULT 0,
+        INDEX inew_item(inew_item),
     PRIMARY KEY (iid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
