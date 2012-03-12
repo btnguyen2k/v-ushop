@@ -1,19 +1,19 @@
 <?php
 class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
 
-    const COL_ID = 'iid';
-    const COL_ACTIVE = 'iactive';
-    const COL_CATEGORY_ID = 'icategory_id';
-    const COL_TITLE = 'ititle';
-    const COL_DESCRIPTION = 'idesc';
-    const COL_VENDOR = 'ivendor';
-    const COL_TIMESTAMP = 'itimestamp';
-    const COL_PRICE = 'iprice';
-    const COL_OLD_PRICE = 'iold_price';
-    const COL_STOCK = 'istock';
-    const COL_IMAGE_ID = 'iimage_id';
-    const COL_HOT_ITEM = 'ihot_item';
-    const COL_NEW_ITEM = 'inew_item';
+    const COL_ID = 'itemId';
+    const COL_ACTIVE = 'itemActive';
+    const COL_CATEGORY_ID = 'itemCategoryId';
+    const COL_TITLE = 'itemTitle';
+    const COL_DESCRIPTION = 'itemDescription';
+    const COL_VENDOR = 'itemVendor';
+    const COL_TIMESTAMP = 'itemTimestamp';
+    const COL_PRICE = 'itemPrice';
+    const COL_OLD_PRICE = 'itemOldPrice';
+    const COL_STOCK = 'itemStock';
+    const COL_IMAGE_ID = 'itemImageId';
+    const COL_HOT_ITEM = 'itemHotItem';
+    const COL_NEW_ITEM = 'itemNewItem';
 
     private $id, $active, $categoryId, $title, $description, $vendor;
     private $timestamp;

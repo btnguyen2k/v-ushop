@@ -4,6 +4,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
     const VIEW_NAME = 'admin_itemList';
 
     private $pageNum;
+    private $featuredItemsOnly = FALSE;
     private $category = NULL;
 
     /**
@@ -20,6 +21,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
      */
     protected function populateParams() {
         $this->pageNum = isset($_GET['p']) ? (int)$_GET['p'] : 0;
+        $this->featuredItemsOnly = isset($_GET['f']) ? (bool)$_GET['f'] : FALSE;
         $catId = isset($_GET['c']) ? (int)$_GET['c'] : 0;
 
         if ($this->pageNum < 1) {
@@ -46,6 +48,10 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
             $model = Array();
         }
 
+        if ($this->featuredItemsOnly) {
+            $model['featuredItemsOnly'] = TRUE;
+        }
+
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
@@ -53,17 +59,23 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
 
         if ($this->category !== NULL) {
             $model['objCategory'] = $this->category;
-            $itemList = $catalogDao->getItemsForCategory($this->category, $this->pageNum, DEFAULT_PAGE_SIZE);
+            $itemList = $catalogDao->getItemsForCategory($this->category, $this->pageNum, DEFAULT_PAGE_SIZE, DEFAULT_ITEM_SORTING, $this->featuredItemsOnly);
             //paging
-            $numItems = $catalogDao->countNumItemsForCategory($this->category);
+            $numItems = $catalogDao->countNumItemsForCategory($this->category, $this->featuredItemsOnly);
             $urlTemplate = $_SERVER['SCRIPT_NAME'] . '/admin/items?p=${page}&c=' . $this->category->getId();
+            if ($this->featuredItemsOnly) {
+                $urlTemplate .= '&f=1';
+            }
             $paginator = new Commons_Model_Paginator($urlTemplate, $numItems, DEFAULT_PAGE_SIZE,
                     $this->pageNum);
         } else {
-            $itemList = $catalogDao->getAllItems($this->pageNum, DEFAULT_PAGE_SIZE);
+            $itemList = $catalogDao->getAllItems($this->pageNum, DEFAULT_PAGE_SIZE, DEFAULT_ITEM_SORTING, $this->featuredItemsOnly);
             //paging
-            $numItems = $catalogDao->countNumItems();
+            $numItems = $catalogDao->countNumItems($this->featuredItemsOnly);
             $urlTemplate = $_SERVER['SCRIPT_NAME'] . '/admin/items?p=${page}';
+            if ($this->featuredItemsOnly) {
+                $urlTemplate .= '&f=1';
+            }
             $paginator = new Commons_Model_Paginator($urlTemplate, $numItems, DEFAULT_PAGE_SIZE,
                     $this->pageNum);
         }

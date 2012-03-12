@@ -26,8 +26,8 @@ class Vcatalog_Controller_HomeController extends Vcatalog_Controller_BaseFlowCon
         $catTree = $catalogDao->getCategoryTree();
         $model[MODEL_CATEGORY_LIST] = $catTree;
 
-        $allItems = $catalogDao->getAllItems();
-        $model[MODEL_ITEM_LIST] = $allItems;
+        //$allItems = $catalogDao->getAllItems();
+        //$model[MODEL_ITEM_LIST] = $allItems;
 
         return $model;
     }

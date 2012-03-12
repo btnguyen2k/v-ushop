@@ -59,16 +59,19 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Counts number of current items.
      *
+     * @param boolean $featuredItemsOnly
      * @return int
      */
-    public function countNumItems();
+    public function countNumItems($featuredItemsOnly = FALSE);
 
     /**
      * Counts number of current items within a category.
      *
+     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     * @param boolean $featuredItemsOnly
      * @return int
      */
-    public function countNumItemsForCategory($cat);
+    public function countNumItemsForCategory($cat, $featuredItemsOnly = FALSE);
 
     /**
      * Creates a new item.
@@ -98,9 +101,10 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      *
      * @param int $pageNum
      * @param int $pageSize
+     * @param boolean $featuredItemsOnly
      * @return Array
      */
-    public function getAllItems($pageNum = 1, $pageSize = 999);
+    public function getAllItems($pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItemsOnly = FALSE);
 
     /**
      * Gets an item by id.
@@ -117,9 +121,10 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param int $pageNum
      * @param int $pageSize
      * @param string $itemSorting
+     * @param boolean $featuredItemsOnly
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
      */
-    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999, $itemSorting=DEFAULT_ITEM_SORTING);
+    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItemsOnly = FALSE);
 
     /**
      * Gets "hot" items.

@@ -10,6 +10,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     private $viewName = NULL;
 
     /**
+     *
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
@@ -23,6 +24,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::execute()
      */
     public function execute($module, $action) {
@@ -31,14 +33,14 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             $_SESSION[SESSION_LAST_ACCESS_URL] = $_SERVER['REQUEST_URI'];
         }
         if ($this->requireAuthentication && $this->getCurrentUser() === NULL) {
-            $url = $_SERVER['SCRIPT_NAME'].'/login';
+            $url = $_SERVER['SCRIPT_NAME'] . '/login';
             $modelAndView = new Dzit_ModelAndView();
             $modelAndView->setView(new Dzit_View_RedirectView($url));
             return $modelAndView;
         }
         $modelAndView = parent::execute($module, $action);
         $endTime = microtime(TRUE);
-        //error_log($endTime - $startTime, 0);
+        // error_log($endTime - $startTime, 0);
         return $modelAndView;
     }
 
@@ -62,6 +64,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      */
     protected function getCurrentCart() {
         /**
+         *
          * @var Vcatalog_Bo_Cart_ICartDao
          */
         $cartDao = $this->getDao(DAO_CART);
@@ -81,7 +84,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * @return mixed
      */
     protected function getCurrentUser() {
-        //because we store the user email in session, NOT the user ID
+        // because we store the user email in session, NOT the user ID
         $userEmail = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : NULL;
         return $this->getDao(DAO_USER)->getUserByEmail($userEmail);
     }
@@ -170,7 +173,8 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     /**
      * Getter for $allowedUserGroups.
      *
-     * @param Array
+     * @param
+     *            Array
      */
     protected function getAllowedUserGroups() {
         return $this->allowedUserGroups;
@@ -197,6 +201,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
 
     /**
      * Gets names of all language packs.
+     *
      * @return Array
      */
     protected function getLanguageNames() {
@@ -326,6 +331,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView()
      */
     protected function getModelAndView() {
@@ -338,6 +344,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_Login()
      */
     protected function getModelAndView_Login() {
@@ -353,10 +360,9 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      */
     protected function buildModel() {
         $model = Array();
-
         $commonModel = $this->buildModel_Common();
         if ($commonModel !== NULL) {
-            //merge common model to the root
+            // merge common model to the root
             foreach ($commonModel as $key => $value) {
                 $model[$key] = $value;
             }
@@ -369,7 +375,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
 
         $customModel = $this->buildModel_Custom();
         if ($customModel !== NULL) {
-            //merge custom model to the root
+            // merge custom model to the root
             foreach ($customModel as $key => $value) {
                 $model[$key] = $value;
             }
@@ -405,14 +411,15 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model['urlUploadHandler'] = $this->getUrlUploadHandler();
 
         /**
+         *
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
-
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
         $model[MODEL_CATEGORY_TREE] = $catTree;
 
         /**
+         *
          * @var Vcatalog_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
@@ -443,7 +450,8 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
-     * Builds custom model. Sub-class overrides this function to build its own custom model.
+     * Builds custom model.
+     * Sub-class overrides this function to build its own custom model.
      *
      * @return Array
      */
@@ -462,7 +470,8 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     /**
      * Builds the "form" model.
      *
-     * This function returns NULL. Sub-class overrides this function to build its
+     * This function returns NULL. Sub-class overrides this function to build
+     * its
      * own form model if the page has form.
      *
      * @return Array
@@ -521,6 +530,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             return NULL;
         }
         /**
+         *
          * @var Ddth_Mls_ILanguage
          */
         $lang = $this->getLanguage();
@@ -543,7 +553,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             if ($thumbnail === NULL) {
                 $this->addErrorMessage($lang->getMessage('error.invalidImageFile'));
             } else {
-                //taking care of the filename
+                // taking care of the filename
                 $pathinfo = pathinfo($file['name']);
                 if (!isset($pathinfo['extension'])) {
                     $pathinfo['extension'] = '';
@@ -554,10 +564,12 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
                 }
 
                 /**
+                 *
                  * @var Paperclip_Bo_IPaperclipDao
                  */
                 $paperclipDao = $this->getDao(DAO_PAPERCLIP);
                 /**
+                 *
                  * @var Paperclip_Bo_BoPaperclip
                  */
                 $paperclipItem = $paperclipId !== NULL ? $paperclipDao->getAttachment($paperclipId) : NULL;
@@ -583,6 +595,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::validateAuthentication()
      *
      */
@@ -591,12 +604,13 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::validateAuthorization()
      */
     protected function validateAuthorization() {
         $allowedGroups = $this->allowedUserGroups;
         if ($allowedGroups == NULL || (is_array($allowedGroups) && count($allowedGroups) == 0)) {
-            //no allowed groups defined!
+            // no allowed groups defined!
             return TRUE;
         }
         return TRUE;
