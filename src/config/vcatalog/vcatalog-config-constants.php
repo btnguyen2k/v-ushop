@@ -45,6 +45,8 @@ define('MODEL_CART', 'cart');
 define('MODEL_PAGE_LIST', 'pageList');
 define('MODEL_ITEM_LIST', 'itemList');
 define('MODEL_HOT_ITEMS', 'hotItems');
+define('MODEL_NEW_ITEMS', 'newItems');
+define('MODEL_FEATURED_ITEMS', 'featuredItems');
 define('MODEL_ONMENU_PAGES', 'onMenuPages');
 define('MODEL_ALL_PAGES_BY_CATEGORY', 'allPagesByCat');
 define('MODEL_INFO_MESSAGES', 'infoMessages');
@@ -58,6 +60,11 @@ define('SESSION_ITEM_SORTING', 'ITEM_SORTING');
 define('SESSION_LAST_ACCESS_URL', 'LAST_ACCESS_URL');
 define('SESSION_USER_ID', 'USER_ID');
 define('SESSION_LANGUAGE_NAME', 'LANGUAGE_NAME');
+
+define('FEATURED_ITEM_NONE', 0);
+define('FEATURED_ITEM_HOT' , 1);
+define('FEATURED_ITEM_NEW' , 2);
+define('FEATURED_ITEM_ALL' , 3);
 
 define('DEFAULT_ITEM_SORTING', 'timedesc');
 define('ITEM_SORTING_TIMEDESC', 'timedesc');
