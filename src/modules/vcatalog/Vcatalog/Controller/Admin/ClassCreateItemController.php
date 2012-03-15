@@ -10,6 +10,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     const FORM_FIELD_PRICE = 'itemPrice';
     const FORM_FIELD_IMAGE = 'itemImage';
     const FORM_FIELD_HOT = 'itemHot';
+    const FORM_FIELD_NEW = 'itemNew';
     const FORM_FIELD_IMAGE_ID = 'itemImageId';
     const FORM_FIELD_URL_IMAGE = 'urlItemImage';
 
@@ -77,7 +78,8 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
                 self::FORM_FIELD_TITLE,
                 self::FORM_FIELD_VENDOR,
                 self::FORM_FIELD_IMAGE_ID,
-                self::FORM_FIELD_HOT));
+                self::FORM_FIELD_HOT,
+                self::FORM_FIELD_NEW));
         $this->sessionKey .= $form[self::FORM_FIELD_IMAGE_ID];
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         if ($paperclipId !== NULL) {
@@ -109,12 +111,13 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
         $vendor = isset($_POST[self::FORM_FIELD_VENDOR]) ? trim($_POST[self::FORM_FIELD_VENDOR]) : '';
         $price = isset($_POST[self::FORM_FIELD_PRICE]) ? (double)$_POST[self::FORM_FIELD_PRICE] : 0.0;
         $hotItem = isset($_POST[self::FORM_FIELD_HOT]) ? (boolean)$_POST[self::FORM_FIELD_HOT] : FALSE;
+        $newItem = isset($_POST[self::FORM_FIELD_NEW]) ? (boolean)$_POST[self::FORM_FIELD_NEW] : FALSE;
 
         if ($categoryId < 1) {
-            $categoryId = NULL;
+            $categoryId = 0;
         } else {
             $cat = $catalogDao->getCategoryById($categoryId);
-            if ($cat == NULL) {
+            if ($cat === NULL) {
                 $this->addErrorMessage($lang->getMessage('error.categoryNotFound', $categoryId));
             }
         }
@@ -140,7 +143,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
         $oldPrice = 0.0;
         $stock = 0.0;
 
-        $catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, $hotItem);
+        $catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, $hotItem, $newItem);
 
         //clean-up
         unset($_SESSION[$this->sessionKey]);

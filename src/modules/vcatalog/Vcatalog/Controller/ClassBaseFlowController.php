@@ -441,9 +441,17 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
 
         $model[MODEL_CART] = $this->getCurrentCart();
 
-        $hotItems = $catalogDao->getHotItems(5);
+        $hotItems = $catalogDao->getAllItems(1, PHP_INT_MAX, DEFAULT_ITEM_SORTING, FEATURED_ITEM_HOT);
         if ($hotItems !== NULL && count($hotItems) > 0) {
             $model[MODEL_HOT_ITEMS] = $hotItems;
+        }
+        $newItems = $catalogDao->getAllItems(1, PHP_INT_MAX, DEFAULT_ITEM_SORTING, FEATURED_ITEM_NEW);
+        if ($newItems !== NULL && count($newItems) > 0) {
+            $model[MODEL_NEW_ITEMS] = $newItems;
+        }
+        $featuredItems = $catalogDao->getAllItems(1, PHP_INT_MAX, DEFAULT_ITEM_SORTING, FEATURED_ITEM_ALL);
+        if ($featuredItems !== NULL && count($featuredItems) > 0) {
+            $model[MODEL_FEATURED_ITEMS] = $featuredItems;
         }
 
         return $model;

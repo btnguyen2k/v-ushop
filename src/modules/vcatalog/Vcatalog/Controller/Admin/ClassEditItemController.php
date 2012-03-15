@@ -11,6 +11,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     const FORM_FIELD_PRICE = 'itemPrice';
     const FORM_FIELD_IMAGE = 'itemImage';
     const FORM_FIELD_HOT = 'itemHot';
+    const FORM_FIELD_NEW = 'itemNew';
     const FORM_FIELD_IMAGE_ID = 'itemImageId';
     const FORM_FIELD_URL_IMAGE = 'urlItemImage';
 
@@ -126,6 +127,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $form[self::FORM_FIELD_VENDOR] = $this->item->getVendor();
         $form[self::FORM_FIELD_IMAGE_ID] = md5($this->item->getImageId());
         $form[self::FORM_FIELD_HOT] = $this->item->isHotItem() ? 1 : 0;
+        $form[self::FORM_FIELD_NEW] = $this->item->isNewItem() ? 1 : 0;
 
         $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_ID,
                 self::FORM_FIELD_DESCRIPTION,
@@ -133,7 +135,8 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
                 self::FORM_FIELD_TITLE,
                 self::FORM_FIELD_VENDOR,
                 self::FORM_FIELD_IMAGE_ID,
-                self::FORM_FIELD_HOT));
+                self::FORM_FIELD_HOT,
+                self::FORM_FIELD_NEW));
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         if ($paperclipId !== NULL) {
             $form[self::FORM_FIELD_URL_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
@@ -164,9 +167,10 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $vendor = isset($_POST[self::FORM_FIELD_VENDOR]) ? trim($_POST[self::FORM_FIELD_VENDOR]) : '';
         $price = isset($_POST[self::FORM_FIELD_PRICE]) ? (double)$_POST[self::FORM_FIELD_PRICE] : 0.0;
         $hotItem = isset($_POST[self::FORM_FIELD_HOT]) ? (boolean)$_POST[self::FORM_FIELD_HOT] : FALSE;
+        $newItem = isset($_POST[self::FORM_FIELD_NEW]) ? (boolean)$_POST[self::FORM_FIELD_NEW] : FALSE;
 
         if ($categoryId < 1) {
-            $categoryId = NULL;
+            $categoryId = 0;
         } else {
             $cat = $catalogDao->getCategoryById($categoryId);
             if ($cat == NULL) {
@@ -200,6 +204,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
             $this->item->setImageId($paperclipItem->getId());
         }
         $this->item->setHotItem($hotItem);
+        $this->item->setNewItem($newItem);
         $catalogDao->updateItem($this->item);
 
         //clean-up

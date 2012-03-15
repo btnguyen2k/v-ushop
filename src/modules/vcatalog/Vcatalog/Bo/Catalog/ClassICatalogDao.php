@@ -59,19 +59,19 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Counts number of current items.
      *
-     * @param boolean $featuredItemsOnly
+     * @param mixed $featuredItemsOnly
      * @return int
      */
-    public function countNumItems($featuredItemsOnly = FALSE);
+    public function countNumItems($featuredItems = FEATURED_ITEM_NONE);
 
     /**
      * Counts number of current items within a category.
      *
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
-     * @param boolean $featuredItemsOnly
+     * @param mixed $featuredItemsOnly
      * @return int
      */
-    public function countNumItemsForCategory($cat, $featuredItemsOnly = FALSE);
+    public function countNumItemsForCategory($cat, $featuredItems = FEATURED_ITEM_NONE);
 
     /**
      * Creates a new item.
@@ -86,8 +86,9 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param double $stock
      * @param string $imageId
      * @param boolean $hotItem
+     * @param boolean $newItem
      */
-    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId, $hotItem = TRUE);
+    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId, $hotItem = FALSE, $newItem = TRUE);
 
     /**
      * Deletes an existing items.
@@ -101,10 +102,10 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      *
      * @param int $pageNum
      * @param int $pageSize
-     * @param boolean $featuredItemsOnly
+     * @param mixed $featuredItemsOnly
      * @return Array
      */
-    public function getAllItems($pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItemsOnly = FALSE);
+    public function getAllItems($pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE);
 
     /**
      * Gets an item by id.
@@ -121,24 +122,18 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param int $pageNum
      * @param int $pageSize
      * @param string $itemSorting
-     * @param boolean $featuredItemsOnly
+     * @param mixed $featuredItemsOnly
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
      */
-    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItemsOnly = FALSE);
-
-    /**
-     * Gets "hot" items.
-     *
-     * @param int $numItems number of items to retrieve
-     * @return Array
-     */
-    public function getHotItems($numItems = 10);
+    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE);
 
     /**
      * Searches for items.
      *
      * @param string $searchQuery
-     * @param int $searchType 0 = search in title, 1 = search in description/content, 2 = search in both
+     * @param int $searchType
+     *            0 = search in title, 1 = search in description/content, 2 =
+     *            search in both
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
      * @param int $pageNum
      * @param int $pageSize
@@ -150,7 +145,9 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * Counts items that match a search query.
      *
      * @param string $searchQuery
-     * @param int $searchType 0 = search in title, 1 = search in description/content, 2 = search in both
+     * @param int $searchType
+     *            0 = search in title, 1 = search in description/content, 2 =
+     *            search in both
      * @param Vcatalog_Bo_Catalog_BoCategory $cat
      */
     public function countSearchItems($searchQuery, $searchType, $cat = NULL);
