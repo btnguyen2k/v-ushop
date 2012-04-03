@@ -49,6 +49,14 @@ class Vcatalog_Model_PageModel extends Quack_Model_BaseModelObj {
     private $urlPin = NULL;
     private $urlUnpin = NULL;
 
+    public function getOnMenu() {
+        return PAGE_ATTR_ONMENU == ($this->getTargetObject()->getAttr() & PAGE_ATTR_ONMENU);
+    }
+
+    public function isOnMenu() {
+        return PAGE_ATTR_ONMENU == ($this->getTargetObject()->getAttr() & PAGE_ATTR_ONMENU);
+    }
+
     /**
      * Gets the URL to delete the page.
      *

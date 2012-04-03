@@ -10,7 +10,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
     const FORM_FIELD_ON_MENU = 'onMenu';
 
     /**
-     * @var Vcatalog_Bo_Page_BoPage
+     * @var Quack_Bo_Page_BoPage
      */
     private $page = NULL;
     private $pageId;
@@ -106,7 +106,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
                 'actionCancel' => $this->getUrlPageManagement(),
                 'name' => 'frmEditPage');
 
-        $form[self::FORM_FIELD_ON_MENU] = $this->page->getOnMenu();
+        $form[self::FORM_FIELD_ON_MENU] = PAGE_ATTR_ONMENU == ($this->page->getAttr() & PAGE_ATTR_ONMENU);
         $form[self::FORM_FIELD_PAGE_CONTENT] = $this->page->getContent();
         $form[self::FORM_FIELD_PAGE_TITLE] = $this->page->getTitle();
         $form[self::FORM_FIELD_PAGE_CATEGORY] = $this->page->getCategory();
@@ -152,7 +152,11 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
         $this->page->setContent($content);
         $this->page->setTitle($title);
         $this->page->setCategory($category);
-        $this->page->setOnMenu($onMenu);
+        if ( $onMenu ) {
+            $this->page->setAttr($this->page->getAttr() | PAGE_ATTR_ONMENU);
+        } else {
+            $this->page->setAttr($this->page->getAttr() & !PAGE_ATTR_ONMENU);
+        }
 
         $pageDao->updatePage($this->page);
 
