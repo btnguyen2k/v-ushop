@@ -423,10 +423,14 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
          * @var Vcatalog_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
-        $onMenuPages = $pageDao->getOnMenuPages();
-        $model[MODEL_ONMENU_PAGES] = $onMenuPages;
+        // $onMenuPages = $pageDao->getOnMenuPages();
+        $onMenuPages = $pageDao->getPages(1, PHP_INT_MAX, Array(
+                Quack_Bo_Page_IPageDao::FILTER_ATTRS => Array(PAGE_ATTR_ONMENU)));
+        // $model[MODEL_ONMENU_PAGES] = $onMenuPages;
+        $model[MODEL_ONMENU_PAGES] = Vcatalog_Model_PageModel::createModelObj($onMenuPages);
 
-        $allPagesByCat = $pageDao->getAllPages();
+        // $allPagesByCat = $pageDao->getAllPages();
+        $allPagesByCat = $pageDao->getPages();
         $modelAllPagesByCat = Array();
         foreach ($allPagesByCat as $page) {
             $cat = $page->getCategory();
@@ -434,7 +438,8 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
                 $cat = '';
             }
             $pages = isset($modelAllPagesByCat[$cat]) ? $modelAllPagesByCat[$cat] : Array();
-            $pages[] = $page;
+            // $pages[] = $page;
+            $pages[] = Vcatalog_Model_PageModel::createModelObj($page);
             $modelAllPagesByCat[$cat] = $pages;
         }
         $model[MODEL_ALL_PAGES_BY_CATEGORY] = $modelAllPagesByCat;
