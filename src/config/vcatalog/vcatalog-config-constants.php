@@ -73,6 +73,8 @@ define('ITEM_SORTING_PRICEDESC', 'pricedesc');
 define('ITEM_SORTING_PRICEASC', 'priceasc');
 define('ITEM_SORTING_TITLE', 'title');
 
+define('PAGE_ATTR_ONMENU', 1);
+
 define('DEFAULT_PAGE_SIZE', 10);
 
 define('USER_GROUP_ADMIN', 1);
