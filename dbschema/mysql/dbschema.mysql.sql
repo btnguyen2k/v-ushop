@@ -14,12 +14,12 @@ DROP TABLE IF EXISTS vcatalog_page;
 
 CREATE TABLE vcatalog_page (
     pid                 VARCHAR(32)         NOT NULL,
-    ponmenu             INT                 NOT NULL DEFAULT 0,
-        INDEX ponmenu(ponmenu),
+    pattr               INT                 NOT NULL DEFAULT 0,
+        INDEX (pattr),
     pposition           INT                 NOT NULL DEFAULT 0,
-        INDEX pposition (pposition),
+        INDEX (pposition),
     pcategory           VARCHAR(64)         NOT NULL DEFAULT '',
-        INDEX pcategory (pcategory),
+        INDEX (pcategory),
     ptitle              VARCHAR(128)        NOT NULL DEFAULT '',
     pcontent            TEXT,
     PRIMARY KEY (pid)
@@ -82,11 +82,11 @@ VALUES('thousands_separator', '.');
 CREATE TABLE app_log(
     logid               INT                 NOT NULL AUTO_INCREMENT,
     logTimestamp        INT,
-        INDEX logTimestamp(logTimestamp),
+        INDEX (logTimestamp),
     logLevel            VARCHAR(64),
-        INDEX logLevel(logLevel),
+        INDEX (logLevel),
     logClass            VARCHAR(96),
-        INDEX logClass(logClass),
+        INDEX (logClass),
     logMessage          TEXT,
     logStacktrace       TEXT,
     PRIMARY KEY (logid)
@@ -95,7 +95,7 @@ CREATE TABLE app_log(
 CREATE TABLE http_session (
     session_id                  VARCHAR(32)             NOT NULL,
     session_timestamp           INT                     NOT NULL DEFAULT 0,
-        INDEX session_timestamp(session_timestamp),
+        INDEX (session_timestamp),
     session_data               LONGTEXT,
     PRIMARY KEY(session_id)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -114,10 +114,10 @@ VALUES (2, 'Member', 'Normal member user');
 CREATE TABLE vcatalog_user (
     uid             INT                     NOT NULL AUTO_INCREMENT,
     uemail          VARCHAR(64)             NOT NULL,
-        UNIQUE INDEX uemail(uemail),
+        UNIQUE INDEX (uemail),
     upassword       VARCHAR(64)             NOT NULL,
     ugroup_id       INT                     NOT NULL DEFAULT 0,
-        INDEX ugroup_id(ugroup_id),
+        INDEX (ugroup_id),
     utitle          VARCHAR(32),
     ufullname       VARCHAR(64),
     ulocation       VARCHAR(64),
@@ -130,58 +130,58 @@ VALUES (1, 'admin@localhost', '5f4dcc3b5aa765d61d8327deb882cf99', 1);
 CREATE TABLE vcatalog_category (
     cid             INT                     NOT NULL AUTO_INCREMENT,
     cposition       INT                     NOT NULL DEFAULT 0,
-        INDEX cposition(cposition),
+        INDEX (cposition),
     cparent_id      INT,
     ctitle          VARCHAR(64),
     cdesc           VARCHAR(255),
     cimage_id       VARCHAR(64),
-        INDEX cimage_id (cimage_id),
+        INDEX (cimage_id),
     PRIMARY KEY (cid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_item (
     iid             INT                     NOT NULL AUTO_INCREMENT,
     iactive         INT                     NOT NULL DEFAULT 1,
-        INDEX iactive(iactive),
+        INDEX (iactive),
     icategory_id    INT,
-        INDEX icategory_id(icategory_id),
+        INDEX (icategory_id),
     ititle          VARCHAR(64)             NOT NULL,
     idesc           TEXT,
     ivendor         VARCHAR(64),
-        INDEX ivendor(ivendor),
+        INDEX (ivendor),
     itimestamp      INT                     NOT NULL,
-        INDEX itimestamp(itimestamp),
+        INDEX (itimestamp),
     iprice          DECIMAL(10,2)           NOT NULL,
-        INDEX iprice(iprice),
+        INDEX (iprice),
     iold_price      DECIMAL(10,2),
     istock          DECIMAL(10,2)           NOT NULL DEFAULT 0.00,
-        INDEX istock(istock),
+        INDEX (istock),
     iimage_id       VARCHAR(64),
-        INDEX iimage_id (iimage_id),
+        INDEX (iimage_id),
     ihot_item       INT                     NOT NULL DEFAULT 0,
-        INDEX ihot_item(ihot_item),
+        INDEX (ihot_item),
     inew_item       INT                     NOT NULL DEFAULT 0,
-        INDEX inew_item(inew_item),
+        INDEX (inew_item),
     PRIMARY KEY (iid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_tag (
     titem_id        INT                     NOT NULL,
     ttag            VARCHAR(32)             COLLATE utf8_bin NOT NULL,
-        INDEX ttag(ttag),
+        INDEX (ttag),
     ttype           INT                     NOT NULL DEFAULT 0,
-        INDEX ttype(ttype),
+        INDEX (ttype),
     PRIMARY KEY (titem_id, ttag, ttype)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_cart (
     csession_id         VARCHAR(32)             NOT NULL,
     cstatus             INT                     NOT NULL DEFAULT 0,
-        INDEX cstatus(cstatus),
+        INDEX (cstatus),
     cupdate_timestamp   INT                     NOT NULL DEFAULT 0,
-        INDEX cupdate_timestamp(cupdate_timestamp),
+        INDEX (cupdate_timestamp),
     cuser_id            INT                     NOT NULL DEFAULT 0,
-        INDEX cuser_id(cuser_id),
+        INDEX (cuser_id),
     PRIMARY KEY (csession_id)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
@@ -203,8 +203,8 @@ CREATE TABLE vcatalog_paperclip (
     pthumbnail      BLOB,
     pmimetype       VARCHAR(64)             NOT NULL DEFAULT '',
     ptimestamp      INT                     NOT NULL DEFAULT 0,
-        INDEX ptimestamp (ptimestamp),
+        INDEX (ptimestamp),
     pis_draft       INT                     NOT NULL DEFAULT 0,
-        INDEX pis_draft (pis_draft),
+        INDEX (pis_draft),
     PRIMARY KEY (pid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;

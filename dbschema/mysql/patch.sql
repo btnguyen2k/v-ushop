@@ -1,1 +1,2 @@
-ALTER TABLE vcatalog_item ADD inew_item INT NOT NULL DEFAULT 0, ADD INDEX inew_item(inew_item);
+ALTER TABLE vcatalog_page CHANGE ponmenu pattr INT NOT NULL DEFAULT 0;
+ALTER TABLE vcatalog_page DROP INDEX ponmenu, ADD INDEX (pattr);
