@@ -10,6 +10,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
     const FORM_FIELD_ON_MENU = 'onMenu';
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
@@ -17,6 +18,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -36,6 +38,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
     }
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
@@ -54,15 +57,18 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
         /**
+         *
          * @var Ddth_Mls_ILanguage
          */
         $lang = $this->getLanguage();
 
         /**
+         *
          * @var Vcatalog_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
@@ -89,7 +95,17 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
         $onMenu = isset($_POST[self::FORM_FIELD_ON_MENU]) ? (boolean)$_POST[self::FORM_FIELD_ON_MENU] : FALSE;
 
         $content = isset($_POST[self::FORM_FIELD_PAGE_CONTENT]) ? trim($_POST[self::FORM_FIELD_PAGE_CONTENT]) : '';
-        $pageDao->createPage($pageId, $position, $category, $title, $content, $onMenu);
+
+        $page = new Quack_Bo_Page_BoPage();
+        $page->populate(Array(Quack_Bo_Page_BoPage::COL_ID => $pageId,
+                Quack_Bo_Page_BoPage::COL_ATTR => $onMenu ? PAGE_ATTR_ONMENU : 0,
+                Quack_Bo_Page_BoPage::COL_CATEGORY => $category,
+                Quack_Bo_Page_BoPage::COL_CONTENT => $content,
+                Quack_Bo_Page_BoPage::COL_POSITION => $position,
+                Quack_Bo_Page_BoPage::COL_TITLE => $title));
+        $pageDao->createPage($page);
+        // $pageDao->createPage($pageId, $position, $category, $title, $content,
+        // $onMenu);
 
         return TRUE;
     }
