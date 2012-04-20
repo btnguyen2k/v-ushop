@@ -347,7 +347,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
      *
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getAllItems()
      */
-    public function getAllItems($pageNum = 1, $pageSize = 999, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE) {
+    public function getAllItems($pageNum = 1, $pageSize = PHP_INT_MAX, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE) {
         // pre-open a connection so that subsequence operations will reuse it
         $conn = $this->getConnection();
         switch ($featuredItems) {
@@ -450,7 +450,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
      *
      * @see Vcatalog_Bo_Catalog_ICatalogDao::getItemsForCategory()
      */
-    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = 999, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE) {
+    public function getItemsForCategory($cat, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE) {
         if ($cat === NULL) {
             return Array();
         }
