@@ -14,11 +14,15 @@ $YADIF_CONFIG = Array(
         'Paperclip_Controller_DownloadController' => Array(
                 'class' => 'Paperclip_Controller_DownloadController',
                 'scope' => 'singleton'),
-        //'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
-
+        // 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' =>
+        // Array(FALSE)))),
 
         'Vcatalog_Controller_HomeController' => Array(
                 'class' => 'Vcatalog_Controller_HomeController',
+                'scope' => 'singleton'),
+
+        'Vcatalog_Controller_ViewAdsController' => Array(
+                'class' => 'Vcatalog_Controller_ViewAdsController',
                 'scope' => 'singleton'),
 
         'Vcatalog_Controller_ViewPageController' => Array(
@@ -101,6 +105,31 @@ $YADIF_CONFIG = Array(
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
         'Vcatalog_Controller_Admin_EditPageController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_EditPageController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+
+        'Vcatalog_Controller_Admin_AdsListController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_AdsListController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_CreateAdsController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_CreateAdsController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_DeleteAdsController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_DeleteAdsController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
+                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+        'Vcatalog_Controller_Admin_EditAdsController' => Array(
+                'class' => 'Vcatalog_Controller_Admin_EditAdsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
@@ -206,6 +235,7 @@ $YADIF_CONFIG = Array(
 class Vcatalog_Controller_ActionHandlerMapping extends Dzit_DefaultActionHandlerMapping {
 
     /**
+     *
      * @var Yadif_Container
      */
     private $yadif;
@@ -217,6 +247,7 @@ class Vcatalog_Controller_ActionHandlerMapping extends Dzit_DefaultActionHandler
     }
 
     /**
+     *
      * @see Dzit_DefaultActionHandlerMapping::getControllerByString()
      */
     protected function getControllerByString($className) {

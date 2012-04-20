@@ -459,6 +459,11 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             $model[MODEL_FEATURED_ITEMS] = $featuredItems;
         }
 
+        //ads
+        $adsDao = $this->getDao(DAO_TEXTADS);
+        $adsList = $adsDao->getAds();
+        $model[MODEL_ADS_LIST] = Vcatalog_Model_AdsModel::createModelObj($adsList);
+
         return $model;
     }
 

@@ -22,6 +22,9 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
         $model['urlPageManagement'] = $this->getUrlPageManagement();
         $model['urlCreatePage'] = $_SERVER['SCRIPT_NAME'] . '/admin/createPage';
 
+        $model['urlAdsManagement'] = $this->getUrlAdsManagement();
+        $model['urlCreateAds'] = $_SERVER['SCRIPT_NAME'] . '/admin/createAds';
+
         return $model;
     }
 
@@ -35,5 +38,9 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
 
     protected function getUrlPageManagement() {
         return $_SERVER['SCRIPT_NAME'] . '/admin/pages';
+    }
+
+    protected function getUrlAdsManagement() {
+        return $_SERVER['SCRIPT_NAME'] . '/admin/ads';
     }
 }
