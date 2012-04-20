@@ -12,8 +12,8 @@ class Commons_Utils_ImageUtils {
      * [2] is a binary string containing content of the image source;
      */
     public static function createImageSource($imagePath) {
-        $cacheKey = "Commons_Utils_ImageUtils_$imagePath";
-        $imageInfo = Commons_Utils_CacheUtils::get($cacheKey);
+        $cacheKey = "Quack_Util_CacheUtils_$imagePath";
+        $imageInfo = Quack_Util_CacheUtils::get($cacheKey);
         if ($imageInfo === NULL) {
             $imageInfo = @getImageSize($imagePath);
             if ($imageInfo === FALSE) {
