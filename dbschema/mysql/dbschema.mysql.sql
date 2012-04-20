@@ -11,6 +11,16 @@ DROP TABLE IF EXISTS vcatalog_item;
 DROP TABLE IF EXISTS vcatalog_category;
 DROP TABLE IF EXISTS vcatalog_app_config;
 DROP TABLE IF EXISTS vcatalog_page;
+DROP TABLE IF EXISTS vcatalog_textads;
+
+CREATE TABLE vcatalog_textads (
+    aid                 INT                 NOT NULL AUTO_INCREMENT,
+    atitle              VARCHAR(128),
+    aurl                VARCHAR(255),
+    aclicks             INT                 NOT NULL DEFAULT 0,
+    atimestamp          TIMESTAMP,
+    PRIMARY KEY (aid)
+) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_page (
     pid                 VARCHAR(32)         NOT NULL,
