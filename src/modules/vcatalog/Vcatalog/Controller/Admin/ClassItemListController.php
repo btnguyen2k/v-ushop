@@ -70,7 +70,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
             if ($this->featuredItemsOnly) {
                 $urlTemplate .= '&f=1';
             }
-            $paginator = new Commons_Model_Paginator($urlTemplate, $numItems, DEFAULT_PAGE_SIZE,
+            $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, DEFAULT_PAGE_SIZE,
                     $this->pageNum);
         } else {
             $itemList = $catalogDao->getAllItems($this->pageNum, DEFAULT_PAGE_SIZE, DEFAULT_ITEM_SORTING, $this->featuredItemsOnly ? FEATURED_ITEM_ALL : FEATURED_ITEM_NONE);
@@ -80,7 +80,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
             if ($this->featuredItemsOnly) {
                 $urlTemplate .= '&f=1';
             }
-            $paginator = new Commons_Model_Paginator($urlTemplate, $numItems, DEFAULT_PAGE_SIZE,
+            $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, DEFAULT_PAGE_SIZE,
                     $this->pageNum);
         }
         $model[MODEL_ITEM_LIST] = $itemList;
