@@ -12,7 +12,7 @@ class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
     private $urlView = NULL;
 
     /**
-     * @see Commons_Bo_BaseBo::getFieldMap()
+     * @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
         $parentPieldMap = parent::getFieldMap();

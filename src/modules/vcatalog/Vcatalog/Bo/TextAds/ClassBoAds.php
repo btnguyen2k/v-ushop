@@ -10,7 +10,7 @@ class Vcatalog_Bo_TextAds_BoAds extends Quack_Bo_BaseBo {
     private $id, $title, $url, $clicks, $timestamp;
 
     /*
-     * (non-PHPdoc) @see Commons_Bo_BaseBo::getFieldMap()
+     * (non-PHPdoc) @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
         return Array(self::COL_ID => Array('id'),

@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
+class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
 
     const COL_ID = 'itemId';
     const COL_ACTIVE = 'itemActive';
@@ -30,7 +30,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Commons_Bo_BaseBo {
     private $urlImage = NULL;
 
     /**
-     * @see Commons_Bo_BaseBo::getFieldMap()
+     * @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
         return Array(self::COL_ID => Array('id', self::TYPE_INT),

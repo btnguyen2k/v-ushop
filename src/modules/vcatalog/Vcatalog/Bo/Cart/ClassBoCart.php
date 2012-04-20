@@ -14,7 +14,7 @@ class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     private $urlCheckout = NULL;
 
     /**
-     * @see Commons_Bo_BaseBo::getFieldMap()
+     * @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
         return Array(self::COL_SESSION_ID => Array('sessionId'),

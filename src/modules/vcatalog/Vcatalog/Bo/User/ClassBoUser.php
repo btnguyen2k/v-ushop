@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_User_BoUser extends Commons_Bo_BaseBo {
+class Vcatalog_Bo_User_BoUser extends Quack_Bo_BaseBo {
 
     /* Database table columns: virtual columns */
     const COL_ID = 'userId';
@@ -15,7 +15,7 @@ class Vcatalog_Bo_User_BoUser extends Commons_Bo_BaseBo {
     private $urlProfileCp = NULL;
 
     /* (non-PHPdoc)
-     * @see Commons_Bo_BaseBo::getFieldMap()
+     * @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
         return Array(self::COL_ID => Array('id', self::TYPE_INT),
