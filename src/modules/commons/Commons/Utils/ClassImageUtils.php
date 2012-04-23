@@ -24,7 +24,7 @@ class Commons_Utils_ImageUtils {
                 return NULL;
             }
             $imageInfo = Array($imageInfo[0], $imageInfo[1], $imageSrc);
-            Commons_Utils_CacheUtils::put($cacheKey, $imageInfo);
+            Quack_Util_CacheUtils::put($cacheKey, $imageInfo);
         }
         return $imageInfo;
     }
