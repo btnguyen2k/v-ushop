@@ -10,6 +10,14 @@ interface Vcatalog_Bo_User_IUserDao extends Ddth_Dao_IDao {
     public function getUserById($id);
 
     /**
+     * Gets a user account by username.
+     *
+     * @param string $username
+     * @return Array
+     */
+    public function getUserByUsername($username);
+
+    /**
      * Gets a user account by email address.
      *
      * @param string $email
@@ -20,19 +28,14 @@ interface Vcatalog_Bo_User_IUserDao extends Ddth_Dao_IDao {
     /**
      * Creates a new user account.
      *
-     * @param string $email
-     * @param string $password
-     * @param int $groupId
-     * @param string $title
-     * @param string $fullname
-     * @param string $location
+     * @param Vcatalog_Bo_User_BoUser $user
      */
-    public function createUser($email, $password, $groupId, $title='', $fullname='', $location='');
+    public function createUser($user);
 
     /**
      * Updates an existing user account.
      *
-     * @param Array $user
+     * @param Vcatalog_Bo_User_BoUser $user
      */
     public function updateUser($user);
 

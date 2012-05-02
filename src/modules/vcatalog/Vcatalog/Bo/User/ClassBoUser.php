@@ -3,6 +3,7 @@ class Vcatalog_Bo_User_BoUser extends Quack_Bo_BaseBo {
 
     /* Database table columns: virtual columns */
     const COL_ID = 'userId';
+    const COL_USERNAME = 'userUsername';
     const COL_EMAIL = 'userEmail';
     const COL_PASSWORD = 'userPassword';
     const COL_GROUP_ID = 'userGroupId';
@@ -10,15 +11,16 @@ class Vcatalog_Bo_User_BoUser extends Quack_Bo_BaseBo {
     const COL_FULLNAME = 'userFullname';
     const COL_LOCATION = 'userLocation';
 
-    private $id, $email, $password, $groupId, $title, $fullname, $location;
+    private $id, $username, $email, $password, $groupId, $title, $fullname, $location;
 
     private $urlProfileCp = NULL;
 
-    /* (non-PHPdoc)
-     * @see Quack_Bo_BaseBo::getFieldMap()
+    /*
+     * (non-PHPdoc) @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
         return Array(self::COL_ID => Array('id', self::TYPE_INT),
+                self::COL_USERNAME => Array('username'),
                 self::COL_EMAIL => Array('email'),
                 self::COL_PASSWORD => Array('password'),
                 self::COL_GROUP_ID => Array('groupId', self::TYPE_INT),
@@ -33,6 +35,14 @@ class Vcatalog_Bo_User_BoUser extends Quack_Bo_BaseBo {
 
     public function setId($id) {
         $this->id = $id;
+    }
+
+    public function getUsername() {
+        return $this->username;
+    }
+
+    public function setUsername($username) {
+        $this->username = $username;
     }
 
     public function getEmail() {
