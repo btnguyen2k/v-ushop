@@ -178,8 +178,8 @@ require_once 'Ddth/Commons/ClassDefaultClassNameTranslator.php';
 require_once 'Ddth/Commons/ClassLoader.php';
 
 //load the configuration file if exists
-if (file_exists(CONFIG_DIR . '/dzit-admin-config.php')) {
-    include_once CONFIG_DIR . '/dzit-admin-config.php';
+if (file_exists(CONFIG_DIR . '/dzit-backend-config.php')) {
+    include_once CONFIG_DIR . '/dzit-backend-config.php';
 }
 
 //load the bootstrap file if exists
