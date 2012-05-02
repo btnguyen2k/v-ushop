@@ -6,7 +6,7 @@ class Vcatalog_Controller_RegisterController extends Vcatalog_Controller_BaseFlo
     const FORM_FIELD_TITLE = 'title';
     const FORM_FIELD_FULLNAME = 'fullname';
     const FORM_FIELD_LOCATION = 'location';
-    const FORM_FIELD_EMAIL = 'email';
+    const FORM_FIELD_USERNAME = 'email';
     const FORM_FIELD_PASSWORD = 'password';
     const FORM_FIELD_CONFIRMED_PASSWORD = 'confirmedPassword';
 

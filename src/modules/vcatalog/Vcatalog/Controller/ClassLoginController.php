@@ -3,10 +3,11 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowCo
     const VIEW_NAME = 'login';
     const VIEW_NAME_AFTER_POST = 'info';
 
-    const FORM_FIELD_EMAIL = 'email';
+    const FORM_FIELD_USERNAME = 'username';
     const FORM_FIELD_PASSWORD = 'password';
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
@@ -14,6 +15,7 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowCo
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -46,11 +48,12 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowCo
     }
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmLogin');
-        $this->populateForm($form, Array(self::FORM_FIELD_EMAIL));
+        $this->populateForm($form, Array(self::FORM_FIELD_USERNAME));
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
         }
@@ -58,23 +61,25 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowCo
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
         $lang = $this->getLanguage();
         $userDao = $this->getDao(DAO_USER);
-        $email = isset($_POST['email']) ? $_POST['email'] : '';
-        $password = isset($_POST['password']) ? $_POST['password'] : '';
+        $username = isset($_POST[self::FORM_FIELD_USERNAME]) ? $_POST[self::FORM_FIELD_USERNAME] : '';
+        $password = isset($_POST[self::FORM_FIELD_PASSWORD]) ? $_POST[self::FORM_FIELD_PASSWORD] : '';
 
-        $email = trim(strtolower($email));
+        // $username = trim(strtolower($username));
         $password = trim($password);
 
-        if ($email === '' || $password === '') {
+        if ($username === '' || $password === '') {
             $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
         }
 
-        $user = $userDao->getUserByEmail($email);
+        // $user = $userDao->getUserByEmail($username);
+        $user = $userDao->getUserByUsername($username);
         if ($user === NULL) {
             $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
@@ -83,7 +88,8 @@ class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowCo
             $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
         }
-        $_SESSION[SESSION_USER_ID] = strtolower(trim($_POST['email']));
+        // $_SESSION[SESSION_USER_ID] = strtolower(trim($_POST['email']));
+        $_SESSION[SESSION_USER_ID] = $user->getId();
         return TRUE;
     }
 }

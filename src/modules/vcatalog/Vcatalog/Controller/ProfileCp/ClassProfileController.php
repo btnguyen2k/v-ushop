@@ -7,7 +7,7 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
     const FORM_FIELD_TITLE = 'title';
     const FORM_FIELD_FULLNAME = 'fullname';
     const FORM_FIELD_LOCATION = 'location';
-    const FORM_FIELD_EMAIL = 'email';
+    const FORM_FIELD_USERNAME = 'email';
     const FORM_FIELD_CURRENT_PASSWORD = 'currentPassword';
     const FORM_FIELD_NEW_PASSWORD = 'newPassword';
     const FORM_FIELD_CONFIRMED_NEW_PASSWORD = 'confirmedNewPassword';

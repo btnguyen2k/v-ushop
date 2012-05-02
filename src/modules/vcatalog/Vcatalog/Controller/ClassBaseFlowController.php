@@ -85,8 +85,12 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      */
     protected function getCurrentUser() {
         // because we store the user email in session, NOT the user ID
-        $userEmail = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : NULL;
-        return $this->getDao(DAO_USER)->getUserByEmail($userEmail);
+        // $userEmail = isset($_SESSION[SESSION_USER_ID]) ?
+        // $_SESSION[SESSION_USER_ID] : NULL;
+        // return $this->getDao(DAO_USER)->getUserByEmail($userEmail);
+
+        $userId = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : NULL;
+        return $this->getDao(DAO_USER)->getUserById($userId);
     }
 
     /**
@@ -459,7 +463,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             $model[MODEL_FEATURED_ITEMS] = $featuredItems;
         }
 
-        //ads
+        // ads
         $adsDao = $this->getDao(DAO_TEXTADS);
         $adsList = $adsDao->getAds();
         $model[MODEL_ADS_LIST] = Vcatalog_Model_AdsModel::createModelObj($adsList);
@@ -476,6 +480,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     protected function buildModel_Custom() {
         $model = Array();
 
+        $model[MODEL_APP_NAME] = 'vCatalog';
         $model[MODEL_APP_VERSION] = VCATALOG_VERSION;
 
         if (IN_DEV_ENV) {
