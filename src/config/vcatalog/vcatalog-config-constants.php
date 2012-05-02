@@ -34,6 +34,7 @@ define('THUMBNAIL_HEIGHT', 150);
 define('FORM_ERROR_MESSAGES', 'errorMessages');
 define('FORM_INFO_MESSAGES', 'infoMessages');
 
+define('MODEL_APP_NAME', 'APP_NAME');
 define('MODEL_APP_VERSION', 'APP_VERSION');
 
 define('MODEL_REQUEST_MODULE', 'reqModule');
