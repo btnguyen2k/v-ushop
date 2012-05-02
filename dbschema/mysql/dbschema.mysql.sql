@@ -137,6 +137,8 @@ VALUES (2, 'Member', 'Normal member user');
 
 CREATE TABLE vcatalog_user (
     uid             INT                     NOT NULL AUTO_INCREMENT,
+    uusername       VARCHAR(32)             NOT NULL,
+        UNIQUE INDEX (uusername),
     uemail          VARCHAR(64)             NOT NULL,
         UNIQUE INDEX (uemail),
     upassword       VARCHAR(64)             NOT NULL,
@@ -148,8 +150,8 @@ CREATE TABLE vcatalog_user (
     PRIMARY KEY (uid)
 ) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 -- Administrator account, password is "password" (without quotes, of course!)
-INSERT INTO vcatalog_user (uid, uemail, upassword, ugroup_id)
-VALUES (1, 'admin@localhost', '5f4dcc3b5aa765d61d8327deb882cf99', 1);
+INSERT INTO vcatalog_user (uid, uusername, uemail, upassword, ugroup_id)
+VALUES (1, 'admin', 'admin@localhost', '5f4dcc3b5aa765d61d8327deb882cf99', 1);
 
 CREATE TABLE vcatalog_category (
     cid             INT                     NOT NULL AUTO_INCREMENT,

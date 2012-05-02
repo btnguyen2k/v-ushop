@@ -1,12 +1,16 @@
-ALTER TABLE vcatalog_page CHANGE ponmenu pattr INT NOT NULL DEFAULT 0;
-ALTER TABLE vcatalog_page DROP INDEX ponmenu, ADD INDEX (pattr);
+DROP TABLE IF EXISTS vcatalog_site;
+CREATE TABLE vcatalog_site (
+    sname                   VARCHAR(128)            NOT NULL,
+    sref                    VARCHAR(128),
+    stimestamp_create       INT,
+    stimestamp_expiry       INT,
+        INDEX (stimestamp_expiry),
+    slevel                  INT                     NOT NULL DEFAULT 0,
+        INDEX (slevel),
+    scredit                 DOUBLE,    
+    sproperties             MEDIUMTEXT,
+    PRIMARY KEY (sname)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-DROP TABLE IF EXISTS vcatalog_textads;
-CREATE TABLE vcatalog_textads (
-    aid                 INT                 NOT NULL AUTO_INCREMENT,
-    atitle              VARCHAR(128),
-    aurl                VARCHAR(255),
-    aclicks             INT                 NOT NULL DEFAULT 0,
-    atimestamp          TIMESTAMP,
-    PRIMARY KEY (aid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE vcatalog_user ADD uusername VARCHAR(32) NOT NULL AFTER uid, ADD UNIQUE (uusername);
+UPDATE vcatalog_user SET uusername='admin' WHERE uid=1;
