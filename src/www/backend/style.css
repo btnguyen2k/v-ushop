@@ -1,0 +1,44 @@
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+table.bordered {
+    border: 1px solid #9f9f9f;
+}
+
+table.form thead th {
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 1px solid #9f9f9f;
+    font-size: 125%;
+}
+
+.input-medium {
+    width: 400px;
+}
+
+.input-large {
+    width: 512px;
+}
+
+.input-xlarge {
+    width: 680px;
+}
+
+.button-medium {
+    width: 96px !important;
+}
+
+.heading {
+    border-bottom: 1px solid #9f9f9f;
+}
+
+.errorMsg {
+    color: #ff0000;
+}
+
+.infoMsg {
+    color: #009010;
+}

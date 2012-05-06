@@ -27,32 +27,42 @@
             margin: 0;
         }
     </style>
-    <link rel="stylesheet" href="fullscreen.css"/>
     <link rel="stylesheet" href="style.css"/>
-
+    
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js" djConfig="parseOnLoad: true, isDebug: false"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/dijit.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/dijit-all.js" charset="utf-8"></script>
 
     <script type="text/javascript">
-        dojo.require("dijit.form.Button");
-        dojo.require("dijit.form.CheckBox");
-        dojo.require("dijit.form.TextBox");
-        dojo.require("dijit.form.ValidationTextBox");
-        dojo.require("dijit.form.Form");
+    dojo.require('dojox.timing');
+    dojo.require('dojox.grid.DataGrid');
+    dojo.require('dojo.data.ItemFileWriteStore');
+    dojo.require('dojo.parser');
 
-        dojo.require("dijit.Dialog");
+    dojo.require("dijit.form.Button");
+    dojo.require("dijit.form.CheckBox");
+    dojo.require("dijit.form.TextBox");
+    dojo.require("dijit.form.ValidationTextBox");
+    dojo.require("dijit.form.Textarea");
+    dojo.require("dijit.form.Form");
 
-        dojo.require("dijit.MenuBar");
-        dojo.require("dijit.PopupMenuBarItem");
-        dojo.require("dijit.Menu");
-        dojo.require("dijit.MenuItem");
-        dojo.require("dijit.PopupMenuItem");
+    dojo.require("dijit.Editor");
+    dojo.require("dijit.Dialog");
 
-        dojo.require("dijit.layout.BorderContainer");
-        dojo.require("dijit.layout.TabContainer");
-        dojo.require("dijit.layout.ContentPane");
-        
-        URL_PARAMS = dojo.queryToObject(dojo.doc.location.search.substr((dojo.doc.location.search[0] === "?" ? 1 : 0)));
+    dojo.require("dijit.MenuBar");
+    dojo.require("dijit.PopupMenuBarItem");
+    dojo.require("dijit.Menu");
+    dojo.require("dijit.MenuItem");
+    dojo.require("dijit.PopupMenuItem");
+
+    dojo.require("dijit.layout.ContentPane");
+    
+    URL_PARAMS = dojo.queryToObject(dojo.doc.location.search.substr((dojo.doc.location.search[0] === "?" ? 1 : 0)));
+    </script>
+    <script type="text/javascript">
+    var isInIFrame = (window.location != window.parent.location) ? true : false;
+    if ( !isInIFrame ) {
+        //window.location = '[:$MODEL.urlHome:]?url='+window.location;
+    }
     </script>
 </head>
