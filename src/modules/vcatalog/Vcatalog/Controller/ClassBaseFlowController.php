@@ -480,7 +480,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     protected function buildModel_Custom() {
         $model = Array();
 
-        $model[MODEL_APP_NAME] = 'vCatalog';
+        $model[MODEL_APP_NAME] = VCATALOG_APP;
         $model[MODEL_APP_VERSION] = VCATALOG_VERSION;
 
         if (IN_DEV_ENV) {

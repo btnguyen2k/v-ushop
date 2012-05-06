@@ -1,8 +1,8 @@
 <?php
 class Vcatalog_Controller_Admin_EmailSettingsController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    const VIEW_NAME = 'admin_emailSettings';
-    const VIEW_NAME_AFTER_POST = 'admin_emailSettings';
+    const VIEW_NAME = 'inline_email_settings';
+    const VIEW_NAME_AFTER_POST = 'inline_email_settings';
 
     const FORM_FIELD_USE_SMTP = 'useSmtp';
     const FORM_FIELD_SMTP_HOST = 'smtpHost';

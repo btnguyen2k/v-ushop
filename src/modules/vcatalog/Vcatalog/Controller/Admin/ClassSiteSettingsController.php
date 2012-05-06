@@ -1,8 +1,8 @@
 <?php
 class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    const VIEW_NAME = 'admin_siteSettings';
-    const VIEW_NAME_AFTER_POST = 'admin_siteSettings';
+    const VIEW_NAME = 'inline_site_settings';
+    const VIEW_NAME_AFTER_POST = 'inline_site_settings';
 
     const FORM_FIELD_SITE_NAME = 'siteName';
     const FORM_FIELD_SITE_TITLE = 'siteTitle';

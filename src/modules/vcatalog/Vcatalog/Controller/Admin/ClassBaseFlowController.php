@@ -2,6 +2,7 @@
 class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_BaseFlowController {
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
@@ -10,9 +11,17 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
             $model = Array();
         }
 
-        $model['urlEmailSettings'] = $_SERVER['SCRIPT_NAME'] . '/admin/emailSettings';
-        $model['urlSiteSettings'] = $_SERVER['SCRIPT_NAME'] . '/admin/siteSettings';
-        $model['urlCatalogSettings'] = $_SERVER['SCRIPT_NAME'] . '/admin/catalogSettings';
+        $model['urlDashboard'] = $_SERVER['SCRIPT_NAME'] . '/dashboard';
+
+        // $model['urlEmailSettings'] = $_SERVER['SCRIPT_NAME'] .
+        // '/admin/emailSettings';
+        // $model['urlSiteSettings'] = $_SERVER['SCRIPT_NAME'] .
+        // '/admin/siteSettings';
+        // $model['urlCatalogSettings'] = $_SERVER['SCRIPT_NAME'] .
+        // '/admin/catalogSettings';
+        $model['urlEmailSettings'] = $_SERVER['SCRIPT_NAME'] . '/emailSettings';
+        $model['urlSiteSettings'] = $_SERVER['SCRIPT_NAME'] . '/siteSettings';
+        $model['urlCatalogSettings'] = $_SERVER['SCRIPT_NAME'] . '/catalogSettings';
 
         $model['urlCategoryManagement'] = $this->getUrlCategoryManagement();
         $model['urlCreateCategory'] = $_SERVER['SCRIPT_NAME'] . '/admin/createCategory';
