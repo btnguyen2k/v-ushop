@@ -34,10 +34,10 @@
         [:/foreach:]
     [:/function:]
     
-    <div style="width: 720px; margin-left: auto; margin-right: auto">
+    <div class="align-center viewport-800">
         <button dojoType="dijit.form.Button" onclick="openUrl('[:$MODEL.urlCreateCategory:]');">[:$MODEL.language->getMessage('msg.createCategory'):]</button></td>
     </div>
-    <table cellpadding="2" style="width: 720px; margin-left: auto; margin-right: auto">
+    <table cellpadding="2" class="align-center viewport-800">
     <thead>
         <tr>
             <th>[:$MODEL.language->getMessage('msg.category'):]</td>
@@ -54,7 +54,7 @@
         [:/foreach:]
     </tbody>
     </table>
-    <div style="width: 720px; margin-left: auto; margin-right: auto">
+    <div class="align-center viewport-800">
         <button dojoType="dijit.form.Button" onclick="openUrl('[:$MODEL.urlCreateCategory:]');">[:$MODEL.language->getMessage('msg.createCategory'):]</button></td>
     </div>
 </body>

@@ -23,7 +23,7 @@
         
         <p></p>
         <label for="form_parentId">[:$LANG->getMessage('msg.category.parent'):]:</label>
-        <select dojoType="dijit.form.Select" name="parentId" style="height: 20px">
+        <select dojoType="dijit.form.Select" name="parentId">
             <option value="0"></option>
             [:foreach $MODEL.categoryTree as $cat:]
                 <option [:if $MODEL.form.parentId==$cat->getId():]selected="selected"[:/if:] value="[:$cat->getId():]">[:$cat->getTitle()|escape:'html':]</option>

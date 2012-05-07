@@ -89,3 +89,12 @@ button[type=submit] {
 .infoMsg {
     color: #009010;
 }
+
+.new {
+    color: #ff0000;
+    text-decoration: blink;
+}
+
+.hot {
+    color: #009010;
+}

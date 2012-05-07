@@ -35,6 +35,17 @@
     <!-- /TinyMCE -->
 [:/function:]
 
+[:function name="displayCategoryTreeForSelectBox" categoryTree=NULL selectedIndex=0 indent=0:]
+    [:foreach $categoryTree as $cat:]
+        <option value="[:$cat->getId():]" [:if $cat->getId()==$selectedIndex:]selected="selected" style="font-weight: bold"[:/if:]>
+            [:for $tmp=1 to $indent:]&nbsp;&nbsp;&nbsp;&nbsp;[:/for:]+-- [:$cat->getTitle()|escape:'html':]
+            [:if count($cat->getChildren()) gt 0:]
+                [:displayCategoryTreeForSelectBox categoryTree=$cat->getChildren() selectedIndex=$selectedIndex indent=$indent+1:]
+            [:/if:]
+        </option>
+    [:/foreach:]
+[:/function:]
+
 [:function name=printFormHeader form=NULL:]
     [:if isset($form.errorMessages) && count($form.errorMessages) gt 0:]
         [:foreach $form.errorMessages as $msg:]

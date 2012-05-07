@@ -4,6 +4,9 @@
     function loadUrl(url) {
         window.frameMainContent.location.href = url;
     }
+    function refreshFrame() {
+        window.frameMainContent.location.reload(true);
+    }
     function initFrame() {
         if (URL_PARAMS.url != undefined) {
             window.frameMainContent.location.href = URL_PARAMS.url;
@@ -52,9 +55,12 @@
                 </div>
             </div>
             |
-            <div dojoType="dijit.MenuBarItem"
-                    onclick="window.location.href='[:$MODEL.urlLogout:]';">
+            <div dojoType="dijit.MenuBarItem" onclick="window.location.href='[:$MODEL.urlLogout:]';">
                 [:$LANG->getMessage('msg.logout'):]
+            </div>
+            |
+            <div dojoType="dijit.MenuBarItem" onclick="refreshFrame();">
+                Refresh
             </div>
         </div>
         <div dojoType="dijit.layout.ContentPane" splitter="false" region="bottom" minSize="0" style="text-align: center;">
