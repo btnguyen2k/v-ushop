@@ -1,7 +1,7 @@
 <?php
 class Vcatalog_Controller_Admin_PageListController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    const VIEW_NAME = 'admin_pageList';
+    const VIEW_NAME = 'inline_page_list';
 
     /**
      *

@@ -1,6 +1,6 @@
 <?php
 class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_deleteCategory';
+    const VIEW_NAME = 'inline_delete_category';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
@@ -27,7 +27,7 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $this->categoryId = (int)$requestParser->getPathInfoParam(2);
+        $this->categoryId = (int)$requestParser->getPathInfoParam(1);
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */

@@ -1,8 +1,8 @@
 <?php
 class Vcatalog_Controller_Admin_CatalogSettingsController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    const VIEW_NAME = 'admin_catalogSettings';
-    const VIEW_NAME_AFTER_POST = 'admin_catalogSettings';
+    const VIEW_NAME = 'inline_catalog_settings';
+    const VIEW_NAME_AFTER_POST = 'inline_catalog_settings';
 
     const FORM_FIELD_CURRENCY = 'currency';
     const FORM_FIELD_PRICE_DECIMAL_PLACES = 'priceDecimalPlaces';

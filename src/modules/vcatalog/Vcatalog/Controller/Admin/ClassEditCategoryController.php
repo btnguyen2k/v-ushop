@@ -1,7 +1,8 @@
 <?php
 class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_editCategory';
+    const VIEW_NAME = 'inline_edit_category';
     const VIEW_NAME_AFTER_POST = 'info';
+    const VIEW_NAME_ERROR = 'error';
 
     const FORM_FIELD_PARENT_ID = 'parentId';
     const FORM_FIELD_CATEGORY_TITLE = 'categoryTitle';
@@ -9,8 +10,10 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     const FORM_FIELD_CATEGORY_IMAGE = 'categoryImage';
     const FORM_FIELD_CATEGORY_IMAGE_ID = 'categoryImageId';
     const FORM_FIELD_URL_CATEGORY_IMAGE = 'urlCategoryImage';
+    const FORM_FIELD_REMOVE_IMAGE = 'removeImage';
 
     /**
+     *
      * @var Vcatalog_Bo_Catalog_BoCategory
      */
     private $category = NULL;
@@ -24,6 +27,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     }
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
@@ -37,11 +41,13 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
      */
     protected function populateParams() {
         /**
+         *
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $this->categoryId = (int)$requestParser->getPathInfoParam(2);
+        $this->categoryId = (int)$requestParser->getPathInfoParam(1);
         /**
+         *
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
@@ -70,6 +76,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_Error()
      */
     protected function getModelAndView_Error() {
@@ -86,6 +93,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -105,6 +113,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     }
 
     /**
+     *
      * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
@@ -114,6 +123,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         }
         if ($this->category != NULL && count($this->category->getChildren()) == 0) {
             /**
+             *
              * @var Vcatalog_Bo_Catalog_ICatalogDao
              */
             $catalogDao = $this->getDao(DAO_CATALOG);
@@ -130,6 +140,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     }
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
@@ -160,15 +171,18 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
         /**
+         *
          * @var Ddth_Mls_ILanguage
          */
         $lang = $this->getLanguage();
 
         /**
+         *
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
@@ -176,11 +190,12 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         $parentId = isset($_POST[self::FORM_FIELD_PARENT_ID]) ? (int)$_POST[self::FORM_FIELD_PARENT_ID] : 0;
         if ($parentId > 0) {
             /**
+             *
              * @var Vcatalog_Bo_Catalog_ICatalogDao
              */
             $parentCat = $catalogDao->getCategoryById($parentId);
             if ($parentCat == NULL || ($parentCat->getParentId() != NULL && $parentCat->getParentId() != 0) || $parentId == $this->categoryId) {
-                //currently we limit category hierarchy at 2 levels
+                // currently we limit category hierarchy at 2 levels
                 $this->addErrorMessage($lang->getMessage('error.invalidParentCategory'));
             }
         }
@@ -190,14 +205,26 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
             $this->addErrorMessage($lang->getMessage('error.emptyCategoryTitle'));
         }
 
-        //take care of the uploaded file
+        // take care of the uploaded file
+        $removeImage = isset($_POST[self::FORM_FIELD_REMOVE_IMAGE]) ? TRUE : FALSE;
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         $paperclipItem = $this->processUploadFile(self::FORM_FIELD_CATEGORY_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
         if ($paperclipItem !== NULL) {
             $_SESSION[$this->sessionKey] = $paperclipItem->getId();
         } else {
             $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+            if ($removeImage && $paperclipItem !== NULL) {
+                $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+                $paperclipDao->deleteAttachment($paperclipItem);
+                unset($_SESSION[$this->sessionKey]);
+            }
         }
+        // if ($paperclipItem !== NULL) {
+        // $_SESSION[$this->sessionKey] = $paperclipItem->getId();
+        // } else {
+        // $paperclipItem = $paperclipId !== NULL ?
+        // $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+        // }
 
         if ($this->hasError()) {
             return FALSE;
@@ -215,7 +242,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         }
         $catalogDao->updateCategory($this->category);
 
-        //clean-up
+        // clean-up
         unset($_SESSION[$this->sessionKey]);
         if ($paperclipItem !== NULL) {
             $paperclipItem->setIsDraft(FALSE);

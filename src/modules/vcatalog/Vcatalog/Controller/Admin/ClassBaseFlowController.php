@@ -24,32 +24,44 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
         $model['urlCatalogSettings'] = $_SERVER['SCRIPT_NAME'] . '/catalogSettings';
 
         $model['urlCategoryManagement'] = $this->getUrlCategoryManagement();
-        $model['urlCreateCategory'] = $_SERVER['SCRIPT_NAME'] . '/admin/createCategory';
+        // $model['urlCreateCategory'] = $_SERVER['SCRIPT_NAME'] .
+        // '/admin/createCategory';
+        $model['urlCreateCategory'] = $_SERVER['SCRIPT_NAME'] . '/createCategory';
         $model['urlItemManagement'] = $this->getUrlItemManagement();
-        $model['urlCreateItem'] = $_SERVER['SCRIPT_NAME'] . '/admin/createItem';
+        // $model['urlCreateItem'] = $_SERVER['SCRIPT_NAME'] .
+        // '/admin/createItem';
+        $model['urlCreateItem'] = $_SERVER['SCRIPT_NAME'] . '/createItem';
 
         $model['urlPageManagement'] = $this->getUrlPageManagement();
-        $model['urlCreatePage'] = $_SERVER['SCRIPT_NAME'] . '/admin/createPage';
+        // $model['urlCreatePage'] = $_SERVER['SCRIPT_NAME'] .
+        // '/admin/createPage';
+        $model['urlCreatePage'] = $_SERVER['SCRIPT_NAME'] . '/createPage';
 
         $model['urlAdsManagement'] = $this->getUrlAdsManagement();
-        $model['urlCreateAds'] = $_SERVER['SCRIPT_NAME'] . '/admin/createAds';
+        // $model['urlCreateAds'] = $_SERVER['SCRIPT_NAME'] .
+        // '/admin/createAds';
+        $model['urlCreateAds'] = $_SERVER['SCRIPT_NAME'] . '/createAds';
 
         return $model;
     }
 
     protected function getUrlCategoryManagement() {
-        return $_SERVER['SCRIPT_NAME'] . '/admin/categories';
+        // return $_SERVER['SCRIPT_NAME'] . '/admin/categories';
+        return $_SERVER['SCRIPT_NAME'] . '/categories';
     }
 
     protected function getUrlItemManagement() {
-        return $_SERVER['SCRIPT_NAME'] . '/admin/items';
+        // return $_SERVER['SCRIPT_NAME'] . '/admin/items';
+        return $_SERVER['SCRIPT_NAME'] . '/items';
     }
 
     protected function getUrlPageManagement() {
-        return $_SERVER['SCRIPT_NAME'] . '/admin/pages';
+        // return $_SERVER['SCRIPT_NAME'] . '/admin/pages';
+        return $_SERVER['SCRIPT_NAME'] . '/pages';
     }
 
     protected function getUrlAdsManagement() {
-        return $_SERVER['SCRIPT_NAME'] . '/admin/ads';
+        // return $_SERVER['SCRIPT_NAME'] . '/admin/ads';
+        return $_SERVER['SCRIPT_NAME'] . '/ads';
     }
 }

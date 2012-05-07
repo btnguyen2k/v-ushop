@@ -38,7 +38,7 @@ class Vcatalog_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
      */
     public function getUrlDelete() {
         if ($this->urlDelete === NULL) {
-            $this->urlDelete = $_SERVER['SCRIPT_NAME'] . '/admin/deleteCategory/' . $this->id . '/';
+            $this->urlDelete = $_SERVER['SCRIPT_NAME'] . '/deleteCategory/' . $this->id . '/';
         }
         return $this->urlDelete;
     }
@@ -50,7 +50,7 @@ class Vcatalog_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
      */
     public function getUrlEdit() {
         if ($this->urlEdit === NULL) {
-            $this->urlEdit = $_SERVER['SCRIPT_NAME'] . '/admin/editCategory/' . $this->id . '/';
+            $this->urlEdit = $_SERVER['SCRIPT_NAME'] . '/editCategory/' . $this->id . '/';
         }
         return $this->urlEdit;
     }
@@ -62,7 +62,7 @@ class Vcatalog_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
      */
     public function getUrlMoveDown() {
         if ($this->urlMoveDown === NULL) {
-            $this->urlMoveDown = $_SERVER['SCRIPT_NAME'] . '/admin/moveCategoryDown/' . $this->id . '/';
+            $this->urlMoveDown = $_SERVER['SCRIPT_NAME'] . '/moveCategoryDown/' . $this->id . '/';
         }
         return $this->urlMoveDown;
     }
@@ -74,7 +74,7 @@ class Vcatalog_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
      */
     public function getUrlMoveUp() {
         if ($this->urlMoveUp === NULL) {
-            $this->urlMoveUp = $_SERVER['SCRIPT_NAME'] . '/admin/moveCategoryUp/' . $this->id . '/';
+            $this->urlMoveUp = $_SERVER['SCRIPT_NAME'] . '/moveCategoryUp/' . $this->id . '/';
         }
         return $this->urlMoveUp;
     }

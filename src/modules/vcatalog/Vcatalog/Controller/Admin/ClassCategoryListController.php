@@ -1,7 +1,7 @@
 <?php
 class Vcatalog_Controller_Admin_CategoryListController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    const VIEW_NAME = 'admin_categoryList';
+    const VIEW_NAME = 'inline_category_list';
 
     /**
      * @see Vcatalog_Controller_BaseFlowController::getViewName()

@@ -9,7 +9,7 @@ class Vcatalog_Controller_Admin_MoveUpCategoryController extends Vcatalog_Contro
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $catId = $requestParser->getPathInfoParam(2);
+        $catId = $requestParser->getPathInfoParam(1);
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
@@ -37,7 +37,7 @@ class Vcatalog_Controller_Admin_MoveUpCategoryController extends Vcatalog_Contro
                 }
             }
         }
-        $url = $_SERVER['SCRIPT_NAME'] . '/admin/categories';
+        $url = $this->getUrlCategoryManagement();
         $view = new Dzit_View_RedirectView($url);
         return new Dzit_ModelAndView($view);
     }

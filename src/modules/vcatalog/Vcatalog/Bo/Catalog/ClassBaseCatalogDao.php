@@ -120,13 +120,13 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
      *
      * @see Vcatalog_Bo_Catalog_ICatalogDao::createCategory()
      */
-    public function createCategory($position, $parentId, $title, $description, $imageId) {
+    public function createCategory($category) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vcatalog_Bo_Catalog_BoCategory::COL_POSITION => $position,
-                Vcatalog_Bo_Catalog_BoCategory::COL_PARENT_ID => $parentId,
-                Vcatalog_Bo_Catalog_BoCategory::COL_TITLE => $title,
-                Vcatalog_Bo_Catalog_BoCategory::COL_DESCRIPTION => $description,
-                Vcatalog_Bo_Catalog_BoCategory::COL_IMAGE_ID => $imageId);
+        $params = Array(Vcatalog_Bo_Catalog_BoCategory::COL_POSITION => $category->getPosition(),
+                Vcatalog_Bo_Catalog_BoCategory::COL_PARENT_ID => $category->getParentId(),
+                Vcatalog_Bo_Catalog_BoCategory::COL_TITLE => $category->getTitle(),
+                Vcatalog_Bo_Catalog_BoCategory::COL_DESCRIPTION => $category->getDescription(),
+                Vcatalog_Bo_Catalog_BoCategory::COL_IMAGE_ID => $category->getImageId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCategoryCache();
         return $result;

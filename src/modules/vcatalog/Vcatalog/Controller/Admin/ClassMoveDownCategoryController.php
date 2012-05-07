@@ -9,7 +9,7 @@ class Vcatalog_Controller_Admin_MoveDownCategoryController extends Vcatalog_Cont
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $catId = $requestParser->getPathInfoParam(2);
+        $catId = $requestParser->getPathInfoParam(1);
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
@@ -36,20 +36,8 @@ class Vcatalog_Controller_Admin_MoveDownCategoryController extends Vcatalog_Cont
                     break;
                 }
             }
-            /*
-            $first = $catList[0];
-            $second = $first;
-            for ($i = 1; $i < count($catList); $i++) {
-                $first = $second;
-                $second = $catList[$i];
-                if ($first->getId() == $cat->getId()) {
-                    $this->swapDown($first, $second);
-                    break;
-                }
-            }
-            */
         }
-        $url = $_SERVER['SCRIPT_NAME'] . '/admin/categories';
+        $url = $this->getUrlCategoryManagement();
         $view = new Dzit_View_RedirectView($url);
         return new Dzit_ModelAndView($view);
     }
