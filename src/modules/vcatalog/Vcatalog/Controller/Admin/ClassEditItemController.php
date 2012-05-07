@@ -1,6 +1,6 @@
 <?php
 class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_editItem';
+    const VIEW_NAME = 'inline_edit_item';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
@@ -14,6 +14,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     const FORM_FIELD_NEW = 'itemNew';
     const FORM_FIELD_IMAGE_ID = 'itemImageId';
     const FORM_FIELD_URL_IMAGE = 'urlItemImage';
+    const FORM_FIELD_REMOVE_IMAGE = 'removeImage';
 
     /**
      * @var Vcatalog_Bo_Catalog_BoItem
@@ -45,7 +46,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $this->itemId = $requestParser->getPathInfoParam(2);
+        $this->itemId = $requestParser->getPathInfoParam(1);
         /**
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
@@ -183,12 +184,18 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         }
 
         //take care of the uploaded file
+        $removeImage = isset($_POST[self::FORM_FIELD_REMOVE_IMAGE]) ? TRUE : FALSE;
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
         if ($paperclipItem !== NULL) {
             $_SESSION[$this->sessionKey] = $paperclipItem->getId();
         } else {
             $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+            if ($removeImage && $paperclipItem !== NULL) {
+                $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+                $paperclipDao->deleteAttachment($paperclipItem);
+                unset($_SESSION[$this->sessionKey]);
+            }
         }
 
         if ($this->hasError()) {

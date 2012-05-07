@@ -5,10 +5,10 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
     const VIEW_NAME_ERROR = 'error';
 
     const FORM_FIELD_PARENT_ID = 'parentId';
-    const FORM_FIELD_CATEGORY_TITLE = 'categoryTitle';
-    const FORM_FIELD_CATEGORY_DESCRIPTION = 'categoryDescription';
-    const FORM_FIELD_CATEGORY_IMAGE = 'categoryImage';
-    const FORM_FIELD_CATEGORY_IMAGE_ID = 'categoryImageId';
+    const FORM_FIELD_TITLE = 'categoryTitle';
+    const FORM_FIELD_DESCRIPTION = 'categoryDescription';
+    const FORM_FIELD_IMAGE = 'categoryImage';
+    const FORM_FIELD_IMAGE_ID = 'categoryImageId';
     const FORM_FIELD_URL_CATEGORY_IMAGE = 'urlCategoryImage';
     const FORM_FIELD_REMOVE_IMAGE = 'removeImage';
 

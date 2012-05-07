@@ -55,7 +55,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
      */
     public function getUrlDelete() {
         if ($this->urlDelete === NULL) {
-            $this->urlDelete = $_SERVER['SCRIPT_NAME'] . '/admin/deleteItem/' . $this->id;
+            $this->urlDelete = $_SERVER['SCRIPT_NAME'] . '/deleteItem/' . $this->id;
         }
         return $this->urlDelete;
     }
@@ -67,7 +67,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
      */
     public function getUrlEdit() {
         if ($this->urlEdit === NULL) {
-            $this->urlEdit = $_SERVER['SCRIPT_NAME'] . '/admin/editItem/' . $this->id;
+            $this->urlEdit = $_SERVER['SCRIPT_NAME'] . '/editItem/' . $this->id;
         }
         return $this->urlEdit;
     }

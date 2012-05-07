@@ -1,6 +1,6 @@
 <?php
 class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_createItem';
+    const VIEW_NAME = 'inline_create_item';
     const VIEW_NAME_AFTER_POST = 'info';
 
     const FORM_FIELD_CATEGORY_ID = 'categoryId';
@@ -13,6 +13,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     const FORM_FIELD_NEW = 'itemNew';
     const FORM_FIELD_IMAGE_ID = 'itemImageId';
     const FORM_FIELD_URL_IMAGE = 'urlItemImage';
+    const FORM_FIELD_REMOVE_IMAGE = 'removeImage';
 
     private $sessionKey;
 
@@ -22,6 +23,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     }
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
@@ -29,6 +31,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -48,6 +51,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     }
 
     /**
+     *
      * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
@@ -56,6 +60,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
             $model = Array();
         }
         /**
+         *
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
@@ -65,6 +70,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     }
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
@@ -80,7 +86,6 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
                 self::FORM_FIELD_IMAGE_ID,
                 self::FORM_FIELD_HOT,
                 self::FORM_FIELD_NEW));
-        $this->sessionKey .= $form[self::FORM_FIELD_IMAGE_ID];
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         if ($paperclipId !== NULL) {
             $form[self::FORM_FIELD_URL_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
@@ -92,15 +97,18 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
         /**
+         *
          * @var Ddth_Mls_ILanguage
          */
         $lang = $this->getLanguage();
 
         /**
+         *
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
@@ -126,13 +134,19 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
             $this->addErrorMessage($lang->getMessage('error.emptyItemTitle'));
         }
 
-        //take care of the uploaded file
+        // take care of the uploaded file
+        $removeImage = isset($_POST[self::FORM_FIELD_REMOVE_IMAGE]) ? TRUE : FALSE;
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
         if ($paperclipItem !== NULL) {
             $_SESSION[$this->sessionKey] = $paperclipItem->getId();
         } else {
             $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+            if ($removeImage && $paperclipItem !== NULL) {
+                $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+                $paperclipDao->deleteAttachment($paperclipItem);
+                unset($_SESSION[$this->sessionKey]);
+            }
         }
 
         if ($this->hasError()) {
@@ -145,7 +159,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
 
         $catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, $hotItem, $newItem);
 
-        //clean-up
+        // clean-up
         unset($_SESSION[$this->sessionKey]);
         if ($paperclipItem !== NULL) {
             $paperclipItem->setIsDraft(FALSE);

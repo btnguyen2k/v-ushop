@@ -1,7 +1,7 @@
 <?php
 class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    const VIEW_NAME = 'admin_itemList';
+    const VIEW_NAME = 'inline_item_list';
 
     private $pageNum;
     private $featuredItemsOnly = FALSE;
@@ -66,7 +66,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
             $itemList = $catalogDao->getItemsForCategory($this->category, $this->pageNum, DEFAULT_PAGE_SIZE, DEFAULT_ITEM_SORTING, $this->featuredItemsOnly ? FEATURED_ITEM_ALL : FEATURED_ITEM_NONE);
             // paging
             $numItems = $catalogDao->countNumItemsForCategory($this->category, $this->featuredItemsOnly ? FEATURED_ITEM_ALL : FEATURED_ITEM_NONE);
-            $urlTemplate = $_SERVER['SCRIPT_NAME'] . '/admin/items?p=${page}&c=' . $this->category->getId();
+            $urlTemplate = $this->getUrlItemManagement() . '?p=${page}&c=' . $this->category->getId();
             if ($this->featuredItemsOnly) {
                 $urlTemplate .= '&f=1';
             }
@@ -76,7 +76,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
             $itemList = $catalogDao->getAllItems($this->pageNum, DEFAULT_PAGE_SIZE, DEFAULT_ITEM_SORTING, $this->featuredItemsOnly ? FEATURED_ITEM_ALL : FEATURED_ITEM_NONE);
             // paging
             $numItems = $catalogDao->countNumItems($this->featuredItemsOnly ? FEATURED_ITEM_ALL : FEATURED_ITEM_NONE);
-            $urlTemplate = $_SERVER['SCRIPT_NAME'] . '/admin/items?p=${page}';
+            $urlTemplate = $this->getUrlItemManagement() . '?p=${page}';
             if ($this->featuredItemsOnly) {
                 $urlTemplate .= '&f=1';
             }

@@ -168,11 +168,10 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(Vcatalog_Bo_Catalog_BoCategory::COL_ID => $id);
         $rows = $this->execSelect($sqlStm, $params, $conn->getConn(), $cacheKey);
+        $category = NULL;
         if ($rows !== NULL && count($rows) > 0) {
             $category = new Vcatalog_Bo_Catalog_BoCategory();
             $category->populate($rows[0]);
-        } else {
-            $category = NULL;
         }
         if ($category !== NULL) {
             $children = $this->getCategoryChildren($category);
@@ -434,6 +433,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(Vcatalog_Bo_Catalog_BoItem::COL_ID => $id);
         $rows = $this->execSelect($sqlStm, $params, $conn->getConn(), $cacheKey);
+        $item = NULL;
         if ($rows !== NULL && count($rows) > 0) {
             $item = new Vcatalog_Bo_Catalog_BoItem();
             $item->populate($rows[0]);
