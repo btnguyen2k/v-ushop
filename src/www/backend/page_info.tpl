@@ -9,25 +9,15 @@
             [:$MODEL.APP_NAME:] [:$MODEL.APP_VERSION:] | [:$MODEL.page.copyright:]
         </div>
         <div dojoType="dijit.layout.ContentPane" splitter="false" region="center">
-            <table class="form" style="width: 400px; margin: auto" cellspacing="10">
-                <thead>
-                    <tr>
-                        <th>
-                            [:$LANG->getMessage('msg.info'):]
-                        </th>
-                    </tr>
-                </thead>
-                <tr>
-                    <td>
-                        [:foreach $MODEL.infoMessages as $msg:]
-                            <p style="font-size: 115%">[:$msg:]</p>
-                        [:/foreach:]
-                        [:if isset($MODEL.transitMessage):]
-                            <p style="font-style: italic;">[:$MODEL.transitMessage:]</p>
-                        [:/if:]
-                    </td>
-                </tr>
-            </table>
+            <h1 class="heading align-center viewport-640">[:$MODEL.language->getMessage('msg.info'):]</h1>
+            <div class="heading align-center viewport-640">
+                [:foreach $MODEL.infoMessages as $msg:]
+                    <p style="font-size: 115%">[:$msg:]</p>
+                [:/foreach:]
+                [:if isset($MODEL.transitMessage):]
+                    <p style="font-style: italic;">[:$MODEL.transitMessage:]</p>
+                [:/if:]
+            </div>            
         </div>
     </div>
 </body>

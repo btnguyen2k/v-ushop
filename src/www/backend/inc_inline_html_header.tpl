@@ -44,6 +44,8 @@
     dojo.require("dijit.form.TextBox");
     dojo.require("dijit.form.ValidationTextBox");
     dojo.require("dijit.form.Textarea");
+    dojo.require("dijit.form.Select");
+    dojo.require("dojox.form.Uploader");
     dojo.require("dijit.form.Form");
 
     dojo.require("dijit.Editor");
@@ -59,10 +61,15 @@
     
     URL_PARAMS = dojo.queryToObject(dojo.doc.location.search.substr((dojo.doc.location.search[0] === "?" ? 1 : 0)));
     </script>
+
     <script type="text/javascript">
     var isInIFrame = (window.location != window.parent.location) ? true : false;
     if ( !isInIFrame ) {
-        //window.location = '[:$MODEL.urlHome:]?url='+window.location;
+        //window.location.href = '[:$MODEL.urlHome:]?url='+window.location;
+    }
+    
+    function openUrl(url) {
+        window.location.href = url;
     }
     </script>
 </head>

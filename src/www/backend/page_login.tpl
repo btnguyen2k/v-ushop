@@ -9,42 +9,27 @@
             [:$MODEL.APP_NAME:] [:$MODEL.APP_VERSION:] | [:$MODEL.page.copyright:]
         </div>
         <div dojoType="dijit.layout.ContentPane" splitter="false" region="center">
-            <form dojoType="dijit.form.Form" id="[:$FORM.name|escape:'html':]"
+            <h1 class="heading align-center viewport-640">[:$MODEL.language->getMessage('msg.login'):]</h1>
+            <form dojoType="dijit.form.Form" id="[:$FORM.name|escape:'html':]" class="align-center viewport-640"
                     name="[:$FORM.name|escape:'html':]" action="[:$FORM.action:]" method="post">
                 <script type="dojo/method" event="onSubmit">
                     return this.validate();
                 </script>
-                <table class="form" style="width: 400px; margin: auto" cellspacing="10">
-                    <thead>
-                        <tr>
-                            <th>
-                                [:$LANG->getMessage('msg.login'):]
-                            </th>
-                        </tr>
-                    </thead>
-                    <tr>
-                        <td>
-                            [:call name="printFormHeader" form=$FORM:]
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="frmLogin_Username">[:$LANG->getMessage('msg.username'):] *:</label>
-                            <input dojoType="dijit.form.ValidationTextBox" id="frmLogin_Username" required="true"
-                                missingMessage="[:$LANG->getMessage('error.empty.username'):]"
-                                style="width: 100%" type="text" name="username" value="[:$FORM.username|escape:'html':]" />
-                            <br />
+                [:call name="printFormHeader" form=$FORM:]
+                
+                <label for="frmLogin_Username">[:$LANG->getMessage('msg.username'):] *:</label>
+                <input dojoType="dijit.form.ValidationTextBox" id="frmLogin_Username" required="true"
+                    missingMessage="[:$LANG->getMessage('error.empty.username'):]"
+                    style="width: 100%" type="text" name="username" value="[:$FORM.username|escape:'html':]" />
+                <br />
                             
-                            <label for="frmLogin_Password">[:$LANG->getMessage('msg.password'):] *:</label>
-                            <input dojoType="dijit.form.ValidationTextBox" id="frmLogin_Password" required="true"
-                                missingMessage="[:$LANG->getMessage('error.empty.password'):]"
-                                style="width: 100%" type="password" name="password" />
+                <label for="frmLogin_Password">[:$LANG->getMessage('msg.password'):] *:</label>
+                <input dojoType="dijit.form.ValidationTextBox" id="frmLogin_Password" required="true"
+                    missingMessage="[:$LANG->getMessage('error.empty.password'):]"
+                    style="width: 100%" type="password" name="password" />
                                 
-                            <p></p>
-                            <button dojoType="dijit.form.Button" type="submit" name="submit">[:$LANG->getMessage('msg.login'):]</button>
-                        </td>
-                    </tr>
-                </table>
+                <p></p>
+                <button dojoType="dijit.form.Button" type="submit" name="submit">[:$LANG->getMessage('msg.login'):]</button>
             </form>
         </div>
     </div>

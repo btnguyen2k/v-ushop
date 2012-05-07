@@ -25,7 +25,6 @@
                     <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCatalogSettings:]');">[:$MODEL.language->getMessage('msg.catalogSettings'):]</div>
                 </div>
             </div>
-            |
             <!-- MENU: Catalog Management -->
             <div dojoType="dijit.PopupMenuBarItem">
                 <span>[:$MODEL.language->getMessage('msg.catalogManagement'):]</span>
@@ -36,13 +35,20 @@
 					<div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCreateItem:]');">[:$MODEL.language->getMessage('msg.createItem'):]</div>
                 </div>
             </div>
-            |
 			<!-- MENU: Page Management -->
             <div dojoType="dijit.PopupMenuBarItem">
                 <span>[:$MODEL.language->getMessage('msg.pageManagement'):]</span>
                 <div dojoType="dijit.Menu">
 					<div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlPageManagement:]');">[:$MODEL.language->getMessage('msg.pageList'):]</div>
                     <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCreatePage:]');">[:$MODEL.language->getMessage('msg.createPage'):]</div>
+                </div>
+            </div>
+            <!-- MENU: Ads Management -->
+            <div dojoType="dijit.PopupMenuBarItem">
+                <span>[:$MODEL.language->getMessage('msg.adsManagement'):]</span>
+                <div dojoType="dijit.Menu">
+                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlAdsManagement:]');">[:$MODEL.language->getMessage('msg.adsList'):]</div>
+                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCreateAds:]');">[:$MODEL.language->getMessage('msg.createAds'):]</div>
                 </div>
             </div>
             |

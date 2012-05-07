@@ -4,15 +4,48 @@ label {
     margin-top: 4px;
 }
 
-table.bordered {
-    border: 1px solid #9f9f9f;
+table {
+    border-collapse: collapse;
+    margin: 10px;
 }
 
-table.form thead th {
+th {
+    background: #e7e6e6; /*url(images/button.jpg) repeat-x;*/
+    height: 29px;
+    padding-left: 12px;
+    padding-right: 12px;
     text-align: left;
+    border-left: 1px solid #f4f4f4;
+    border-bottom: solid 2px #fff;
+    color: #333;
     font-weight: bold;
-    border-bottom: 1px solid #9f9f9f;
-    font-size: 125%;
+}
+
+tr {
+    height: 30px;
+}
+
+td {
+    padding-left: 11px;
+    padding-right: 11px;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+td.first,th.first {
+    border-left: 0px;
+}
+
+tr,tr.row-a {
+    background: #F8F8F8;
+}
+
+tr.row-b {
+    background: #EFEFEF;
+}
+
+button[type=submit] {
+    font-weight: bold !important;
 }
 
 .input-medium {
@@ -33,6 +66,20 @@ table.form thead th {
 
 .heading {
     border-bottom: 1px solid #9f9f9f;
+    padding-bottom: 2px;
+}
+
+.viewport-640 {
+    width: 560px;
+}
+
+.viewport-800 {
+    width: 720px;
+}
+
+.align-center {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .errorMsg {
