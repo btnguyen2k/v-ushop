@@ -28,7 +28,7 @@ class Vcatalog_Controller_Admin_PageListController extends Vcatalog_Controller_A
         // $allPages = $pageDao->getAllPages();
         $allPages = $pageDao->getPages();
         // $model[MODEL_PAGE_LIST] = $allPages;
-        $model[MODEL_PAGE_LIST] = Vcatalog_Model_PageModel::createModelObj($allPages);
+        $model[MODEL_PAGE_LIST] = Vcatalog_Model_PageBEModel::createModelObj($allPages);
         return $model;
     }
 }

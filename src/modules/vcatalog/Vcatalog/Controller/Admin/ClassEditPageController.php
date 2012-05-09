@@ -1,6 +1,6 @@
 <?php
 class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_editPage';
+    const VIEW_NAME = 'inline_edit_page';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
@@ -32,7 +32,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $this->pageId = $requestParser->getPathInfoParam(2);
+        $this->pageId = $requestParser->getPathInfoParam(1);
         /**
          * @var Vcatalog_Bo_Page_IPageDao
          */

@@ -41,13 +41,7 @@ class Vcatalog_Model_PageModel extends Quack_Model_BaseModelObj {
         return NULL;
     }
 
-    private $urlDelete = NULL;
-    private $urlEdit = NULL;
-    private $urlMoveUp = NULL;
-    private $urlMoveDown = NULL;
     private $urlView = NULL;
-    private $urlPin = NULL;
-    private $urlUnpin = NULL;
 
     public function getOnMenu() {
         return PAGE_ATTR_ONMENU == ($this->getTargetObject()->getAttr() & PAGE_ATTR_ONMENU);
@@ -55,58 +49,6 @@ class Vcatalog_Model_PageModel extends Quack_Model_BaseModelObj {
 
     public function isOnMenu() {
         return PAGE_ATTR_ONMENU == ($this->getTargetObject()->getAttr() & PAGE_ATTR_ONMENU);
-    }
-
-    /**
-     * Gets the URL to delete the page.
-     *
-     * @return string
-     */
-    public function getUrlDelete() {
-        if ($this->urlDelete === NULL) {
-            $vparams = Array('admin', 'deletePage', $this->getTargetObject()->getId());
-            $this->urlDelete = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlDelete;
-    }
-
-    /**
-     * Gets the URL to edit the page.
-     *
-     * @return string
-     */
-    public function getUrlEdit() {
-        if ($this->urlEdit === NULL) {
-            $vparams = Array('admin', 'editPage', $this->getTargetObject()->getId());
-            $this->urlEdit = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlEdit;
-    }
-
-    /**
-     * Gets the URL to move the page down.
-     *
-     * @return string
-     */
-    public function getUrlMoveDown() {
-        if ($this->urlMoveDown === NULL) {
-            $vparams = Array('admin', 'movePageDown', $this->getTargetObject()->getId());
-            $this->urlMoveDown = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlMoveDown;
-    }
-
-    /**
-     * Gets the URL to move the page up.
-     *
-     * @return string
-     */
-    public function getUrlMoveUp() {
-        if ($this->urlMoveUp === NULL) {
-            $vparams = Array('admin', 'movePageUp', $this->getTargetObject()->getId());
-            $this->urlMoveUp = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlMoveUp;
     }
 
     /**
@@ -120,31 +62,5 @@ class Vcatalog_Model_PageModel extends Quack_Model_BaseModelObj {
             $this->urlView = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
         }
         return $this->urlView;
-    }
-
-    /**
-     * Gets the URL to "pin" the page.
-     *
-     * @return string
-     */
-    public function getUrlPin() {
-        if ($this->urlPin === NULL) {
-            $vparams = Array('admin', 'pinPage', $this->getTargetObject()->getId());
-            $this->urlPin = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlPin;
-    }
-
-    /**
-     * Gets the URL to "unpin" the page.
-     *
-     * @return string
-     */
-    public function getUrlUnpin() {
-        if ($this->urlUnpin === NULL) {
-            $vparams = Array('admin', 'unpinPage', $this->getTargetObject()->getId());
-            $this->urlUnpin = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlUnpin;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_createPage';
+    const VIEW_NAME = 'inline_create_page';
     const VIEW_NAME_AFTER_POST = 'info';
 
     const FORM_FIELD_PAGE_ID = 'pageId';
