@@ -1,7 +1,7 @@
 <?php
 class Vcatalog_Controller_Admin_AdsListController extends Vcatalog_Controller_Admin_BaseFlowController {
 
-    const VIEW_NAME = 'admin_adsList';
+    const VIEW_NAME = 'inline_ads_list';
 
     /**
      *
@@ -26,7 +26,7 @@ class Vcatalog_Controller_Admin_AdsListController extends Vcatalog_Controller_Ad
          */
         $adsDao = $this->getDao(DAO_TEXTADS);
         $allAds = $adsDao->getAds();
-        $model[MODEL_ADS_LIST] = Vcatalog_Model_AdsModel::createModelObj($allAds);
+        $model[MODEL_ADS_LIST] = Vcatalog_Model_AdsBEModel::createModelObj($allAds);
         return $model;
     }
 }

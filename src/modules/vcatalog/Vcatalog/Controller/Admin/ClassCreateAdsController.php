@@ -1,6 +1,6 @@
 <?php
 class Vcatalog_Controller_Admin_CreateAdsController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_createAds';
+    const VIEW_NAME = 'inline_create_ads';
     const VIEW_NAME_AFTER_POST = 'info';
 
     const FORM_FIELD_ADS_TITLE = 'adsTitle';

@@ -1,6 +1,6 @@
 <?php
 class Vcatalog_Controller_Admin_EditAdsController extends Vcatalog_Controller_Admin_BaseFlowController {
-    const VIEW_NAME = 'admin_editAds';
+    const VIEW_NAME = 'inline_edit_ads';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
@@ -33,7 +33,7 @@ class Vcatalog_Controller_Admin_EditAdsController extends Vcatalog_Controller_Ad
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
-        $this->adsId = $requestParser->getPathInfoParam(2);
+        $this->adsId = $requestParser->getPathInfoParam(1);
         /**
          *
          * @var Vcatalog_Bo_TextAds_IAdsDao

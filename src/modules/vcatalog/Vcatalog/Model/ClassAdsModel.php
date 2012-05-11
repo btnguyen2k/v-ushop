@@ -41,63 +41,7 @@ class Vcatalog_Model_AdsModel extends Quack_Model_BaseModelObj {
         return NULL;
     }
 
-    private $urlDelete = NULL;
-    private $urlEdit = NULL;
-    private $urlMoveUp = NULL;
-    private $urlMoveDown = NULL;
     private $urlView = NULL;
-
-    /**
-     * Gets the URL to delete the ads.
-     *
-     * @return string
-     */
-    public function getUrlDelete() {
-        if ($this->urlDelete === NULL) {
-            $vparams = Array('admin', 'deleteAds', $this->getTargetObject()->getId());
-            $this->urlDelete = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlDelete;
-    }
-
-    /**
-     * Gets the URL to edit the ads.
-     *
-     * @return string
-     */
-    public function getUrlEdit() {
-        if ($this->urlEdit === NULL) {
-            $vparams = Array('admin', 'editAds', $this->getTargetObject()->getId());
-            $this->urlEdit = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlEdit;
-    }
-
-    /**
-     * Gets the URL to move the ads down.
-     *
-     * @return string
-     */
-    public function getUrlMoveDown() {
-        if ($this->urlMoveDown === NULL) {
-            $vparams = Array('admin', 'moveAdsDown', $this->getTargetObject()->getId());
-            $this->urlMoveDown = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlMoveDown;
-    }
-
-    /**
-     * Gets the URL to move the ads up.
-     *
-     * @return string
-     */
-    public function getUrlMoveUp() {
-        if ($this->urlMoveUp === NULL) {
-            $vparams = Array('admin', 'moveAdsUp', $this->getTargetObject()->getId());
-            $this->urlMoveUp = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
-        }
-        return $this->urlMoveUp;
-    }
 
     /**
      * Gets the URL to view the ads.
