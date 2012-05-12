@@ -84,7 +84,7 @@ $YADIF_CONFIG = Array(
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
-						
+
 		'Vcatalog_Controller_Admin_DashboardController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_DashboardController',
                 'scope' => 'singleton',
