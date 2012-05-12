@@ -7,6 +7,12 @@
     function refreshFrame() {
         window.frameMainContent.location.reload(true);
     }
+    function goBack() {
+        history.go(-1);
+    }
+    function goForward() {
+        history.go(1);
+    }
     function initFrame() {
         if (URL_PARAMS.url != undefined) {
             window.frameMainContent.location.href = URL_PARAMS.url;
@@ -60,7 +66,13 @@
             </div>
             |
             <div dojoType="dijit.MenuBarItem" onclick="refreshFrame();">
-                Refresh
+                <img border="0" alt="" src="img/refresh.png" title="Refresh Page"/>
+            </div>
+            <div dojoType="dijit.MenuBarItem" onclick="goBack();">
+                <img border="0" alt="" src="img/arrow_left.png" title="Go Back" />
+            </div>
+            <div dojoType="dijit.MenuBarItem" onclick="goForward();">
+                <img border="0" alt="" src="img/arrow_right.png" title="Go Forward"/>
             </div>
         </div>
         <div dojoType="dijit.layout.ContentPane" splitter="false" region="bottom" minSize="0" style="text-align: center;">
