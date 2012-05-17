@@ -50,7 +50,11 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     protected function getBaseHref() {
         $baseHref = 'http://' . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
         $baseHref = preg_replace('/\\/[^\\/]*$/', '/', $baseHref);
-        $baseHref .= (defined('SKIN_DIR_EX') ? SKIN_DIR_EX : SKIN_DIR);
+        if (defined('SKIN_DIR_BACKEND')) {
+            $baseHref .= SKIN_DIR_BACKEND;
+        } else {
+            $baseHref .= SKIN_DIR_EX;
+        }
         $baseHref = preg_replace('/\\/+$/', '/', $baseHref);
         return $baseHref;
     }

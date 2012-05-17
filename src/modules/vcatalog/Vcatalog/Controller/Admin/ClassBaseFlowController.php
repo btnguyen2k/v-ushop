@@ -45,19 +45,6 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
         return $model;
     }
 
-    /**
-     * Gets the "baseHref".
-     *
-     * @return string
-     */
-    protected function getBaseHref() {
-        $baseHref = 'http://' . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
-        $baseHref = preg_replace('/\\/[^\\/]*$/', '/', $baseHref);
-        $baseHref .= SKIN_DIR;
-        $baseHref = preg_replace('/\\/+$/', '/', $baseHref);
-        return $baseHref;
-    }
-
     protected function getUrlCategoryManagement() {
         // return $_SERVER['SCRIPT_NAME'] . '/admin/categories';
         return $_SERVER['SCRIPT_NAME'] . '/categories';
