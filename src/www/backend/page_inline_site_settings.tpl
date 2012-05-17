@@ -27,6 +27,13 @@
         <label for="form_siteCopyright">[:$LANG->getMessage('msg.siteCopyright'):]:</label>
         <input dojoType="dijit.form.ValidationTextBox" id="form_siteCopyright" style="width: 100%" type="text"
             name="siteCopyright" value="[:$MODEL.form.siteCopyright|escape:'html':]" />
+            
+        <label for="form_siteSkin">[:$LANG->getMessage('msg.siteSkin'):]:</label>
+        <select id="form_siteSkin" name="siteSkin">
+            [:foreach $MODEL.siteSkins as $skin:]
+                <option [:if $MODEL.form.siteSkin==$skin:]selected="selected"[:/if:] value="[:$skin|escape:'html':]">[:$skin|escape:'html':]</option>
+            [:/foreach:]
+        </select>
     
         <p></p>
         <button dojoType="dijit.form.Button" type="submit" name="submit" class="button-medium">[:$LANG->getMessage('msg.save'):]</button>

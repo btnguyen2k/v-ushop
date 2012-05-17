@@ -1,5 +1,16 @@
 [:include file="inc_html_header.tpl":]
 <body class="[:$DOJO_THEME:]" onload="initFrame();">
+    <style type="text/css">
+    .vcatalogIconSiteSettings {
+        background-image: url('icon/iconSiteSettings.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconEmailSettings {
+        background-image: url('icon/iconEmailSettings.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconCatalogSettings {
+        background-image: url('icon/iconCatalogSettings.png'); width: 16px; height: 16px;
+    }
+    </style>
     <script type="text/javascript">
     function loadUrl(url) {
         window.frameMainContent.location.href = url;
@@ -27,11 +38,11 @@
             |
             <!-- MENU: Site Management -->
             <div dojoType="dijit.PopupMenuBarItem">
-                <span>[:$MODEL.language->getMessage('msg.siteManagement'):]</span>
+                <span>[:$MODEL.language->getMessage('msg.settings'):]</span>
                 <div dojoType="dijit.Menu">
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlSiteSettings:]');">[:$MODEL.language->getMessage('msg.siteSettings'):]</div>
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlEmailSettings:]');">[:$MODEL.language->getMessage('msg.emailSettings'):]</div>
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCatalogSettings:]');">[:$MODEL.language->getMessage('msg.catalogSettings'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconSiteSettings' onclick="loadUrl('[:$MODEL.urlSiteSettings:]');">[:$MODEL.language->getMessage('msg.siteSettings'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconEmailSettings' onclick="loadUrl('[:$MODEL.urlEmailSettings:]');">[:$MODEL.language->getMessage('msg.emailSettings'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconCatalogSettings' onclick="loadUrl('[:$MODEL.urlCatalogSettings:]');">[:$MODEL.language->getMessage('msg.catalogSettings'):]</div>
                 </div>
             </div>
             <!-- MENU: Catalog Management -->
