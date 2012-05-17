@@ -11,7 +11,10 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
     const FORM_FIELD_SITE_COPYRIGHT = 'siteCopyright';
     const FORM_FIELD_SITE_SLOGAN = 'siteSlogan';
 
+    const FORM_FIELD_SITE_SKIN = 'siteSkin';
+
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
@@ -19,6 +22,7 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -31,6 +35,31 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
     }
 
     /**
+     *
+     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     */
+    protected function buildModel_Custom() {
+        $model = parent::buildModel_Custom();
+        if ($model == NULL) {
+            $model = Array();
+        }
+
+        $siteSkins = Array();
+        if (FALSE !== ($dirHandle = opendir(SITE_SKINS_ROOT_DIR))) {
+            while (FALSE !== ($entry = readdir($dirHandle))) {
+                if ($entry[0] !== '.') {
+                    $siteSkins[] = $entry;
+                }
+            }
+        }
+        sort($siteSkins);
+        $model['siteSkins'] = $siteSkins;
+
+        return $model;
+    }
+
+    /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
@@ -42,6 +71,7 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
         $form[self::FORM_FIELD_SITE_DESCRIPTION] = $dao->loadConfig(CONFIG_SITE_DESCRIPTION);
         $form[self::FORM_FIELD_SITE_SLOGAN] = $dao->loadConfig(CONFIG_SITE_SLOGAN);
         $form[self::FORM_FIELD_SITE_COPYRIGHT] = $dao->loadConfig(CONFIG_SITE_COPYRIGHT);
+        $form[self::FORM_FIELD_SITE_SKIN] = $dao->loadConfig(CONFIG_SITE_SKIN);
         if ($this->isPostRequest()) {
             $lang = $this->getLanguage();
             $form[FORM_INFO_MESSAGES] = Array($lang->getMessage('msg.siteSettings.done'));
@@ -50,22 +80,24 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
         $dao = $this->getDao(DAO_CONFIG);
-        $siteName = isset($_POST['siteName']) ? $_POST['siteName'] : '';
-        $siteTitle = isset($_POST['siteTitle']) ? $_POST['siteTitle'] : '';
-        $siteKeywords = isset($_POST['siteKeywords']) ? $_POST['siteKeywords'] : '';
-        $siteDescription = isset($_POST['siteDescription']) ? $_POST['siteDescription'] : '';
-        $siteCopyright = isset($_POST['siteCopyright']) ? $_POST['siteCopyright'] : '';
-        //$siteSlogan = isset($_POST['siteName']) ? $_POST['siteName'] : '';
-        $dao->saveConfig('site_name', $siteName);
-        $dao->saveConfig('site_title', $siteTitle);
-        $dao->saveConfig('site_keywords', $siteKeywords);
-        $dao->saveConfig('site_description', $siteDescription);
-        $dao->saveConfig('site_copyright', $siteCopyright);
-        //$dao->saveConfig('siteSlogan', $siteSlogan);
+        $siteName = isset($_POST[self::FORM_FIELD_SITE_NAME]) ? $_POST[self::FORM_FIELD_SITE_NAME] : '';
+        $siteTitle = isset($_POST[self::FORM_FIELD_SITE_TITLE]) ? $_POST[self::FORM_FIELD_SITE_TITLE] : '';
+        $siteKeywords = isset($_POST[self::FORM_FIELD_SITE_KEYWORDS]) ? $_POST[self::FORM_FIELD_SITE_KEYWORDS] : '';
+        $siteDescription = isset($_POST[self::FORM_FIELD_SITE_DESCRIPTION]) ? $_POST[self::FORM_FIELD_SITE_DESCRIPTION] : '';
+        $siteCopyright = isset($_POST[self::FORM_FIELD_SITE_COPYRIGHT]) ? $_POST[self::FORM_FIELD_SITE_COPYRIGHT] : '';
+        $siteSkin = isset($_POST[self::FORM_FIELD_SITE_SKIN]) ? $_POST[self::FORM_FIELD_SITE_SKIN] : '';
+
+        $dao->saveConfig(CONFIG_SITE_NAME, $siteName);
+        $dao->saveConfig(CONFIG_SITE_TITLE, $siteTitle);
+        $dao->saveConfig(CONFIG_SITE_KEYWORDS, $siteKeywords);
+        $dao->saveConfig(CONFIG_SITE_KEYWORDS, $siteDescription);
+        $dao->saveConfig(CONFIG_SITE_COPYRIGHT, $siteCopyright);
+        $dao->saveConfig(CONFIG_SITE_SKIN, $siteSkin);
         return FALSE;
     }
 }
