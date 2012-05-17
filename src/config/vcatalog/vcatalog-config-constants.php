@@ -8,6 +8,8 @@ define('CONFIG_SITE_NAME', 'site_name');
 define('CONFIG_SITE_SLOGAN', 'site_slogan');
 define('CONFIG_SITE_TITLE', 'site_title');
 
+define('CONFIG_SITE_SKIN', 'site_skin');
+
 define('CONFIG_USE_SMTP', 'use_smtp');
 define('CONFIG_SMTP_HOST', 'smtp_host');
 define('CONFIG_SMTP_PORT', 'smtp_port');
