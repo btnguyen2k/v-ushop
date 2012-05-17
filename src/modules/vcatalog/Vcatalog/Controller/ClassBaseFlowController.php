@@ -1,12 +1,10 @@
 <?php
 class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowController {
-
     private $errorMessages = Array();
     private $saveUrl = TRUE;
     private $requireAuthentication = FALSE;
     private $allowedUserGroups = NULL;
     private $executionTimestamp;
-
     private $viewName = NULL;
 
     /**
@@ -52,7 +50,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     protected function getBaseHref() {
         $baseHref = 'http://' . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
         $baseHref = preg_replace('/\\/[^\\/]*$/', '/', $baseHref);
-        $baseHref .= SKIN_DIR;
+        $baseHref .= (defined('SKIN_DIR_EX') ? SKIN_DIR_EX : SKIN_DIR);
         $baseHref = preg_replace('/\\/+$/', '/', $baseHref);
         return $baseHref;
     }
@@ -88,7 +86,6 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         // $userEmail = isset($_SESSION[SESSION_USER_ID]) ?
         // $_SESSION[SESSION_USER_ID] : NULL;
         // return $this->getDao(DAO_USER)->getUserByEmail($userEmail);
-
         $userId = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : NULL;
         return $this->getDao(DAO_USER)->getUserById($userId);
     }
@@ -239,32 +236,27 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     protected function isLoggedIn() {
         return isset($_SESSION[SESSION_USER_ID]);
     }
-
     protected function getPageTitle() {
         $dao = $this->getDao(DAO_CONFIG);
         $siteName = $dao->loadConfig(CONFIG_SITE_NAME);
         $siteTitle = $dao->loadConfig(CONFIG_SITE_TITLE);
         return "$siteName | $siteTitle";
     }
-
     protected function getPageKeywords() {
         $dao = $this->getDao(DAO_CONFIG);
         $siteKeywords = $dao->loadConfig(CONFIG_SITE_KEYWORDS);
         return $siteKeywords;
     }
-
     protected function getPageDescription() {
         $dao = $this->getDao(DAO_CONFIG);
         $siteDesc = $dao->loadConfig(CONFIG_SITE_DESCRIPTION);
         return $siteDesc;
     }
-
     protected function getPageCopyright() {
         $dao = $this->getDao(DAO_CONFIG);
         $siteCopyright = $dao->loadConfig(CONFIG_SITE_COPYRIGHT);
         return $siteCopyright;
     }
-
     protected function getPageSlogan() {
         $dao = $this->getDao(DAO_CONFIG);
         $siteSlogan = $dao->loadConfig(CONFIG_SITE_SLOGAN);
@@ -547,7 +539,6 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
             }
         }
     }
-
     protected function processUploadFile($formFieldName, $maxFileSize, $allowedFileTypes, $paperclipId = NULL) {
         if (!isset($_FILES[$formFieldName]) || $_FILES[$formFieldName]['error'] === UPLOAD_ERR_NO_FILE) {
             return NULL;

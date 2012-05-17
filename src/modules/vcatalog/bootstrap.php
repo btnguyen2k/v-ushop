@@ -8,6 +8,7 @@ if ($siteSkin == NULL || $siteSkin == '') {
 }
 
 $skinDir = SITE_SKINS_ROOT_DIR . "$siteSkin/";
+define('SKIN_DIR_EX', $skinDir);
 $params = Array('templateDir' => $skinDir,
         'prefix' => 'page_',
         'suffix' => '.tpl',
