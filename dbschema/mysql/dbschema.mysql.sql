@@ -1,15 +1,16 @@
 DROP TABLE IF EXISTS vcatalog_site;
 CREATE TABLE vcatalog_site (
-    sname                   VARCHAR(128)            NOT NULL,
+    sdomain                 VARCHAR(128)            NOT NULL,
     sref                    VARCHAR(128),
-    stimestamp_create       INT,
-    stimestamp_expiry       INT,
-        INDEX (stimestamp_expiry),
-    slevel                  INT                     NOT NULL DEFAULT 0,
-        INDEX (slevel),
-    scredit                 DOUBLE,    
-    sproperties             MEDIUMTEXT,
-    PRIMARY KEY (sname)
+        INDEX (sref),
+    plevel                  INT                     NOT NULL DEFAULT 0,
+        INDEX (plevel),
+    ptimestamp              INT                     NOT NULL DEFAULT 0,
+        INDEX (ptimestamp),
+    pexpiry                 INT                     NOT NULL DEFAULT 0,
+        INDEX (pexpiry),
+    pconfig                 MEDIUMTEXT,
+    PRIMARY KEY (sdomain)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 DROP TABLE IF EXISTS app_log;
