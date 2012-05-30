@@ -10,6 +10,30 @@
     .vcatalogIconCatalogSettings {
         background-image: url('icon/iconCatalogSettings.png'); width: 16px; height: 16px;
     }
+    .vcatalogIconPageList {
+        background-image: url('icon/iconPageList.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconPageAdd {
+        background-image: url('icon/iconPageAdd.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconCategoryList {
+        background-image: url('icon/iconCategoryList.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconCategoryAdd {
+        background-image: url('icon/iconCategoryAdd.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconItemList {
+        background-image: url('icon/iconItemList.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconItemAdd {
+        background-image: url('icon/iconItemAdd.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconAdsList {
+        background-image: url('icon/iconAdsList.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconAdsAdd {
+        background-image: url('icon/iconAdsAdd.png'); width: 16px; height: 16px;
+    }
     </style>
     <script type="text/javascript">
     function loadUrl(url) {
@@ -49,26 +73,26 @@
             <div dojoType="dijit.PopupMenuBarItem">
                 <span>[:$MODEL.language->getMessage('msg.catalogManagement'):]</span>
                 <div dojoType="dijit.Menu">
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCategoryManagement:]');">[:$MODEL.language->getMessage('msg.categoryList'):]</div>
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCreateCategory:]');">[:$MODEL.language->getMessage('msg.createCategory'):]</div>
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlItemManagement:]');">[:$MODEL.language->getMessage('msg.itemList'):]</div>
-					<div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCreateItem:]');">[:$MODEL.language->getMessage('msg.createItem'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconCategoryList' onclick="loadUrl('[:$MODEL.urlCategoryManagement:]');">[:$MODEL.language->getMessage('msg.categoryList'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconCategoryAdd' onclick="loadUrl('[:$MODEL.urlCreateCategory:]');">[:$MODEL.language->getMessage('msg.createCategory'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconItemList' onclick="loadUrl('[:$MODEL.urlItemManagement:]');">[:$MODEL.language->getMessage('msg.itemList'):]</div>
+					<div dojoType="dijit.MenuItem" iconClass='vcatalogIconItemAdd' onclick="loadUrl('[:$MODEL.urlCreateItem:]');">[:$MODEL.language->getMessage('msg.createItem'):]</div>
                 </div>
             </div>
 			<!-- MENU: Page Management -->
             <div dojoType="dijit.PopupMenuBarItem">
                 <span>[:$MODEL.language->getMessage('msg.pageManagement'):]</span>
                 <div dojoType="dijit.Menu">
-					<div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlPageManagement:]');">[:$MODEL.language->getMessage('msg.pageList'):]</div>
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCreatePage:]');">[:$MODEL.language->getMessage('msg.createPage'):]</div>
+					<div dojoType="dijit.MenuItem" iconClass='vcatalogIconPageList' onclick="loadUrl('[:$MODEL.urlPageManagement:]');">[:$MODEL.language->getMessage('msg.pageList'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconPageAdd' onclick="loadUrl('[:$MODEL.urlCreatePage:]');">[:$MODEL.language->getMessage('msg.createPage'):]</div>
                 </div>
             </div>
             <!-- MENU: Ads Management -->
             <div dojoType="dijit.PopupMenuBarItem">
                 <span>[:$MODEL.language->getMessage('msg.adsManagement'):]</span>
                 <div dojoType="dijit.Menu">
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlAdsManagement:]');">[:$MODEL.language->getMessage('msg.adsList'):]</div>
-                    <div dojoType="dijit.MenuItem" onclick="loadUrl('[:$MODEL.urlCreateAds:]');">[:$MODEL.language->getMessage('msg.createAds'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconAdsList' onclick="loadUrl('[:$MODEL.urlAdsManagement:]');">[:$MODEL.language->getMessage('msg.adsList'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconAdsAdd' onclick="loadUrl('[:$MODEL.urlCreateAds:]');">[:$MODEL.language->getMessage('msg.createAds'):]</div>
                 </div>
             </div>
             |

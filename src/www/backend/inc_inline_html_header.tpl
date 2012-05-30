@@ -65,7 +65,7 @@
     <script type="text/javascript">
     var isInIFrame = (window.location != window.parent.location) ? true : false;
     if ( !isInIFrame ) {
-        //window.location.href = '[:$MODEL.urlHome:]?url='+window.location;
+        window.location.href = '[:$MODEL.urlHome:]?url='+window.location;
     }
     
     function openUrl(url) {
