@@ -84,6 +84,8 @@ define('DEFAULT_PAGE_SIZE', 10);
 define('USER_GROUP_ADMIN', 1);
 define('USER_GROUP_MEMBER', 2);
 
+define('DAO_SITE', 'dao.site');
+
 define('DAO_CATALOG', 'dao.catalog');
 define('DAO_CART', 'dao.cart');
 define('DAO_CONFIG', 'dao.config');

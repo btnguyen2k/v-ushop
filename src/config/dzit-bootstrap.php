@@ -2,6 +2,8 @@
 defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
+/* Use Quack's session handler.
+ * Comment the next line if you want to use PHP's default session handler */
 Quack_SessionS_SessionHandler::startSession(DAO_SESSION);
 
 if ( !(ini_get('output_handler') || ini_get('zlib.output_compression')) ) {

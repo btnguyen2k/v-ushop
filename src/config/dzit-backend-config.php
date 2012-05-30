@@ -33,14 +33,15 @@ global $DZIT_IGNORE_AUTOLOAD;
 $DZIT_IGNORE_AUTOLOAD = Array('/^Smarty_*/', '/^Yadif_*/');
 
 include 'vcatalog/vcatalog-config-constants.php';
-include 'vcatalog/vcatalog-config-version.php';
+include 'vcatalog/vcatalog-backend-config-version.php';
 
 include 'dzit-config-logging.php';
 include 'dzit-config-cache.php';
 include 'dzit-config-dao.php';
-include 'dzit-config-mls.php';
-include 'dzit-config-router.php';
-include 'dzit-config-view.php';
+
+include 'dzit-backend-config-mls.php';
+include 'dzit-backend-config-router.php';
+include 'dzit-backend-config-view.php';
 
 /*
  * Configure the url creator.
