@@ -74,7 +74,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $cart = $cartDao->getCart($sessionId);
         if ($cart === NULL) {
             $user = $this->getCurrentUser();
-            $userId = $user !== NULL ? $user['id'] : 0;
+            $userId = $user !== NULL ? $user->getId() : 0;
             $cart = $cartDao->createCart($sessionId, $userId);
         }
         return $cart;
