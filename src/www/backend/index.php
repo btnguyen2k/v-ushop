@@ -201,6 +201,6 @@ try {
     }
     $dispatcher->dispatch();
 } catch (Exception $e) {
-    $logger->error($e->getMessage(), $e);
     dzitErrorHandler(E_USER_ERROR, $e->getMessage(), $e->getFile(), $e->getLine(), Array(), $e->getTraceAsString());
+    $logger->error($e->getMessage(), $e);
 }
