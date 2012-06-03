@@ -26,5 +26,5 @@ if (class_exists('Memcache')) {
 } else if (class_exists('Memcached')) {
     $DPHP_CACHE_CONFIG = &$DPHP_CACHE_CONFIG_MEMCACHED;
 } else {
-    $DPHP_CACHE_CONFIG = $DPHP_CACHE_CONFIG_MEMORY;
+    $DPHP_CACHE_CONFIG = &$DPHP_CACHE_CONFIG_MEMORY;
 }

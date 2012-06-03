@@ -8,14 +8,15 @@ defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
 /*
  * If environment variable DEV_ENV exists then we are on development server.
  */
-define('IN_DEV_ENV', getenv('DEV_ENV') || $_SERVER['SERVER_NAME']=='localhost' || isset($_GET['_DEBUG_']));
+define('IN_DEV_ENV', getenv('DEV_ENV') || $_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_ADDR'] == '127.0.0.1' || isset($_GET['_DEBUG_']));
 
-if ( IN_DEV_ENV ) {
+if (IN_DEV_ENV) {
     define('REPORT_ERROR', TRUE);
 }
 
 /*
- * If CLI_MODE is TRUE, the application is running in CLI (command line interface) mode.
+ * If CLI_MODE is TRUE, the application is running in CLI (command line
+ * interface) mode.
  */
 define('CLI_MODE', strtolower(php_sapi_name()) == 'cli' && empty($_SERVER['REMOTE_ADDR']));
 
@@ -26,8 +27,8 @@ define('CLI_MODE', strtolower(php_sapi_name()) == 'cli' && empty($_SERVER['REMOT
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 /*
- * Put list of classes that should be ignored by Dzit's auto loading.
- * Note: PCRE regular expression supported (http://www.php.net/manual/en/pcre.pattern.php).
+ * Put list of classes that should be ignored by Dzit's auto loading. Note: PCRE
+ * regular expression supported (http://www.php.net/manual/en/pcre.pattern.php).
  */
 global $DZIT_IGNORE_AUTOLOAD;
 $DZIT_IGNORE_AUTOLOAD = Array('/^Smarty_*/', '/^Yadif_*/');

@@ -3,8 +3,8 @@
  * Configurations for Ddth::Commons::Logging
  */
 
-global $DPHP_COMMONS_LOGGING_CONFIG_DEV;
-$DPHP_COMMONS_LOGGING_CONFIG_DEV = Array(
+global $DPHP_COMMONS_LOGGING_CONFIG_SIMPLE;
+$DPHP_COMMONS_LOGGING_CONFIG_SIMPLE = Array(
         'ddth.commons.logging.Logger' => 'Ddth_Commons_Logging_SimpleLog',
         'logger.setting.default' => 'WARN');
 
@@ -20,7 +20,7 @@ $DPHP_COMMONS_LOGGING_CONFIG_MYSQL = Array(
 
 global $DPHP_COMMONS_LOGGING_CONFIG;
 if (IN_DEV_ENV) {
-    $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_DEV;
+    $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_SIMPLE;
 } else {
     $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_MYSQL;
 }
