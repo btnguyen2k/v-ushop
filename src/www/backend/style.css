@@ -69,6 +69,10 @@ button[type=submit] {
     padding-bottom: 2px;
 }
 
+.viewport-480 {
+    width: 400px;
+}
+
 .viewport-640 {
     width: 560px;
 }

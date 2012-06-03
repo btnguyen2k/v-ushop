@@ -42,7 +42,7 @@
                 <td colspan="4">[:$MODEL.language->getMessage('msg.nodata'):]</td>
             </tr>
         [:/foreach:]
-        </tbody>
+    </tbody>
     </table>
     
     <div class="align-center viewport-800">

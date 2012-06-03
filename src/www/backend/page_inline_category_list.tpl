@@ -35,7 +35,7 @@
     [:/function:]
     
     <div class="align-center viewport-800">
-        <button dojoType="dijit.form.Button" onclick="openUrl('[:$MODEL.urlCreateCategory:]');">[:$MODEL.language->getMessage('msg.createCategory'):]</button></td>
+        <button dojoType="dijit.form.Button" onclick="openUrl('[:$MODEL.urlCreateCategory:]');">[:$MODEL.language->getMessage('msg.createCategory'):]</button>
     </div>
     <table cellpadding="2" class="align-center viewport-800">
     <thead>
@@ -55,7 +55,7 @@
     </tbody>
     </table>
     <div class="align-center viewport-800">
-        <button dojoType="dijit.form.Button" onclick="openUrl('[:$MODEL.urlCreateCategory:]');">[:$MODEL.language->getMessage('msg.createCategory'):]</button></td>
+        <button dojoType="dijit.form.Button" onclick="openUrl('[:$MODEL.urlCreateCategory:]');">[:$MODEL.language->getMessage('msg.createCategory'):]</button>
     </div>
 </body>
 [:include file="inc_inline_html_footer.tpl":]

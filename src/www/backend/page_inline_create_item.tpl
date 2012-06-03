@@ -1,7 +1,7 @@
 [:include file="inc_inline_html_header.tpl":]
 <body class="[:$DOJO_THEME:]">
     <h1 class="heading align-center viewport-800">[:$MODEL.language->getMessage('msg.createItem'):]</h1>
-    <form dojoType="dijit.form.Form" id="[:$FORM.name|escape:'html':]" class="align-center viewport-800"
+    <form id="[:$FORM.name|escape:'html':]" class="align-center viewport-800"
             name="[:$FORM.name|escape:'html':]" action="[:$FORM.action:]" method="post" enctype="multipart/form-data">
         <script type="dojo/method" event="onSubmit">
             return this.validate();
@@ -59,8 +59,8 @@
         <br />
         
         <label for="form_itemDesc">[:$LANG->getMessage('msg.item.description'):]:</label>
-        <textarea dojoType="dijit.form.Textarea" id="form_itemDesc" rows="6"
-            style="width: 100%" name="itemDescription">[:$MODEL.form.itemTitle|escape:'html':]</textarea>
+        <textarea id="form_itemDesc" rows="6"
+            style="width: 100%" name="itemDescription">[:$MODEL.form.itemDescription|escape:'html':]</textarea>
         <br />
         
         <label for="form_itemImage">[:$LANG->getMessage('msg.item.image'):]:</label>
@@ -72,5 +72,6 @@
         <button dojoType="dijit.form.Button" type="submit"><strong>[:$LANG->getMessage('msg.save'):]</strong></button>
         <button dojoType="dijit.form.Button" type="button" onclick="openUrl('[:$MODEL.form.actionCancel:]');">[:$LANG->getMessage('msg.cancel'):]</button>
     </form>
+    [:call name="tinymce" elName='form_itemDesc':]
 </body>
 [:include file="inc_inline_html_footer.tpl":]

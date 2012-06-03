@@ -9,8 +9,8 @@
             [:$MODEL.APP_NAME:] [:$MODEL.APP_VERSION:] | [:$MODEL.page.copyright:]
         </div>
         <div dojoType="dijit.layout.ContentPane" splitter="false" region="center">
-            <h1 class="heading align-center viewport-640">[:$MODEL.language->getMessage('msg.login'):]</h1>
-            <form dojoType="dijit.form.Form" id="[:$FORM.name|escape:'html':]" class="align-center viewport-640"
+            <h1 class="heading align-center viewport-480">[:$MODEL.language->getMessage('msg.login'):]</h1>
+            <form dojoType="dijit.form.Form" id="[:$FORM.name|escape:'html':]" class="align-center viewport-480"
                     name="[:$FORM.name|escape:'html':]" action="[:$FORM.action:]" method="post">
                 <script type="dojo/method" event="onSubmit">
                     return this.validate();

@@ -1,4 +1,11 @@
 [:assign var="DOJO_THEME" value='claro' scope='global':]
+
+[:function name=percentBar width='100%' percent=0:]
+    <div title="[:$percent:]%" style="width: [:$width:]; height:20px; background-color:#e0e0e0;">
+        <div title="[:$percent:]%" style="width: [:$percent:]%; height:20px; background-color: [:if $percent gt 90.0:]#900010[:elseif $percent gt 70.0:]#f0f010[:else:]#009010[:/if:]; border-right:1px #FFF solid;"></div>
+    </div>
+[:/function:]
+
 [:function name=dijitEditor fieldId='' fieldName='' fieldValue='' cssStyle='' cssClass='':]
     <div dojoType="dijit.Editor" id="[:$fieldId:]" namd="[:$fieldName:]"
         [:if cssStyle!='':]style="[:$cssStyle:]"[:/if:] [:if cssClass!='':]class="[:$cssClass:]"[:/if:]

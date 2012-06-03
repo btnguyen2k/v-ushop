@@ -56,6 +56,9 @@
     </script>
     <div dojoType="dijit.layout.BorderContainer" design="sidebar" gutters="true" id="main">
         <div dojoType="dijit.MenuBar" id="mainMenu" region="top">
+            <div dojoType="dijit.MenuBarItem" onclick="window.location.href='[:$MODEL.urlHome:]/../../';"
+                ><img src="icon/iconHome.png"
+            /></div>
             <div dojoType="dijit.MenuBarItem" onclick="window.location.href='[:$MODEL.urlHome:]';">
                 <strong>[:$MODEL.APP_NAME:]</strong>
             </div>
@@ -108,6 +111,10 @@
             </div>
             <div dojoType="dijit.MenuBarItem" onclick="goForward();">
                 <img border="0" alt="" src="img/arrow_right.png" title="Go Forward"/>
+            </div>
+            |
+            <div style="margin-top: 8px; margin-right: 8px; float: right;">
+                [:$MODEL.language->getMessage('msg.welcome'):] <strong><a href="[:$USER->getUrlProfile():]" onclick="loadUrl('[:$USER->getUrlProfile():]');">[:$USER->getDisplayName()|escape:'html':]</a></strong>
             </div>
         </div>
         <div dojoType="dijit.layout.ContentPane" splitter="false" region="bottom" minSize="0" style="text-align: center;">
