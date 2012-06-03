@@ -1,7 +1,7 @@
 [:include file="inc_inline_html_header.tpl":]
 <body class="[:$DOJO_THEME:]">
     <h1 class="heading align-center viewport-800">[:$MODEL.language->getMessage('msg.createCategory'):]</h1>
-    <form dojoType="dijit.form.Form" id="[:$FORM.name|escape:'html':]" class="align-center viewport-800"
+    <form id="[:$FORM.name|escape:'html':]" class="align-center viewport-800"
             name="[:$FORM.name|escape:'html':]" action="[:$FORM.action:]" method="post" enctype="multipart/form-data">
         <script type="dojo/method" event="onSubmit">
             return this.validate();
@@ -37,7 +37,7 @@
         <br />
             
         <label for="form_categoryDescription">[:$LANG->getMessage('msg.category.description'):]:</label>
-        <textarea dojoType="dijit.form.Textarea" id="form_categoryDescription" style="width: 100%"
+        <textarea id="form_categoryDescription" style="width: 100%"
             rows="6" name="categoryDescription">[:$MODEL.form.categoryDescription|escape:'html':]</textarea>
         <br />
         
@@ -50,5 +50,6 @@
         <button dojoType="dijit.form.Button" type="submit"><strong>[:$LANG->getMessage('msg.save'):]</strong></button>
         <button dojoType="dijit.form.Button" type="button" onclick="openUrl('[:$MODEL.form.actionCancel:]');">[:$LANG->getMessage('msg.cancel'):]</button>
     </form>
+    [:call name="tinymce" elName='form_categoryDescription':]
 </body>
 [:include file="inc_inline_html_footer.tpl":]
