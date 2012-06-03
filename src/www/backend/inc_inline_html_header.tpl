@@ -69,7 +69,32 @@
     }
     
     function openUrl(url) {
+        //document.getElementById("loading").className = "loading-visible";
         window.location.href = url;
     }
     </script>
+    <!--
+    <style type="text/css">
+    div.loading-invisible { display:none; }
+    div.loading-visible {
+        display:block;
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        text-align:center;
+        /*in supporting browsers, make it a little transparent*/
+        background:#fff;
+        _background:none; /*this line removes the background in IE*/
+        opacity:.85;
+        border-top:1px solid #ddd;
+        border-bottom:1px solid #ddd;
+        padding-top:15%;
+    }
+    </style>
+    <div id="loading" class="loading-invisible">
+        <p><img border="0" src="img/loading.gif"/></p>
+    </div>
+    -->
 </head>
