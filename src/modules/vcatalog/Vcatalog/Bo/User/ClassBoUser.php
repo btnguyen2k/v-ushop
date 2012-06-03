@@ -13,8 +13,6 @@ class Vcatalog_Bo_User_BoUser extends Quack_Bo_BaseBo {
 
     private $id, $username, $email, $password, $groupId, $title, $fullname, $location;
 
-    private $urlProfileCp = NULL;
-
     /*
      * (non-PHPdoc) @see Quack_Bo_BaseBo::getFieldMap()
      */
@@ -91,17 +89,5 @@ class Vcatalog_Bo_User_BoUser extends Quack_Bo_BaseBo {
 
     public function setLocation($location) {
         $this->location = $location;
-    }
-
-    /**
-     * Gets the URL to access user's profile control panel.
-     *
-     * @return string
-     */
-    public function getUrlProfileCp() {
-        if ($this->urlProfileCp === NULL) {
-            $this->urlProfileCp = $_SERVER['SCRIPT_NAME'] . '/profilecp';
-        }
-        return $this->urlProfileCp;
     }
 }

@@ -198,10 +198,44 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * Gets a DAO object.
      *
      * @param string $name
-     * @return Ddth_dao_IDao
+     * @return Ddth_Dao_IDao
      */
-    protected function getDao($name) {
-        return Ddth_Dao_BaseDaoFactory::getInstance()->getDao($name);
+    protected function getDao($name, $config = NULL) {
+        return Ddth_Dao_BaseDaoFactory::getInstance($config)->getDao($name);
+    }
+
+    /**
+     * Gets the {@link Quack_Bo_Site_ISiteDao} instance.
+     *
+     * @return Quack_Bo_Site_ISiteDao
+     */
+    protected function getSiteDao() {
+        global $DPHP_DAO_CONFIG_MYSQL_SITE;
+        return Ddth_Dao_BaseDaoFactory::getInstance($DPHP_DAO_CONFIG_MYSQL_SITE)->getDao(DAO_SITE);
+    }
+
+    /**
+     * Gets the current site.
+     *
+     * @return Quack_Bo_Site_BoSite.
+     */
+    protected function getGpvSite() {
+        $siteDao = $this->getSiteDao();
+        $tokens = explode(":", $_SERVER["HTTP_HOST"]);
+        $host = trim($tokens[0]);
+        $site = $siteDao->getSiteByDomain($host);
+        return $site;
+    }
+
+    /**
+     * Gets the current product.
+     *
+     * @return Quack_Bo_Site_BoSiteProduct
+     */
+    protected function getGpvProduct() {
+        $site = $this->getGpvSite();
+        $product = $site->getProduct('VCATALOG');
+        return $product;
     }
 
     /**
@@ -398,7 +432,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model['language'] = $this->getLanguage();
         $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
         $user = $this->getCurrentUser();
-        $model['user'] = $user;
+        $model['user'] = Vcatalog_Model_UserModel::createModelObj($user);
         $model['urlLogout'] = $this->getUrlLogout();
         $model['urlProfileCp'] = $this->getUrlProfileCp();
         $model['urlLogin'] = $this->getUrlLogin();
@@ -430,21 +464,15 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model[MODEL_ONMENU_PAGES] = Vcatalog_Model_PageModel::createModelObj($onMenuPages);
 
         /*
-        // $allPagesByCat = $pageDao->getAllPages();
-        $allPagesByCat = $pageDao->getPages();
-        $modelAllPagesByCat = Array();
-        foreach ($allPagesByCat as $page) {
-            $cat = $page->getCategory();
-            if ($cat === NULL) {
-                $cat = '';
-            }
-            $pages = isset($modelAllPagesByCat[$cat]) ? $modelAllPagesByCat[$cat] : Array();
-            // $pages[] = $page;
-            $pages[] = Vcatalog_Model_PageModel::createModelObj($page);
-            $modelAllPagesByCat[$cat] = $pages;
-        }
-        $model[MODEL_ALL_PAGES_BY_CATEGORY] = $modelAllPagesByCat;
-        */
+         * // $allPagesByCat = $pageDao->getAllPages(); $allPagesByCat =
+         * $pageDao->getPages(); $modelAllPagesByCat = Array(); foreach
+         * ($allPagesByCat as $page) { $cat = $page->getCategory(); if ($cat ===
+         * NULL) { $cat = ''; } $pages = isset($modelAllPagesByCat[$cat]) ?
+         * $modelAllPagesByCat[$cat] : Array(); // $pages[] = $page; $pages[] =
+         * Vcatalog_Model_PageModel::createModelObj($page);
+         * $modelAllPagesByCat[$cat] = $pages; }
+         * $model[MODEL_ALL_PAGES_BY_CATEGORY] = $modelAllPagesByCat;
+         */
 
         $model[MODEL_CART] = $this->getCurrentCart();
 

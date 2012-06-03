@@ -7,6 +7,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
     const FORM_FIELD_TITLE = 'itemTitle';
     const FORM_FIELD_DESCRIPTION = 'itemDescription';
     const FORM_FIELD_VENDOR = 'itemVendor';
+    const FORM_FIELD_CODE = 'itemCode';
     const FORM_FIELD_PRICE = 'itemPrice';
     const FORM_FIELD_IMAGE = 'itemImage';
     const FORM_FIELD_HOT = 'itemHot';
@@ -83,6 +84,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
                 self::FORM_FIELD_PRICE,
                 self::FORM_FIELD_TITLE,
                 self::FORM_FIELD_VENDOR,
+                self::FORM_FIELD_CODE,
                 self::FORM_FIELD_IMAGE_ID,
                 self::FORM_FIELD_HOT,
                 self::FORM_FIELD_NEW));
@@ -117,6 +119,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
         $title = isset($_POST[self::FORM_FIELD_TITLE]) ? trim($_POST[self::FORM_FIELD_TITLE]) : '';
         $description = isset($_POST[self::FORM_FIELD_DESCRIPTION]) ? trim($_POST[self::FORM_FIELD_DESCRIPTION]) : '';
         $vendor = isset($_POST[self::FORM_FIELD_VENDOR]) ? trim($_POST[self::FORM_FIELD_VENDOR]) : '';
+        $code = isset($_POST[self::FORM_FIELD_CODE]) ? trim($_POST[self::FORM_FIELD_CODE]) : '';
         $price = isset($_POST[self::FORM_FIELD_PRICE]) ? (double)$_POST[self::FORM_FIELD_PRICE] : 0.0;
         $hotItem = isset($_POST[self::FORM_FIELD_HOT]) ? (boolean)$_POST[self::FORM_FIELD_HOT] : FALSE;
         $newItem = isset($_POST[self::FORM_FIELD_NEW]) ? (boolean)$_POST[self::FORM_FIELD_NEW] : FALSE;
@@ -157,7 +160,23 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
         $oldPrice = 0.0;
         $stock = 0.0;
 
-        $catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, $hotItem, $newItem);
+        $data = Array(Vcatalog_Bo_Catalog_BoItem::COL_ACTIVE => 1,
+                Vcatalog_Bo_Catalog_BoItem::COL_CATEGORY_ID => $categoryId,
+                Vcatalog_Bo_Catalog_BoItem::COL_CODE => $code,
+                Vcatalog_Bo_Catalog_BoItem::COL_DESCRIPTION => $description,
+                Vcatalog_Bo_Catalog_BoItem::COL_HOT_ITEM => $hotItem,
+                Vcatalog_Bo_Catalog_BoItem::COL_IMAGE_ID => $paperclipItem !== NULL ? $paperclipItem->getId() : NULL,
+                Vcatalog_Bo_Catalog_BoItem::COL_NEW_ITEM => $newItem,
+                Vcatalog_Bo_Catalog_BoItem::COL_OLD_PRICE => $oldPrice,
+                Vcatalog_Bo_Catalog_BoItem::COL_PRICE => $price,
+                Vcatalog_Bo_Catalog_BoItem::COL_STOCK => $stock,
+                Vcatalog_Bo_Catalog_BoItem::COL_TIMESTAMP => $timestamp,
+                Vcatalog_Bo_Catalog_BoItem::COL_TITLE => $title,
+                Vcatalog_Bo_Catalog_BoItem::COL_VENDOR => $vendor);
+        $item = new Vcatalog_Bo_Catalog_BoItem();
+        $item->populate($data);
+        //$catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, $hotItem, $newItem);
+        $catalogDao->createItem($item);
 
         // clean-up
         unset($_SESSION[$this->sessionKey]);

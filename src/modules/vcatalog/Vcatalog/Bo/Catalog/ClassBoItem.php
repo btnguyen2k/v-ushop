@@ -7,6 +7,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
     const COL_TITLE = 'itemTitle';
     const COL_DESCRIPTION = 'itemDescription';
     const COL_VENDOR = 'itemVendor';
+    const COL_CODE = 'itemCode';
     const COL_TIMESTAMP = 'itemTimestamp';
     const COL_PRICE = 'itemPrice';
     const COL_OLD_PRICE = 'itemOldPrice';
@@ -15,7 +16,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
     const COL_HOT_ITEM = 'itemHotItem';
     const COL_NEW_ITEM = 'itemNewItem';
 
-    private $id, $active, $categoryId, $title, $description, $vendor;
+    private $id, $active, $categoryId, $title, $description, $vendor, $code;
     private $timestamp;
     private $price, $oldPrice, $stock;
     private $imageId;
@@ -39,6 +40,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
                 self::COL_TITLE => Array('title'),
                 self::COL_DESCRIPTION => Array('description'),
                 self::COL_VENDOR => Array('vendor'),
+                self::COL_CODE => Array('code'),
                 self::COL_TIMESTAMP => Array('timestamp', self::TYPE_INT),
                 self::COL_PRICE => Array('price', self::TYPE_DOUBLE),
                 self::COL_OLD_PRICE => Array('oldPrice', self::TYPE_DOUBLE),
@@ -164,6 +166,14 @@ class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
 
     public function setDescription($description) {
         $this->description = $description;
+    }
+
+    public function getCode() {
+        return $this->code;
+    }
+
+    public function setCode($code) {
+        $this->code = $code;
     }
 
     public function getVendor() {

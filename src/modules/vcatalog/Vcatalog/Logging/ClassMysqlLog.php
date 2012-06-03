@@ -53,10 +53,12 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
     protected function writeLog($logLevel, $logMsg, $e) {
         $conn = @mysql_connect($this->mysqlHost, $this->mysqlUsername, $this->mysqlPassword, TRUE);
         if ($conn === FALSE || $conn === NULL) {
-            die("Can not connect to MySQL server {$this->mysqlHost}!");
+            $msg = "Can not connect to MySQL server {$this->mysqlHost}!";
+            throw new Exception($msg);
         }
         if (!mysql_select_db($this->mysqlDbName, $conn)) {
-            die("Can not switch to database {$this->mysqlDbName}!");
+            $msg = "Can not switch to database {$this->mysqlDbName}!";
+            throw new Exception($msg);
         }
         $stacktrace = $e !== NULL ? $e->getTraceAsString() : NULL;
         $className = $e !== NULL ? $e->getFile() : '';
@@ -74,8 +76,10 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
     /**
      * Logs a message with debug log level.
      *
-     * @param string
-     * @param Exception
+     * @param
+     *            string
+     * @param
+     *            Exception
      */
     public function debug($message, $e = NULL) {
         if (!$this->isDebugEnabled()) {
@@ -87,8 +91,10 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
     /**
      * Logs a message with error log level.
      *
-     * @param string
-     * @param Exception
+     * @param
+     *            string
+     * @param
+     *            Exception
      */
     public function error($message, $e = NULL) {
         if (!$this->isErrorEnabled()) {
@@ -100,8 +106,10 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
     /**
      * Logs a message with fatal log level.
      *
-     * @param string
-     * @param Exception
+     * @param
+     *            string
+     * @param
+     *            Exception
      */
     public function fatal($message, $e = NULL) {
         if (!$this->isFatalEnabled()) {
@@ -113,8 +121,10 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
     /**
      * Logs a message with info log level.
      *
-     * @param string
-     * @param Exception
+     * @param
+     *            string
+     * @param
+     *            Exception
      */
     public function info($message, $e = NULL) {
         if (!$this->isInfoEnabled()) {
@@ -126,8 +136,10 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
     /**
      * Logs a message with trace log level.
      *
-     * @param string
-     * @param Exception
+     * @param
+     *            string
+     * @param
+     *            Exception
      */
     public function trace($message, $e = NULL) {
         if (!$this->isTraceEnabled()) {
@@ -139,8 +151,10 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
     /**
      * Logs a message with warn log level.
      *
-     * @param string
-     * @param Exception
+     * @param
+     *            string
+     * @param
+     *            Exception
      */
     public function warn($message, $e = NULL) {
         if (!$this->isWarnEnabled()) {

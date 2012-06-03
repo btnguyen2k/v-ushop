@@ -152,14 +152,14 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
                 'name' => 'frmEditCategory');
 
         $form[self::FORM_FIELD_PARENT_ID] = $this->category->getParentId();
-        $form[self::FORM_FIELD_CATEGORY_TITLE] = $this->category->getTitle();
-        $form[self::FORM_FIELD_CATEGORY_DESCRIPTION] = $this->category->getDescription();
-        $form[self::FORM_FIELD_CATEGORY_IMAGE_ID] = $this->category->getImageId();
+        $form[self::FORM_FIELD_TITLE] = $this->category->getTitle();
+        $form[self::FORM_FIELD_DESCRIPTION] = $this->category->getDescription();
+        $form[self::FORM_FIELD_IMAGE_ID] = $this->category->getImageId();
 
-        $this->populateForm($form, Array(self::FORM_FIELD_CATEGORY_DESCRIPTION,
-                self::FORM_FIELD_CATEGORY_TITLE,
+        $this->populateForm($form, Array(self::FORM_FIELD_DESCRIPTION,
+                self::FORM_FIELD_TITLE,
                 self::FORM_FIELD_PARENT_ID,
-                self::FORM_FIELD_CATEGORY_IMAGE_ID));
+                self::FORM_FIELD_IMAGE_ID));
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         if ($paperclipId !== NULL) {
             $form[self::FORM_FIELD_URL_CATEGORY_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
@@ -200,7 +200,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
             }
         }
 
-        $title = isset($_POST[self::FORM_FIELD_CATEGORY_TITLE]) ? trim($_POST[self::FORM_FIELD_CATEGORY_TITLE]) : '';
+        $title = isset($_POST[self::FORM_FIELD_TITLE]) ? trim($_POST[self::FORM_FIELD_TITLE]) : '';
         if ($title == '') {
             $this->addErrorMessage($lang->getMessage('error.emptyCategoryTitle'));
         }
@@ -208,7 +208,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         // take care of the uploaded file
         $removeImage = isset($_POST[self::FORM_FIELD_REMOVE_IMAGE]) ? TRUE : FALSE;
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
-        $paperclipItem = $this->processUploadFile(self::FORM_FIELD_CATEGORY_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
+        $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
         if ($paperclipItem !== NULL) {
             $_SESSION[$this->sessionKey] = $paperclipItem->getId();
         } else {
@@ -235,7 +235,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         }
         $this->category->setParentId($parentId);
         $this->category->setTitle($title);
-        $desc = isset($_POST[self::FORM_FIELD_CATEGORY_DESCRIPTION]) ? $_POST[self::FORM_FIELD_CATEGORY_DESCRIPTION] : '';
+        $desc = isset($_POST[self::FORM_FIELD_DESCRIPTION]) ? $_POST[self::FORM_FIELD_DESCRIPTION] : '';
         $this->category->setDescription($desc);
         if ($paperclipItem !== NULL) {
             $this->category->setImageId($paperclipItem->getId());

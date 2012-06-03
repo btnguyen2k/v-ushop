@@ -8,6 +8,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     const FORM_FIELD_TITLE = 'itemTitle';
     const FORM_FIELD_DESCRIPTION = 'itemDescription';
     const FORM_FIELD_VENDOR = 'itemVendor';
+    const FORM_FIELD_CODE = 'itemCode';
     const FORM_FIELD_PRICE = 'itemPrice';
     const FORM_FIELD_IMAGE = 'itemImage';
     const FORM_FIELD_HOT = 'itemHot';
@@ -17,6 +18,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     const FORM_FIELD_REMOVE_IMAGE = 'removeImage';
 
     /**
+     *
      * @var Vcatalog_Bo_Catalog_BoItem
      */
     private $item = NULL;
@@ -30,6 +32,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     }
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
@@ -43,11 +46,13 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
      */
     protected function populateParams() {
         /**
+         *
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
         $this->itemId = $requestParser->getPathInfoParam(1);
         /**
+         *
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
@@ -76,6 +81,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_Error()
      */
     protected function getModelAndView_Error() {
@@ -92,6 +98,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -111,6 +118,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     }
 
     /**
+     *
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
@@ -126,6 +134,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $form[self::FORM_FIELD_PRICE] = $this->item->getPrice();
         $form[self::FORM_FIELD_TITLE] = $this->item->getTitle();
         $form[self::FORM_FIELD_VENDOR] = $this->item->getVendor();
+        $form[self::FORM_FIELD_CODE] = $this->item->getCode();
         $form[self::FORM_FIELD_IMAGE_ID] = md5($this->item->getImageId());
         $form[self::FORM_FIELD_HOT] = $this->item->isHotItem() ? 1 : 0;
         $form[self::FORM_FIELD_NEW] = $this->item->isNewItem() ? 1 : 0;
@@ -135,6 +144,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
                 self::FORM_FIELD_PRICE,
                 self::FORM_FIELD_TITLE,
                 self::FORM_FIELD_VENDOR,
+                self::FORM_FIELD_CODE,
                 self::FORM_FIELD_IMAGE_ID,
                 self::FORM_FIELD_HOT,
                 self::FORM_FIELD_NEW));
@@ -149,15 +159,18 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
         /**
+         *
          * @var Ddth_Mls_ILanguage
          */
         $lang = $this->getLanguage();
 
         /**
+         *
          * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
@@ -166,6 +179,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $title = isset($_POST[self::FORM_FIELD_TITLE]) ? trim($_POST[self::FORM_FIELD_TITLE]) : '';
         $description = isset($_POST[self::FORM_FIELD_DESCRIPTION]) ? trim($_POST[self::FORM_FIELD_DESCRIPTION]) : '';
         $vendor = isset($_POST[self::FORM_FIELD_VENDOR]) ? trim($_POST[self::FORM_FIELD_VENDOR]) : '';
+        $code = isset($_POST[self::FORM_FIELD_CODE]) ? trim($_POST[self::FORM_FIELD_CODE]) : '';
         $price = isset($_POST[self::FORM_FIELD_PRICE]) ? (double)$_POST[self::FORM_FIELD_PRICE] : 0.0;
         $hotItem = isset($_POST[self::FORM_FIELD_HOT]) ? (boolean)$_POST[self::FORM_FIELD_HOT] : FALSE;
         $newItem = isset($_POST[self::FORM_FIELD_NEW]) ? (boolean)$_POST[self::FORM_FIELD_NEW] : FALSE;
@@ -183,7 +197,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
             $this->addErrorMessage($lang->getMessage('error.emptyItemTitle'));
         }
 
-        //take care of the uploaded file
+        // take care of the uploaded file
         $removeImage = isset($_POST[self::FORM_FIELD_REMOVE_IMAGE]) ? TRUE : FALSE;
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
@@ -206,6 +220,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $this->item->setTitle($title);
         $this->item->setDescription($description);
         $this->item->setVendor($vendor);
+        $this->item->setCode($code);
         $this->item->setPrice($price);
         if ($paperclipItem !== NULL) {
             $this->item->setImageId($paperclipItem->getId());
@@ -214,7 +229,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $this->item->setNewItem($newItem);
         $catalogDao->updateItem($this->item);
 
-        //clean-up
+        // clean-up
         unset($_SESSION[$this->sessionKey]);
         if ($paperclipItem !== NULL) {
             $paperclipItem->setIsDraft(FALSE);

@@ -301,23 +301,25 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
      *
      * @see Vcatalog_Bo_Catalog_ICatalogDao::createItem()
      */
-    public function createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $imageId, $hotItem = FALSE, $newItem = TRUE) {
+    public function createItem($item) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vcatalog_Bo_Catalog_BoItem::COL_CATEGORY_ID => $categoryId,
-                Vcatalog_Bo_Catalog_BoItem::COL_TITLE => $title,
-                Vcatalog_Bo_Catalog_BoItem::COL_DESCRIPTION => $description,
-                Vcatalog_Bo_Catalog_BoItem::COL_VENDOR => $vendor,
-                Vcatalog_Bo_Catalog_BoItem::COL_TIMESTAMP => $timestamp,
-                Vcatalog_Bo_Catalog_BoItem::COL_PRICE => $price,
-                Vcatalog_Bo_Catalog_BoItem::COL_OLD_PRICE => $oldPrice,
-                Vcatalog_Bo_Catalog_BoItem::COL_STOCK => $stock,
-                Vcatalog_Bo_Catalog_BoItem::COL_IMAGE_ID => $imageId,
-                Vcatalog_Bo_Catalog_BoItem::COL_HOT_ITEM => $hotItem ? 1 : 0,
-                Vcatalog_Bo_Catalog_BoItem::COL_NEW_ITEM => $newItem ? 1 : 0);
+        $params = Array(Vcatalog_Bo_Catalog_BoItem::COL_CATEGORY_ID => $item->getCategoryId(),
+                Vcatalog_Bo_Catalog_BoItem::COL_TITLE => $item->getTitle(),
+                Vcatalog_Bo_Catalog_BoItem::COL_DESCRIPTION => $item->getDescription(),
+                Vcatalog_Bo_Catalog_BoItem::COL_VENDOR => $item->getVendor(),
+                Vcatalog_Bo_Catalog_BoItem::COL_CODE => $item->getCode(),
+                Vcatalog_Bo_Catalog_BoItem::COL_TIMESTAMP => $item->getTimestamp(),
+                Vcatalog_Bo_Catalog_BoItem::COL_PRICE => $item->getPrice(),
+                Vcatalog_Bo_Catalog_BoItem::COL_OLD_PRICE => $item->getOldPrice(),
+                Vcatalog_Bo_Catalog_BoItem::COL_STOCK => $item->getStock(),
+                Vcatalog_Bo_Catalog_BoItem::COL_IMAGE_ID => $item->getImageId(),
+                Vcatalog_Bo_Catalog_BoItem::COL_HOT_ITEM => $item->isHotItem() ? 1 : 0,
+                Vcatalog_Bo_Catalog_BoItem::COL_NEW_ITEM => $item->isNewItem() ? 1 : 0,
+                Vcatalog_Bo_Catalog_BoItem::COL_ACTIVE => $item->isActive() ? 1 : 0);
         $this->execNonSelect($sqlStm, $params);
         $this->invalidateItemCache();
 
-        $item = $this->getItemJustCreated($timestamp, $title);
+        $item = $this->getItemJustCreated($item->getTimestamp(), $item->getTitle());
         $this->updateIndexItem($item);
         return $item;
     }
@@ -624,6 +626,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
                 Vcatalog_Bo_Catalog_BoItem::COL_TITLE => $item->getTitle(),
                 Vcatalog_Bo_Catalog_BoItem::COL_DESCRIPTION => $item->getDescription(),
                 Vcatalog_Bo_Catalog_BoItem::COL_VENDOR => $item->getVendor(),
+                Vcatalog_Bo_Catalog_BoItem::COL_CODE => $item->getCode(),
                 Vcatalog_Bo_Catalog_BoItem::COL_PRICE => $item->getPrice(),
                 Vcatalog_Bo_Catalog_BoItem::COL_OLD_PRICE => $item->getOldPrice(),
                 Vcatalog_Bo_Catalog_BoItem::COL_STOCK => $item->getStock(),
