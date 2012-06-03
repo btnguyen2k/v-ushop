@@ -1,3 +1,7 @@
+ALTER TABLE vcatalog_item ADD icode VARCHAR(32) AFTER ivendor, ADD INDEX (icode);
+UPDATE vcatalog_item SET icode=ivendor;
+UPDATE vcatalog_item SET ivendor=NULL;
+
 DROP TABLE IF EXISTS gpv_product;
 DROP TABLE IF EXISTS gpv_site;
 
