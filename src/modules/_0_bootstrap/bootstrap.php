@@ -1,7 +1,7 @@
 <?php
 /* vCatalog's global boostrap file */
 
-// diable cache
+#// diable cache
 global $DPHP_CACHE_CONFIG;
 global $DPHP_CACHE_CONFIG_MEMORY;
 $DPHP_CACHE_CONFIG = &$DPHP_CACHE_CONFIG_MEMORY;

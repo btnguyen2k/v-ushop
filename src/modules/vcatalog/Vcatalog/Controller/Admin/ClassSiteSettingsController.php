@@ -44,11 +44,19 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
             $model = Array();
         }
 
+        $site = $this->getGpvSite();
+        if ($site->getRefSite() !== NULL) {
+            $site = $site->getRefSite();
+        }
+
+        $siteDomain = $site->getSiteDomain() . '-';
         $siteSkins = Array();
         if (FALSE !== ($dirHandle = opendir(SITE_SKINS_ROOT_DIR))) {
             while (FALSE !== ($entry = readdir($dirHandle))) {
                 if ($entry[0] !== '.') {
-                    $siteSkins[] = $entry;
+                    if ($entry === 'default' || strpos($entry, $siteDomain) === 0) {
+                        $siteSkins[] = $entry;
+                    }
                 }
             }
         }
