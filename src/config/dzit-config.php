@@ -5,10 +5,26 @@ defined('DZIT_INCLUDE_KEY') || die('No direct access allowed!');
  * Dzit's core configuration file.
  */
 
+function startsWith($haystack, $needle) {
+    $length = strlen($needle);
+    return (substr($haystack, 0, $length) === $needle);
+}
+
+function endsWith($haystack, $needle) {
+    $length = strlen($needle);
+    if ($length == 0) {
+        return true;
+    }
+
+    $start  = $length * -1; //negative
+    return (substr($haystack, $start) === $needle);
+}
+
+
 /*
  * If environment variable DEV_ENV exists then we are on development server.
  */
-define('IN_DEV_ENV', getenv('DEV_ENV') || $_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_ADDR'] == '127.0.0.1' || isset($_GET['_DEBUG_']));
+define('IN_DEV_ENV', getenv('DEV_ENV') || $_SERVER['SERVER_NAME'] == 'localhost' || endsWith($_SERVER['SERVER_NAME'], '.local') || isset($_GET['_DEBUG_']));
 
 if (IN_DEV_ENV) {
     define('REPORT_ERROR', TRUE);
