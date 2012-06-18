@@ -29,6 +29,8 @@ $DPHP_DAO_CONFIG_MYSQL = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Mysql_BaseMy
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_STM_FILE => 'MySql/sql_page.mysql.properties'),
         DAO_TEXTADS => Array('class' => 'Vcatalog_Bo_TextAds_MysqlAdsDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_STM_FILE => 'MySql/sql_textads.mysql.properties'),
+        DAO_PROFILE => Array('class' => 'Quack_Bo_Profile_MysqlProfileDao',
+                Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_STM_FILE => 'MySql/sql_profile.mysql.properties'),
         DAO_CONFIG => 'Vcatalog_Bo_Config_MysqlConfigDao',
         DAO_PAPERCLIP => 'Paperclip_Bo_MysqlPaperclipDao');
 

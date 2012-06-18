@@ -16,10 +16,9 @@ function endsWith($haystack, $needle) {
         return true;
     }
 
-    $start  = $length * -1; //negative
+    $start = $length * -1; // negative
     return (substr($haystack, $start) === $needle);
 }
-
 
 /*
  * If environment variable DEV_ENV exists then we are on development server.
@@ -28,6 +27,9 @@ define('IN_DEV_ENV', getenv('DEV_ENV') || $_SERVER['SERVER_NAME'] == 'localhost'
 
 if (IN_DEV_ENV) {
     define('REPORT_ERROR', TRUE);
+    define('PROFILING', TRUE);
+} elseif (rand(1, 10) < 3) {
+    define('PROFILING', TRUE);
 }
 
 /*

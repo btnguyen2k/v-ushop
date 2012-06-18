@@ -11,7 +11,7 @@
 *     <li>Rendering the view.</li>
 * </ul>
 */
-$dispatcherClass = 'Dzit_DefaultDispatcher';
+$dispatcherClass = 'Vcatalog_ProfiledDispatcher';
 Dzit_Config::set(Dzit_Config::CONF_DISPATCHER, new $dispatcherClass());
 
 /*

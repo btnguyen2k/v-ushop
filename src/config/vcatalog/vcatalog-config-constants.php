@@ -94,3 +94,4 @@ define('DAO_TEXTADS', 'dao.textAds');
 define('DAO_PAPERCLIP', 'dao.paperclip');
 define('DAO_SESSION', 'dao.session');
 define('DAO_USER', 'dao.user');
+define('DAO_PROFILE', 'dao.profile');
