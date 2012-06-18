@@ -26,72 +26,76 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * @see Dzit_Controller_FlowController::execute()
      */
     public function execute($module, $action) {
-        $startTime = microtime(TRUE);
         if ($this->saveUrl) {
             $_SESSION[SESSION_LAST_ACCESS_URL] = $_SERVER['REQUEST_URI'];
         }
         if ($this->requireAuthentication && $this->getCurrentUser() === NULL) {
-            $url = $_SERVER['SCRIPT_NAME'] . '/login';
+            $url = $this->getUrlLogin();
             $modelAndView = new Dzit_ModelAndView();
             $modelAndView->setView(new Dzit_View_RedirectView($url));
-            return $modelAndView;
+        } else {
+            $modelAndView = parent::execute($module, $action);
         }
-        $modelAndView = parent::execute($module, $action);
-        $endTime = microtime(TRUE);
-        // error_log($endTime - $startTime, 0);
         return $modelAndView;
     }
 
+    private $baseHref = NULL;
     /**
      * Gets the "baseHref".
      *
      * @return string
      */
     protected function getBaseHref() {
-        $baseHref = 'http://' . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
-        $baseHref = preg_replace('/\\/[^\\/]*$/', '/', $baseHref);
-        if (defined('SKIN_DIR_BACKEND')) {
-            $baseHref .= SKIN_DIR_BACKEND;
-        } else {
-            $baseHref .= SKIN_DIR_EX;
+        if ($this->baseHref === NULL) {
+            $baseHref = 'http://' . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
+            $baseHref = preg_replace('/\\/[^\\/]*$/', '/', $baseHref);
+            if (defined('SKIN_DIR_BACKEND')) {
+                $baseHref .= SKIN_DIR_BACKEND;
+            } else {
+                $baseHref .= SKIN_DIR_EX;
+            }
+            $this->baseHref = preg_replace('/\\/+$/', '/', $baseHref);
         }
-        $baseHref = preg_replace('/\\/+$/', '/', $baseHref);
-        return $baseHref;
+        return $this->baseHref;
     }
 
+    private $currentCart;
     /**
      * Gets the current cart.
      *
      * @return Vcatalog_Bo_Cart_BoCart
      */
     protected function getCurrentCart() {
-        /**
-         *
-         * @var Vcatalog_Bo_Cart_ICartDao
-         */
-        $cartDao = $this->getDao(DAO_CART);
-        $sessionId = session_id();
-        $cart = $cartDao->getCart($sessionId);
-        if ($cart === NULL) {
-            $user = $this->getCurrentUser();
-            $userId = $user !== NULL ? $user->getId() : 0;
-            $cart = $cartDao->createCart($sessionId, $userId);
+        if ($this->currentCart === NULL) {
+            /**
+             *
+             * @var Vcatalog_Bo_Cart_ICartDao
+             */
+            $cartDao = $this->getDao(DAO_CART);
+            $sessionId = session_id();
+            $cart = $cartDao->getCart($sessionId);
+            if ($cart === NULL) {
+                $user = $this->getCurrentUser();
+                $userId = $user !== NULL ? $user->getId() : 0;
+                $cart = $cartDao->createCart($sessionId, $userId);
+            }
+            $this->currentCart = $cart;
         }
-        return $cart;
+        return $this->currentCart;
     }
 
+    private $currentUser = NULL;
     /**
      * Gets the currently logged in user.
      *
      * @return mixed
      */
     protected function getCurrentUser() {
-        // because we store the user email in session, NOT the user ID
-        // $userEmail = isset($_SESSION[SESSION_USER_ID]) ?
-        // $_SESSION[SESSION_USER_ID] : NULL;
-        // return $this->getDao(DAO_USER)->getUserByEmail($userEmail);
-        $userId = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : NULL;
-        return $this->getDao(DAO_USER)->getUserById($userId);
+        if ($this->currentUser === NULL) {
+            $userId = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : NULL;
+            $this->currentUser = $this->getDao(DAO_USER)->getUserById($userId);
+        }
+        return $this->currentUser;
     }
 
     /**
@@ -214,28 +218,34 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         return Ddth_Dao_BaseDaoFactory::getInstance($DPHP_DAO_CONFIG_MYSQL_SITE)->getDao(DAO_SITE);
     }
 
+    private $gpvSite = NULL;
     /**
      * Gets the current site.
      *
      * @return Quack_Bo_Site_BoSite.
      */
     protected function getGpvSite() {
-        $siteDao = $this->getSiteDao();
-        $tokens = explode(":", $_SERVER["HTTP_HOST"]);
-        $host = trim($tokens[0]);
-        $site = $siteDao->getSiteByDomain($host);
-        return $site;
+        if ($this->gpvSite === NULL) {
+            $siteDao = $this->getSiteDao();
+            $tokens = explode(":", $_SERVER["HTTP_HOST"]);
+            $host = trim($tokens[0]);
+            $this->gpvSite = $siteDao->getSiteByDomain($host);
+        }
+        return $this->gpvSite;
     }
 
+    private $gpvProduct = NULL;
     /**
      * Gets the current product.
      *
      * @return Quack_Bo_Site_BoSiteProduct
      */
     protected function getGpvProduct() {
-        $site = $this->getGpvSite();
-        $product = $site->getProduct('VCATALOG');
-        return $product;
+        if ($this->gpvProduct === NULL) {
+            $site = $this->getGpvSite();
+            $this->gpvProduct = $site->getProduct('VCATALOG');
+        }
+        return $this->gpvProduct;
     }
 
     /**
@@ -424,6 +434,9 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * @param Array $model
      */
     protected function buildModel_Common() {
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push(__FUNCTION__);
+        }
         $model = Array();
         $model[MODEL_REQUEST_MODULE] = $this->getModule();
         $model[MODEL_REQUEST_ACTION] = $this->getAction();
@@ -444,6 +457,9 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         }
         $model['urlUploadHandler'] = $this->getUrlUploadHandler();
 
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push('getCategoryTree');
+        }
         /**
          *
          * @var Vcatalog_Bo_Catalog_ICatalogDao
@@ -451,49 +467,74 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
         $model[MODEL_CATEGORY_TREE] = $catTree;
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
 
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push('getPages.onMenu');
+        }
         /**
          *
          * @var Vcatalog_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
-        // $onMenuPages = $pageDao->getOnMenuPages();
         $onMenuPages = $pageDao->getPages(1, PHP_INT_MAX, Array(
                 Quack_Bo_Page_IPageDao::FILTER_ATTRS => Array(PAGE_ATTR_ONMENU)));
-        // $model[MODEL_ONMENU_PAGES] = $onMenuPages;
         $model[MODEL_ONMENU_PAGES] = Vcatalog_Model_PageModel::createModelObj($onMenuPages);
-
-        /*
-         * // $allPagesByCat = $pageDao->getAllPages(); $allPagesByCat =
-         * $pageDao->getPages(); $modelAllPagesByCat = Array(); foreach
-         * ($allPagesByCat as $page) { $cat = $page->getCategory(); if ($cat ===
-         * NULL) { $cat = ''; } $pages = isset($modelAllPagesByCat[$cat]) ?
-         * $modelAllPagesByCat[$cat] : Array(); // $pages[] = $page; $pages[] =
-         * Vcatalog_Model_PageModel::createModelObj($page);
-         * $modelAllPagesByCat[$cat] = $pages; }
-         * $model[MODEL_ALL_PAGES_BY_CATEGORY] = $modelAllPagesByCat;
-         */
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
 
         $model[MODEL_CART] = $this->getCurrentCart();
 
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push('getItems.hot');
+        }
         $hotItems = $catalogDao->getAllItems(1, 30, DEFAULT_ITEM_SORTING, FEATURED_ITEM_HOT);
         if ($hotItems !== NULL && count($hotItems) > 0) {
             $model[MODEL_HOT_ITEMS] = $hotItems;
+        }
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
+
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push('getItems.new');
         }
         $newItems = $catalogDao->getAllItems(1, 30, DEFAULT_ITEM_SORTING, FEATURED_ITEM_NEW);
         if ($newItems !== NULL && count($newItems) > 0) {
             $model[MODEL_NEW_ITEMS] = $newItems;
         }
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
+
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push('getItems.featured');
+        }
         $featuredItems = $catalogDao->getAllItems(1, 30, DEFAULT_ITEM_SORTING, FEATURED_ITEM_ALL);
         if ($featuredItems !== NULL && count($featuredItems) > 0) {
             $model[MODEL_FEATURED_ITEMS] = $featuredItems;
         }
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
 
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push('getAds');
+        }
         // ads
         $adsDao = $this->getDao(DAO_TEXTADS);
         $adsList = $adsDao->getAds();
         $model[MODEL_ADS_LIST] = Vcatalog_Model_AdsModel::createModelObj($adsList);
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
 
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
         return $model;
     }
 
@@ -535,6 +576,9 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
      * @return Array
      */
     protected function buildModel_Page() {
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push(__FUNCTION__);
+        }
         $pageTitle = $this->getPageTitle();
         $pageKeywords = $this->getPageKeywords();
         $pageDescription = $this->getPageDescription();
@@ -546,7 +590,9 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
                 'description' => $pageDescription,
                 'copyright' => $pageCopyright,
                 'slogan' => $pageSlogan);
-
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
         return $modelPage;
     }
 
