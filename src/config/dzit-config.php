@@ -51,8 +51,8 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 global $DZIT_IGNORE_AUTOLOAD;
 $DZIT_IGNORE_AUTOLOAD = Array('/^Smarty_*/', '/^Yadif_*/');
 
-include 'vcatalog/vcatalog-config-constants.php';
-include 'vcatalog/vcatalog-config-version.php';
+include 'vushop/vushop-config-constants.php';
+include 'vushop/vushop-config-version.php';
 
 include 'dzit-config-logging.php';
 include 'dzit-config-cache.php';
