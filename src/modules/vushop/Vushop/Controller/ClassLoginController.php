@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_LoginController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME = 'login';
     const VIEW_NAME_AFTER_POST = 'info';
 

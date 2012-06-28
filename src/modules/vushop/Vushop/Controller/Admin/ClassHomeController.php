@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_HomeController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'home';
 

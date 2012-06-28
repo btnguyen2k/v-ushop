@@ -7,7 +7,7 @@
  *
  * COPYRIGHT: See the included copyright.txt file for detail.
  *
- * @package Vcatalog
+ * @package Vushop
  * @subpackage Model
  * @author Thanh Ba Nguyen <btnguyen2k@gmail.com>
  * @version $Id: ClassICache.php 251 2010-12-25 19:21:35Z btnguyen2k@gmail.com $
@@ -17,16 +17,16 @@
 /**
  * Model object: Page.
  *
- * @package Vcatalog
+ * @package Vushop
  * @subpackage Model
  * @author Thanh Ba Nguyen <btnguyen2k@gmail.com>
  * @since Class available since v0.1
  */
-class Vcatalog_Model_PageModel extends Quack_Model_BaseModelObj {
+class Vushop_Model_PageModel extends Quack_Model_BaseModelObj {
 
     public static function createModelObj($pageObj) {
         if ($pageObj instanceof Quack_Bo_Page_BoPage) {
-            return new Vcatalog_Model_PageModel($pageObj);
+            return new Vushop_Model_PageModel($pageObj);
         }
         if (is_array($pageObj)) {
             $result = Array();

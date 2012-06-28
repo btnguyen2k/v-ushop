@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_User_BoUser extends Quack_Bo_BaseBo {
+class Vushop_Bo_User_BoUser extends Quack_Bo_BaseBo {
 
     /* Database table columns: virtual columns */
     const COL_ID = 'userId';

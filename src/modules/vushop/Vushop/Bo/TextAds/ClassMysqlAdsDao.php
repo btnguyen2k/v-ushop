@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_TextAds_MysqlAdsDao extends Vcatalog_Bo_TextAds_BaseAdsDao implements
+class Vushop_Bo_TextAds_MysqlAdsDao extends Vushop_Bo_TextAds_BaseAdsDao implements
         Ddth_Dao_Mysql_IMysqlDao {
 
     protected function fetchResultAssoc($rs) {

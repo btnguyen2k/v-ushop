@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_LogoutController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_LogoutController extends Vushop_Controller_BaseFlowController {
 
     /**
      * @see Dzit_Controller_FlowController::execute()

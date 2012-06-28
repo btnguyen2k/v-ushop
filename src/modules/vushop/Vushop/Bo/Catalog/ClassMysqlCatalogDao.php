@@ -1,9 +1,9 @@
 <?php
-class Vcatalog_Bo_Catalog_MysqlCatalogDao extends Vcatalog_Bo_Catalog_BaseCatalogDao implements
+class Vushop_Bo_Catalog_MysqlCatalogDao extends Vushop_Bo_Catalog_BaseCatalogDao implements
         Ddth_Dao_Mysql_IMysqlDao {
 
     protected function initSqlStatementFactory() {
-        $this->setSqlStatementFile('Vcatalog/Bo/Catalog/sql_catalog.mysql.properties');
+        $this->setSqlStatementFile('Vushop/Bo/Catalog/sql_catalog.mysql.properties');
         parent::initSqlStatementFactory();
     }
 

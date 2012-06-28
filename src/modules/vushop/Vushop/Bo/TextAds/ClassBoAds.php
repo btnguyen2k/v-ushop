@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_TextAds_BoAds extends Quack_Bo_BaseBo {
+class Vushop_Bo_TextAds_BoAds extends Quack_Bo_BaseBo {
 
     const COL_ID = 'adsId';
     const COL_TITLE = 'adsTitle';

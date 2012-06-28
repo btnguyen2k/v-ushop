@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_Admin_BaseFlowController extends Vushop_Controller_BaseFlowController {
 
     /**
      *

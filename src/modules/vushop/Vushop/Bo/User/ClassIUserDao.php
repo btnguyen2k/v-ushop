@@ -1,5 +1,5 @@
 <?php
-interface Vcatalog_Bo_User_IUserDao extends Ddth_Dao_IDao {
+interface Vushop_Bo_User_IUserDao extends Ddth_Dao_IDao {
 
     /**
      * Gets a user account by user id.
@@ -28,14 +28,14 @@ interface Vcatalog_Bo_User_IUserDao extends Ddth_Dao_IDao {
     /**
      * Creates a new user account.
      *
-     * @param Vcatalog_Bo_User_BoUser $user
+     * @param Vushop_Bo_User_BoUser $user
      */
     public function createUser($user);
 
     /**
      * Updates an existing user account.
      *
-     * @param Vcatalog_Bo_User_BoUser $user
+     * @param Vushop_Bo_User_BoUser $user
      */
     public function updateUser($user);
 

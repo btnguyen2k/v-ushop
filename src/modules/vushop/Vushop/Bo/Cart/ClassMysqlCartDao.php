@@ -1,9 +1,9 @@
 <?php
-class Vcatalog_Bo_Cart_MysqlCartDao extends Vcatalog_Bo_Cart_BaseCartDao implements
+class Vushop_Bo_Cart_MysqlCartDao extends Vushop_Bo_Cart_BaseCartDao implements
         Ddth_Dao_Mysql_IMysqlDao {
 
     protected function initSqlStatementFactory() {
-        $this->setSqlStatementFile('Vcatalog/Bo/Cart/sql_cart.mysql.properties');
+        $this->setSqlStatementFile('Vushop/Bo/Cart/sql_cart.mysql.properties');
         parent::initSqlStatementFactory();
     }
 

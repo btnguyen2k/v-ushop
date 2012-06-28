@@ -1,4 +1,6 @@
 <?php
+define('PRODUCT_NAME', 'VUSHOP');
+
 define('WORD_SPLIT_PATTERN', '/[\s,\."\';:]+/');
 
 define('CONFIG_SITE_COPYRIGHT', 'site_copyright');
@@ -82,7 +84,7 @@ define('PAGE_ATTR_ONMENU', 1);
 define('DEFAULT_PAGE_SIZE', 10);
 
 define('USER_GROUP_ADMIN', 1);
-define('USER_GROUP_MEMBER', 2);
+define('USER_GROUP_SITE_OWNER', 2);
 
 define('DAO_SITE', 'dao.site');
 

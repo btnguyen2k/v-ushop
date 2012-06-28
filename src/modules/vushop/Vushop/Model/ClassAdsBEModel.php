@@ -7,7 +7,7 @@
  *
  * COPYRIGHT: See the included copyright.txt file for detail.
  *
- * @package Vcatalog
+ * @package Vushop
  * @subpackage Model
  * @author Thanh Ba Nguyen <btnguyen2k@gmail.com>
  * @version $Id: ClassICache.php 251 2010-12-25 19:21:35Z btnguyen2k@gmail.com $
@@ -17,16 +17,16 @@
 /**
  * Model object: AdsBE.
  *
- * @package Vcatalog
+ * @package Vushop
  * @subpackage Model
  * @author Thanh Ba Nguyen <btnguyen2k@gmail.com>
  * @since Class available since v0.1
  */
-class Vcatalog_Model_AdsBEModel extends Quack_Model_BaseModelObj {
+class Vushop_Model_AdsBEModel extends Quack_Model_BaseModelObj {
 
     public static function createModelObj($adsObj) {
-        if ($adsObj instanceof Vcatalog_Bo_TextAds_BoAds) {
-            return new Vcatalog_Model_AdsBEModel($adsObj);
+        if ($adsObj instanceof Vushop_Bo_TextAds_BoAds) {
+            return new Vushop_Model_AdsBEModel($adsObj);
         }
         if (is_array($adsObj)) {
             $result = Array();

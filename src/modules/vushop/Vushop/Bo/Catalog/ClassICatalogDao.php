@@ -1,5 +1,5 @@
 <?php
-interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
+interface Vushop_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
 
     /**
      * Counts number of current categories.
@@ -11,14 +11,14 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Creates a new category.
      *
-     * @param Vcatalog_Bo_Catalog_BoCategory $category
+     * @param Vushop_Bo_Catalog_BoCategory $category
      */
     public function createCategory($category);
 
     /**
      * Deletes a category.
      *
-     * @param Vcatalog_Bo_Catalog_BoCategory $category
+     * @param Vushop_Bo_Catalog_BoCategory $category
      */
     public function deleteCategory($category);
 
@@ -26,15 +26,15 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * Gets a category by id.
      *
      * @param int $id
-     * @return Vcatalog_Bo_Catalog_BoCategory
+     * @return Vushop_Bo_Catalog_BoCategory
      */
     public function getCategoryById($id);
 
     /**
      * Gets all children of a category.
      *
-     * @param Vcatalog_Bo_Catalog_BoCategory $category
-     * @return Array() index array of Vcatalog_Bo_Catalog_BoCategory
+     * @param Vushop_Bo_Catalog_BoCategory $category
+     * @return Array() index array of Vushop_Bo_Catalog_BoCategory
      */
     public function getCategoryChildren($category);
 
@@ -48,7 +48,7 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Updates a category.
      *
-     * @param Vcatalog_Bo_Catalog_BoCategory $category
+     * @param Vushop_Bo_Catalog_BoCategory $category
      */
     public function updateCategory($category);
 
@@ -63,7 +63,7 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Counts number of current items within a category.
      *
-     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     * @param Vushop_Bo_Catalog_BoCategory $cat
      * @param mixed $featuredItemsOnly
      * @return int
      */
@@ -72,14 +72,14 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
     /**
      * Creates a new item.
      *
-     * @param Vcatalog_Bo_Catalog_BoItem $item
+     * @param Vushop_Bo_Catalog_BoItem $item
      */
     public function createItem($item);
 
     /**
      * Deletes an existing items.
      *
-     * @param Vcatalog_Bo_Catalog_BoItem $item
+     * @param Vushop_Bo_Catalog_BoItem $item
      */
     public function deleteItem($item);
 
@@ -97,19 +97,19 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * Gets an item by id.
      *
      * @param int $id
-     * @return Vcatalog_Bo_Catalog_BoItem
+     * @return Vushop_Bo_Catalog_BoItem
      */
     public function getItemById($id);
 
     /**
      * Gets all items within a category as a list.
      *
-     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     * @param Vushop_Bo_Catalog_BoCategory $cat
      * @param int $pageNum
      * @param int $pageSize
      * @param string $itemSorting
      * @param mixed $featuredItemsOnly
-     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     * @param Vushop_Bo_Catalog_BoCategory $cat
      */
     public function getItemsForCategory($cat, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE);
 
@@ -120,7 +120,7 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param int $searchType
      *            0 = search in title, 1 = search in description/content, 2 =
      *            search in both
-     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     * @param Vushop_Bo_Catalog_BoCategory $cat
      * @param int $pageNum
      * @param int $pageSize
      * @return Array
@@ -134,14 +134,14 @@ interface Vcatalog_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param int $searchType
      *            0 = search in title, 1 = search in description/content, 2 =
      *            search in both
-     * @param Vcatalog_Bo_Catalog_BoCategory $cat
+     * @param Vushop_Bo_Catalog_BoCategory $cat
      */
     public function countSearchItems($searchQuery, $searchType, $cat = NULL);
 
     /**
      * Updates an existing item.
      *
-     * @param Vcatalog_Bo_Catalog_BoItem $item
+     * @param Vushop_Bo_Catalog_BoItem $item
      */
     public function updateItem($item);
 }

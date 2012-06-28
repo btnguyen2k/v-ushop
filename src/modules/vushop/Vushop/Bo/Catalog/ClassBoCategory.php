@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
+class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
 
     /* Database table columns */
     const COL_ID = 'catId';
@@ -178,7 +178,7 @@ class Vcatalog_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
     /**
      * Adds a child category.
      *
-     * @param Vcatalog_Bo_Catalog_BoCategory $child
+     * @param Vushop_Bo_Catalog_BoCategory $child
      */
     public function addChild($child) {
         $this->children[] = $child;

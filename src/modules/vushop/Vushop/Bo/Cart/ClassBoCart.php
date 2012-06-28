@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
+class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
 
     /* Database table columns */
     const COL_SESSION_ID = 'sessionId';
@@ -169,21 +169,21 @@ class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
      * @return string
      */
     public function getTotalPriceForDisplay() {
-        return Vcatalog_Utils::formatPrice($this->getTotalPrice());
+        return Vushop_Utils::formatPrice($this->getTotalPrice());
     }
 
     /**
      * Gets an item in the cart
      *
      * @param mixed $item
-     * @return Vcatalog_Bo_Cart_BoCartItem
+     * @return Vushop_Bo_Cart_BoCartItem
      */
     public function getItem($item) {
-        if ($item instanceof Vcatalog_Bo_Catalog_BoItem) {
+        if ($item instanceof Vushop_Bo_Catalog_BoItem) {
             $id = $item->getId();
             return isset($this->cartItems[$id]) ? $this->cartItems[$id] : NULL;
         }
-        if ($item instanceof Vcatalog_Bo_Cart_BoCartItem) {
+        if ($item instanceof Vushop_Bo_Cart_BoCartItem) {
             $id = $item->getItemId();
             return isset($this->cartItems[$id]) ? $this->cartItems[$id] : NULL;
         }
@@ -193,17 +193,17 @@ class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     /**
      * Adds an item to cart.
      *
-     * @param Vcatalog_Bo_Catalog_BoItem $item
+     * @param Vushop_Bo_Catalog_BoItem $item
      * @param double $quantity
      */
     public function addItem($item, $quantity = 1) {
-        if ($item instanceof Vcatalog_Bo_Cart_BoCartItem) {
+        if ($item instanceof Vushop_Bo_Cart_BoCartItem) {
             $this->cartItems[$item->getItemId()] = $item;
         } else {
-            //assuming $item is of type Vcatalog_Bo_Catalog_BoItem
+            //assuming $item is of type Vushop_Bo_Catalog_BoItem
             $itemId = $item->getId();
             if (!isset($this->cartItems[$itemId])) {
-                $this->cartItems[$itemId] = new Vcatalog_Bo_Cart_BoCartItem();
+                $this->cartItems[$itemId] = new Vushop_Bo_Cart_BoCartItem();
                 $this->cartItems[$itemId]->setPrice($item->getPrice());
             }
             $this->cartItems[$itemId]->addQuantity($quantity);
@@ -216,10 +216,10 @@ class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
      * @param mixed $item
      */
     public function existInCart($item) {
-        if ($item instanceof Vcatalog_Bo_Catalog_BoItem) {
+        if ($item instanceof Vushop_Bo_Catalog_BoItem) {
             return isset($this->cartItems[$item->getId()]);
         }
-        if ($item instanceof Vcatalog_Bo_Cart_BoCartItem) {
+        if ($item instanceof Vushop_Bo_Cart_BoCartItem) {
             return isset($this->cartItems[$item->getItemId()]);
         }
         return isset($this->cartItems[$item]);
@@ -253,6 +253,6 @@ class Vcatalog_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
      * @return double
      */
     public function getGrandTotalForDisplay() {
-        return Vcatalog_Utils::formatPrice($this->getGrandTotal());
+        return Vushop_Utils::formatPrice($this->getGrandTotal());
     }
 }

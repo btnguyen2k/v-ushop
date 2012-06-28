@@ -21,12 +21,12 @@ $site = $siteDao->getSiteByDomain($host);
 if ($site === NULL) {
     die("Domain '{$_SERVER["HTTP_HOST"]}' does not exist!");
 }
-$product = $site->getProduct('VUSHOP');
+$product = $site->getProduct(PRODUCT_NAME);
 if ($product === NULL) {
-    die("Product 'VUSHOP' does not exist!");
+    die("Product '{PRODUCT_NAME}' does not exist!");
 }
 if ($product->isExpired()) {
-    die("Product 'VUSHOP' has expired!");
+    die("Product '{PRODUCT_NAME}' has expired!");
 }
 $prodConfig = $product->getProductConfigMap();
 
@@ -61,7 +61,7 @@ if (!defined('SKIN_DIR_BACKEND')) {
     // if it's not backend, we switch to user-defined skin if possible
     $configDao = Ddth_Dao_BaseDaoFactory::getInstance()->getDao(DAO_CONFIG);
     $siteSkin = $configDao->loadConfig(CONFIG_SITE_SKIN);
-    if ($siteSkin == NULL || $siteSkin == '') {
+    if ($siteSkin == NULL || $siteSkin->getValue() == '') {
         $siteSkin = 'default';
     }
 

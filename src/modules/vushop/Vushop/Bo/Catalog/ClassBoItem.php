@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
+class Vushop_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
 
     const COL_ID = 'itemId';
     const COL_ACTIVE = 'itemActive';
@@ -198,7 +198,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
      * @return double
      */
     public function getPriceForDisplay() {
-        return Vcatalog_Utils::formatPrice($this->price);
+        return Vushop_Utils::formatPrice($this->price);
     }
 
     public function getPrice() {

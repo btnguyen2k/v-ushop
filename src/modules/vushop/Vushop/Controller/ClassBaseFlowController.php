@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowController {
+class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowController {
     private $errorMessages = Array();
     private $saveUrl = TRUE;
     private $requireAuthentication = FALSE;
@@ -14,7 +14,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     private $LOGGER;
 
     /**
-     * Constructs a new Vcatalog_Controller_BaseFlowController object.
+     * Constructs a new Vushop_Controller_BaseFlowController object.
      */
     public function __construct() {
         $this->executionTimestamp = microtime(TRUE);
@@ -63,13 +63,13 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     /**
      * Gets the current cart.
      *
-     * @return Vcatalog_Bo_Cart_BoCart
+     * @return Vushop_Bo_Cart_BoCart
      */
     protected function getCurrentCart() {
         if ($this->currentCart === NULL) {
             /**
              *
-             * @var Vcatalog_Bo_Cart_ICartDao
+             * @var Vushop_Bo_Cart_ICartDao
              */
             $cartDao = $this->getDao(DAO_CART);
             $sessionId = session_id();
@@ -243,7 +243,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     protected function getGpvProduct() {
         if ($this->gpvProduct === NULL) {
             $site = $this->getGpvSite();
-            $this->gpvProduct = $site->getProduct('VCATALOG');
+            $this->gpvProduct = $site->getProduct(PRODUCT_NAME);
         }
         return $this->gpvProduct;
     }
@@ -286,28 +286,28 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
     protected function getPageTitle() {
         $dao = $this->getDao(DAO_CONFIG);
-        $siteName = $dao->loadConfig(CONFIG_SITE_NAME);
-        $siteTitle = $dao->loadConfig(CONFIG_SITE_TITLE);
+        $siteName = $dao->loadConfig(CONFIG_SITE_NAME)->getValue();
+        $siteTitle = $dao->loadConfig(CONFIG_SITE_TITLE)->getValue();
         return "$siteName | $siteTitle";
     }
     protected function getPageKeywords() {
         $dao = $this->getDao(DAO_CONFIG);
-        $siteKeywords = $dao->loadConfig(CONFIG_SITE_KEYWORDS);
+        $siteKeywords = $dao->loadConfig(CONFIG_SITE_KEYWORDS)->getValue();
         return $siteKeywords;
     }
     protected function getPageDescription() {
         $dao = $this->getDao(DAO_CONFIG);
-        $siteDesc = $dao->loadConfig(CONFIG_SITE_DESCRIPTION);
+        $siteDesc = $dao->loadConfig(CONFIG_SITE_DESCRIPTION)->getValue();
         return $siteDesc;
     }
     protected function getPageCopyright() {
         $dao = $this->getDao(DAO_CONFIG);
-        $siteCopyright = $dao->loadConfig(CONFIG_SITE_COPYRIGHT);
+        $siteCopyright = $dao->loadConfig(CONFIG_SITE_COPYRIGHT)->getValue();
         return $siteCopyright;
     }
     protected function getPageSlogan() {
         $dao = $this->getDao(DAO_CONFIG);
-        $siteSlogan = $dao->loadConfig(CONFIG_SITE_SLOGAN);
+        $siteSlogan = $dao->loadConfig(CONFIG_SITE_SLOGAN)->getValue();
         return $siteSlogan;
     }
 
@@ -445,7 +445,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         $model['language'] = $this->getLanguage();
         $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
         $user = $this->getCurrentUser();
-        $model['user'] = Vcatalog_Model_UserModel::createModelObj($user);
+        $model['user'] = Vushop_Model_UserModel::createModelObj($user);
         $model['urlLogout'] = $this->getUrlLogout();
         $model['urlProfileCp'] = $this->getUrlProfileCp();
         $model['urlLogin'] = $this->getUrlLogin();
@@ -462,7 +462,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         }
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
@@ -476,12 +476,12 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         }
         /**
          *
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
         $onMenuPages = $pageDao->getPages(1, PHP_INT_MAX, Array(
                 Quack_Bo_Page_IPageDao::FILTER_ATTRS => Array(PAGE_ATTR_ONMENU)));
-        $model[MODEL_ONMENU_PAGES] = Vcatalog_Model_PageModel::createModelObj($onMenuPages);
+        $model[MODEL_ONMENU_PAGES] = Vushop_Model_PageModel::createModelObj($onMenuPages);
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
         }
@@ -527,7 +527,7 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         // ads
         $adsDao = $this->getDao(DAO_TEXTADS);
         $adsList = $adsDao->getAds();
-        $model[MODEL_ADS_LIST] = Vcatalog_Model_AdsModel::createModelObj($adsList);
+        $model[MODEL_ADS_LIST] = Vushop_Model_AdsModel::createModelObj($adsList);
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
         }
@@ -547,8 +547,8 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     protected function buildModel_Custom() {
         $model = Array();
 
-        $model[MODEL_APP_NAME] = VCATALOG_APP;
-        $model[MODEL_APP_VERSION] = VCATALOG_VERSION;
+        $model[MODEL_APP_NAME] = VUSHOP_APP;
+        $model[MODEL_APP_VERSION] = VUSHOP_VERSION;
 
         if (IN_DEV_ENV) {
             $model[MODEL_DEBUG] = new Quack_DebugInfo();

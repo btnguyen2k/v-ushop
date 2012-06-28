@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
+class Vushop_Bo_Cart_BoCartItem extends Vushop_Bo_Catalog_BoItem {
 
     /* Database table columns */
     const COL_SESSION_ID = 'sessionId';
@@ -87,7 +87,7 @@ class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
      * @return double
      */
     public function getQuantityForDisplay() {
-        return Vcatalog_Utils::formatQuantity($this->getQuantity());
+        return Vushop_Utils::formatQuantity($this->getQuantity());
     }
 
     /**
@@ -109,7 +109,7 @@ class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
     }
 
     /**
-     * @see Vcatalog_Bo_Catalog_BoItem::getPriceForDisplay()
+     * @see Vushop_Bo_Catalog_BoItem::getPriceForDisplay()
      */
     public function getPriceForDisplay() {
         return parent::getPriceForDisplay();
@@ -148,6 +148,6 @@ class Vcatalog_Bo_Cart_BoCartItem extends Vcatalog_Bo_Catalog_BoItem {
      * @return double
      */
     public function getTotalForDisplay() {
-        return Vcatalog_Utils::formatPrice($this->getTotal());
+        return Vushop_Utils::formatPrice($this->getTotal());
     }
 }
