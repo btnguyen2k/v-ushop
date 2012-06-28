@@ -11,7 +11,7 @@
 *     <li>Rendering the view.</li>
 * </ul>
 */
-$dispatcherClass = 'Vcatalog_ProfiledDispatcher';
+$dispatcherClass = 'Vushop_ProfiledDispatcher';
 Dzit_Config::set(Dzit_Config::CONF_DISPATCHER, new $dispatcherClass());
 
 /*
@@ -21,19 +21,19 @@ Dzit_Config::set(Dzit_Config::CONF_DISPATCHER, new $dispatcherClass());
  * 'action2' => 'ControllerClassName4' } } </code>
  */
 /* NOTE: REMEMBER TO CONFIGURE YOUR OWN APPLICATION'S ROUTING HERE! */
-$router = Array('*' => 'Vcatalog_Controller_HomeController',
-        'login' => 'Vcatalog_Controller_LoginController',
-        'logout' => 'Vcatalog_Controller_LogoutController',
-        'ads' => 'Vcatalog_Controller_ViewAdsController',
-        'page' => 'Vcatalog_Controller_ViewPageController',
-        'category' => 'Vcatalog_Controller_ViewCategoryController',
-        'item' => 'Vcatalog_Controller_ViewItemController',
-        'addToCart' => 'Vcatalog_Controller_AddToCartController',
-        'cart' => 'Vcatalog_Controller_ViewCartController',
-        'updateCart' => 'Vcatalog_Controller_UpdateCartController',
-        'checkout' => 'Vcatalog_Controller_CheckoutController',
-        'search' => 'Vcatalog_Controller_SearchController',
-        'profilecp' => Array('*' => 'Vcatalog_Controller_ProfileCp_ProfileController'),
+$router = Array('*' => 'Vushop_Controller_HomeController',
+        'login' => 'Vushop_Controller_LoginController',
+        'logout' => 'Vushop_Controller_LogoutController',
+        'ads' => 'Vushop_Controller_ViewAdsController',
+        'page' => 'Vushop_Controller_ViewPageController',
+        'category' => 'Vushop_Controller_ViewCategoryController',
+        'item' => 'Vushop_Controller_ViewItemController',
+        'addToCart' => 'Vushop_Controller_AddToCartController',
+        'cart' => 'Vushop_Controller_ViewCartController',
+        'updateCart' => 'Vushop_Controller_UpdateCartController',
+        'checkout' => 'Vushop_Controller_CheckoutController',
+        'search' => 'Vushop_Controller_SearchController',
+        'profilecp' => Array('*' => 'Vushop_Controller_ProfileCp_ProfileController'),
         'paperclip' => Array('thumbnail' => 'Paperclip_Controller_ViewThumbnailController',
                 'view' => 'Paperclip_Controller_ViewController',
                 'download' => 'Paperclip_Controller_DownloadController'),
@@ -48,6 +48,6 @@ Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
  * {module:action}.
  */
 // $actionHandlerMappingClass = 'Dzit_DefaultActionHandlerMapping';
-require_once 'Vcatalog/Controller/ClassActionHandlerMapping.php';
-$actionHandlerMappingClass = 'Vcatalog_Controller_ActionHandlerMapping';
+require_once 'Vushop/Controller/ClassActionHandlerMapping.php';
+$actionHandlerMappingClass = 'Vushop_Controller_ActionHandlerMapping';
 Dzit_Config::set(Dzit_Config::CONF_ACTION_HANDLER_MAPPING, new $actionHandlerMappingClass($router));

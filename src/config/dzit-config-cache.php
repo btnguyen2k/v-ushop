@@ -2,7 +2,7 @@
 /*
  * Configurations for Ddth::Cache
  */
-$cachePrefix = VCATALOG_VERSION . '/' . $_SERVER["HTTP_HOST"] . $_SERVER['SERVER_ADDR'];
+$cachePrefix = VUSHOP_VERSION . '/' . $_SERVER["HTTP_HOST"] . $_SERVER['SERVER_ADDR'];
 $cachePrefix = crc32($cachePrefix);
 
 global $DPHP_CACHE_CONFIG_MEMCACHE;
