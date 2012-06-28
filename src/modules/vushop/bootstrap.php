@@ -1,2 +1,2 @@
 <?php
-/* vCatalog's boostrap file */
+/* vuShop's boostrap file */

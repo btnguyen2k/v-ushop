@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Utils {
+class Vushop_Utils {
     /**
      * Formats a price value for displaying purpose.
      *

@@ -1,5 +1,5 @@
 <?php
-/* vCatalog's global boostrap file */
+/* vuShop's global boostrap file */
 
 // disable cache
 #global $DPHP_CACHE_CONFIG;
@@ -21,12 +21,12 @@ $site = $siteDao->getSiteByDomain($host);
 if ($site === NULL) {
     die("Domain '{$_SERVER["HTTP_HOST"]}' does not exist!");
 }
-$product = $site->getProduct('VCATALOG');
+$product = $site->getProduct('VUSHOP');
 if ($product === NULL) {
-    die("Product 'VCATALOG' does not exist!");
+    die("Product 'VUSHOP' does not exist!");
 }
 if ($product->isExpired()) {
-    die("Product 'VCATALOG' has expired!");
+    die("Product 'VUSHOP' has expired!");
 }
 $prodConfig = $product->getProductConfigMap();
 

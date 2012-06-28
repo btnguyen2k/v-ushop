@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_ProfiledDispatcher extends Dzit_DefaultDispatcher {
+class Vushop_ProfiledDispatcher extends Dzit_DefaultDispatcher {
 
     /**
      *
