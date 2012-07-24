@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_CreateAdsController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_CreateAdsController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_create_ads';
     const VIEW_NAME_AFTER_POST = 'info';
 
@@ -8,7 +8,7 @@ class Vcatalog_Controller_Admin_CreateAdsController extends Vcatalog_Controller_
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -36,7 +36,7 @@ class Vcatalog_Controller_Admin_CreateAdsController extends Vcatalog_Controller_
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'],
@@ -62,7 +62,7 @@ class Vcatalog_Controller_Admin_CreateAdsController extends Vcatalog_Controller_
 
         /**
          *
-         * @var Vcatalog_Bo_TextAds_IAdsDao
+         * @var Vushop_Bo_TextAds_IAdsDao
          */
         $adsDao = $this->getDao(DAO_TEXTADS);
 
@@ -80,10 +80,10 @@ class Vcatalog_Controller_Admin_CreateAdsController extends Vcatalog_Controller_
             return FALSE;
         }
 
-        $ads = new Vcatalog_Bo_TextAds_BoAds();
-        $ads->populate(Array(Vcatalog_Bo_TextAds_BoAds::COL_TITLE => $title,
-                Vcatalog_Bo_TextAds_BoAds::COL_URL => $url,
-                Vcatalog_Bo_TextAds_BoAds::COL_CLICKS => 0));
+        $ads = new Vushop_Bo_TextAds_BoAds();
+        $ads->populate(Array(Vushop_Bo_TextAds_BoAds::COL_TITLE => $title,
+                Vushop_Bo_TextAds_BoAds::COL_URL => $url,
+                Vushop_Bo_TextAds_BoAds::COL_CLICKS => 0));
         $adsDao->createAds($ads);
 
         return TRUE;

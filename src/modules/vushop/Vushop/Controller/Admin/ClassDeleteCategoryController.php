@@ -1,17 +1,17 @@
 <?php
-class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_DeleteCategoryController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_delete_category';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
     /**
-     * @var Vcatalog_Bo_Catalog_BoCategory
+     * @var Vushop_Bo_Catalog_BoCategory
      */
     private $category = NULL;
     private $categoryId;
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -29,7 +29,7 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
         $requestParser = Dzit_RequestParser::getInstance();
         $this->categoryId = (int)$requestParser->getPathInfoParam(1);
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->category = $catalogDao->getCategoryById($this->categoryId);
@@ -96,7 +96,7 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         if ($this->category === NULL) {
@@ -120,7 +120,7 @@ class Vcatalog_Controller_Admin_DeleteCategoryController extends Vcatalog_Contro
      */
     protected function performFormSubmission() {
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catalogDao->deleteCategory($this->category);

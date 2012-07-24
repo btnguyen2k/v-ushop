@@ -1,11 +1,11 @@
 <?php
-class Vcatalog_Controller_Admin_DashboardController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_DashboardController extends Vushop_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'inline_dashboard';
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -13,7 +13,7 @@ class Vcatalog_Controller_Admin_DashboardController extends Vcatalog_Controller_
 
     /**
      *
-     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -31,7 +31,7 @@ class Vcatalog_Controller_Admin_DashboardController extends Vcatalog_Controller_
 
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
@@ -56,11 +56,11 @@ class Vcatalog_Controller_Admin_DashboardController extends Vcatalog_Controller_
 
         /**
          *
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
         $allPages = $pageDao->getPages();
-        $model[MODEL_PAGE_LIST] = Vcatalog_Model_PageBEModel::createModelObj($allPages);
+        $model[MODEL_PAGE_LIST] = Vushop_Model_PageBEModel::createModelObj($allPages);
         $numPages = $pageDao->countNumPages();
         $percentPages = 100.0 * $numPages / $prodConfigLevel['CMS_PAGES'];
         if ($percentPages > 100.0) {
@@ -72,11 +72,11 @@ class Vcatalog_Controller_Admin_DashboardController extends Vcatalog_Controller_
 
         /**
          *
-         * @var Vcatalog_Bo_TextAds_IAdsDao
+         * @var Vushop_Bo_TextAds_IAdsDao
          */
         $adsDao = $this->getDao(DAO_TEXTADS);
         $allAds = $adsDao->getAds();
-        $model[MODEL_ADS_LIST] = Vcatalog_Model_AdsBEModel::createModelObj($allAds);
+        $model[MODEL_ADS_LIST] = Vushop_Model_AdsBEModel::createModelObj($allAds);
         $model['numAds'] = $adsDao->countNumAds();
 
         return $model;

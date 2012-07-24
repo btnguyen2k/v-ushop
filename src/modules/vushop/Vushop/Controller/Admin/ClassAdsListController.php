@@ -1,11 +1,11 @@
 <?php
-class Vcatalog_Controller_Admin_AdsListController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_AdsListController extends Vushop_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'inline_ads_list';
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -13,7 +13,7 @@ class Vcatalog_Controller_Admin_AdsListController extends Vcatalog_Controller_Ad
 
     /**
      *
-     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -22,11 +22,11 @@ class Vcatalog_Controller_Admin_AdsListController extends Vcatalog_Controller_Ad
         }
         /**
          *
-         * @var Vcatalog_Bo_TextAds_IAdsDao
+         * @var Vushop_Bo_TextAds_IAdsDao
          */
         $adsDao = $this->getDao(DAO_TEXTADS);
         $allAds = $adsDao->getAds();
-        $model[MODEL_ADS_LIST] = Vcatalog_Model_AdsBEModel::createModelObj($allAds);
+        $model[MODEL_ADS_LIST] = Vushop_Model_AdsBEModel::createModelObj($allAds);
         return $model;
     }
 }

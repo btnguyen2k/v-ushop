@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_ItemListController extends Vushop_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'inline_item_list';
 
@@ -9,7 +9,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -31,7 +31,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
 
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->category = $catalogDao->getCategoryById($catId);
@@ -43,7 +43,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
 
     /**
      *
-     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -57,7 +57,7 @@ class Vcatalog_Controller_Admin_ItemListController extends Vcatalog_Controller_A
 
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
 

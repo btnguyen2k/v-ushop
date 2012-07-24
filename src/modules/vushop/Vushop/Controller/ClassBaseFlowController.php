@@ -98,6 +98,15 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         return $this->currentUser;
     }
 
+    private $currentUserGroup = NULL;
+    protected function getCurrentUserGroup() {
+        if ($this->currentUserGroup === NULL) {
+            $user = $this->getCurrentUser();
+            $this->currentUserGroup = $user !== NULL ? $user->getGroupId() : USER_GROUP_GUEST;
+        }
+        return $this->currentUserGroup;
+    }
+
     /**
      * Gets the execution timestamp.
      *

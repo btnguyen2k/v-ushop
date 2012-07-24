@@ -1,17 +1,17 @@
 <?php
-class Vcatalog_Controller_Admin_DeletePageController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_DeletePageController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_delete_page';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
 
     /**
-     * @var Vcatalog_Bo_Page_BoPage
+     * @var Vushop_Bo_Page_BoPage
      */
     private $page = NULL;
     private $pageId;
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -29,7 +29,7 @@ class Vcatalog_Controller_Admin_DeletePageController extends Vcatalog_Controller
         $requestParser = Dzit_RequestParser::getInstance();
         $this->pageId = $requestParser->getPathInfoParam(1);
         /**
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
         $this->page = $pageDao->getPageById($this->pageId);
@@ -89,7 +89,7 @@ class Vcatalog_Controller_Admin_DeletePageController extends Vcatalog_Controller
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         if ($this->page === NULL) {
@@ -113,7 +113,7 @@ class Vcatalog_Controller_Admin_DeletePageController extends Vcatalog_Controller
      */
     protected function performFormSubmission() {
         /**
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
         $pageDao->deletePage($this->page);

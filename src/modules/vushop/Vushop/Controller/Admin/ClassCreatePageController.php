@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_CreatePageController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_create_page';
     const VIEW_NAME_AFTER_POST = 'info';
 
@@ -11,7 +11,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -39,7 +39,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'],
@@ -69,7 +69,7 @@ class Vcatalog_Controller_Admin_CreatePageController extends Vcatalog_Controller
 
         /**
          *
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
 

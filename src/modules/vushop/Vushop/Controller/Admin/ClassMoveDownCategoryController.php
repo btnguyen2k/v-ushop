@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_MoveDownCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_MoveDownCategoryController extends Vushop_Controller_Admin_BaseFlowController {
 
     /**
      * @see Dzit_Controller_FlowController::execute()
@@ -11,7 +11,7 @@ class Vcatalog_Controller_Admin_MoveDownCategoryController extends Vcatalog_Cont
         $requestParser = Dzit_RequestParser::getInstance();
         $catId = $requestParser->getPathInfoParam(1);
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $cat = $catalogDao->getCategoryById($catId);
@@ -45,8 +45,8 @@ class Vcatalog_Controller_Admin_MoveDownCategoryController extends Vcatalog_Cont
     /**
      * Swap "down" two categories' positions.
      *
-     * @param Vcatalog_Bo_Catalog_BoCategory $first
-     * @param Vcatalog_Bo_Catalog_BoCategory $second
+     * @param Vushop_Bo_Catalog_BoCategory $first
+     * @param Vushop_Bo_Catalog_BoCategory $second
      */
     private function swapDown($first, $second) {
         $catalogDao = $this->getDao(DAO_CATALOG);

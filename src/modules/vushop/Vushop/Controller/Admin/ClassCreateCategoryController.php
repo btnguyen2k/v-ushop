@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_CreateCategoryController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_create_category';
     const VIEW_NAME_AFTER_POST = 'info';
 
@@ -20,7 +20,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -48,7 +48,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
 
     /**
      *
-     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -57,7 +57,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
         }
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
@@ -71,7 +71,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'],
@@ -104,7 +104,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
 
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
 
@@ -112,7 +112,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
         if ($parentId > 0) {
             /**
              *
-             * @var Vcatalog_Bo_Catalog_ICatalogDao
+             * @var Vushop_Bo_Catalog_ICatalogDao
              */
             $catalogDao = $this->getDao(DAO_CATALOG);
             $cat = $catalogDao->getCategoryById($parentId);
@@ -150,7 +150,7 @@ class Vcatalog_Controller_Admin_CreateCategoryController extends Vcatalog_Contro
             $parentId = NULL;
         }
         $desc = isset($_POST[self::FORM_FIELD_DESCRIPTION]) ? trim($_POST[self::FORM_FIELD_DESCRIPTION]) : '';
-        $category = new Vcatalog_Bo_Catalog_BoCategory();
+        $category = new Vushop_Bo_Catalog_BoCategory();
         $category->setPosition($position);
         $category->setParentId($parentId);
         $category->setTitle($title);

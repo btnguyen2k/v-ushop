@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_EditPageController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_edit_page';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
@@ -16,7 +16,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
     private $pageId;
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -34,7 +34,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
         $requestParser = Dzit_RequestParser::getInstance();
         $this->pageId = $requestParser->getPathInfoParam(1);
         /**
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
         $this->page = $pageDao->getPageById($this->pageId);
@@ -96,7 +96,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         if ($this->page === NULL) {
@@ -131,7 +131,7 @@ class Vcatalog_Controller_Admin_EditPageController extends Vcatalog_Controller_A
         $lang = $this->getLanguage();
 
         /**
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
 

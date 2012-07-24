@@ -3,7 +3,7 @@ class Vushop_Controller_Admin_BaseFlowController extends Vushop_Controller_BaseF
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();

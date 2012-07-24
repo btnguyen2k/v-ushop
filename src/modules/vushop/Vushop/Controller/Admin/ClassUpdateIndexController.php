@@ -1,8 +1,8 @@
 <?php
-class Vcatalog_Controller_Admin_UpdateIndexController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_UpdateIndexController extends Vushop_Controller_Admin_BaseFlowController {
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::execute()
+     * @see Vushop_Controller_BaseFlowController::execute()
      */
     public function execute($module, $action) {
         $dao = $this->getDao(DAO_CATALOG);

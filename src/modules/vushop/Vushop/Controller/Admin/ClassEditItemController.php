@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_EditItemController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_edit_item';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
@@ -19,7 +19,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
 
     /**
      *
-     * @var Vcatalog_Bo_Catalog_BoItem
+     * @var Vushop_Bo_Catalog_BoItem
      */
     private $item = NULL;
     private $itemId;
@@ -33,7 +33,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -53,7 +53,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
         $this->itemId = $requestParser->getPathInfoParam(1);
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->item = $catalogDao->getItemById($this->itemId);
@@ -119,7 +119,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         if ($this->item === NULL) {
@@ -171,7 +171,7 @@ class Vcatalog_Controller_Admin_EditItemController extends Vcatalog_Controller_A
 
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
 

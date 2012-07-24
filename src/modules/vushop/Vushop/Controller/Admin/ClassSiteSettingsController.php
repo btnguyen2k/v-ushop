@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_SiteSettingsController extends Vushop_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'inline_site_settings';
     const VIEW_NAME_AFTER_POST = 'inline_site_settings';
@@ -15,7 +15,7 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -36,7 +36,7 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
 
     /**
      *
-     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -68,7 +68,7 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmSiteSettings');

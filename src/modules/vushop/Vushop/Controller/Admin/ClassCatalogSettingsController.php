@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_CatalogSettingsController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_CatalogSettingsController extends Vushop_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'inline_catalog_settings';
     const VIEW_NAME_AFTER_POST = 'inline_catalog_settings';
@@ -13,7 +13,7 @@ class Vcatalog_Controller_Admin_CatalogSettingsController extends Vcatalog_Contr
     const FORM_FIELD_QUANTITY_EXAMPLE = 'quantityExample';
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -32,7 +32,7 @@ class Vcatalog_Controller_Admin_CatalogSettingsController extends Vcatalog_Contr
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmCatalogSettings');

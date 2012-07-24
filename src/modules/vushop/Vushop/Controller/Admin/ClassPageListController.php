@@ -1,11 +1,11 @@
 <?php
-class Vcatalog_Controller_Admin_PageListController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_PageListController extends Vushop_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'inline_page_list';
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -13,7 +13,7 @@ class Vcatalog_Controller_Admin_PageListController extends Vcatalog_Controller_A
 
     /**
      *
-     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -22,13 +22,13 @@ class Vcatalog_Controller_Admin_PageListController extends Vcatalog_Controller_A
         }
         /**
          *
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
         // $allPages = $pageDao->getAllPages();
         $allPages = $pageDao->getPages();
         // $model[MODEL_PAGE_LIST] = $allPages;
-        $model[MODEL_PAGE_LIST] = Vcatalog_Model_PageBEModel::createModelObj($allPages);
+        $model[MODEL_PAGE_LIST] = Vushop_Model_PageBEModel::createModelObj($allPages);
         return $model;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_EditAdsController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_EditAdsController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_edit_ads';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
@@ -9,14 +9,14 @@ class Vcatalog_Controller_Admin_EditAdsController extends Vcatalog_Controller_Ad
 
     /**
      *
-     * @var Vcatalog_Bo_TextAds_BoAds
+     * @var Vushop_Bo_TextAds_BoAds
      */
     private $ads = NULL;
     private $adsId;
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -36,7 +36,7 @@ class Vcatalog_Controller_Admin_EditAdsController extends Vcatalog_Controller_Ad
         $this->adsId = $requestParser->getPathInfoParam(1);
         /**
          *
-         * @var Vcatalog_Bo_TextAds_IAdsDao
+         * @var Vushop_Bo_TextAds_IAdsDao
          */
         $adsDao = $this->getDao(DAO_TEXTADS);
         $this->ads = $adsDao->getAdsById($this->adsId);
@@ -97,7 +97,7 @@ class Vcatalog_Controller_Admin_EditAdsController extends Vcatalog_Controller_Ad
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         if ($this->ads === NULL) {
@@ -130,7 +130,7 @@ class Vcatalog_Controller_Admin_EditAdsController extends Vcatalog_Controller_Ad
 
         /**
          *
-         * @var Vcatalog_Bo_TextAds_IAdsDao
+         * @var Vushop_Bo_TextAds_IAdsDao
          */
         $adsDao = $this->getDao(DAO_TEXTADS);
 

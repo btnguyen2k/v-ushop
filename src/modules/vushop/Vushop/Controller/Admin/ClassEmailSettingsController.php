@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_EmailSettingsController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_EmailSettingsController extends Vushop_Controller_Admin_BaseFlowController {
 
     const VIEW_NAME = 'inline_email_settings';
     const VIEW_NAME_AFTER_POST = 'inline_email_settings';
@@ -16,7 +16,7 @@ class Vcatalog_Controller_Admin_EmailSettingsController extends Vcatalog_Control
     const FORM_FIELD_EMAIL_ON_BODY = 'emailOnBody';
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -35,7 +35,7 @@ class Vcatalog_Controller_Admin_EmailSettingsController extends Vcatalog_Control
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmEmailSettings');

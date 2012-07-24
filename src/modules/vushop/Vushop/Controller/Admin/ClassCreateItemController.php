@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_CreateItemController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_create_item';
     const VIEW_NAME_AFTER_POST = 'info';
 
@@ -25,7 +25,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -53,7 +53,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
 
     /**
      *
-     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -62,7 +62,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
         }
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();
@@ -72,7 +72,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'],
@@ -111,7 +111,7 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
 
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
 
@@ -160,20 +160,20 @@ class Vcatalog_Controller_Admin_CreateItemController extends Vcatalog_Controller
         $oldPrice = 0.0;
         $stock = 0.0;
 
-        $data = Array(Vcatalog_Bo_Catalog_BoItem::COL_ACTIVE => 1,
-                Vcatalog_Bo_Catalog_BoItem::COL_CATEGORY_ID => $categoryId,
-                Vcatalog_Bo_Catalog_BoItem::COL_CODE => $code,
-                Vcatalog_Bo_Catalog_BoItem::COL_DESCRIPTION => $description,
-                Vcatalog_Bo_Catalog_BoItem::COL_HOT_ITEM => $hotItem,
-                Vcatalog_Bo_Catalog_BoItem::COL_IMAGE_ID => $paperclipItem !== NULL ? $paperclipItem->getId() : NULL,
-                Vcatalog_Bo_Catalog_BoItem::COL_NEW_ITEM => $newItem,
-                Vcatalog_Bo_Catalog_BoItem::COL_OLD_PRICE => $oldPrice,
-                Vcatalog_Bo_Catalog_BoItem::COL_PRICE => $price,
-                Vcatalog_Bo_Catalog_BoItem::COL_STOCK => $stock,
-                Vcatalog_Bo_Catalog_BoItem::COL_TIMESTAMP => $timestamp,
-                Vcatalog_Bo_Catalog_BoItem::COL_TITLE => $title,
-                Vcatalog_Bo_Catalog_BoItem::COL_VENDOR => $vendor);
-        $item = new Vcatalog_Bo_Catalog_BoItem();
+        $data = Array(Vushop_Bo_Catalog_BoItem::COL_ACTIVE => 1,
+                Vushop_Bo_Catalog_BoItem::COL_CATEGORY_ID => $categoryId,
+                Vushop_Bo_Catalog_BoItem::COL_CODE => $code,
+                Vushop_Bo_Catalog_BoItem::COL_DESCRIPTION => $description,
+                Vushop_Bo_Catalog_BoItem::COL_HOT_ITEM => $hotItem,
+                Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $paperclipItem !== NULL ? $paperclipItem->getId() : NULL,
+                Vushop_Bo_Catalog_BoItem::COL_NEW_ITEM => $newItem,
+                Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $oldPrice,
+                Vushop_Bo_Catalog_BoItem::COL_PRICE => $price,
+                Vushop_Bo_Catalog_BoItem::COL_STOCK => $stock,
+                Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP => $timestamp,
+                Vushop_Bo_Catalog_BoItem::COL_TITLE => $title,
+                Vushop_Bo_Catalog_BoItem::COL_VENDOR => $vendor);
+        $item = new Vushop_Bo_Catalog_BoItem();
         $item->populate($data);
         //$catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, $hotItem, $newItem);
         $catalogDao->createItem($item);

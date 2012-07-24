@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controller_Admin_BaseFlowController {
+class Vushop_Controller_Admin_EditCategoryController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_edit_category';
     const VIEW_NAME_AFTER_POST = 'info';
     const VIEW_NAME_ERROR = 'error';
@@ -14,7 +14,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
 
     /**
      *
-     * @var Vcatalog_Bo_Catalog_BoCategory
+     * @var Vushop_Bo_Catalog_BoCategory
      */
     private $category = NULL;
     private $categoryId;
@@ -28,7 +28,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -48,7 +48,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         $this->categoryId = (int)$requestParser->getPathInfoParam(1);
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->category = $catalogDao->getCategoryById($this->categoryId);
@@ -114,7 +114,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
 
     /**
      *
-     * @see Vcatalog_Controller_Admin_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -124,7 +124,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         if ($this->category != NULL && count($this->category->getChildren()) == 0) {
             /**
              *
-             * @var Vcatalog_Bo_Catalog_ICatalogDao
+             * @var Vushop_Bo_Catalog_ICatalogDao
              */
             $catalogDao = $this->getDao(DAO_CATALOG);
             $catTree = $catalogDao->getCategoryTree();
@@ -141,7 +141,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         if ($this->category === NULL) {
@@ -183,7 +183,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
 
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
 
@@ -191,7 +191,7 @@ class Vcatalog_Controller_Admin_EditCategoryController extends Vcatalog_Controll
         if ($parentId > 0) {
             /**
              *
-             * @var Vcatalog_Bo_Catalog_ICatalogDao
+             * @var Vushop_Bo_Catalog_ICatalogDao
              */
             $parentCat = $catalogDao->getCategoryById($parentId);
             if ($parentCat == NULL || ($parentCat->getParentId() != NULL && $parentCat->getParentId() != 0) || $parentId == $this->categoryId) {
