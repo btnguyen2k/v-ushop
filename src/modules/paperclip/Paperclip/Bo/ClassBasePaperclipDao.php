@@ -88,17 +88,17 @@ abstract class Paperclip_Bo_BasePaperclipDao extends Quack_Bo_BaseDao implements
             if ($rows !== NULL && count($rows) > 0) {
                 $result = new Paperclip_Bo_BoPaperclip();
                 $result->populate($rows[0]);
-                $this->putToCache($cacheKey, $result);
             }
         }
         $timestamp = time();
-        if ($result !== NULL && $result->getTimestamp() + 24 * 3600 < $timestamp) {
+        $attchment = ($result instanceof Ddth_Cache_CacheEntry) ? $result->getValue() : $result;
+        if ($attchment !== NULL && $attchment->getTimestamp() + 24 * 3600 < $timestamp) {
             //update timestamp if needed
-            $result->setTimestamp($timestamp);
-            $this->updateAttachment($result);
-            $this->putToCache($cacheKey, $result);
+            $attchment->setTimestamp($timestamp);
+            $this->updateAttachment($attchment);
+            $this->putToCache($cacheKey, $attchment);
         }
-        return $result;
+        return $this->returnCachedResult($result, $cacheKey);
     }
 
     /**
