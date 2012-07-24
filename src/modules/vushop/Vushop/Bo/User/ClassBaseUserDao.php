@@ -43,11 +43,31 @@ abstract class Vushop_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         if ($user !== NULL) {
             $id = $user->getId();
             $email = $user->getEmail();
-            $loginname = $user->getLoginname();
+            $username = $user->getUsername();
             $this->deleteFromCache($this->createCacheKeyUserId($id));
             $this->deleteFromCache($this->createCacheKeyUserEmail($email));
-            $this->deleteFromCache($this->createCacheKeyUserLoginname($loginname));
+            $this->deleteFromCache($this->createCacheKeyUserUsername($username));
         }
+    }
+
+    /**
+     * (non-PHPdoc)
+     *
+     * @see Vushop_Bo_User_IUserDao::getUsers()
+     */
+    public function getUsers() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array();
+        $result = Array();
+        $rows = $this->execSelect($sqlStm, $params);
+        if ($rows !== NULL && count($rows) > 0) {
+            foreach ($rows as $row) {
+                $userId = $row[Vushop_Bo_User_BoUser::COL_ID];
+                $user = $this->getUserById($userId);
+                $result[] = $user;
+            }
+        }
+        return $result;
     }
 
     /**
@@ -57,18 +77,17 @@ abstract class Vushop_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
     public function getUserById($id) {
         $id = (int)$id;
         $cacheKey = $this->createCacheKeyUserId($id);
-        $user = $this->getFromCache($cacheKey);
-        if ($user === NULL) {
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
             $params = Array(Vushop_Bo_User_BoUser::COL_ID => $id);
             $rows = $this->execSelect($sqlStm, $params);
             if ($rows !== NULL && count($rows) > 0) {
-                $user = new Vushop_Bo_User_BoUser();
-                $user->populate($rows[0]);
-                $this->putToCache($cacheKey, $user);
+                $result = new Vushop_Bo_User_BoUser();
+                $result->populate($rows[0]);
             }
         }
-        return $user;
+        return $this->returnCachedResult($result, $cacheKey);
     }
 
     /**
@@ -82,14 +101,17 @@ abstract class Vushop_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         }
         $email = strtolower($email);
         $cacheKey = $this->createCacheKeyUserEmail($email);
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_User_BoUser::COL_EMAIL => $email);
-        $rows = $this->execSelect($sqlStm, $params, NULL, $cacheKey);
-        if ($rows !== NULL && count($rows) > 0) {
-            $userId = $rows[0][Vushop_Bo_User_BoUser::COL_ID];
-            return $this->getUserById($userId);
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $params = Array(Vushop_Bo_User_BoUser::COL_EMAIL => $email);
+            $rows = $this->execSelect($sqlStm, $params);
+            if ($rows !== NULL && count($rows) > 0) {
+                $userId = $rows[0][Vushop_Bo_User_BoUser::COL_ID];
+                $result = $this->getUserById($userId);
+            }
         }
-        return NULL;
+        return $this->returnCachedResult($result, $cacheKey);
     }
 
     /**
@@ -103,14 +125,17 @@ abstract class Vushop_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         }
         $username = strtolower($username);
         $cacheKey = $this->createCacheKeyUserUsername($username);
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_User_BoUser::COL_USERNAME => $username);
-        $rows = $this->execSelect($sqlStm, $params, NULL, $cacheKey);
-        if ($rows !== NULL && count($rows) > 0) {
-            $userId = $rows[0][Vushop_Bo_User_BoUser::COL_ID];
-            return $this->getUserById($userId);
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $params = Array(Vushop_Bo_User_BoUser::COL_USERNAME => $username);
+            $rows = $this->execSelect($sqlStm, $params);
+            if ($rows !== NULL && count($rows) > 0) {
+                $userId = $rows[0][Vushop_Bo_User_BoUser::COL_ID];
+                $result = $this->getUserById($userId);
+            }
         }
-        return NULL;
+        return $this->returnCachedResult($result, $cacheKey);
     }
 
     /**
