@@ -3,6 +3,7 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
         Vushop_Bo_Cart_ICartDao {
 
     /**
+     *
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
@@ -14,6 +15,7 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
 
     /**
      * (non-PHPdoc)
+     *
      * @see Quack_Bo_BaseDao::getCacheName()
      */
     public function getCacheName() {
@@ -29,12 +31,15 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
      *
      * @param string $sessionId
      */
-    protected function invalidateCache($sessionId) {
-        $cacheKey = $this->createCacheKeyCart($sessionId);
-        $this->deleteFromCache($cacheKey);
+    protected function invalidateCache($sessionId = NULL) {
+        if ($sessionId !== NULL) {
+            $cacheKey = $this->createCacheKeyCart($sessionId);
+            $this->deleteFromCache($cacheKey);
+        }
     }
 
     /**
+     *
      * @see Vushop_Bo_Cart_ICartDao::createCart()
      */
     public function createCart($sessionId, $userId = 0) {
@@ -59,13 +64,15 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
     }
 
     /**
+     *
      * @see Vushop_Bo_Cart_ICartDao::getCart()
      */
     public function getCart($sessionId) {
         $cacheKey = $this->createCacheKeyCart($sessionId);
         $cart = $this->getFromCache($cacheKey);
         if ($cart === NULL) {
-            //pre-open a connection so that subsequence operations will reuse it
+            // pre-open a connection so that subsequence operations will reuse
+            // it
             $conn = $this->getConnection();
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
             $params = Array(Vushop_Bo_Cart_BoCart::COL_SESSION_ID => $sessionId);
@@ -90,6 +97,7 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
     }
 
     /**
+     *
      * @see Vushop_Bo_Cart_ICartDao::getItemsInCart()
      */
     public function getItemsInCart($cart) {
@@ -108,6 +116,7 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
     }
 
     /**
+     *
      * @see Vushop_Bo_Cart_ICartDao::createCartItem()
      */
     public function createCartItem($cart, $itemId, $quantity, $price) {
@@ -122,6 +131,7 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
     }
 
     /**
+     *
      * @see Vushop_Bo_Cart_ICartDao::deleteCartItem()
      */
     public function deleteCartItem($cartItem) {
@@ -134,6 +144,7 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
     }
 
     /**
+     *
      * @see Vushop_Bo_Cart_ICartDao::updateCartItem()
      */
     public function updateCartItem($cartItem) {
