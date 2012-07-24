@@ -124,9 +124,19 @@
         <div dojoType="dijit.layout.ContentPane" splitter="false" region="bottom" minSize="0" style="text-align: center;">
             [:$MODEL.APP_NAME:] [:$MODEL.APP_VERSION:] | <span id="siteCopyright">[:$MODEL.page.copyright:]</span>
         </div>
-        <div dojoType="dijit.layout.ContentPane" id="mainContent" region="center" tabStrip="true" style="width: 100%; height: 100%; padding: 8px 10px 10px 8px">
-			<iframe name="frameMainContent" style="width: 100%; height: 100%; border: 0px solid #009010" src="[:$MODEL.urlDashboard:]"></iframe>
-        </div>
+        [:if isset($MODEL.debug):]
+            <div dojoType="dijit.layout.TabContainer" region="center" tabStrip="true" style="width: 100%; height: 100%; padding: 8px 10px 10px 8px">
+                <div dojoType="dijit.layout.ContentPane" id="mainContent" style="width: 100%; height: 100%; padding: 8px 10px 10px 8px" title="[:$MODEL.language->getMessage('msg.adminCp'):]">
+                    <iframe name="frameMainContent" style="width: 100%; height: 100%; border: 0px solid #009010" src="[:$MODEL.urlDashboard:]"></iframe>
+                </div>
+                <div dojoType="dijit.layout.ContentPane" id="debugInfo" style="width: 100%; height: 100%; padding: 8px 10px 10px 8px" title="Debug Info">
+                </div>
+            </div>
+        [:else:]
+            <div dojoType="dijit.layout.ContentPane" id="mainContent" region="center" tabStrip="true" style="width: 100%; height: 100%; padding: 8px 10px 10px 8px">
+                <iframe name="frameMainContent" style="width: 100%; height: 100%; border: 0px solid #009010" src="[:$MODEL.urlDashboard:]"></iframe>
+            </div>
+        [:/if:]  
     </div>
 </body>
 [:include file="inc_html_footer.tpl":]
