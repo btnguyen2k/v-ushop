@@ -2,10 +2,10 @@
 class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
 
     /* Database table columns */
-    const COL_SESSION_ID = 'sessionId';
-    const COL_STATUS = 'cartStatus';
-    const COL_UPDATE_TIMESTAMP = 'updateTimestamp';
-    const COL_USER_ID = 'userId';
+    const COL_SESSION_ID = 'session_id';
+    const COL_STATUS = 'cart_status';
+    const COL_UPDATE_TIMESTAMP = 'update_timestamp';
+    const COL_USER_ID = 'user_id';
 
     private $sessionId, $status, $updateTimestamp, $userId;
     private $cartItems = Array();

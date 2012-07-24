@@ -2,6 +2,11 @@
 interface Vushop_Bo_Cart_ICartDao extends Ddth_Dao_IDao {
 
     /**
+     * Cleanup orphan carts.
+     */
+    public function cleanup();
+
+    /**
      * Creates cart if not exists
      *
      * @param string $sessionId
@@ -36,7 +41,8 @@ interface Vushop_Bo_Cart_ICartDao extends Ddth_Dao_IDao {
     public function createCartItem($cart, $itemId, $quantity, $price);
 
     /**
-     * Deletes an existing cart items (a.k.a. remove an item from the cartA).
+     * Deletes an existing cart items (a.k.a.
+     * remove an item from the cartA).
      *
      * @param Vushop_Cart_BoCartItem $cartItem
      */

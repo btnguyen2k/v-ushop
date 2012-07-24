@@ -47,6 +47,18 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
     }
 
     /**
+     * (non-PHPdoc)
+     *
+     * @see Vushop_Bo_Cart_ICartDao::cleanup()
+     */
+    public function cleanup() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $result = $this->execNonSelect($sqlStm);
+        $this->invalidateCache();
+        return $result;
+    }
+
+    /**
      * @see Vushop_Bo_Cart_ICartDao::getCart()
      */
     public function getCart($sessionId) {
