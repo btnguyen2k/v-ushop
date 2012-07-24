@@ -223,8 +223,8 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
      * @return Quack_Bo_Site_ISiteDao
      */
     protected function getSiteDao() {
-        global $DPHP_DAO_CONFIG_MYSQL_SITE;
-        return Ddth_Dao_BaseDaoFactory::getInstance($DPHP_DAO_CONFIG_MYSQL_SITE)->getDao(DAO_SITE);
+        global $DPHP_DAO_CONFIG_SITE;
+        return Ddth_Dao_BaseDaoFactory::getInstance($DPHP_DAO_CONFIG_SITE)->getDao(DAO_SITE);
     }
 
     private $gpvSite = NULL;
@@ -252,7 +252,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getGpvProduct() {
         if ($this->gpvProduct === NULL) {
             $site = $this->getGpvSite();
-            $this->gpvProduct = $site->getProduct(PRODUCT_NAME);
+            $this->gpvProduct = $site->getProduct(PRODUCT_CODE);
         }
         return $this->gpvProduct;
     }

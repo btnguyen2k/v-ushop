@@ -2,6 +2,13 @@
 interface Vushop_Bo_User_IUserDao extends Ddth_Dao_IDao {
 
     /**
+     * Gets all users.
+     *
+     * @return Array
+     */
+    public function getUsers();
+
+    /**
      * Gets a user account by user id.
      *
      * @param int $id
