@@ -1,5 +1,5 @@
 <?php
-define('PRODUCT_NAME', 'VUSHOP');
+define('PRODUCT_CODE', 'VUSHOP');
 
 define('WORD_SPLIT_PATTERN', '/[\s,\."\';:]+/');
 
@@ -83,6 +83,7 @@ define('PAGE_ATTR_ONMENU', 1);
 
 define('DEFAULT_PAGE_SIZE', 10);
 
+define('USER_GROUP_GUEST', 0);
 define('USER_GROUP_ADMIN', 1);
 define('USER_GROUP_SITE_OWNER', 2);
 
