@@ -2,9 +2,9 @@
 /* vuShop's global boostrap file */
 
 // disable cache
-//global $DPHP_CACHE_CONFIG;
-//global $DPHP_CACHE_CONFIG_MEMORY;
-//$DPHP_CACHE_CONFIG = &$DPHP_CACHE_CONFIG_MEMORY;
+global $DPHP_CACHE_CONFIG;
+global $DPHP_CACHE_CONFIG_MEMORY;
+$DPHP_CACHE_CONFIG = &$DPHP_CACHE_CONFIG_MEMORY;
 
 function bootstrap_getSiteInfo() {
     global $DPHP_DAO_CONFIG_SITE;

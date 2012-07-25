@@ -2,14 +2,14 @@
 class Vushop_Bo_User_BoUser extends Quack_Bo_BaseBo {
 
     /* Database table columns: virtual columns */
-    const COL_ID = 'userId';
-    const COL_USERNAME = 'userUsername';
-    const COL_EMAIL = 'userEmail';
-    const COL_PASSWORD = 'userPassword';
-    const COL_GROUP_ID = 'userGroupId';
-    const COL_TITLE = 'userTitle';
-    const COL_FULLNAME = 'userFullname';
-    const COL_LOCATION = 'userLocation';
+    const COL_ID = 'user_id';
+    const COL_USERNAME = 'user_username';
+    const COL_EMAIL = 'user_email';
+    const COL_PASSWORD = 'user_password';
+    const COL_GROUP_ID = 'user_group_id';
+    const COL_TITLE = 'user_title';
+    const COL_FULLNAME = 'user_fullname';
+    const COL_LOCATION = 'user_location';
 
     private $id, $username, $email, $password, $groupId, $title, $fullname, $location;
 

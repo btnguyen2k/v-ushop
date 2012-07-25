@@ -8,6 +8,16 @@
         </script>
         [:call name="printFormHeader" form=$FORM:]
         
+        <label for="form_thumbnailWidth">[:$LANG->getMessage('msg.thumbnailWidth'):]:</label>
+        <input dojoType="dijit.form.ValidationTextBox" id="form_thumbnailWidth" style="width: 100%" type="text"
+            name="thumbnailWidth" value="[:$MODEL.form.thumbnailWidth|escape:'html':]" />
+        <br/>
+        
+        <label for="form_thumbnailHeight">[:$LANG->getMessage('msg.thumbnailHeight'):]:</label>
+        <input dojoType="dijit.form.ValidationTextBox" id="form_thumbnailHeight" style="width: 100%" type="text"
+            name="thumbnailHeight" value="[:$MODEL.form.thumbnailHeight|escape:'html':]" />
+        <br/>
+        
         <label for="form_currency">[:$LANG->getMessage('msg.currency'):]:</label>
         <input dojoType="dijit.form.ValidationTextBox" id="form_currency" style="width: 100%" type="text"
             name="currency" value="[:$MODEL.form.currency|escape:'html':]" />

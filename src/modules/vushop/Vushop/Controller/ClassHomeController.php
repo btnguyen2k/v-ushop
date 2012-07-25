@@ -1,10 +1,10 @@
 <?php
-class Vcatalog_Controller_HomeController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_HomeController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME = 'home';
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -12,7 +12,7 @@ class Vcatalog_Controller_HomeController extends Vcatalog_Controller_BaseFlowCon
 
     /**
      *
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
@@ -23,7 +23,7 @@ class Vcatalog_Controller_HomeController extends Vcatalog_Controller_BaseFlowCon
 
         /**
          *
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
 

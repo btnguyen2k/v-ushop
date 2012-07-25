@@ -34,6 +34,12 @@
     .vcatalogIconAdsAdd {
         background-image: url('icon/iconAdsAdd.png'); width: 16px; height: 16px;
     }
+ 	.vcatalogIconUserList {
+        background-image: url('icon/iconUserList.png'); width: 16px; height: 16px;
+    }
+    .vcatalogIconUserAdd {
+        background-image: url('icon/iconUserAdd.png'); width: 16px; height: 16px;
+    }
     </style>
     <script type="text/javascript">
     function loadUrl(url) {

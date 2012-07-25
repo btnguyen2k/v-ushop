@@ -13,6 +13,21 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
          */
         $urlCreator = Dzit_Config::get(Dzit_Config::CONF_URL_CREATOR);
         $this->MENU = Array(
+                 Array('title' => $lang->getMessage('msg.userManagement'),
+                        'groups' => Array(USER_GROUP_ADMIN),
+                        'children' => Array(
+                                Array('title' => $lang->getMessage('msg.userList'),
+                                        'icon' => 'userList',
+                                        'groups' => Array(USER_GROUP_ADMIN),
+                                        'url' => $urlCreator->createUrl(Array(
+                                                Dzit_IUrlCreator::PARAM_MODULE => 'users'))),
+                                Array('title' => $lang->getMessage('msg.createUser'),
+                                        'icon' => 'userAdd',
+                                        'groups' => Array(USER_GROUP_ADMIN),
+                                        'url' => $urlCreator->createUrl(Array(
+                                                Dzit_IUrlCreator::PARAM_MODULE => 'createUser')))
+                        )
+                ),
                 Array('title' => $lang->getMessage('msg.settings'),
                         'groups' => Array(USER_GROUP_ADMIN),
                         'children' => Array(
@@ -71,7 +86,7 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
                                         'url' => $urlCreator->createUrl(Array(
                                                 Dzit_IUrlCreator::PARAM_MODULE => 'createAds')))
                         )
-                ),
+                ),               
                 Array('title' => '-'),
                 Array('title' => $lang->getMessage('msg.catalogManagement'),
                         'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SITE_OWNER),

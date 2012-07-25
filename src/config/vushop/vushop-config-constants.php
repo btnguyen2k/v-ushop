@@ -28,12 +28,14 @@ define('CONFIG_PRICE_DECIMAL_PLACES', 'price_decimal_places');
 define('CONFIG_QUANTITY_DECIMAL_PLACES', 'quantity_decimal_places');
 define('CONFIG_DECIMAL_SEPARATOR', 'decimal_separator');
 define('CONFIG_THOUSANDS_SEPARATOR', 'thousands_separator');
+define('CONFIG_THUMBNAIL_WIDTH', 'thumbnail_width');
+define('CONFIG_THUMBNAIL_HEIGHT', 'thumbnail_height');
 
 define('MAX_UPLOAD_FILESIZE', 300000);
 define('ALLOWED_UPLOAD_FILE_TYPES', '*.gif,*.jpg;.*.png');
 
-define('THUMBNAIL_WIDTH', 150);
-define('THUMBNAIL_HEIGHT', 150);
+define('THUMBNAIL_WIDTH', 260);
+define('THUMBNAIL_HEIGHT', 180);
 
 define('FORM_ERROR_MESSAGES', 'errorMessages');
 define('FORM_INFO_MESSAGES', 'infoMessages');
@@ -44,6 +46,7 @@ define('MODEL_APP_VERSION', 'APP_VERSION');
 define('MODEL_REQUEST_MODULE', 'reqModule');
 define('MODEL_REQUEST_ACTION', 'reqAction');
 
+define('MODEL_USER_LIST', 'userList');
 define('MODEL_CATEGORY_TREE', 'categoryTree');
 define('MODEL_CATEGORY_LIST', 'categoryList');
 define('MODEL_CART', 'cart');

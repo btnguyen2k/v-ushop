@@ -1,16 +1,16 @@
 <?php
 class Paperclip_Bo_BoPaperclip extends Quack_Bo_BaseBo {
 
-    const COL_ID = 'pcId';
-    const COL_FILENAME = 'pcFilename';
-    const COL_FILESIZE = 'pcFilesize';
-    const COL_FILECONTENT = 'pcFilecontent';
-    const COL_THUMBNAIL = 'pcThumbnail';
-    const COL_MIMETYPE = 'pcMimeType';
-    const COL_TIMESTAMP = 'pcTimestamp';
-    const COL_IS_DRAFT = 'pcIsDraft';
-    const COL_IMG_WIDTH = 'pcImgWidth';
-    const COL_IMG_HEIGHT = 'pcImgHeight';
+    const COL_ID = 'pc_id';
+    const COL_FILENAME = 'pc_filename';
+    const COL_FILESIZE = 'pc_filesize';
+    const COL_FILECONTENT = 'pc_filecontent';
+    const COL_THUMBNAIL = 'pc_thumbnail';
+    const COL_MIMETYPE = 'pc_mime_type';
+    const COL_TIMESTAMP = 'pc_timestamp';
+    const COL_IS_DRAFT = 'pc_is_draft';
+    const COL_IMG_WIDTH = 'pc_img_width';
+    const COL_IMG_HEIGHT = 'pc_img_height';
 
     private $id;
     private $filename;

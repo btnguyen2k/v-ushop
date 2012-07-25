@@ -32,6 +32,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js" djConfig="parseOnLoad: true, isDebug: false"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/dijit.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/dijit-all.js" charset="utf-8"></script>
+     <script type="text/javascript" src="js/script.js" charset="utf-8"></script>
 
     <script type="text/javascript">
     dojo.require('dojox.timing');

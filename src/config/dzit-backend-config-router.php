@@ -49,7 +49,11 @@ $router = Array('*' => 'Vushop_Controller_Admin_HomeController',
         'siteSettings' => 'Vushop_Controller_Admin_SiteSettingsController',
         'emailSettings' => 'Vushop_Controller_Admin_EmailSettingsController',
         'catalogSettings' => 'Vushop_Controller_Admin_CatalogSettingsController',
-        'updateIndex' => 'Vushop_Controller_Admin_UpdateIndexController');
+        'updateIndex' => 'Vushop_Controller_Admin_UpdateIndexController',
+ 		'users' => 'Vushop_Controller_Admin_UserListController', 
+        'deleteUser' => 'Vushop_Controller_Admin_DeleteUserController', 
+        'createUser' => 'Vushop_Controller_Admin_CreateUserController', 
+        'editUser' => 'Vushop_Controller_Admin_EditUserController');
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 
 /*

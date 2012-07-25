@@ -107,3 +107,11 @@
         <div dojoType="dijit.MenuItem" [:call name="renderMenuItemAction" menuItem=$menuItem:]>[:$menuItem.TITLE|escape:'html':]</div>
     [:/if:]
 [:/function:]
+
+[:function name=groupName groupId=0:]
+    [:if isset($groupId) && $groupId eq 1:]
+        [:$MODEL.language->getMessage('msg.adminCp'):]
+    [:else:]
+    	[:$MODEL.language->getMessage('msg.member'):]
+    [:/if:]   
+[:/function:]

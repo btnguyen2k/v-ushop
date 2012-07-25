@@ -73,13 +73,13 @@ class Vushop_Controller_Admin_SiteSettingsController extends Vushop_Controller_A
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmSiteSettings');
         $dao = $this->getDao(DAO_CONFIG);
-        $form[self::FORM_FIELD_SITE_NAME] = $dao->loadConfig(CONFIG_SITE_NAME);
-        $form[self::FORM_FIELD_SITE_TITLE] = $dao->loadConfig(CONFIG_SITE_TITLE);
-        $form[self::FORM_FIELD_SITE_KEYWORDS] = $dao->loadConfig(CONFIG_SITE_KEYWORDS);
-        $form[self::FORM_FIELD_SITE_DESCRIPTION] = $dao->loadConfig(CONFIG_SITE_DESCRIPTION);
-        $form[self::FORM_FIELD_SITE_SLOGAN] = $dao->loadConfig(CONFIG_SITE_SLOGAN);
-        $form[self::FORM_FIELD_SITE_COPYRIGHT] = $dao->loadConfig(CONFIG_SITE_COPYRIGHT);
-        $form[self::FORM_FIELD_SITE_SKIN] = $dao->loadConfig(CONFIG_SITE_SKIN);
+        $form[self::FORM_FIELD_SITE_NAME] = $this->getAppConfig(CONFIG_SITE_NAME);
+        $form[self::FORM_FIELD_SITE_TITLE] = $this->getAppConfig(CONFIG_SITE_TITLE);
+        $form[self::FORM_FIELD_SITE_KEYWORDS] = $this->getAppConfig(CONFIG_SITE_KEYWORDS);
+        $form[self::FORM_FIELD_SITE_DESCRIPTION] = $this->getAppConfig(CONFIG_SITE_DESCRIPTION);
+        $form[self::FORM_FIELD_SITE_SLOGAN] = $this->getAppConfig(CONFIG_SITE_SLOGAN);
+        $form[self::FORM_FIELD_SITE_COPYRIGHT] = $this->getAppConfig(CONFIG_SITE_COPYRIGHT);
+        $form[self::FORM_FIELD_SITE_SKIN] = $this->getAppConfig(CONFIG_SITE_SKIN);
         if ($this->isPostRequest()) {
             $lang = $this->getLanguage();
             $form[FORM_INFO_MESSAGES] = Array($lang->getMessage('msg.siteSettings.done'));
@@ -100,12 +100,12 @@ class Vushop_Controller_Admin_SiteSettingsController extends Vushop_Controller_A
         $siteCopyright = isset($_POST[self::FORM_FIELD_SITE_COPYRIGHT]) ? $_POST[self::FORM_FIELD_SITE_COPYRIGHT] : '';
         $siteSkin = isset($_POST[self::FORM_FIELD_SITE_SKIN]) ? $_POST[self::FORM_FIELD_SITE_SKIN] : '';
 
-        $dao->saveConfig(CONFIG_SITE_NAME, $siteName);
-        $dao->saveConfig(CONFIG_SITE_TITLE, $siteTitle);
-        $dao->saveConfig(CONFIG_SITE_KEYWORDS, $siteKeywords);
-        $dao->saveConfig(CONFIG_SITE_KEYWORDS, $siteDescription);
-        $dao->saveConfig(CONFIG_SITE_COPYRIGHT, $siteCopyright);
-        $dao->saveConfig(CONFIG_SITE_SKIN, $siteSkin);
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_NAME, $siteName));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_TITLE, $siteTitle));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_KEYWORDS, $siteKeywords));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_KEYWORDS, $siteDescription));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_COPYRIGHT, $siteCopyright));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_SKIN, $siteSkin));
         return FALSE;
     }
 }
