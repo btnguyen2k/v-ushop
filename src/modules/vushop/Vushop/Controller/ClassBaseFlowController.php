@@ -305,30 +305,21 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         return isset($_SESSION[SESSION_USER_ID]);
     }
     protected function getPageTitle() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteName = $dao->loadConfig(CONFIG_SITE_NAME)->getValue();
-        $siteTitle = $dao->loadConfig(CONFIG_SITE_TITLE)->getValue();
+        $siteName = $this->getAppConfig(CONFIG_SITE_NAME)->getValue();
+        $siteTitle = $this->getAppConfig(CONFIG_SITE_TITLE)->getValue();
         return "$siteName | $siteTitle";
     }
     protected function getPageKeywords() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteKeywords = $dao->loadConfig(CONFIG_SITE_KEYWORDS)->getValue();
-        return $siteKeywords;
+        return $this->getAppConfig(DAO_CONFIG);
     }
     protected function getPageDescription() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteDesc = $dao->loadConfig(CONFIG_SITE_DESCRIPTION)->getValue();
-        return $siteDesc;
+        return $this->getAppConfig(DAO_CONFIG);
     }
     protected function getPageCopyright() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteCopyright = $dao->loadConfig(CONFIG_SITE_COPYRIGHT)->getValue();
-        return $siteCopyright;
+        return $this->getAppConfig(DAO_CONFIG);
     }
     protected function getPageSlogan() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteSlogan = $dao->loadConfig(CONFIG_SITE_SLOGAN)->getValue();
-        return $siteSlogan;
+        return $this->getAppConfig(DAO_CONFIG);
     }
 
     /**
