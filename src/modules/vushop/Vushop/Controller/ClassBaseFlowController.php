@@ -218,6 +218,17 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     }
 
     /**
+     * Gets an application configuration setting.
+     *
+     * @param mixed $name
+     */
+    protected function getAppConfig($name) {
+        $configDao = $this->getDao(DAO_CONFIG);
+        $config = $configDao->loadConfig($name);
+        return $config != NULL ? $config->getValue() : NULL;
+    }
+
+    /**
      * Gets the {@link Quack_Bo_Site_ISiteDao} instance.
      *
      * @return Quack_Bo_Site_ISiteDao
