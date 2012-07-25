@@ -1,6 +1,6 @@
 <?php
 class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
-
+    
     /* Database table columns */
     const COL_ID = 'cat_id';
     const COL_POSITION = 'cat_position';
@@ -8,29 +8,29 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
     const COL_TITLE = 'cat_title';
     const COL_DESCRIPTION = 'cat_desc';
     const COL_IMAGE_ID = 'cat_image_id';
-
+    
     private $id, $position, $parentId, $title, $description, $imageId;
     private $children = Array();
-
+    
     private $urlDelete = NULL;
     private $urlEdit = NULL;
     private $urlMoveUp = NULL;
     private $urlMoveDown = NULL;
     private $urlView = NULL;
     private $urlThumbnail = NULL;
-
+    
     /**
      * @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
-        return Array(self::COL_ID => Array('id', self::TYPE_INT),
-                self::COL_POSITION => Array('position', self::TYPE_INT),
-                self::COL_PARENT_ID => Array('parentId', self::TYPE_INT),
-                self::COL_TITLE => Array('title'),
-                self::COL_DESCRIPTION => Array('description'),
+        return Array(self::COL_ID => Array('id', self::TYPE_INT), 
+                self::COL_POSITION => Array('position', self::TYPE_INT), 
+                self::COL_PARENT_ID => Array('parentId', self::TYPE_INT), 
+                self::COL_TITLE => Array('title'), 
+                self::COL_DESCRIPTION => Array('description'), 
                 self::COL_IMAGE_ID => Array('imageId'));
     }
-
+    
     /**
      * Gets the URL to delete the category.
      *
@@ -42,7 +42,7 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
         }
         return $this->urlDelete;
     }
-
+    
     /**
      * Gets the URL to edit the category.
      *
@@ -54,7 +54,7 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
         }
         return $this->urlEdit;
     }
-
+    
     /**
      * Gets the URL to move the category down.
      *
@@ -66,7 +66,7 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
         }
         return $this->urlMoveDown;
     }
-
+    
     /**
      * Gets the URL to move the category up.
      *
@@ -78,7 +78,7 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
         }
         return $this->urlMoveUp;
     }
-
+    
     /**
      * Gets the URL to view the category.
      *
@@ -90,7 +90,7 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
         }
         return $this->urlView;
     }
-
+    
     /**
      * Gets the URL to view the category's image as thumbnail.
      *
@@ -105,35 +105,35 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
         }
         return $this->urlThumbnail;
     }
-
+    
     public function getId() {
         return $this->id;
     }
-
+    
     public function setId($id) {
         $this->id = $id;
     }
-
+    
     public function getPosition() {
         return $this->position;
     }
-
+    
     public function setPosition($position) {
         $this->position = $position;
     }
-
+    
     public function getParentId() {
         return $this->parentId;
     }
-
+    
     public function setParentId($parentId) {
         $this->parentId = $parentId;
     }
-
+    
     public function getTitle() {
         return $this->title;
     }
-
+    
     public function getTitleForDisplay($maxLength = 20) {
         if ($maxLength < 10) {
             $maxLength = 10;
@@ -143,38 +143,42 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
         }
         return mb_substr($this->title, 0, $maxLength - 3) . '...';
     }
-
+    
     public function setTitle($title) {
         $this->title = $title;
     }
-
+    
     public function getDescription() {
         return $this->description;
     }
-
+    
     public function setDescription($description) {
         $this->description = $description;
     }
-
+    
     public function getImageId() {
         return $this->imageId;
     }
-
+    
     public function setImageId($imageId) {
         $this->imageId = $imageId;
     }
-
+    
     public function getChildren() {
         return $this->children;
     }
-
+    
     public function setChildren($children) {
         $this->children = $children;
         if (!is_array($this->children)) {
             $this->children = Array();
         }
     }
-
+    
+    public function hasChildren() {      
+        return !empty($this->children);
+    }
+    
     /**
      * Adds a child category.
      *
