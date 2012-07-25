@@ -115,15 +115,14 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
             return FALSE;
         }
 
-        $configDao = $this->getDao(DAO_CONFIG);
         require_once 'class.phpmailer.php';
         $mailer = new PHPMailer(TRUE);
-        $mailer->SetFrom($configDao->loadConfig(CONFIG_EMAIL_OUTGOING));
-        $mailer->AddAddress($configDao->loadConfig(CONFIG_EMAIL_ORDER_NOTIFICATION));
+        $mailer->SetFrom($this->getAppConfig(CONFIG_EMAIL_OUTGOING));
+        $mailer->AddAddress($this->getAppConfig(CONFIG_EMAIL_ORDER_NOTIFICATION));
         //$mailer->ContentType = 'text/html';
         $mailer->CharSet = 'UTF-8';
-        $subject = $configDao->loadConfig(CONFIG_EMAIL_ON_SUBJECT);
-        $body = $configDao->loadConfig(CONFIG_EMAIL_ON_BODY);
+        $subject = $this->getAppConfig(CONFIG_EMAIL_ON_SUBJECT);
+        $body = $this->getAppConfig(CONFIG_EMAIL_ON_BODY);
         $cart = $this->getCurrentCart();
         $orderItems = '<table border="1"><thread><tr><th style="text-align: center;">';
         $orderItems .= $lang->getMessage('msg.item') . '</th>';
@@ -154,10 +153,10 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         $orderItems .= '</table>';
 
         $replacements = Array(
-                'SITE_NAME' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_NAME)),
-                'SITE_TITLE' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_TITLE)),
-                'SITE_SLOGAN' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_SLOGAN)),
-                'SITE_COPYRIGHT' => htmlspecialchars($configDao->loadConfig(CONFIG_SITE_COPYRIGHT)),
+                'SITE_NAME' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_NAME)),
+                'SITE_TITLE' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_TITLE)),
+                'SITE_SLOGAN' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_SLOGAN)),
+                'SITE_COPYRIGHT' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_COPYRIGHT)),
                 'ORDER_NAME' => htmlspecialchars($orderName),
                 'ORDER_EMAIL' => htmlspecialchars($orderEmail),
                 'ORDER_PHONE' => htmlspecialchars($orderPhone),
@@ -169,22 +168,22 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         $mailer->AltBody = 'To view the message, please use an HTML compatible email viewer!';
         $mailer->MsgHTML($this->renderEmail($body, $replacements));
 
-        if ($configDao->loadConfig(CONFIG_USE_SMTP) != 0) {
+        if ($this->getAppConfig(CONFIG_USE_SMTP) != 0) {
             $mailer->IsSMTP();
-            $smtpHost = $configDao->loadConfig(CONFIG_SMTP_HOST);
-            $smtpPort = $configDao->loadConfig(CONFIG_SMTP_PORT);
+            $smtpHost = $this->getAppConfig(CONFIG_SMTP_HOST);
+            $smtpPort = $this->getAppConfig(CONFIG_SMTP_PORT);
             $mailer->Host = $smtpHost;
             if ($smtpPort) {
                 $mailer->Port = $smtpPort;
             }
-            $smtpUsername = $configDao->loadConfig(CONFIG_SMTP_USERNAME);
-            $smtpPassword = $configDao->loadConfig(CONFIG_SMTP_PASSWORD);
+            $smtpUsername = $this->getAppConfig(CONFIG_SMTP_USERNAME);
+            $smtpPassword = $this->getAppConfig(CONFIG_SMTP_PASSWORD);
             if ($smtpUsername != '') {
                 $mailer->SMTPAuth = TRUE;
                 $mailer->Username = $smtpUsername;
                 $mailer->Password = $smtpPassword;
             }
-            if ($configDao->loadConfig(CONFIG_SMTP_SSL) != 0) {
+            if ($this->getAppConfig(CONFIG_SMTP_SSL) != 0) {
                 $mailer->SMTPSecure = 'ssl';
             }
         }
