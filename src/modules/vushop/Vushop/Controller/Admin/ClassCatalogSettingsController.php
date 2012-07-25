@@ -13,6 +13,7 @@ class Vushop_Controller_Admin_CatalogSettingsController extends Vushop_Controlle
     const FORM_FIELD_QUANTITY_EXAMPLE = 'quantityExample';
 
     /**
+     *
      * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
@@ -20,6 +21,7 @@ class Vushop_Controller_Admin_CatalogSettingsController extends Vushop_Controlle
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -32,16 +34,16 @@ class Vushop_Controller_Admin_CatalogSettingsController extends Vushop_Controlle
     }
 
     /**
+     *
      * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmCatalogSettings');
-        $dao = $this->getDao(DAO_CONFIG);
-        $form[self::FORM_FIELD_CURRENCY] = $dao->loadConfig(CONFIG_CURRENCY);
-        $form[self::FORM_FIELD_PRICE_DECIMAL_PLACES] = $dao->loadConfig(CONFIG_PRICE_DECIMAL_PLACES);
-        $form[self::FORM_FIELD_QUANTITY_DECIMAL_PLACES] = $dao->loadConfig(CONFIG_QUANTITY_DECIMAL_PLACES);
-        $form[self::FORM_FIELD_DECIMAL_SEPARATOR] = $dao->loadConfig(CONFIG_DECIMAL_SEPARATOR);
-        $form[self::FORM_FIELD_THOUSANDS_SEPARATOR] = $dao->loadConfig(CONFIG_THOUSANDS_SEPARATOR);
+        $form[self::FORM_FIELD_CURRENCY] = $this->getAppConfig(CONFIG_CURRENCY);
+        $form[self::FORM_FIELD_PRICE_DECIMAL_PLACES] = $this->getAppConfig(CONFIG_PRICE_DECIMAL_PLACES);
+        $form[self::FORM_FIELD_QUANTITY_DECIMAL_PLACES] = $this->getAppConfig(CONFIG_QUANTITY_DECIMAL_PLACES);
+        $form[self::FORM_FIELD_DECIMAL_SEPARATOR] = $this->getAppConfig(CONFIG_DECIMAL_SEPARATOR);
+        $form[self::FORM_FIELD_THOUSANDS_SEPARATOR] = $this->getAppConfig(CONFIG_THOUSANDS_SEPARATOR);
 
         $currency = $form[self::FORM_FIELD_CURRENCY];
         $priceDecimalPlaces = $form[self::FORM_FIELD_PRICE_DECIMAL_PLACES];
@@ -61,6 +63,7 @@ class Vushop_Controller_Admin_CatalogSettingsController extends Vushop_Controlle
     }
 
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
@@ -85,11 +88,15 @@ class Vushop_Controller_Admin_CatalogSettingsController extends Vushop_Controlle
             $thousandsSeparator = $thousandsSeparator[0];
         }
 
-        $dao->saveConfig(CONFIG_CURRENCY, $currency);
-        $dao->saveConfig(CONFIG_PRICE_DECIMAL_PLACES, $priceDecimalPlaces);
-        $dao->saveConfig(CONFIG_QUANTITY_DECIMAL_PLACES, $quantityDecimalPlaces);
-        $dao->saveConfig(CONFIG_DECIMAL_SEPARATOR, $decimalSeparator);
-        $dao->saveConfig(CONFIG_THOUSANDS_SEPARATOR, $thousandsSeparator);
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_CURRENCY, $currency));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_PRICE_DECIMAL_PLACES,
+                $priceDecimalPlaces));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_QUANTITY_DECIMAL_PLACES,
+                $quantityDecimalPlaces));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_DECIMAL_SEPARATOR,
+                $decimalSeparator));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_THOUSANDS_SEPARATOR,
+                $thousandsSeparator));
 
         return FALSE;
     }
