@@ -305,8 +305,8 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         return isset($_SESSION[SESSION_USER_ID]);
     }
     protected function getPageTitle() {
-        $siteName = $this->getAppConfig(CONFIG_SITE_NAME)->getValue();
-        $siteTitle = $this->getAppConfig(CONFIG_SITE_TITLE)->getValue();
+        $siteName = $this->getAppConfig(CONFIG_SITE_NAME);
+        $siteTitle = $this->getAppConfig(CONFIG_SITE_TITLE);
         return "$siteName | $siteTitle";
     }
     protected function getPageKeywords() {
