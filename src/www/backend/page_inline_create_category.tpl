@@ -21,13 +21,24 @@
         [:/if:]
         [:call name="printFormHeader" form=$FORM:]
         
+        [:function name="printCategoryTreeSelectBox" catList=NULL index=0 selectedCatId=0:]
+            [:foreach $catList as $cat:]
+                <option [:if $selectedCatId==$cat->getId():]selected="selected"[:/if:] value="[:$cat->getId():]">
+                    [:if ($index > 0):]
+                        +[:for $_=1 to $index:]-[:/for:]&nbsp;
+                    [:/if:]
+                    [:$cat->getTitle()|escape:'html':]
+                </option>
+                [:if (count($cat->getChildren()) > 0):]
+                    [:call name="printCategoryTreeSelectBox" catList=$cat->getChildren() index=$index+1 selectedCatId=$selectedCatId:]
+                [:/if:]
+            [:/foreach:]
+        [:/function:]
         <p></p>
         <label for="form_parentId">[:$LANG->getMessage('msg.category.parent'):]:</label>
         <select dojoType="dijit.form.Select" name="parentId">
             <option value="0"></option>
-            [:foreach $MODEL.categoryTree as $cat:]
-                <option [:if $MODEL.form.parentId==$cat->getId():]selected="selected"[:/if:] value="[:$cat->getId():]">[:$cat->getTitle()|escape:'html':]</option>
-            [:/foreach:]
+            [:call name="printCategoryTreeSelectBox" catList=$MODEL.categoryTree index=0 selectedCatId=$MODEL.form.parentId:]
         </select>
         <br />
             
