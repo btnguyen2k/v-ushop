@@ -47,6 +47,8 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
         $params = Array(Vushop_Bo_Cart_BoCart::COL_SESSION_ID => $sessionId,
                 Vushop_Bo_Cart_BoCart::COL_USER_ID => (int)$userId);
         $this->execNonSelect($sqlStm, $params);
+        $cacheKey = $this->createCacheKeyCart($sessionId);
+        $this->invalidateCache($sessionId);
         $result = $this->getCart($sessionId);
         return $result;
     }
@@ -69,31 +71,25 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
      */
     public function getCart($sessionId) {
         $cacheKey = $this->createCacheKeyCart($sessionId);
-        $cart = $this->getFromCache($cacheKey);
-        if ($cart === NULL) {
-            // pre-open a connection so that subsequence operations will reuse
-            // it
-            $conn = $this->getConnection();
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
             $params = Array(Vushop_Bo_Cart_BoCart::COL_SESSION_ID => $sessionId);
             $rows = $this->execSelect($sqlStm, $params);
             if ($rows !== NULL && count($rows) > 0) {
-                $cart = new Vushop_Bo_Cart_BoCart();
-                $cart->populate($rows[0]);
+                $result = new Vushop_Bo_Cart_BoCart();
+                $result->populate($rows[0]);
             } else {
-                $cart = NULL;
+                $result = NULL;
             }
-            if ($cart !== NULL) {
-                $items = $this->getItemsInCart($cart);
+            if ($result !== NULL) {
+                $items = $this->getItemsInCart($result);
                 foreach ($items as $item) {
-                    $cart->addItem($item);
+                    $result->addItem($item);
                 }
-                $this->putToCache($cacheKey, $cart);
             }
-            $this->closeConnection();
         }
-
-        return $cart;
+        return $this->returnCachedResult($result, $cacheKey);
     }
 
     /**

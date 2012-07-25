@@ -2,10 +2,10 @@
 class Vushop_Bo_Cart_BoCartItem extends Vushop_Bo_Catalog_BoItem {
 
     /* Database table columns */
-    const COL_SESSION_ID = 'sessionId';
-    const COL_ITEM_ID = 'itemId';
-    const COL_QUANTITY = 'itemQuantity';
-    const COL_PRICE = 'itemPrice';
+    const COL_SESSION_ID = 'session_id';
+    const COL_ITEM_ID = 'item_id';
+    const COL_QUANTITY = 'item_quantity';
+    const COL_PRICE = 'item_price';
 
     private $sessionId, $itemId, $quantity;
 
