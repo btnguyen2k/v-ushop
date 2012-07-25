@@ -1,20 +1,20 @@
 <?php
 class Vushop_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
 
-    const COL_ID = 'itemId';
-    const COL_ACTIVE = 'itemActive';
-    const COL_CATEGORY_ID = 'itemCategoryId';
-    const COL_TITLE = 'itemTitle';
-    const COL_DESCRIPTION = 'itemDescription';
-    const COL_VENDOR = 'itemVendor';
-    const COL_CODE = 'itemCode';
-    const COL_TIMESTAMP = 'itemTimestamp';
-    const COL_PRICE = 'itemPrice';
-    const COL_OLD_PRICE = 'itemOldPrice';
-    const COL_STOCK = 'itemStock';
-    const COL_IMAGE_ID = 'itemImageId';
-    const COL_HOT_ITEM = 'itemHotItem';
-    const COL_NEW_ITEM = 'itemNewItem';
+    const COL_ID = 'item_id';
+    const COL_ACTIVE = 'item_active';
+    const COL_CATEGORY_ID = 'item_category_id';
+    const COL_TITLE = 'item_title';
+    const COL_DESCRIPTION = 'item_description';
+    const COL_VENDOR = 'item_vendor';
+    const COL_CODE = 'item_code';
+    const COL_TIMESTAMP = 'item_timestamp';
+    const COL_PRICE = 'item_price';
+    const COL_OLD_PRICE = 'item_old_price';
+    const COL_STOCK = 'item_stock';
+    const COL_IMAGE_ID = 'item_image_id';
+    const COL_HOT_ITEM = 'item_hot_item';
+    const COL_NEW_ITEM = 'item_new_item';
 
     private $id, $active, $categoryId, $title, $description, $vendor, $code;
     private $timestamp;
@@ -31,6 +31,7 @@ class Vushop_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
     private $urlImage = NULL;
 
     /**
+     *
      * @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {

@@ -2,12 +2,12 @@
 class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
 
     /* Database table columns */
-    const COL_ID = 'catId';
-    const COL_POSITION = 'catPosition';
-    const COL_PARENT_ID = 'catParentId';
-    const COL_TITLE = 'catTitle';
-    const COL_DESCRIPTION = 'catDesc';
-    const COL_IMAGE_ID = 'catImageId';
+    const COL_ID = 'cat_id';
+    const COL_POSITION = 'cat_position';
+    const COL_PARENT_ID = 'cat_parent_id';
+    const COL_TITLE = 'cat_title';
+    const COL_DESCRIPTION = 'cat_desc';
+    const COL_IMAGE_ID = 'cat_image_id';
 
     private $id, $position, $parentId, $title, $description, $imageId;
     private $children = Array();
