@@ -9,8 +9,8 @@
         
         <label for="form_groupId">[:$LANG->getMessage('msg.category.group'):]:</label>
         <select name="groupId" style="width: 150px">
-            <option value="1">[:$LANG->getMessage('msg.adminCp'):]</option>
-            <option value="2">[:$LANG->getMessage('msg.member'):]</option>
+             <option value="1" [:if $MODEL.form.groupId ==1:]selected="selected"[:/if:]>[:$LANG->getMessage('msg.adminCp'):]</option>
+            <option value="2" [:if $MODEL.form.groupId ==2:]selected="selected"[:/if:]>[:$LANG->getMessage('msg.member'):]</option>
         </select>
         <br />
           

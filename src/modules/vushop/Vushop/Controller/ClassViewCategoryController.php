@@ -1,23 +1,23 @@
 <?php
-class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_ViewCategoryController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME = 'viewCategory';
     const VIEW_NAME_ERROR = 'error';
-
+    
     /**
-     * @var Vcatalog_Bo_Catalog_BoCategory
+     * @var Vushop_Bo_Catalog_BoCategory
      */
     private $category = NULL;
     private $categoryId;
     private $itemSorting;
     private $pageNum;
-
+    
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
-
+    
     /**
      * Populates categoryId and category instance.
      *
@@ -30,7 +30,7 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
         $requestParser = Dzit_RequestParser::getInstance();
         $this->categoryId = (int)$requestParser->getPathInfoParam(1);
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->category = $catalogDao->getCategoryById($this->categoryId);
@@ -38,7 +38,7 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
             $children = $catalogDao->getCategoryChildren($this->category);
             $this->category->setChildren($children);
         }
-
+        
         $this->itemSorting = isset($_SESSION[SESSION_ITEM_SORTING]) ? $_SESSION[SESSION_ITEM_SORTING] : DEFAULT_ITEM_SORTING;
         if (isset($_GET['s'])) {
             $this->itemSorting = $_GET['s'];
@@ -47,13 +47,13 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
             $this->itemSorting = DEFAULT_ITEM_SORTING;
         }
         $_SESSION[SESSION_ITEM_SORTING] = $this->itemSorting;
-
+        
         $this->pageNum = isset($_GET['p']) ? (int)$_GET['p'] : 1;
         if ($this->pageNum < 1) {
             $this->pageNum = 1;
         }
     }
-
+    
     /**
      * Test if the category to be viewed is valid.
      *
@@ -69,7 +69,7 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
         }
         return TRUE;
     }
-
+    
     /**
      * @see Dzit_Controller_FlowController::getModelAndView_Error()
      */
@@ -79,39 +79,39 @@ class Vcatalog_Controller_ViewCategoryController extends Vcatalog_Controller_Bas
         if ($model == NULL) {
             $model = Array();
         }
-
+        
         $lang = $this->getLanguage();
         $model[MODEL_ERROR_MESSAGES] = $this->getErrorMessages();
-
+        
         return new Dzit_ModelAndView($viewName, $model);
     }
-
+    
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
         if ($model === NULL) {
             $model = Array();
         }
-
+        
         $model['categoryObj'] = $this->category;
-
+        
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $pageSize = DEFAULT_PAGE_SIZE;
         $itemSorting = $this->itemSorting;
         $itemsInPage = $catalogDao->getItemsForCategory($this->category, $this->pageNum, $pageSize, $itemSorting);
         $model[MODEL_ITEM_LIST] = $itemsInPage;
-
+        $model[CATEGORY_NAME] = $this->category->getTitle();
         $urlTemplate = $this->category->getUrlView() . '?p=${PAGE}';
         $urlTemplate .= '&s=' . $this->itemSorting;
         $numItems = $catalogDao->countNumItemsForCategory($this->category);
         $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $pageSize, $this->pageNum);
         $model[MODEL_PAGINATOR] = $paginator;
-
+        
         return $model;
     }
 }

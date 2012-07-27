@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME = 'checkout';
     const VIEW_NAME_ERROR = 'error';
     const VIEW_NAME_AFTER_POST = 'info';
@@ -26,7 +26,7 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -68,7 +68,7 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $cart = $this->getCurrentCart();

@@ -4,21 +4,27 @@
 
 <head>
 
-    <meta name="Description" content="Information architecture, Web Design, Web Standards." />
-    <meta name="Keywords" content="your, keywords" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="Distribution" content="Global" />
-    <meta name="Author" content="Erwin Aligam - ealigam@gmail.com" />
-    <meta name="Robots" content="index,follow" />
-	<base href="[:$MODEL.basehref:]" />
+   <base href="[:$MODEL.basehref:]" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="[:$MODEL.page.description|escape:'html':]" />
+    <meta name="keywords" content="[:$MODEL.page.keywords|escape:'html':]" />
+    <meta name="author" content="GPV.COM.VN/" />
+    [:assign var="LANG" value=$MODEL.language scope=root:]
+    [:if isset($MODEL.user):]
+        [:assign var="USER" value=$MODEL.user scope=root:]
+    [:/if:]
+    [:if isset($MODEL.form):]
+        [:assign var="FORM" value=$MODEL.form scope=root:]
+    [:/if:]
 	<link rel="stylesheet" href="css/market_place.css" type="text/css" />
 	<link rel="stylesheet" href="css/jquery.simplyscroll.css" type="text/css" />
+	<link rel="stylesheet" href="css/simpletree.css" type="text/css" />
 	
 	<script src="js/jquery.js" type="text/javascript"></script>  
 	<script src="js/jquery.min.js" type="text/javascript"></script>  
 	<script src="js/jquery.tools.min.js" type="text/javascript"></script>  
-	<script src="js/jquery.simplyscroll.js" type="text/javascript"></script>  
 	<script src="js/script.js" type="text/javascript"></script> 
+	<script src="js/simpletreemenu.js" type="text/javascript"></script> 
 
   <title>[:$MODEL.page.title|escape:'html':]</title>
     [:if isset($MODEL.urlTransit):]

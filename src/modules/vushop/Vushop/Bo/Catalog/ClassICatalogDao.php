@@ -112,6 +112,18 @@ interface Vushop_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param Vushop_Bo_Catalog_BoCategory $cat
      */
     public function getItemsForCategory($cat, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE);
+    
+    
+     /**
+     * Gets all items within a category of shop as a list.
+     *
+     *
+     * @param Vushop_Bo_Catalog_BoCategory $cat
+     * @param Vushop_Bo_Catalog_BoShop $shop
+     */
+    public function getItemsForCategoryShop($cat,$ownerId, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE);
+    
+    
 
     /**
      * Searches for items.
@@ -144,4 +156,5 @@ interface Vushop_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param Vushop_Bo_Catalog_BoItem $item
      */
     public function updateItem($item);
+    
 }

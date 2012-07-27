@@ -1,13 +1,7 @@
 		
 	<h1>DANH MỤC</h1>
 	
-	<ul class="sidemenu">				
-		<li><a href="#">THỜI TRANG</a></li>
-		<li><a href="#">GIÀY/DÉP/TÚI XÁCH</a></li>
-		<li><a href="#">TRANG SỨC/MỸ PHẨM</a></li>
-		<li><a href="#">SẢN PHẨM KHÁC</a></li>
-		<li><a href="#">KHUYẾN MÃI</a></li>
-	</ul>
+	[:call name=categoryTree:]
 	
 	<h1>QUẢNG CÁO</h1>
 <br/>

@@ -34,8 +34,8 @@ define('CONFIG_THUMBNAIL_HEIGHT', 'thumbnail_height');
 define('MAX_UPLOAD_FILESIZE', 300000);
 define('ALLOWED_UPLOAD_FILE_TYPES', '*.gif,*.jpg;.*.png');
 
-define('THUMBNAIL_WIDTH', 260);
-define('THUMBNAIL_HEIGHT', 180);
+define('THUMBNAIL_WIDTH', 230);
+define('THUMBNAIL_HEIGHT', 200);
 
 define('FORM_ERROR_MESSAGES', 'errorMessages');
 define('FORM_INFO_MESSAGES', 'infoMessages');
@@ -46,6 +46,7 @@ define('MODEL_APP_VERSION', 'APP_VERSION');
 define('MODEL_REQUEST_MODULE', 'reqModule');
 define('MODEL_REQUEST_ACTION', 'reqAction');
 
+define('MODEL_SHOP_OWNERS', 'shopOwners');
 define('MODEL_USER_LIST', 'userList');
 define('MODEL_CATEGORY_TREE', 'categoryTree');
 define('MODEL_CATEGORY_LIST', 'categoryList');
@@ -64,6 +65,8 @@ define('MODEL_TRANSIT_MESSAGE', 'transitMessage');
 define('MODEL_URL_TRANSIT', 'urlTransit');
 define('MODEL_PAGINATOR', 'paginator');
 define('MODEL_DEBUG', 'debug');
+
+define('CATEGORY_NAME', 'categoryName');
 
 define('SESSION_ITEM_SORTING', 'ITEM_SORTING');
 define('SESSION_LAST_ACCESS_URL', 'LAST_ACCESS_URL');
@@ -91,6 +94,7 @@ define('USER_GROUP_ADMIN', 1);
 define('USER_GROUP_SITE_OWNER', 2);
 
 define('DAO_SITE', 'dao.site');
+
 
 define('DAO_CATALOG', 'dao.catalog');
 define('DAO_CART', 'dao.cart');

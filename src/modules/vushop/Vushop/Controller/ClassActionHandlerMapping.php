@@ -22,6 +22,10 @@ $YADIF_CONFIG = Array(
                 'class' => 'Vushop_Controller_ViewAdsController',
                 'scope' => 'singleton'),
 
+         'Vushop_Controller_ViewShopController' => Array(
+                'class' => 'Vushop_Controller_ViewShopController',
+                'scope' => 'singleton'),
+
         'Vushop_Controller_ViewPageController' => Array(
                 'class' => 'Vushop_Controller_ViewPageController',
                 'scope' => 'singleton'),

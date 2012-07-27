@@ -1,0 +1,43 @@
+.treeview { /*CSS for Simple Tree Menu*/
+	text-align: left;
+	margin: 7px 8px 8px 10px;
+	padding: 0;	
+	/*border-top: 1px solid #FFDB7E;*/
+	width: 100%;
+	text-decoration: none;
+	font-size: 13px;
+}
+
+.treeview li {
+	/*Style for LI elements in general (excludes an LI that contains sub lists)*/
+	background: white url(../images/icons/list.png) no-repeat;
+	list-style: none;
+	padding-left: 15px;
+	margin: 0 2px;
+	border-bottom: 1px solid #9E9E9E;
+	border-bottom-style: dotted;
+}
+
+ul.treeview :last-child {
+	border: 0;
+}
+
+.treeview li.submenu {
+	/* Style for LI that contains sub lists (other ULs). */
+	background: white url(../images/icons/closed.gif) no-repeat left 1px;
+	cursor: pointer !important;
+}
+
+.treeview li.submenu ul {
+	/*Style for ULs that are children of LIs (submenu) */
+	display: none; /*Hide them by default. Don't delete. */
+	margin-left: -12px;
+	white-space: nowrap;
+}
+
+.treeview .submenu ul li {
+	/*Style for LIs of ULs that are children of LIs (submenu) */
+	cursor: pointer;
+	margin-left: -12px;
+}
+

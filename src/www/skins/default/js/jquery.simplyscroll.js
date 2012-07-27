@@ -56,8 +56,7 @@ $.simplyScroll = function(el,options) {
 	
 	//generate extra markup
 	this.$list.addClass('simply-scroll-list')
-		.wrap('<div class="simply-scroll-clip"></div>')
-		.parent().wrap('<div class="' + this.o.customClass + ' simply-scroll-container"></div>');
+		.wrap('<div class="simply-scroll-clip"></div>').parent().wrap('<div class="' + this.o.customClass + ' simply-scroll-container"></div>')
 	
 	if (!this.isAuto) { //button placeholders
 		this.$list.parent().parent()

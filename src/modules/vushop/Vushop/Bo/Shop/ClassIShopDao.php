@@ -7,7 +7,7 @@ interface Vushop_Bo_Shop_IShopDao extends Ddth_Dao_IDao {
      * @return Array
      */
     public function getShops();
-
+    
     /**
      * Gets a shop by id.
      *

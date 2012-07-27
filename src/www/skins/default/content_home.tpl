@@ -1,38 +1,22 @@
 <!--- main column starts-->
-		<div id="main">
-			<h1>DANH SÁCH SHOP</h1>
-			<br></br>			
-			<div class="shop" >
-				<div class="shop-title-blue">SHOP 1</div>
-				<p>
-					<img src="images/shop1.jpg"   alt="" />
-					
-				</p>
+<div id="main">
+	<h1>DANH SÁCH SHOP</h1>
+	<br></br>			
+	[:if isset($MODEL.shopOwners) && count($MODEL.shopOwners) gt 0:]
+		[:foreach $MODEL.shopOwners as $_shop:]
+			 [:if $_shop->getUrlThumbnail()=='':]
+                [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
+            [:else:]
+                [:assign var="_urlThumbnail" value=$_shop->getUrlThumbnail():]
+            [:/if:]
+			<div class="shop" onclick="redirect('[:$_shop->getUrlView():]')">
+				<div class="[:if $_shop@index %2==0:]shop-title-blue[:else:]shop-title-red[:/if:]">[:$_shop->getTitle():]</div>
+				<img src="[:$_urlThumbnail:]"  alt="" />
 			</div>
 			
-			<div class="shop" >
-				<div class="shop-title-red">SHOP 2</div>
-					<p>
-						<img src="images/shop2.jpg" width="100%"   alt="" />
-						
-					</p>
-			</div>
-			<br style="clear: both;"/>
-			<div class="shop" >
-				<div class="shop-title-blue">SHOP 3</div>
-				<p>
-					<img src="images/shop1.jpg"   alt="" />
-					
-				</p>
-			</div>
-			
-			<div class="shop" >
-				<div class="shop-title-red">SHOP 4</div>
-					<p>
-						<img src="images/shop2.jpg" width="100%"   alt="" />
-						
-					</p>
-			</div>
-			
+		[:/foreach:] 
+	[:else:]
+		[:call name=noData:]
+	[:/if:]	
 		</div>
 <!--- main column ends -->

@@ -1,5 +1,5 @@
 <?php
-class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_AddToCartController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME_ERROR = 'error';
     const VIEW_NAME_AFTER_POST = 'info';
 
@@ -7,7 +7,7 @@ class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFl
     const FORM_FIELD_QUANTITY = 'quantity';
 
     /**
-     * @var Vcatalog_Bo_Catalog_BoItem
+     * @var Vushop_Bo_Catalog_BoItem
      */
     private $item = NULL;
     private $itemId;
@@ -24,7 +24,7 @@ class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFl
             $this->quantity = isset($_POST[self::FORM_FIELD_QUANTITY]) ? (double)$_POST[self::FORM_FIELD_QUANTITY] : 0.0;
 
             /**
-             * @var Vcatalog_Bo_Cart_ICartDao
+             * @var Vushop_Bo_Cart_ICartDao
              */
             $catalogDao = $this->getDao(DAO_CATALOG);
             $this->item = $catalogDao->getItemById($this->itemId);
@@ -96,11 +96,11 @@ class Vcatalog_Controller_AddToCartController extends Vcatalog_Controller_BaseFl
         $quantity = $this->quantity;
         $item = $this->item;
         /**
-         * @var Vcatalog_Bo_Cart_BoCart
+         * @var Vushop_Bo_Cart_BoCart
          */
         $cart = $this->getCurrentCart();
         /**
-         * @var Vcatalog_Bo_Cart_ICartDao
+         * @var Vushop_Bo_Cart_ICartDao
          */
         $cartDao = $this->getDao(DAO_CART);
         if ($cart->existInCart($item)) {

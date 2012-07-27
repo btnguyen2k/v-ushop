@@ -56,13 +56,13 @@ class Vushop_Controller_Admin_CreateItemController extends Vushop_Controller_Adm
      * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
-        $model = parent::buildModel_Custom();
+         $model = parent::buildModel_Custom();
         if ($model == NULL) {
             $model = Array();
         }
         /**
          *
-         * @var Vushop_Bo_Catalog_ICatalogDao
+         * @var Vcatalog_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $catTree = $catalogDao->getCategoryTree();

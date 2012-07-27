@@ -8,7 +8,7 @@ class Vushop_Bo_Shop_BoShop extends Quack_Bo_BaseBo {
     const COL_DESC = 'shop_description';
     const COL_IMAGE_ID = 'image_id';
 
-    private $ownerId, $position, $title, $description, $imageId;
+    private $ownerId, $position, $title, $description, $imageId, $user,$urlThumbnail, $allItems;
 
     /*
      * (non-PHPdoc) @see Quack_Bo_BaseBo::getFieldMap()
@@ -20,8 +20,23 @@ class Vushop_Bo_Shop_BoShop extends Quack_Bo_BaseBo {
                 self::COL_DESC => Array('description'),
                 self::COL_IMAGE_ID => Array('imageId'));
     }
+    
+    
 
     /**
+	 * @return the $urlThumbnail
+	 */
+	public function getUrlThumbnail() {
+		if ($this->urlThumbnail === NULL) {
+            $this->urlThumbnail = Paperclip_Utils::createUrlThumbnail($this->imageId);
+            if ($this->urlThumbnail === NULL) {
+                $this->urlThumbnail = '';
+            }
+        }
+        return $this->urlThumbnail;
+	}
+
+	/**
      * Getter for $ownerId.
      *
      * @return field_type
@@ -110,5 +125,39 @@ class Vushop_Bo_Shop_BoShop extends Quack_Bo_BaseBo {
     public function setImageId($imageId) {
         $this->imageId = $imageId;
     }
+    
+    
+	/**
+	 * @return Object $user
+	 */
+	public function getUser() {
+		return $this->user;
+	}
+
+	/**
+	 * Setter for $user.
+	 * 
+	 * @param Object $user
+	 */
+	public function setUser($user) {
+		$this->user = $user;
+	}
+	/**
+	 * @return the $allItems
+	 */
+	public function getAllItems() {
+		return $this->allItems;
+	}
+
+	/**
+	 * @param field_type $allItems
+	 */
+	public function setAllItems($allItems) {
+		$this->allItems = $allItems;
+	}
+
+
+    
+    
 
 }

@@ -1,7 +1,7 @@
 [:include file='inc_functions.tpl':][:include file='fragment_html_header.tpl':]
 <body >
 	<div id="wrap">
-    [:include file='fragment_page_header.tpl':]    
+    [:include file='fragment_page_header.tpl':]  
     	<div id="left-column" >	
     		[:if !isset($DISABLE_COLUMN_LEFT):]                
         		[:include file='inc_column_left.tpl':]

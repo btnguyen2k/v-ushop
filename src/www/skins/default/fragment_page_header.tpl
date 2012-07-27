@@ -6,26 +6,20 @@
 				<p>
 				<a href=""><img src="images/shoppingcart.jpg" alt="some_text"/>
 				2 Sản phẩm. Tổng cộng 2,500,000	</a>
-				</p>				
-				<p style="font-weight: bold;font-size: 12px">Chào Nguyễn văn A | <a href="#">Thoát</a></p>
+				</p>
+				[:if isset($USER):]	
+					<p style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.hello'):] [:$USER->getDisplayName():]	| <a href="[:$MODEL.urlLogout:]">[:$LANG->getMessage('msg.logout'):]</a></p>
+				[:else:]
+					<p style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):] | <a href="#">[:$LANG->getMessage('msg.register'):]</a></p>	
+				[:/if:]		
+				
 		</div>							
 	</div>
 <!--/ header ends-->
 
 		
 <!-- navigation starts-->	
-	<div  id="nav">
-		<ul>	
-			<li><a href="#">TRANG CHỦ</a></li>
-			<li><a href="#">THỜI TRANG</a></li>
-			<li><a href="#">GIÀY/DÉP/TÚI XÁCH</a></li>
-			<li><a href="#">TRANG SỨC/MỸ PHẨM</a></li>
-			<li><a href="#">SẢN PHẨM KHÁC</a></li>
-			<li><a href="#">KHUYẾN MÃI</a></li>
-			<li><a href="#">TIN TỨC</a></li>
-			<li><a href="#">LIÊN HỆ</a></li>
-		</ul>
-	</div>	
+	[:call name=topMenu:]
 <!--/ navigation ends-->		
 	
 <!-- header photo start-->				
@@ -38,31 +32,20 @@
 <!--/ header photo ends-->
 
 <!-- sidebar top -->
+[:if isset($MODEL.hotItems) && count($MODEL.hotItems) gt 0:]
 	<div class="sidebar-top">
 		<h1>Sản Phẩm Nổi Bật Nhất</h1>
 		<ul id="scroller" >
-            <li onclick=""><img src="images/sanpham1.png" class="sanpham" alt="Firehouse">D001 San pham 01</li>
-            <li><img src="images/sanpham1.png" class="sanpham" alt="Chloe nightclub"> D001 San pham 01</li>
-            <li><img src="images/sanpham2.png" class="sanpham" alt="Firehouse bar"> D001 San pham 01</li>
-            <li><img src="images/sanpham3.png" class="sanpham" alt="Firehouse chloe club fishtank">D001 San pham 01</li>
-            <li><img src="images/sanpham4.png" class="sanpham" alt="Firehouse restaurant">D001 San pham 01</li>
-             <li><img src="images/sanpham1.png" class="sanpham" alt="Firehouse">D001 San pham 01</li>
-            <li><img src="images/sanpham1.png" class="sanpham" alt="Chloe nightclub">D001 San pham 01</li>
-            <li><img src="images/sanpham2.png" class="sanpham" alt="Firehouse bar">D001 San pham 01</li>
-            <li><img src="images/sanpham3.png" class="sanpham" alt="Firehouse chloe club fishtank">D001 San pham 01</li>
-            <li><img src="images/sanpham4.png" class="sanpham" alt="Firehouse restaurant">D001 San pham 01</li>
-             <li><img src="images/sanpham1.png" class="sanpham" alt="Firehouse">D001 San pham 01</li>
-            <li><img src="images/sanpham1.png" class="sanpham" alt="Chloe nightclub">D001 San pham 01</li>
-            <li><img src="images/sanpham2.png" class="sanpham" alt="Firehouse bar">D001 San pham 01</li>
-            <li><img src="images/sanpham3.png" class="sanpham" alt="Firehouse chloe club fishtank">D001 San pham 01</li>
-            <li><img src="images/sanpham4.png" class="sanpham" alt="Firehouse restaurant">D001 San pham 01</li>
+			[:foreach $MODEL.hotItems as $_item:]	
+				 [:if $_item->getUrlThumbnail()=='':]
+                    [:assign var="_urlThumbnail" value="img/img_general.jpg":]
+                [:else:]
+                    [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
+                [:/if:]			
+            	<li onclick="redirect('[:$_item->getUrlView():]')"><img src="[:$_urlThumbnail:]" class="sanpham" alt="">[:$_item->getTitle():]</li>
+           [:/foreach:]
         </ul>
 	</div>
-	<script type="text/javascript">
-        (function($) {
-        	$(function() {
-        		$("#scroller").simplyScroll();
-        	});
-        })(jQuery);
-	</script>
+	[:call name=autoScroller elName=scroller auto='yes':]
+[:/if:]
 <!--/ sidebar top end-->

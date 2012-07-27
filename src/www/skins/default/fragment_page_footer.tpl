@@ -1,24 +1,27 @@
 <div class="footer-fix" id="back-top">
-	<a href="../../#"><img alt="" src="images/back-top.png"></a> 
+	<img alt="" src="images/back-top.png">
 </div>
 <script>
 jQuery(document).ready(function(){
 	var backTop=document.getElementById("back-top");
-	var doc = jQuery(document);
+	var doc = jQuery(window);
 	
 	jQuery(window).scroll(function() {
 		if(doc.scrollTop()>100)
-				backTop.setAttribute("style", "");
+				backTop.setAttribute("style", "display:block");
 			else
 				backTop.setAttribute("style", "display:none");
+	});
+	$("#back-top").click(function() {		
+		 $('html, body').animate({scrollTop:0}, 'normal');
 	});
 });
 </script>
 <!-- footer starts -->			
-	<div id="footer-wrap">
-		<div id="footer">
+	<div id="footer-wrap" >
+		<div id="footer">			
 			<p>
-			<a>&copy; 2012 GPV |www.gpv.com.vn|vCatalog </a>
+			<a>[:$MODEL.page.copyright:] </a>
 
             &nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -26,10 +29,6 @@ jQuery(document).ready(function(){
    		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 			<a href="index.html">Trang Chủ |</a> 
-   		    <a href="index.html">Thời Trang |</a> 
-	   	    <a href="index.html">Mỹ Phẩm |</a> |
-            <a href="index.html">Trang Sức |</a> 
-			<a href="index.html">Nội Thất |</a>
 			<a href="index.html">Liên Hệ |</a>
 			<a href="index.html">Đăng Ký Shop |</a>
 			<a href="index.html">Đăng nhập quản trị</a>

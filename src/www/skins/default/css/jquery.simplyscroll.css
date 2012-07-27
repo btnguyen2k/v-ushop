@@ -59,7 +59,7 @@ Note all DIVs are generated and should not be hard-coded
 	
 	.simply-scroll-btn {
 		position: absolute;
-		background-image: url(buttons.png);
+		background-image: url(../images/buttons.png);
 		width: 42px;
 		height: 44px;
 		z-index:3;
@@ -219,4 +219,6 @@ Note all DIVs are generated and should not be hard-coded
 	.vert .simply-scroll-btn-down:hover {}
 	
 	/* NOTE left-right classes wouldn't be needed on vertical scroller */
-
+.simply-scroll-list .simply-scroll-btn{
+	background-image: none;
+}

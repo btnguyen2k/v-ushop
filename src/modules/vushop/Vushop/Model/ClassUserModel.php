@@ -23,7 +23,7 @@
  * @since Class available since v0.1
  */
 class Vushop_Model_UserModel extends Quack_Model_BaseModelObj {
-
+    
     public static function createModelObj($userObj) {
         if ($userObj instanceof Vushop_Bo_User_BoUser) {
             return new Vushop_Model_UserModel($userObj);
@@ -40,10 +40,11 @@ class Vushop_Model_UserModel extends Quack_Model_BaseModelObj {
         }
         return NULL;
     }
-
+    
     private $displayName = NULL;
     private $urlProfile = NULL;
-
+    private $urlMyShop = NULL;
+    
     /**
      * Gets the URL to access user's profile control panel.
      *
@@ -55,7 +56,7 @@ class Vushop_Model_UserModel extends Quack_Model_BaseModelObj {
         }
         return $this->urlProfile;
     }
-
+    
     public function getDisplayName() {
         if ($this->displayName === NULL) {
             $fullname = $this->getTargetObject()->getFullname();
@@ -67,5 +68,17 @@ class Vushop_Model_UserModel extends Quack_Model_BaseModelObj {
             }
         }
         return $this->displayName;
+    }
+    
+    /**
+     * Gets the URL to access shop control panel.
+     *
+     * @return string
+     */
+    public function getUrlMyShop() {
+        if ($this->urlMyShop === Null) {
+            $this->urlMyShop = $_SERVER['SCRIPT_NAME'] . '/myshop';
+        }
+        return $this->urlMyShop;
     }
 }

@@ -11,6 +11,7 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
     
     private $id, $position, $parentId, $title, $description, $imageId;
     private $children = Array();
+    private $itemsForCategoryShop = Array();
     
     private $urlDelete = NULL;
     private $urlEdit = NULL;
@@ -175,8 +176,25 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
         }
     }
     
-    public function hasChildren() {      
+    public function hasChildren() {
         return !empty($this->children);
+    }
+    
+    /**
+     * @return the $itemsForCategoryShop
+     */
+    public function getItemsForCategoryShop() {
+        return $this->itemsForCategoryShop;
+    }
+    
+    /**
+     * @param field_type $itemsForCategoryShop
+     */
+    public function setItemsForCategoryShop($itemsForCategoryShop) {
+        $this->itemsForCategoryShop = $itemsForCategoryShop;
+        if (!is_array($this->itemsForCategoryShop)) {
+            $this->itemsForCategoryShop = Array();
+        }
     }
     
     /**
