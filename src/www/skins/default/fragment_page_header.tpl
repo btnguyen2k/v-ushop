@@ -18,8 +18,15 @@
 <!--/ header ends-->
 
 		
-<!-- navigation starts-->	
-	[:call name=topMenu:]
+<!-- navigation starts-->
+<div  id="nav" align="center">
+    <ul>
+        <li><a href="[:$MODEL.urlHome:]" class="home">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+        [:foreach $MODEL.onMenuPages as $page:]
+            <li><a href="[:$page->getUrlView():]">[:$page->getTitle()|escape:'html':]</a></li>
+        [:/foreach:]
+    </ul>
+</div>
 <!--/ navigation ends-->		
 	
 <!-- header photo start-->				

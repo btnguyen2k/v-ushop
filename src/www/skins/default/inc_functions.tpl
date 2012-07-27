@@ -21,21 +21,6 @@
     [:/if:]
 [:/function:]
 
-[:function name=topMenu:]
-    <div  id="nav" align="center">
-    	<ul>
-    		<li ><a href="#" class="home">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-     	[:foreach $MODEL.categoryTree as $cat:] 	
-     		 <li><a href="#">[:$cat->getTitleForDisplay(25)|escape:'html':]</a></li> 	
-     	[:/foreach:]
-     		<li><a href="#">KHUYẾN MÃI</a></li>
-     		<li><a href="#">TIN TỨC</a></li>
-    		<li><a href="#">HƯỚNG DẪN</a></li>
-    		<li><a href="#">LIÊN HỆ</a></li>	
-    	</ul>
-    </div>
-[:/function:]
-
 [:function name=categoryTree:]
     <ul id="treemenu1" class="treeview" style="cursor: pointer;">
      [:foreach $MODEL.categoryTree as $cat:] 	
