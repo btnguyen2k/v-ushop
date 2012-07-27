@@ -116,7 +116,11 @@ class Vushop_Controller_Admin_CreateCategoryController extends Vushop_Controller
              */
             $catalogDao = $this->getDao(DAO_CATALOG);
             $cat = $catalogDao->getCategoryById($parentId);
-            if ($cat === NULL || ($cat->getParentId() !== NULL && $cat->getParentId() !== 0)) {
+            // if ($cat === NULL || ($cat->getParentId() !== NULL &&
+            // $cat->getParentId() !== 0)) {
+            // $this->addErrorMessage($lang->getMessage('error.invalidParentCategory'));
+            // }
+            if ($cat === NULL) {
                 $this->addErrorMessage($lang->getMessage('error.invalidParentCategory'));
             }
         }
