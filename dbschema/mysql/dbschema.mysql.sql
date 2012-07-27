@@ -170,6 +170,7 @@ CREATE TABLE vushop_shop (
     stitle          VARCHAR(64)             NOT NULL DEFAULT '',
     sdesc           TEXT,
     simage_id       VARCHAR(64),
+    sdesc           TEXT,
         INDEX (simage_id),
     PRIMARY KEY (sowner)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
