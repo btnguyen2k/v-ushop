@@ -94,6 +94,7 @@ define('DAO_SITE', 'dao.site');
 
 define('DAO_CATALOG', 'dao.catalog');
 define('DAO_CART', 'dao.cart');
+define('DAO_SHOP', 'dao.shop');
 define('DAO_CONFIG', 'dao.config');
 define('DAO_PAGE', 'dao.page');
 define('DAO_TEXTADS', 'dao.textAds');
