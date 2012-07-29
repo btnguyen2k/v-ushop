@@ -86,19 +86,19 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
                                         'url' => $urlCreator->createUrl(Array(
                                                 Dzit_IUrlCreator::PARAM_MODULE => 'createAds')))
                         )
-                ),               
+                ),
                 Array('title' => '-'),
                 Array('title' => $lang->getMessage('msg.catalogManagement'),
-                        'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SITE_OWNER),
+                        'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER),
                         'children' => Array(
                                 Array('title' => $lang->getMessage('msg.itemList'),
                                         'icon' => 'itemList',
-                                        'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SITE_OWNER),
+                                        'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER),
                                         'url' => $urlCreator->createUrl(Array(
                                                 Dzit_IUrlCreator::PARAM_MODULE => 'items'))),
                                 Array('title' => $lang->getMessage('msg.createItem'),
                                         'icon' => 'itemAdd',
-                                        'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SITE_OWNER),
+                                        'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER),
                                         'url' => $urlCreator->createUrl(Array(
                                                 Dzit_IUrlCreator::PARAM_MODULE => 'createItem')))))
                 );

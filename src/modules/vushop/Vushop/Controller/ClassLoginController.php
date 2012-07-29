@@ -2,10 +2,10 @@
 class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME = 'login';
     const VIEW_NAME_AFTER_POST = 'info';
-    
+
     const FORM_FIELD_USERNAME = 'username';
     const FORM_FIELD_PASSWORD = 'password';
-    
+
     /**
      *
      * @see Vcatalog_Controller_BaseFlowController::getViewName()
@@ -13,7 +13,7 @@ class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowContro
     protected function getViewName() {
         return self::VIEW_NAME;
     }
-    
+
     /**
      *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
@@ -24,10 +24,10 @@ class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowContro
         if ($model == NULL) {
             $model = Array();
         }
-        
+
         $lang = $this->getLanguage();
         $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.login.done'));
-        
+
         if (isset($_SESSION[SESSION_LAST_ACCESS_URL])) {
             $urlTransit = $_SESSION[SESSION_LAST_ACCESS_URL];
         } else {
@@ -40,14 +40,14 @@ class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowContro
         }
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
-        
+
         header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
         header("Expires: Sat, 1 Jan 2011 00:00:00 GMT"); // Date in the past
         header("Pragma: no-cache");
-        
+
         return new Dzit_ModelAndView($viewName, $model);
     }
-    
+
     /**
      *
      * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
@@ -60,7 +60,7 @@ class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowContro
         }
         return $form;
     }
-    
+
     /**
      *
      * @see Dzit_Controller_FlowController::performFormSubmission()
@@ -70,15 +70,15 @@ class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowContro
         $userDao = $this->getDao(DAO_USER);
         $username = isset($_POST[self::FORM_FIELD_USERNAME]) ? $_POST[self::FORM_FIELD_USERNAME] : '';
         $password = isset($_POST[self::FORM_FIELD_PASSWORD]) ? $_POST[self::FORM_FIELD_PASSWORD] : '';
-        
+
         // $username = trim(strtolower($username));
         $password = trim($password);
-        
+
         if ($username === '' || $password === '') {
             $this->addErrorMessage($lang->getMessage('error.loginFailed'));
             return FALSE;
         }
-        
+
         // $user = $userDao->getUserByEmail($username);
         $user = $userDao->getUserByUsername($username);
         if ($user === NULL) {
@@ -91,7 +91,7 @@ class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowContro
         }
         // $_SESSION[SESSION_USER_ID] = strtolower(trim($_POST['email']));
         $_SESSION[SESSION_USER_ID] = $user->getId();
-        if ($user->getGroupId() == USER_GROUP_SITE_OWNER && $user->getShop() == NULL) {
+        if ($user->getGroupId() == USER_GROUP_SHOP_OWNER && $user->getShop() == NULL) {
             $shop = new Vushop_Bo_Shop_BoShop();
             $shop->setOwnerId($user->getId());
             $shop->setTitle($user->getUsername());
