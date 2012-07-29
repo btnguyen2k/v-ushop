@@ -91,7 +91,7 @@ define('DEFAULT_PAGE_SIZE', 10);
 
 define('USER_GROUP_GUEST', 0);
 define('USER_GROUP_ADMIN', 1);
-define('USER_GROUP_SITE_OWNER', 2);
+define('USER_GROUP_SHOP_OWNER', 2);
 
 define('DAO_SITE', 'dao.site');
 

@@ -1,9 +1,9 @@
 <?php
 class Vushop_Controller_Admin_CreateUserController extends Vushop_Controller_Admin_BaseFlowController {
     const VIEW_NAME = 'inline_create_user';
-    
+
     const VIEW_NAME_AFTER_POST = 'info';
-    
+
     const FORM_FIELD_USERNAME = 'username';
     const FORM_FIELD_TITLE = 'title';
     const FORM_FIELD_FULLNAME = 'fullname';
@@ -12,15 +12,17 @@ class Vushop_Controller_Admin_CreateUserController extends Vushop_Controller_Adm
     const FORM_FIELD_PASSWORD = 'password';
     const FORM_FIELD_GROUP_ID = 'groupId';
     const FORM_FIELD_CONFIRMED_PASSWORD = 'confirmedPassword';
-    
+
     /**
+     *
      * @see Vushop_Controller_Admin_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
-    
+
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -29,53 +31,40 @@ class Vushop_Controller_Admin_CreateUserController extends Vushop_Controller_Adm
         if ($model == NULL) {
             $model = Array();
         }
-        
+
         $lang = $this->getLanguage();
         $urlTransit = $this->getUrlUserManagement();
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_INFO_MESSAGES] = Array(
-                $lang->getMessage('msg.register.done', htmlspecialchars($_POST[self::FORM_FIELD_EMAIL])));
-        /*
-        if (isset($_SESSION[SESSION_LAST_ACCESS_URL])) {
-            $urlTransit = $_SESSION[SESSION_LAST_ACCESS_URL];
-        } else {
-            $urlTransit = $_SERVER['SCRIPT_NAME'];
-        }
-        if (strpos($urlTransit, '?') === FALSE) {
-            $urlTransit .= '?' . rand();
-        } else {
-            $urlTransit .= '&' . rand();
-        }
-        $model[MODEL_URL_TRANSIT] = $urlTransit;
-        $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
-        */
-        
+                $lang->getMessage('msg.createUser.done', htmlspecialchars($_POST[self::FORM_FIELD_USERNAME])));
+
         return new Dzit_ModelAndView($viewName, $model);
     }
-    
+
     /**
+     *
      * @see Vushop_Controller_Admin_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
-        $form = Array('action' => $_SERVER['REQUEST_URI'], 
-                'actionCancel' => $this->getUrlUserManagement(), 
+        $form = Array('action' => $_SERVER['REQUEST_URI'],
+                'actionCancel' => $this->getUrlUserManagement(),
                 'name' => 'frmCreateUser');
-        $this->populateForm($form, Array(
-                self::FORM_FIELD_TITLE, 
-                self::FORM_FIELD_FULLNAME, 
-                self::FORM_FIELD_LOCATION, 
-                self::FORM_FIELD_EMAIL, 
-                self::FORM_FIELD_GROUP_ID, 
-                self::FORM_FIELD_USERNAME, 
-                self::FORM_FIELD_PASSWORD, 
+        $this->populateForm($form, Array(self::FORM_FIELD_TITLE,
+                self::FORM_FIELD_FULLNAME,
+                self::FORM_FIELD_LOCATION,
+                self::FORM_FIELD_EMAIL,
+                self::FORM_FIELD_GROUP_ID,
+                self::FORM_FIELD_USERNAME,
+                self::FORM_FIELD_PASSWORD,
                 self::FORM_FIELD_CONFIRMED_PASSWORD));
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
         }
         return $form;
     }
-    
+
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
@@ -83,16 +72,15 @@ class Vushop_Controller_Admin_CreateUserController extends Vushop_Controller_Adm
         $title = isset($_POST[self::FORM_FIELD_TITLE]) ? trim($_POST[self::FORM_FIELD_TITLE]) : '';
         $fullname = isset($_POST[self::FORM_FIELD_FULLNAME]) ? trim($_POST[self::FORM_FIELD_FULLNAME]) : '';
         $location = isset($_POST[self::FORM_FIELD_LOCATION]) ? trim($_POST[self::FORM_FIELD_LOCATION]) : '';
-        $groupId = isset($_POST[self::FORM_FIELD_GROUP_ID]) ? trim($_POST[self::FORM_FIELD_GROUP_ID]) : 2;
+        $groupId = isset($_POST[self::FORM_FIELD_GROUP_ID]) ? trim($_POST[self::FORM_FIELD_GROUP_ID]) : USER_GROUP_SHOP_OWNER;
         $email = isset($_POST[self::FORM_FIELD_EMAIL]) ? trim($_POST[self::FORM_FIELD_EMAIL]) : '';
         $username = isset($_POST[self::FORM_FIELD_USERNAME]) ? trim($_POST[self::FORM_FIELD_USERNAME]) : '';
         $password = isset($_POST[self::FORM_FIELD_PASSWORD]) ? trim($_POST[self::FORM_FIELD_PASSWORD]) : '';
         $confirmedPassword = isset($_POST[self::FORM_FIELD_CONFIRMED_PASSWORD]) ? trim($_POST[self::FORM_FIELD_CONFIRMED_PASSWORD]) : '';
-       
+
         $lang = $this->getLanguage();
         if ($email === '') {
             $this->addErrorMessage($lang->getMessage('error.invalidEmail', $email));
-        
         } else {
             $user = $userDao->getUserByEmail($email);
             if ($user !== NULL) {
@@ -112,8 +100,11 @@ class Vushop_Controller_Admin_CreateUserController extends Vushop_Controller_Adm
         } else if ($password !== $confirmedPassword) {
             $this->addErrorMessage($lang->getMessage('error.passwordsMismatch'));
         }
-        
-        //Set Object
+
+        if ($this->hasError()) {
+            return FALSE;
+        }
+
         $user = new Vushop_Bo_User_BoUser();
         $user->setEmail($email);
         $user->setFullname($fullname);
@@ -122,16 +113,8 @@ class Vushop_Controller_Admin_CreateUserController extends Vushop_Controller_Adm
         $user->setPassword(md5($password));
         $user->setTitle($title);
         $user->setUsername($username);
-        
-        //Check Error
-        if ($this->hasError()) {
-            return FALSE;
-        }
-        
-        //Execute create
         $userDao->createUser($user);
         return TRUE;
     }
-    
-   
+
 }

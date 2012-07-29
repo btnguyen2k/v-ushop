@@ -7,7 +7,7 @@ interface Vushop_Bo_User_IUserDao extends Ddth_Dao_IDao {
      * @return Array
      */
     public function getUsers();
-    
+
     /**
      * Gets all shops.
      *
@@ -52,5 +52,4 @@ interface Vushop_Bo_User_IUserDao extends Ddth_Dao_IDao {
      * @param Vushop_Bo_User_BoUser $user
      */
     public function updateUser($user);
-
 }

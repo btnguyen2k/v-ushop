@@ -16,10 +16,10 @@
     <thead>
         <tr>
             <th style="text-align: left;">[:$MODEL.language->getMessage('msg.user.username'):]</th>
-            <th style="text-align: center;">[:$MODEL.language->getMessage('msg.user.fullname'):]</th>
-            <th style="text-align: center;">[:$MODEL.language->getMessage('msg.user.email'):]</th>
-            <th style="text-align: center;">[:$MODEL.language->getMessage('msg.user.groupName'):]</th>
-            <th style="text-align: center;">[:$MODEL.language->getMessage('msg.action'):]</th>
+            <th style="text-align: center;" width="160px">[:$MODEL.language->getMessage('msg.user.fullname'):]</th>
+            <th style="text-align: center;" width="128px">[:$MODEL.language->getMessage('msg.user.email'):]</th>
+            <th style="text-align: center;" width="128px">[:$MODEL.language->getMessage('msg.user.group'):]</th>
+            <th style="text-align: center;" width="80px">[:$MODEL.language->getMessage('msg.actions'):]</th>
          </tr>
     </thead>
     <tbody>    	
@@ -42,7 +42,6 @@
                     <a href="[:$_user->getUrlDelete():]"><img border="0" alt="" src="img/user_delete.png" /></a>
                 </td>
             </tr>
-             
         [:foreachelse:]
             <tr>
                 <td colspan="5">[:$MODEL.language->getMessage('msg.nodata'):]</td>

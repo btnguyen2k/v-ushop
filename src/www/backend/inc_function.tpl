@@ -109,9 +109,9 @@
 [:/function:]
 
 [:function name=groupName groupId=0:]
-    [:if isset($groupId) && $groupId eq 1:]
-        [:$MODEL.language->getMessage('msg.adminCp'):]
-    [:else:]
-    	[:$MODEL.language->getMessage('msg.member'):]
+    [:if $groupId==1:]
+        [:$MODEL.language->getMessage('msg.user.group.admin'):]
+    [:elseif $groupId==2:]
+    	[:$MODEL.language->getMessage('msg.user.group.shopOwner'):]
     [:/if:]   
 [:/function:]
