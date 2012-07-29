@@ -91,12 +91,16 @@ class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowContro
         }
         // $_SESSION[SESSION_USER_ID] = strtolower(trim($_POST['email']));
         $_SESSION[SESSION_USER_ID] = $user->getId();
-        if ($user->getGroupId() == USER_GROUP_SHOP_OWNER && $user->getShop() == NULL) {
-            $shop = new Vushop_Bo_Shop_BoShop();
-            $shop->setOwnerId($user->getId());
-            $shop->setTitle($user->getUsername());
+        if ($user->getGroupId() == USER_GROUP_SHOP_OWNER) {
             $shopDao = $this->getDao(DAO_SHOP);
-            $shopDao->createShop($shop);
+            if ($shopDao->getShopById($user->getId()) === NULL) {
+                $shop = new Vushop_Bo_Shop_BoShop();
+                $shop->setOwnerId($user->getId());
+                $shop->setTitle($user->getUsername());
+                $shop->setPosition(time());
+                $shop->setDescription($user->getUsername() . ' shop');
+                $shopDao->createShop($shop);
+            }
         }
         return TRUE;
     }

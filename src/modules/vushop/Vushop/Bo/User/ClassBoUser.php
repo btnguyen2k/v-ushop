@@ -90,15 +90,4 @@ class Vushop_Bo_User_BoUser extends Quack_Bo_BaseBo {
     public function setLocation($location) {
         $this->location = $location;
     }
-	
-	public function getShop() {
-		return $this->shop;
-	}
-
-	public function setShop($shop) {
-		$this->shop = $shop;
-	}
-
-    
-    
 }

@@ -1,18 +1,18 @@
 <?php
-abstract class Vushop_Bo_Shop_BaseShopDao extends Quack_Bo_BaseDao implements 
+abstract class Vushop_Bo_Shop_BaseShopDao extends Quack_Bo_BaseDao implements
         Vushop_Bo_Shop_IShopDao {
-    
+
     /**
      *
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
-    
+
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
         parent::__construct();
     }
-    
+
     /**
      * (non-PHPdoc)
      *
@@ -21,23 +21,22 @@ abstract class Vushop_Bo_Shop_BaseShopDao extends Quack_Bo_BaseDao implements
     public function getCacheName() {
         return 'IShopDao';
     }
-    
-    protected function createCacheKeyShopId($shopId) {
-        return $shopId;
+
+    protected function createCacheKeyShopOwnerId($shopOwnerId) {
+        return "SHOP_$shopOwnerId";
     }
-    
+
     /**
      * Invalidates the shop cache due to change.
      *
      * @param Vushop_Bo_Shop_BoShop $shop
      */
-    protected function invalidateCache($Shop = NULL) {
-        if ($Shop !== NULL) {
-            $id = $Shop->getId();
-            $this->deleteFromCache($this->createCacheKeyShopId($id));
+    protected function invalidateCache($shop = NULL) {
+        if ($shop !== NULL) {
+            $this->deleteFromCache($this->createCacheKeyShopOwnerId($shop->getOwnerId()));
         }
     }
-    
+
     /**
      * (non-PHPdoc)
      *
@@ -50,14 +49,14 @@ abstract class Vushop_Bo_Shop_BaseShopDao extends Quack_Bo_BaseDao implements
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {
             foreach ($rows as $row) {
-                $shopId = $row[Vushop_Bo_Shop_BoShop::COL_OWNER_ID];
-                $shop = $this->getShopById($shopId);
+                $shopOwnerId = $row[Vushop_Bo_Shop_BoShop::COL_OWNER_ID];
+                $shop = $this->getShopById($shopOwnerId);
                 $result[] = $shop;
             }
         }
         return $result;
     }
-    
+
     /**
      * (non-PHPdoc)
      *
@@ -65,7 +64,7 @@ abstract class Vushop_Bo_Shop_BaseShopDao extends Quack_Bo_BaseDao implements
      */
     public function getShopById($ownerId) {
         $ownerId = (int)$ownerId;
-        $cacheKey = $this->createCacheKeyShopId($ownerId);
+        $cacheKey = $this->createCacheKeyShopOwnerId($ownerId);
         $result = $this->getFromCache($cacheKey);
         if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
@@ -78,12 +77,12 @@ abstract class Vushop_Bo_Shop_BaseShopDao extends Quack_Bo_BaseDao implements
                     $userDao = $this->getDaoFactory()->getDao(DAO_USER);
                     $user = $userDao->getUserById($result->getOwnerId());
                     $result->setUser($user);
-                }                
+                }
             }
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-    
+
     /**
      * (non-PHPdoc)
      *
@@ -91,15 +90,15 @@ abstract class Vushop_Bo_Shop_BaseShopDao extends Quack_Bo_BaseDao implements
      */
     public function createShop($shop) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Shop_BoShop::COL_OWNER_ID => (int)$shop->getOwnerId(), 
-                Vushop_Bo_Shop_BoShop::COL_DESC => $shop->getDescription(), 
-                Vushop_Bo_Shop_BoShop::COL_IMAGE_ID => $shop->getImageId(), 
-                Vushop_Bo_Shop_BoShop::COL_POSITION => (int)$shop->getPosition(), 
+        $params = Array(Vushop_Bo_Shop_BoShop::COL_OWNER_ID => (int)$shop->getOwnerId(),
+                Vushop_Bo_Shop_BoShop::COL_DESC => $shop->getDescription(),
+                Vushop_Bo_Shop_BoShop::COL_IMAGE_ID => $shop->getImageId(),
+                Vushop_Bo_Shop_BoShop::COL_POSITION => (int)$shop->getPosition(),
                 Vushop_Bo_Shop_BoShop::COL_TITLE => $shop->getTitle());
         $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($shop);
     }
-    
+
     /**
      * (non-PHPdoc)
      *
@@ -107,10 +106,10 @@ abstract class Vushop_Bo_Shop_BaseShopDao extends Quack_Bo_BaseDao implements
      */
     public function updateShop($shop) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Shop_BoShop::COL_OWNER_ID => (int)$shop->getOwnerId(), 
-                Vushop_Bo_Shop_BoShop::COL_DESC => $shop->getDescription(), 
-                Vushop_Bo_Shop_BoShop::COL_IMAGE_ID => $shop->getImageId(), 
-                Vushop_Bo_Shop_BoShop::COL_POSITION => (int)$shop->getPosition(), 
+        $params = Array(Vushop_Bo_Shop_BoShop::COL_OWNER_ID => (int)$shop->getOwnerId(),
+                Vushop_Bo_Shop_BoShop::COL_DESC => $shop->getDescription(),
+                Vushop_Bo_Shop_BoShop::COL_IMAGE_ID => $shop->getImageId(),
+                Vushop_Bo_Shop_BoShop::COL_POSITION => (int)$shop->getPosition(),
                 Vushop_Bo_Shop_BoShop::COL_TITLE => $shop->getTitle());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($shop);
