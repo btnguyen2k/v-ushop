@@ -1,9 +1,9 @@
 <?php
 class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Controller_BaseFlowController {
-    
+
     const VIEW_NAME = 'profilecp_profile';
     const VIEW_NAME_AFTER_POST = 'profilecp_profile';
-    
+
     const FORM_FIELD_FULLNAME = 'fullname';
     const FORM_FIELD_EMAIL = 'email';
     const FORM_FIELD_USERNAME = 'username';
@@ -14,21 +14,22 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
     const FORM_FIELD_CURRENT_PASSWORD = 'currentPassword';
     const FORM_FIELD_NEW_PASSWORD = 'newPassword';
     const FORM_FIELD_CONFIRMED_NEW_PASSWORD = 'confirmedNewPassword';
-    
+
     private $sessionKey;
-    
+
     public function __construct() {
         parent::__construct();
         $this->sessionKey = __CLASS__ . '_fileId';
     }
-    
+
     /**
+     *
      * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
-    
+
     protected function populateParams() {
         $shopDao = $this->getDao(DAO_SHOP);
         $shop = $shopDao->getShopById($this->getCurrentUser()->getId());
@@ -38,8 +39,9 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
             $_SESSION[$this->sessionKey] = $shop->getImageId();
         }
     }
-    
+
     /**
+     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -50,29 +52,33 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
         }
         return new Dzit_ModelAndView($viewName, $model);
     }
-    
+
     /**
+     *
      * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
-    protected function buildModel_Form() {       
+    protected function buildModel_Form() {
         $user = $this->getCurrentUser();
         $shopDao = $this->getDao(DAO_SHOP);
         $shop = $shopDao->getShopById($user->getId());
-        
+
+        $form = Array('action' => $_SERVER['REQUEST_URI'],
+                'name' => 'frmChangePassword');
+
         $form[self::FORM_FIELD_FULLNAME] = $user->getFullname();
         $form[self::FORM_FIELD_EMAIL] = $user->getEmail();
         $form[self::FORM_FIELD_USERNAME] = $user->getUsername();
-        
+
         $form[self::FORM_FIELD_SHOP_TITLE] = $shop->getTitle();
         $form[self::FORM_FIELD_IMAGE_ID] = $shop->getImageId();
-        
-        $this->populateForm($form, Array(self::FORM_FIELD_FULLNAME, 
-                self::FORM_FIELD_EMAIL, 
-                self::FORM_FIELD_SHOP_TITLE, 
-                self::FORM_FIELD_URL_SHOP_IMAGE, 
-                self::FORM_FIELD_USERNAME, 
+
+        $this->populateForm($form, Array(self::FORM_FIELD_FULLNAME,
+                self::FORM_FIELD_EMAIL,
+                self::FORM_FIELD_SHOP_TITLE,
+                self::FORM_FIELD_URL_SHOP_IMAGE,
+                self::FORM_FIELD_USERNAME,
                 self::FORM_FIELD_IMAGE_ID));
-        
+
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         if ($paperclipId !== NULL) {
             $form[self::FORM_FIELD_URL_SHOP_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
@@ -85,15 +91,16 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
         }
         return $form;
     }
-    
+
     /**
+     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
         $userDao = $this->getDao(DAO_USER);
         $lang = $this->getLanguage();
         $currentUser = $this->getCurrentUser();
-        
+
         $currentPassword = isset($_POST[self::FORM_FIELD_CURRENT_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_CURRENT_PASSWORD])) : '';
         $newPassword = isset($_POST[self::FORM_FIELD_NEW_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_NEW_PASSWORD])) : '';
         $confirmedNewPassword = isset($_POST[self::FORM_FIELD_CONFIRMED_NEW_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_CONFIRMED_NEW_PASSWORD])) : '';
@@ -113,7 +120,7 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
         }
         $currentUser->setPassword(md5($newPassword));
         $userDao->updateUser($currentUser);
-        
+
         return FALSE;
     }
 }

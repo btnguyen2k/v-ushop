@@ -6,13 +6,13 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     private $allowedUserGroups = NULL;
     private $executionTimestamp;
     private $viewName = NULL;
-    
+
     /**
      *
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
-    
+
     /**
      * Constructs a new Vushop_Controller_BaseFlowController object.
      */
@@ -20,7 +20,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $this->executionTimestamp = microtime(TRUE);
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
     }
-    
+
     /**
      *
      * @see Dzit_Controller_FlowController::execute()
@@ -38,7 +38,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         return $modelAndView;
     }
-    
+
     private $baseHref = NULL;
     /**
      * Gets the "baseHref".
@@ -58,7 +58,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         return $this->baseHref;
     }
-    
+
     private $currentCart;
     /**
      * Gets the current cart.
@@ -83,7 +83,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         return $this->currentCart;
     }
-    
+
     private $currentUser = NULL;
     /**
      * Gets the currently logged in user.
@@ -97,7 +97,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         return $this->currentUser;
     }
-    
+
     private $currentUserGroup = NULL;
     protected function getCurrentUserGroup() {
         if ($this->currentUserGroup === NULL) {
@@ -106,7 +106,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         return $this->currentUserGroup;
     }
-    
+
     /**
      * Gets the execution timestamp.
      *
@@ -115,7 +115,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getExecutionTimestamp() {
         return $this->executionTimestamp;
     }
-    
+
     /**
      * Gets error messages.
      *
@@ -124,7 +124,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getErrorMessages() {
         return $this->errorMessages;
     }
-    
+
     /**
      * Sets the error message.
      *
@@ -133,7 +133,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function setErrorMessage($errorMessage) {
         $this->errorMessages = Array($errorMessage);
     }
-    
+
     /**
      * Adds an error message.
      *
@@ -142,7 +142,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function addErrorMessage($errorMessage) {
         $this->errorMessages[] = $errorMessage;
     }
-    
+
     /**
      * Checks if the error message is not empty.
      *
@@ -151,7 +151,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function hasError() {
         return count($this->errorMessages) > 0;
     }
-    
+
     /**
      * Getter for $saveUrl.
      *
@@ -160,7 +160,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getSaveUrl() {
         return $this->saveUrl;
     }
-    
+
     /**
      * Setter for $saveUrl.
      *
@@ -169,7 +169,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     public function setSaveUrl($value) {
         $this->saveUrl = $value;
     }
-    
+
     /**
      * Getter for $requireAuthentication.
      *
@@ -178,7 +178,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getRequireAuthentication() {
         return $this->requireAuthentication;
     }
-    
+
     /**
      * Setter for $requireAuthentication.
      *
@@ -187,17 +187,17 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     public function setRequireAuthentication($value = FALSE) {
         $this->requireAuthentication = $value;
     }
-    
+
     /**
      * Getter for $allowedUserGroups.
      *
      * @param
-     * Array
+     *            Array
      */
     protected function getAllowedUserGroups() {
         return $this->allowedUserGroups;
     }
-    
+
     /**
      * Setter for $allowedUserGroups.
      *
@@ -206,7 +206,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     public function setAllowedUserGroups($value = Array()) {
         $this->allowedUserGroups = $value;
     }
-    
+
     /**
      * Gets a DAO object.
      *
@@ -216,7 +216,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getDao($name, $config = NULL) {
         return Ddth_Dao_BaseDaoFactory::getInstance($config)->getDao($name);
     }
-    
+
     /**
      * Gets an application configuration setting.
      *
@@ -227,7 +227,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $config = $configDao->loadConfig($name);
         return $config != NULL ? $config->getValue() : NULL;
     }
-    
+
     /**
      * Gets the {@link Quack_Bo_Site_ISiteDao} instance.
      *
@@ -237,7 +237,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         global $DPHP_DAO_CONFIG_SITE;
         return Ddth_Dao_BaseDaoFactory::getInstance($DPHP_DAO_CONFIG_SITE)->getDao(DAO_SITE);
     }
-    
+
     private $gpvSite = NULL;
     /**
      * Gets the current site.
@@ -253,7 +253,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         return $this->gpvSite;
     }
-    
+
     private $gpvProduct = NULL;
     /**
      * Gets the current product.
@@ -267,7 +267,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         return $this->gpvProduct;
     }
-    
+
     /**
      * Gets names of all language packs.
      *
@@ -277,7 +277,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $mlsFactory = Ddth_Mls_BaseLanguageFactory::getInstance();
         return $mlsFactory->getLanguageNames();
     }
-    
+
     /**
      * Gets the current language pack.
      *
@@ -295,7 +295,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $lang = $mlsFactory->getLanguage($langName);
         return $lang;
     }
-    
+
     /**
      * Checks if there is a logged in user.
      *
@@ -331,16 +331,16 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getPageSlogan() {
         return $this->getAppConfig(DAO_CONFIG);
     }
-    
+
     /**
-     * Get the url to access AdminCP.
+     * Get the url to access backend section.
      *
      * @return string
      */
-    protected function getUrlAdmin() {
-        return $_SERVER['SCRIPT_NAME'] . '/admin';
+    protected function getUrlBackend() {
+        return $_SERVER['SCRIPT_NAME'] . '../backend/';
     }
-    
+
     /**
      * Get the url for login action.
      *
@@ -349,7 +349,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getUrlLogin() {
         return $_SERVER['SCRIPT_NAME'] . '/login';
     }
-    
+
     /**
      * Get the url for logout action.
      *
@@ -358,25 +358,25 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getUrlLogout() {
         return $_SERVER['SCRIPT_NAME'] . '/logout';
     }
-    
+
     /**
-     * Get the url to access ProfileCP.
+     * Get the url to access user's profile section.
      *
      * @return string
      */
-    protected function getUrlProfileCp() {
-        return $_SERVER['SCRIPT_NAME'] . '/profilecp';
+    protected function getUrlProfile() {
+        return $_SERVER['SCRIPT_NAME'] . '/profile';
     }
-    
-	/**
-     * Get the url to access ProfileCP.
+
+    /**
+     * Get the url to access user's change password section.
      *
      * @return string
      */
     protected function getUrlChangePassword() {
         return $_SERVER['SCRIPT_NAME'] . '/changePassword';
     }
-    
+
     /**
      * Get the url for member registration action.
      *
@@ -385,7 +385,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getUrlRegister() {
         return $_SERVER['SCRIPT_NAME'] . '/register';
     }
-    
+
     /**
      * Gets the url to handle file uploading.
      *
@@ -394,7 +394,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getUrlUploadHandler() {
         return $_SERVER['SCRIPT_NAME'] . '/paperclip/uploadHandler';
     }
-    
+
     /**
      * Gets the name of view for {@link getModelAndView()} function.
      *
@@ -403,7 +403,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getViewName() {
         return $this->viewName;
     }
-    
+
     /**
      *
      * @see Dzit_Controller_FlowController::getModelAndView()
@@ -416,7 +416,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $model = $this->buildModel();
         return new Dzit_ModelAndView($viewName, $model);
     }
-    
+
     /**
      *
      * @see Dzit_Controller_FlowController::getModelAndView_Login()
@@ -426,7 +426,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $view = new Dzit_View_RedirectView($url);
         return new Dzit_ModelAndView($view, NULL);
     }
-    
+
     /**
      * Builds the model.
      *
@@ -441,12 +441,12 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
                 $model[$key] = $value;
             }
         }
-        
+
         $modelForm = $this->buildModel_Form();
         if ($modelForm !== NULL) {
             $model['form'] = $modelForm;
         }
-        
+
         $customModel = $this->buildModel_Custom();
         if ($customModel !== NULL) {
             // merge custom model to the root
@@ -454,10 +454,10 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
                 $model[$key] = $value;
             }
         }
-        
+
         return $model;
     }
-    
+
     /**
      * Builds "common" model.
      *
@@ -470,24 +470,26 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $model = Array();
         $model[MODEL_REQUEST_MODULE] = $this->getModule();
         $model[MODEL_REQUEST_ACTION] = $this->getAction();
-        $model['basehref'] = $this->getBaseHref();
-        $model['page'] = $this->buildModel_Page();
-        $model['language'] = $this->getLanguage();
-        $model['urlHome'] = $_SERVER['SCRIPT_NAME'];
+        $model[MODEL_BASE_HREF] = $this->getBaseHref();
+        $model[MODEL_PAGE] = $this->buildModel_Page();
+        $model[MODEL_LANGUAGE] = $this->getLanguage();
+
         $user = $this->getCurrentUser();
-        $model['user'] = Vushop_Model_UserModel::createModelObj($user);
-        $model['urlLogout'] = $this->getUrlLogout();
-        $model['urlProfileCp'] = $this->getUrlProfileCp();
-        $model['urlChangePasswordCp'] = $this->getUrlChangePassword();
-        $model['urlLogin'] = $this->getUrlLogin();
-        $model['urlRegister'] = $this->getUrlRegister();
+        $model[MODEL_USER] = Vushop_Model_UserModel::createModelObj($user);
+
+        $model[MODEL_URL_HOME] = $_SERVER['SCRIPT_NAME'];
+        $model[MODEL_URL_LOGOUT] = $this->getUrlLogout();
+        $model[MODEL_URL_LOGIN] = $this->getUrlLogin();
+        $model[MODEL_URL_REGISTER] = $this->getUrlRegister();
+        $model[MODEL_URL_UPLOAD_HANDLER] = $this->getUrlUploadHandler();
+        $model[MODEL_URL_PROFILE] = $this->getUrlProfile();
+        $model[MODEL_URL_CHANGE_PASSWORD] = $this->getUrlChangePassword();
         if ($user !== NULL) {
             if ($user !== NULL && $user->getGroupId() === USER_GROUP_ADMIN) {
-                $model['urlAdmin'] = $this->getUrlAdmin();
+                $model[MODEL_URL_BACKEND] = $this->getUrlBackend();
             }
         }
-        $model['urlUploadHandler'] = $this->getUrlUploadHandler();
-        
+
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::push('getCategoryTree');
         }
@@ -501,7 +503,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
         }
-        
+
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::push('getPages.onMenu');
         }
@@ -516,9 +518,9 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
         }
-        
+
         $model[MODEL_CART] = $this->getCurrentCart();
-        
+
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::push('getAds');
         }
@@ -529,7 +531,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
         }
-        
+
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::push('shop');
         }
@@ -540,10 +542,10 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
         }
-        
+
         return $model;
     }
-    
+
     /**
      * Builds custom model.
      * Sub-class overrides this function to build its own custom model.
@@ -552,17 +554,17 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
      */
     protected function buildModel_Custom() {
         $model = Array();
-        
+
         $model[MODEL_APP_NAME] = VUSHOP_APP;
         $model[MODEL_APP_VERSION] = VUSHOP_VERSION;
-        
+
         if (IN_DEV_ENV) {
             $model[MODEL_DEBUG] = new Quack_DebugInfo();
         }
-        
+
         return $model;
     }
-    
+
     /**
      * Builds the "form" model.
      *
@@ -575,7 +577,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function buildModel_Form() {
         return NULL;
     }
-    
+
     /**
      * Builds the "page" (page title, descrpition, keywords, etc) model.
      *
@@ -592,20 +594,20 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $email = $this->getEmail();
         $nickYahoo = $this->getNickYahoo();
         $pageSlogan = $this->getPageSlogan();
-        
-        $modelPage = Array('title' => $pageTitle, 
-                'keywords' => $pageKeywords, 
-                'description' => $pageDescription, 
-                'copyright' => $pageCopyright, 
-                'email' => $email, 
-                'nickYahoo' => $nickYahoo, 
+
+        $modelPage = Array('title' => $pageTitle,
+                'keywords' => $pageKeywords,
+                'description' => $pageDescription,
+                'copyright' => $pageCopyright,
+                'email' => $email,
+                'nickYahoo' => $nickYahoo,
                 'slogan' => $pageSlogan);
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
         }
         return $modelPage;
     }
-    
+
     /**
      * Populates form with data from $_POST
      *
@@ -666,7 +668,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
                 if (strlen($pathinfo['extension']) > 0 && strlen($pathinfo['extension']) < 5) {
                     $filename = $filename . '.' . $pathinfo['extension'];
                 }
-                
+
                 /**
                  *
                  * @var Paperclip_Bo_IPaperclipDao
@@ -697,7 +699,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         return NULL;
     }
-    
+
     /**
      *
      * @see Dzit_Controller_FlowController::validateAuthentication()
@@ -706,7 +708,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function validateAuthentication() {
         return !$this->requireAuthentication || $this->isLoggedIn();
     }
-    
+
     /**
      *
      * @see Dzit_Controller_FlowController::validateAuthorization()

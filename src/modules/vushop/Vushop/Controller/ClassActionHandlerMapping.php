@@ -22,7 +22,7 @@ $YADIF_CONFIG = Array(
                 'class' => 'Vushop_Controller_ViewAdsController',
                 'scope' => 'singleton'),
 
-         'Vushop_Controller_ViewShopController' => Array(
+        'Vushop_Controller_ViewShopController' => Array(
                 'class' => 'Vushop_Controller_ViewShopController',
                 'scope' => 'singleton'),
 
@@ -72,14 +72,14 @@ $YADIF_CONFIG = Array(
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
 
-        'Vushop_Controller_ProfileCp_ProfileController' => Array(
-                'class' => 'Vushop_Controller_ProfileCp_ProfileController',
+        'Vushop_Controller_Profile_ProfileController' => Array(
+                'class' => 'Vushop_Controller_Profile_ProfileController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)))),
-                   
-        'Vushop_Controller_ProfileCp_ChangePasswordController' => Array(
-                'class' => 'Vushop_Controller_ProfileCp_ChangePasswordController',
+
+        'Vushop_Controller_Profile_ChangePasswordController' => Array(
+                'class' => 'Vushop_Controller_Profile_ChangePasswordController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)))),
@@ -239,7 +239,7 @@ $YADIF_CONFIG = Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
 
-         'Vushop_Controller_Admin_UserListController' => Array(
+        'Vushop_Controller_Admin_UserListController' => Array(
                 'class' => 'Vushop_Controller_Admin_UserListController',
                 'scope' => 'singleton',
                 'methods' => Array(
@@ -253,7 +253,7 @@ $YADIF_CONFIG = Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
 
-         'Vushop_Controller_Admin_EditUserController' => Array(
+        'Vushop_Controller_Admin_EditUserController' => Array(
                 'class' => 'Vushop_Controller_Admin_EditUserController',
                 'scope' => 'singleton',
                 'methods' => Array(
