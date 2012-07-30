@@ -22,6 +22,9 @@
 <div  id="nav" align="center">
     <ul>
         <li><a href="[:$MODEL.urlHome:]" class="home">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+        [:foreach $MODEL.categoryTree as $_cat:]
+            <li><a href="[:$_cat->geturlView():]">[:$_cat->getTitle()|escape:'html':]</a></li>
+        [:/foreach:]
         [:foreach $MODEL.onMenuPages as $page:]
             <li><a href="[:$page->getUrlView():]">[:$page->getTitle()|escape:'html':]</a></li>
         [:/foreach:]
