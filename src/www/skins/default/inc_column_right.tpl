@@ -1,4 +1,5 @@
 <!-- rightcolumn starts -->
+<!--
 <h1>[:$LANG->getMessage('msg.shop'):]</h1>
 <div class="container-select" style="margin-left: 20px">
 <br/>
@@ -12,13 +13,15 @@
     		[:/if:]
     	[:/foreach:]  
     </select>
-   
 </div>
+-->
+<!--
 <h1>Tìm kiếm</h1>
 <form class="form-mini" style="margin-top: 20px;">
 		<input name="search_query" class="input-mini" type="text" />
 		<input name="search" class="button" value="Search" type="submit" />
 </form>	
+-->
 [:if !isset($USER):]
 <h1  id="login">[:$LANG->getMessage('msg.login'):]</h1>
 <form class="form-login" method="post" style="margin: 20px;margin-bottom: 0px" action="[:$MODEL.urlLogin:]">
