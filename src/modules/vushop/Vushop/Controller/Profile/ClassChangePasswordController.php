@@ -7,7 +7,7 @@ class Vushop_Controller_Profile_ChangePasswordController extends Vushop_Controll
      */
     protected function buildModel_Form() {
         $form = parent::buildModel_Form();
-        if (!$this->hasError()) {
+        if (!$this->hasError() && $this->isPostRequest()) {
             $lang = $this->getLanguage();
             $form[FORM_INFO_MESSAGES] = Array($lang->getMessage('msg.changePassword.done'));
         }
