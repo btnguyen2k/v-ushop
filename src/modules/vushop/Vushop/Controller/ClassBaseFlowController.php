@@ -321,10 +321,10 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     protected function getEmail() {
         return $this->getAppConfig(CONFIG_EMAIL_OUTGOING);
     }
-     protected function getNickYahoo() {
-        $nick= $this->getAppConfig(CONFIG_EMAIL_OUTGOING);
-        if( isset($nick) && $nick !=''){
-           $nick=substr( $nick,0, strrpos($nick, "@"));
+    protected function getNickYahoo() {
+        $nick = $this->getAppConfig(CONFIG_EMAIL_OUTGOING);
+        if (isset($nick) && $nick != '') {
+            $nick = substr($nick, 0, strrpos($nick, "@"));
         }
         return $nick;
     }
@@ -366,6 +366,15 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
      */
     protected function getUrlProfileCp() {
         return $_SERVER['SCRIPT_NAME'] . '/profilecp';
+    }
+    
+	/**
+     * Get the url to access ProfileCP.
+     *
+     * @return string
+     */
+    protected function getUrlChangePassword() {
+        return $_SERVER['SCRIPT_NAME'] . '/changePassword';
     }
     
     /**
@@ -469,6 +478,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $model['user'] = Vushop_Model_UserModel::createModelObj($user);
         $model['urlLogout'] = $this->getUrlLogout();
         $model['urlProfileCp'] = $this->getUrlProfileCp();
+        $model['urlChangePasswordCp'] = $this->getUrlChangePassword();
         $model['urlLogin'] = $this->getUrlLogin();
         $model['urlRegister'] = $this->getUrlRegister();
         if ($user !== NULL) {
@@ -520,6 +530,9 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
             Quack_Util_ProfileUtils::pop();
         }
         
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push('shop');
+        }
         // shop
         $shopDao = $this->getDao(DAO_SHOP);
         $shopOwners = $shopDao->getShops();
@@ -584,8 +597,8 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
                 'keywords' => $pageKeywords, 
                 'description' => $pageDescription, 
                 'copyright' => $pageCopyright, 
-         		'email' => $email,
-        		'nickYahoo' => $nickYahoo,
+                'email' => $email, 
+                'nickYahoo' => $nickYahoo, 
                 'slogan' => $pageSlogan);
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();

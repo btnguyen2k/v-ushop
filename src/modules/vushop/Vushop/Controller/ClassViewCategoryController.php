@@ -103,8 +103,13 @@ class Vushop_Controller_ViewCategoryController extends Vushop_Controller_BaseFlo
         $catalogDao = $this->getDao(DAO_CATALOG);
         $pageSize = DEFAULT_PAGE_SIZE;
         $itemSorting = $this->itemSorting;
-        $itemsInPage = $catalogDao->getItemsForCategory($this->category, $this->pageNum, $pageSize, $itemSorting);
-        $model[MODEL_ITEM_LIST] = $itemsInPage;
+        if (isset($_SESSION[SESSION_SHOP_ID])) {
+            $itemList = $catalogDao->getItemsForCategoryShop($this->category, $_SESSION[SESSION_SHOP_ID],  $this->pageNum, $pageSize, $itemSorting);
+            $model[MODEL_ITEM_LIST] = $itemList;
+        } else {            
+            $itemsInPage = $catalogDao->getItemsForCategory($this->category, $this->pageNum, $pageSize, $itemSorting);
+            $model[MODEL_ITEM_LIST] = $itemsInPage;
+        }        
         $model[CATEGORY_NAME] = $this->category->getTitle();
         $urlTemplate = $this->category->getUrlView() . '?p=${PAGE}';
         $urlTemplate .= '&s=' . $this->itemSorting;

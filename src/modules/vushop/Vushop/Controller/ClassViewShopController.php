@@ -27,6 +27,7 @@ class Vushop_Controller_ViewShopController extends Vushop_Controller_BaseFlowCon
          */
         $requestParser = Dzit_RequestParser::getInstance();
         $this->ownerId = (int)$requestParser->getPathInfoParam(1);
+        $_SESSION[SESSION_SHOP_ID]=$this->ownerId;
         /**
          * @var Vushop_Bo_Catalog_ICatalogDao
          */
@@ -88,7 +89,7 @@ class Vushop_Controller_ViewShopController extends Vushop_Controller_BaseFlowCon
         $catalogDao = $this->getDao(DAO_CATALOG);
         $categories=$catalogDao->getCategoryTree();  
         foreach ($categories as $category) {
-            $itemList=$catalogDao->getItemsForCategoryShop($category,$this->ownerId,1,PHP_INT_MAX);
+            $itemList=$catalogDao->getItemsForCategoryShop($category,$this->ownerId,1,PHP_INT_MAX,DEFAULT_ITEM_SORTING);
             if (isset($itemList) && count($itemList) > 0 ) {
                 $category->setItemsForCategoryShop($itemList);
             }            

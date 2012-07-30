@@ -1,7 +1,7 @@
 <!-- MIDDLE COLUMN -->
 
 <div id="main">
-	<h1>[:$MODEL.language->getMessage('msg.cart'):]</h1>
+	<h1>[:$LANG->getMessage('msg.cart'):]</h1>
 	<br></br>
     <table class="cart-table" cellpadding="0" cellspacing="0" border="0" align="center">
     	<thead style="background: #666666;color: white">  

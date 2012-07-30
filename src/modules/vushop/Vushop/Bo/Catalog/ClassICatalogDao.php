@@ -121,7 +121,7 @@ interface Vushop_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param Vushop_Bo_Catalog_BoCategory $cat
      * @param Vushop_Bo_Catalog_BoShop $shop
      */
-    public function getItemsForCategoryShop($cat,$ownerId, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE);
+    public function getItemsForCategoryShop($cat,$ownerId, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE,$itemSorting = DEFAULT_ITEM_SORTING);
     
     
 

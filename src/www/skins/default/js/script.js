@@ -2,6 +2,22 @@ function redirect(url) {
 	document.location.href = url;
 }
 
+function jumpTo(id){
+	document.location.hash='#'+id;
+}
+
+function submitForm(formId){
+	document.getElementById(formId).submit();
+}
+
+function login(){
+	document.location.hash='#login';
+	var username=document.getElementById("username");
+	if(username!=null){
+		username.focus();
+	}
+}
+
 function confirmPassword(value, constraints) {
 	var isValid = false;
 	if (constraints && constraints.other) {
@@ -12,6 +28,10 @@ function confirmPassword(value, constraints) {
 		}
 	}
 	return isValid;
+}
+
+function changeShop(select){
+	 redirect(select.options[select.selectedIndex].value);
 }
 
 
@@ -49,3 +69,11 @@ $(document).ready(function(){
 	};
 	
 });
+
+function getFileUploadName(fileId,inputId) {
+	var fileUpload = document.getElementById(fileId);
+	var inputId = document.getElementById(inputId);	
+		var name = fileUpload.value.substring(fileUpload.value
+				.lastIndexOf("\\"), fileUpload.value.length);
+		inputId.value= name;
+}

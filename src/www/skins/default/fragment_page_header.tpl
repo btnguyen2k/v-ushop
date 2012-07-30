@@ -8,9 +8,9 @@
 				2 Sản phẩm. Tổng cộng 2,500,000	</a>
 				</p>
 				[:if isset($USER):]	
-					<p style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.hello'):] [:$USER->getDisplayName():]	| <a href="[:$MODEL.urlLogout:]">[:$LANG->getMessage('msg.logout'):]</a></p>
+					<p style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.hello'):] [:$USER->getDisplayName():] [:if $USER->getGroupId()>1:]	|<a href="[:$MODEL.urlProfileCp:]">[:$LANG->getMessage('msg.profileCp'):]</a>[:/if:] | <a href="[:$MODEL.urlLogout:]">[:$LANG->getMessage('msg.logout'):]</a></p>
 				[:else:]
-					<p style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):] | <a href="#">[:$LANG->getMessage('msg.register'):]</a></p>	
+					<a href="javascript:void(0)" onclick="login()" style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):]</a>	
 				[:/if:]		
 				
 		</div>							

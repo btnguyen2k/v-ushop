@@ -18,6 +18,7 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
     private $urlMoveUp = NULL;
     private $urlMoveDown = NULL;
     private $urlView = NULL;
+    private $urlViewShop = NULL;
     private $urlThumbnail = NULL;
     
     /**
@@ -90,6 +91,18 @@ class Vushop_Bo_Catalog_BoCategory extends Quack_Bo_BaseBo {
             $this->urlView = $_SERVER['SCRIPT_NAME'] . '/category/' . $this->id . '/';
         }
         return $this->urlView;
+    }
+    
+    public function getUrlViewShop($shopId) {
+        if (isset($shopId) && $shopId != 0) {
+            if ($this->urlViewShop === NULL) {
+                $this->urlViewShop = $_SERVER['SCRIPT_NAME'] . '/categoryShop/' . $shopId . '/' . $this->id . '/';
+            }
+            
+            return $this->urlViewShop;
+        }else{
+            return $this->getUrlView();
+        }
     }
     
     /**

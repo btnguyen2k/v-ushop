@@ -3,7 +3,7 @@
 	
 	[:call name=categoryTree:]
 	
-	<h1>QUẢNG CÁO</h1>
+	<!--<h1>QUẢNG CÁO</h1>
 <br/>
 <div class="pr-banner">						
 		<a href="">Quảng cáo 1</a><br/>
@@ -30,4 +30,4 @@
 		<a href=""><img src="images/quangcao4.jpg" alt="some_text"/></a>
 </div >
 	
-	
+	-->

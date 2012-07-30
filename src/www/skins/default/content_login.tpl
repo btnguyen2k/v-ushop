@@ -1,22 +1,26 @@
-<!-- MIDDLE COLUMN -->
-<div id="middle-column"
-    [:if isset($DISABLE_COLUMN_LEFT) && isset($DISABLE_COLUMN_RIGHT):]
-        style="width: 98%"
-    [:elseif isset($DISABLE_COLUMN_RIGHT)||isset($DISABLE_COLUMN_LEFT):]
-        style="width: 77.9%"
-    [:/if:]
-><!-- Middle column full box -->
-    <div class="middle-column-box-green">
-        <div class="middle-column-box-title-green">[:$MODEL.language->getMessage('msg.login'):]</div>
-        <form method="post" action="[:$MODEL.form.action:]" name="[:$MODEL.form.name|escape:'html':]">
-            [:printFormHeader form=$MODEL.form:]
-            <label>[:$MODEL.language->getMessage('msg.email'):]:</label>
-            <input type="text" name="email" style="width: 256px" />
-            <br/>
-            <label>[:$MODEL.language->getMessage('msg.password'):]:</label>
-            <input type="password" name="password" style="width: 256px" />
-            <br/>
-            <input type="submit" value="[:$MODEL.language->getMessage('msg.login'):]" />
+<div class="main" align="center">
+    <div class="standard_error">
+        <h2 class="blockhead">[:$LANG->getMessage('msg.login'):]</h2>
+        
+        <form class="vbform" method="post" action="">
+       		[:call name=printFormHeader form=$MODEL.form:]
+       <table style="padding: 20px;width: 400px">
+    		<tr>
+    			<td class="lable">[:$LANG->getMessage('msg.username'):]:</td>		
+    			<td><input id="username"  value="" class="textbox" name="username" type="text" /></td>
+    		</tr>
+    		<tr>
+    			<td class="lable">[:$LANG->getMessage('msg.password'):]:</td>		
+    			<td><input  class="textbox" value="" name="password" type="password" /></td>
+    		</tr>
+    		<tr>
+    			<td colspan="2" align="center"><br/>
+        			<button type="submit" class="btn" >[:$LANGUAGE->getMessage('msg.login'):]</button>
+        			<button type="button" class="btn" onclick="redirect('[:$MODEL.urlHome:]')">[:$LANGUAGE->getMessage('msg.cancelForm'):]</button>
+    			</td>	
+    		</tr>		
+    	</table>
+    		   
         </form>
-    </div>
+	</div>
 </div>

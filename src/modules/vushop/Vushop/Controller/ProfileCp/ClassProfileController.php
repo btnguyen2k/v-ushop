@@ -6,11 +6,12 @@ class Vushop_Controller_ProfileCp_ProfileController extends Vushop_Controller_Ba
     
     const FORM_FIELD_FULLNAME = 'fullname';
     const FORM_FIELD_EMAIL = 'email';
+    const FORM_FIELD_USERNAME = 'username';
+    
     const FORM_FIELD_SHOP_TITLE = 'shopTitle';
     const FORM_FIELD_IMAGE = 'shopImage';
     const FORM_FIELD_IMAGE_ID = 'shopImageId';
     const FORM_FIELD_URL_SHOP_IMAGE = 'urlShopImage';
-    const FORM_FIELD_REMOVE_IMAGE = 'removeImage';
     
     private $sessionKey;
     
@@ -24,6 +25,16 @@ class Vushop_Controller_ProfileCp_ProfileController extends Vushop_Controller_Ba
      */
     protected function getViewName() {
         return self::VIEW_NAME;
+    }
+    
+    protected function populateParams() {
+        $shopDao = $this->getDao(DAO_SHOP);
+        $shop = $shopDao->getShopById($this->getCurrentUser()->getId());
+        if ($shop !== NULL) {
+            $r = md5($shop->getImageId());
+            $this->sessionKey .= $r;
+            $_SESSION[$this->sessionKey] = $shop->getImageId();
+        }
     }
     
     /**
@@ -42,7 +53,7 @@ class Vushop_Controller_ProfileCp_ProfileController extends Vushop_Controller_Ba
      * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
-        $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmProfile');
+       
         $user = $this->getCurrentUser();
         $shopDao = $this->getDao(DAO_SHOP);
         $shop = $shopDao->getShopById($user->getId());
@@ -51,15 +62,22 @@ class Vushop_Controller_ProfileCp_ProfileController extends Vushop_Controller_Ba
         $form[self::FORM_FIELD_EMAIL] = $user->getEmail();
         $form[self::FORM_FIELD_SHOP_TITLE] = $shop->getTitle();
         $form[self::FORM_FIELD_IMAGE_ID] = $shop->getImageId();
-        if ($shop->getImageId() > 0) {
-            $form[self::FORM_FIELD_URL_SHOP_IMAGE] = Paperclip_Utils::createUrlThumbnail($shop->getImageId());
-        }
+        $form[self::FORM_FIELD_USERNAME] = $user->getUsername();
+        
+        $form[self::FORM_FIELD_SHOP_TITLE] = $shop->getTitle();
+        $form[self::FORM_FIELD_IMAGE_ID] = $shop->getImageId();
+        
         $this->populateForm($form, Array(self::FORM_FIELD_FULLNAME, 
                 self::FORM_FIELD_EMAIL, 
                 self::FORM_FIELD_SHOP_TITLE, 
                 self::FORM_FIELD_URL_SHOP_IMAGE, 
+                self::FORM_FIELD_USERNAME, 
                 self::FORM_FIELD_IMAGE_ID));
         
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        if ($paperclipId !== NULL) {
+            $form[self::FORM_FIELD_URL_SHOP_IMAGE] = Paperclip_Utils::createUrlThumbnail($paperclipId);
+        }
         if ($this->hasError()) {
             $form[FORM_ERROR_MESSAGES] = $this->getErrorMessages();
         } else if ($this->isPostRequest()) {
@@ -100,27 +118,25 @@ class Vushop_Controller_ProfileCp_ProfileController extends Vushop_Controller_Ba
         
         $shopDao = $this->getDao(DAO_SHOP);
         $shop = $shopDao->getShopById($currentUser->getId());
-        $shopName = isset($_POST[self::FORM_FIELD_SHOP_TITLE]) ? strtolower(trim($_POST[self::FORM_FIELD_SHOP_TITLE])) : '';
+        $shopName = isset($_POST[self::FORM_FIELD_SHOP_TITLE]) ? trim($_POST[self::FORM_FIELD_SHOP_TITLE]): '';
         
-        // take care of the uploaded file
-        $removeImage = isset($_POST[self::FORM_FIELD_REMOVE_IMAGE]) ? TRUE : FALSE;
+        // take care of the uploaded file        
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        
         $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
         if ($paperclipItem !== NULL) {
+              unset($_SESSION[$this->sessionKey]);
             $_SESSION[$this->sessionKey] = $paperclipItem->getId();
         } else {
             $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
-            if ($removeImage && $paperclipItem !== NULL) {
-                $paperclipDao = $this->getDao(DAO_PAPERCLIP);
-                $paperclipDao->deleteAttachment($paperclipItem);
-                unset($_SESSION[$this->sessionKey]);
-            }
+            
         }
         
         $shop->setTitle($shopName);
         $shop->setImageId($paperclipItem->getId());
         
-        $shopDao->updateShop($shop);
+        $shopDao->updateShop($shop);        
+   
         
         return FALSE;
     }

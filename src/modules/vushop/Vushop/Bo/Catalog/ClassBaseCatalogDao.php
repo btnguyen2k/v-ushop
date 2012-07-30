@@ -518,7 +518,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getItemsForShopCategory()
      */
-    public function getItemsForCategoryShop($cat, $ownerId, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE) {
+    public function getItemsForCategoryShop($cat, $ownerId, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING) {
         if ($cat === NULL) {
             return Array();
         }
@@ -529,20 +529,46 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         foreach ($cat->getChildren() as $child) {
             $params[] = $child->getId();
         }
-        
         $params = Array(self::PARAM_CATEGORY_IDS => $params, 
                 self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
                 self::PARAM_PAGE_SIZE => $pageSize, 
                 self::PARAM_OWNER_ID => $ownerId);
+                
+        switch ($itemSorting) {
+            case ITEM_SORTING_TITLE:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_TITLE);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            case ITEM_SORTING_PRICEASC:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_PRICE);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            case ITEM_SORTING_PRICEDESC:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_PRICE);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
+                break;
+            case ITEM_SORTING_TIMEASC:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            default:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
+        }
         
-        $rows = $this->execSelect($sqlStm, $params);       
+        $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {
             foreach ($rows as $row) {
                 $itemId = $row[Vushop_Bo_Catalog_BoItem::COL_ID];
                 $item = $this->getItemById($itemId);
                 $result[] = $item;
             }
-        }       
+        }
         return $result;
     }
     

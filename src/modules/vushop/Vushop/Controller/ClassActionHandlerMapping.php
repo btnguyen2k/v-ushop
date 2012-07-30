@@ -77,6 +77,12 @@ $YADIF_CONFIG = Array(
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)))),
+                   
+        'Vushop_Controller_ProfileCp_ChangePasswordController' => Array(
+                'class' => 'Vushop_Controller_ProfileCp_ChangePasswordController',
+                'scope' => 'singleton',
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)))),
 
         'Vushop_Controller_Admin_HomeController' => Array(
                 'class' => 'Vushop_Controller_Admin_HomeController',

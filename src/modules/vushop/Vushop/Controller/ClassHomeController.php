@@ -15,6 +15,14 @@ class Vushop_Controller_HomeController extends Vushop_Controller_BaseFlowControl
      * @see Vushop_Controller_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
+        /**
+         *
+         * Clear SESSION_SHOP_ID
+         */
+          if(isset($_SESSION[SESSION_SHOP_ID])){
+               unset($_SESSION[SESSION_SHOP_ID]);
+          }        
+        
         $model = parent::buildModel_Custom();
         if ($model === NULL) {
             $model = Array();

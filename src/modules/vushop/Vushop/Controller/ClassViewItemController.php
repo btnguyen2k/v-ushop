@@ -1,16 +1,16 @@
 <?php
-class Vcatalog_Controller_ViewItemController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_ViewItemController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME = 'viewItem';
     const VIEW_NAME_ERROR = 'error';
 
     /**
-     * @var Vcatalog_Bo_Catalog_BoCategory
+     * @var Vushop_Bo_Catalog_BoCategory
      */
     private $item = NULL;
     private $itemId;
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -28,7 +28,7 @@ class Vcatalog_Controller_ViewItemController extends Vcatalog_Controller_BaseFlo
         $requestParser = Dzit_RequestParser::getInstance();
         $this->itemId = (int)$requestParser->getPathInfoParam(1);
         /**
-         * @var Vcatalog_Bo_Catalog_ICatalogDao
+         * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->item = $catalogDao->getItemById($this->itemId);
@@ -67,7 +67,7 @@ class Vcatalog_Controller_ViewItemController extends Vcatalog_Controller_BaseFlo
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();
