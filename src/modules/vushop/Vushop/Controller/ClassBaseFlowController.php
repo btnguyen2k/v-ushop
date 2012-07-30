@@ -34,7 +34,13 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
             $modelAndView = new Dzit_ModelAndView();
             $modelAndView->setView(new Dzit_View_RedirectView($url));
         } else {
-            $modelAndView = parent::execute($module, $action);
+            $userGroup = $this->getCurrentUserGroup();
+            if ($this->allowedUserGroups !== NULL && !in_array($userGroup, $this->allowedUserGroups)) {
+                die('You do not have permission to access this function!');
+                return NULL;
+            } else {
+                $modelAndView = parent::execute($module, $action);
+            }
         }
         return $modelAndView;
     }

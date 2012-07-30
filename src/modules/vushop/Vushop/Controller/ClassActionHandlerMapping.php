@@ -90,182 +90,209 @@ $YADIF_CONFIG = Array(
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups',
-                                'arguments' => Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER)))),
+                                'arguments' => Array(Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER))))),
 
         'Vushop_Controller_Admin_DashboardController' => Array(
                 'class' => 'Vushop_Controller_Admin_DashboardController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER))))),
 
         'Vushop_Controller_Admin_PageListController' => Array(
                 'class' => 'Vushop_Controller_Admin_PageListController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_CreatePageController' => Array(
                 'class' => 'Vushop_Controller_Admin_CreatePageController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_DeletePageController' => Array(
                 'class' => 'Vushop_Controller_Admin_DeletePageController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_EditPageController' => Array(
                 'class' => 'Vushop_Controller_Admin_EditPageController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_AdsListController' => Array(
                 'class' => 'Vushop_Controller_Admin_AdsListController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_CreateAdsController' => Array(
                 'class' => 'Vushop_Controller_Admin_CreateAdsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_DeleteAdsController' => Array(
                 'class' => 'Vushop_Controller_Admin_DeleteAdsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_EditAdsController' => Array(
                 'class' => 'Vushop_Controller_Admin_EditAdsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_CategoryListController' => Array(
                 'class' => 'Vushop_Controller_Admin_CategoryListController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER))))),
         'Vushop_Controller_Admin_CreateCategoryController' => Array(
                 'class' => 'Vushop_Controller_Admin_CreateCategoryController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_DeleteCategoryController' => Array(
                 'class' => 'Vushop_Controller_Admin_DeleteCategoryController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_EditCategoryController' => Array(
                 'class' => 'Vushop_Controller_Admin_EditCategoryController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_MoveDownCategoryController' => Array(
                 'class' => 'Vushop_Controller_Admin_MoveDownCategoryController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
         'Vushop_Controller_Admin_MoveUpCategoryController' => Array(
                 'class' => 'Vushop_Controller_Admin_MoveUpCategoryController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_ItemListController' => Array(
                 'class' => 'Vushop_Controller_Admin_ItemListController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER))))),
         'Vushop_Controller_Admin_CreateItemController' => Array(
                 'class' => 'Vushop_Controller_Admin_CreateItemController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER))))),
         'Vushop_Controller_Admin_EditItemController' => Array(
                 'class' => 'Vushop_Controller_Admin_EditItemController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER))))),
         'Vushop_Controller_Admin_DeleteItemController' => Array(
                 'class' => 'Vushop_Controller_Admin_DeleteItemController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER))))),
 
         'Vushop_Controller_Admin_SiteSettingsController' => Array(
                 'class' => 'Vushop_Controller_Admin_SiteSettingsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_EmailSettingsController' => Array(
                 'class' => 'Vushop_Controller_Admin_EmailSettingsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_CatalogSettingsController' => Array(
                 'class' => 'Vushop_Controller_Admin_CatalogSettingsController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_UpdateIndexController' => Array(
                 'class' => 'Vushop_Controller_Admin_UpdateIndexController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_UserListController' => Array(
                 'class' => 'Vushop_Controller_Admin_UserListController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_DeleteUserController' => Array(
                 'class' => 'Vushop_Controller_Admin_DeleteUserController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_EditUserController' => Array(
                 'class' => 'Vushop_Controller_Admin_EditUserController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))),
 
         'Vushop_Controller_Admin_CreateUserController' => Array(
                 'class' => 'Vushop_Controller_Admin_CreateUserController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
-                        Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))));
+                        Array('method' => 'setAllowedUserGroups',
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))));
 
 /**
  * This class utilizes yadif (http://github.com/beberlei/yadif/)
