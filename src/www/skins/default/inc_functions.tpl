@@ -5,6 +5,8 @@
 [:if isset($MODEL.form):]
     [:assign var="FORM" value=$MODEL.form scope=root:]
 [:/if:]
+[:assign var="USER_GROUP_ADMIN" value=1 scope=root:]
+[:assign var="USER_GROUP_SHOP_OWNER" value=2 scope=root:]
 
 [:function name=printFormHeader form=NULL:]
     [:if isset($form.errorMessages) && count($form.errorMessages) gt 0:]

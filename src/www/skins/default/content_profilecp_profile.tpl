@@ -10,8 +10,7 @@
         	<li><a href="#tabs-2">[:$LANG->getMessage('msg.changePassword'):]</a></li>
         </ul>
         <div id="tabs-1">
-        	<form method="post" id="userInformation" enctype="multipart/form-data" action="[:$MODEL.urlProfileCp:]">
-        		
+        	<form method="post" id="userInformation" name="" enctype="multipart/form-data" action="[:$MODEL.urlProfileCp:]">
         		<table width="100%">
         			<tr>
         				<td colspan="4"><h2>[:$LANG->getMessage('msg.accountInformation'):]</h2><br/></td>
