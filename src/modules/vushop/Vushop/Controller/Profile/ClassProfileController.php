@@ -1,19 +1,17 @@
 <?php
-class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Controller_BaseFlowController {
+class Vushop_Controller_Profile_ProfileController extends Vushop_Controller_BaseFlowController {
 
-    const VIEW_NAME = 'profilecp_profile';
-    const VIEW_NAME_AFTER_POST = 'profilecp_profile';
+    const VIEW_NAME = 'profile_profile';
+    const VIEW_NAME_AFTER_POST = 'profile_profile';
 
     const FORM_FIELD_FULLNAME = 'fullname';
     const FORM_FIELD_EMAIL = 'email';
     const FORM_FIELD_USERNAME = 'username';
+
     const FORM_FIELD_SHOP_TITLE = 'shopTitle';
     const FORM_FIELD_IMAGE = 'shopImage';
     const FORM_FIELD_IMAGE_ID = 'shopImageId';
     const FORM_FIELD_URL_SHOP_IMAGE = 'urlShopImage';
-    const FORM_FIELD_CURRENT_PASSWORD = 'currentPassword';
-    const FORM_FIELD_NEW_PASSWORD = 'newPassword';
-    const FORM_FIELD_CONFIRMED_NEW_PASSWORD = 'confirmedNewPassword';
 
     private $sessionKey;
 
@@ -23,7 +21,6 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
     }
 
     /**
-     *
      * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
@@ -41,7 +38,6 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
     }
 
     /**
-     *
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
     protected function getModelAndView_FormSubmissionSuccessful() {
@@ -54,19 +50,18 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
     }
 
     /**
-     *
      * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
+
         $user = $this->getCurrentUser();
         $shopDao = $this->getDao(DAO_SHOP);
         $shop = $shopDao->getShopById($user->getId());
 
-        $form = Array('action' => $_SERVER['REQUEST_URI'],
-                'name' => 'frmChangePassword');
-
         $form[self::FORM_FIELD_FULLNAME] = $user->getFullname();
         $form[self::FORM_FIELD_EMAIL] = $user->getEmail();
+        $form[self::FORM_FIELD_SHOP_TITLE] = $shop->getTitle();
+        $form[self::FORM_FIELD_IMAGE_ID] = $shop->getImageId();
         $form[self::FORM_FIELD_USERNAME] = $user->getUsername();
 
         $form[self::FORM_FIELD_SHOP_TITLE] = $shop->getTitle();
@@ -87,13 +82,12 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
             $form[FORM_ERROR_MESSAGES] = $this->getErrorMessages();
         } else if ($this->isPostRequest()) {
             $lang = $this->getLanguage();
-            $form[FORM_INFO_MESSAGES] = Array($lang->getMessage('msg.updatePassword.done'));
+            $form[FORM_INFO_MESSAGES] = Array($lang->getMessage('msg.updateProfile.done'));
         }
         return $form;
     }
 
     /**
-     *
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
@@ -101,25 +95,48 @@ class Vushop_Controller_ProfileCp_ChangePasswordController extends Vushop_Contro
         $lang = $this->getLanguage();
         $currentUser = $this->getCurrentUser();
 
-        $currentPassword = isset($_POST[self::FORM_FIELD_CURRENT_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_CURRENT_PASSWORD])) : '';
-        $newPassword = isset($_POST[self::FORM_FIELD_NEW_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_NEW_PASSWORD])) : '';
-        $confirmedNewPassword = isset($_POST[self::FORM_FIELD_CONFIRMED_NEW_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_CONFIRMED_NEW_PASSWORD])) : '';
-        if ($currentPassword !== '' && !$this->hasError()) {
-            if (strtolower(md5($currentPassword)) !== strtolower($currentUser->getPassword())) {
-                $this->addErrorMessage($lang->getMessage('error.currentPasswordMismatches'));
-            } else if ($newPassword === '') {
-                $this->addErrorMessage($lang->getMessage('error.emptyNewPassword'));
-            } else if ($newPassword !== $confirmedNewPassword) {
-                $this->addErrorMessage($lang->getMessage('error.passwordsMismatch'));
-            } else {
-                $currentUser->setPassword(strtolower(md5($newPassword)));
+        $email = isset($_POST[self::FORM_FIELD_EMAIL]) ? strtolower(trim($_POST[self::FORM_FIELD_EMAIL])) : '';
+        if ($email === '') {
+            $this->addErrorMessage($lang->getMessage('error.invalidEmail', $email));
+        } else {
+            $user = $userDao->getUserByEmail($email);
+            if ($user !== NULL && $user->getEmail() !== $currentUser->getEmail()) {
+                $this->addErrorMessage($lang->getMessage('error.emailExists', htmlspecialchars($email)));
             }
         }
+
         if ($this->hasError()) {
             return FALSE;
         }
-        $currentUser->setPassword(md5($newPassword));
+
+        $fullname = isset($_POST[self::FORM_FIELD_FULLNAME]) ? trim($_POST[self::FORM_FIELD_FULLNAME]) : '';
+
+        $currentUser->setEmail($email);
+        $currentUser->setFullname($fullname);
+        $_SESSION[SESSION_USER_ID] = $currentUser->getId();
         $userDao->updateUser($currentUser);
+
+        $shopDao = $this->getDao(DAO_SHOP);
+        $shop = $shopDao->getShopById($currentUser->getId());
+        $shopName = isset($_POST[self::FORM_FIELD_SHOP_TITLE]) ? trim($_POST[self::FORM_FIELD_SHOP_TITLE]): '';
+
+        // take care of the uploaded file
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+
+        $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
+        if ($paperclipItem !== NULL) {
+              unset($_SESSION[$this->sessionKey]);
+            $_SESSION[$this->sessionKey] = $paperclipItem->getId();
+        } else {
+            $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+
+        }
+
+        $shop->setTitle($shopName);
+        $shop->setImageId($paperclipItem->getId());
+
+        $shopDao->updateShop($shop);
+
 
         return FALSE;
     }
