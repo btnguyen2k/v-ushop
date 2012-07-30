@@ -1,5 +1,5 @@
 <!-- MIDDLE COLUMN -->
-<div id="main" style="width: 680px">
+<div id="main" [:if isset($DISABLE_COLUMN_RIGHT)&&isset($DISABLE_COLUMN_LEFT):]style="width: 870px"[:else:]style="width: 680px"[:/if:]>
 	<h1>[:$LANG->getMessage('msg.profile'):]</h1>
 	<br/>
 	[:call name=printFormHeader form=$MODEL.form:]
