@@ -8,6 +8,7 @@
         <ul>
         	<li><a href="#tabs-1">[:$LANG->getMessage('msg.shopInformation'):]</a></li>
         	<li><a href="#tabs-2">[:$LANG->getMessage('msg.changePassword'):]</a></li>
+            <li><a onclick="window.location.href='[:$MODEL.urlMyItems:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.myitems'):]</a></li>
         </ul>
         <div id="tabs-1">
         	<form method="post" id="userInformation" name="frmUserInformation" enctype="multipart/form-data" action="[:$MODEL.urlProfile:]">

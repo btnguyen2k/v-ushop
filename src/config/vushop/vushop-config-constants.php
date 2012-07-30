@@ -74,6 +74,7 @@ define('MODEL_URL_REGISTER', 'urlRegister');
 define('MODEL_URL_BACKEND', 'urlBackend');
 define('MODEL_URL_UPLOAD_HANDLER', 'urlUploadHandler');
 define('MODEL_URL_PROFILE', 'urlProfile');
+define('MODEL_URL_MY_ITEMS', 'urlMyItems');
 define('MODEL_URL_CHANGE_PASSWORD', 'urlChangePassword');
 define('MODEL_PAGINATOR', 'paginator');
 define('MODEL_DEBUG', 'debug');

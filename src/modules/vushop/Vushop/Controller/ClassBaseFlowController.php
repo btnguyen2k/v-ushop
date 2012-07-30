@@ -375,6 +375,15 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     }
 
     /**
+     * Get the url to access user's item list.
+     *
+     * @return string
+     */
+    protected function getUrlMyItems() {
+        return $_SERVER['SCRIPT_NAME'] . '/myItems';
+    }
+
+    /**
      * Get the url to access user's change password section.
      *
      * @return string
@@ -489,6 +498,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $model[MODEL_URL_REGISTER] = $this->getUrlRegister();
         $model[MODEL_URL_UPLOAD_HANDLER] = $this->getUrlUploadHandler();
         $model[MODEL_URL_PROFILE] = $this->getUrlProfile();
+        $model[MODEL_URL_MY_ITEMS] = $this->getUrlMyItems();
         $model[MODEL_URL_CHANGE_PASSWORD] = $this->getUrlChangePassword();
         if ($user !== NULL) {
             if ($user !== NULL && $user->getGroupId() === USER_GROUP_ADMIN) {
