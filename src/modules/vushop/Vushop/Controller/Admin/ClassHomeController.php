@@ -13,7 +13,7 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
          */
         $urlCreator = Dzit_Config::get(Dzit_Config::CONF_URL_CREATOR);
         $this->MENU = Array(
-                 Array('title' => $lang->getMessage('msg.userManagement'),
+                Array('title' => $lang->getMessage('msg.userManagement'),
                         'groups' => Array(USER_GROUP_ADMIN),
                         'children' => Array(
                                 Array('title' => $lang->getMessage('msg.userList'),
@@ -25,9 +25,7 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
                                         'icon' => 'userAdd',
                                         'groups' => Array(USER_GROUP_ADMIN),
                                         'url' => $urlCreator->createUrl(Array(
-                                                Dzit_IUrlCreator::PARAM_MODULE => 'createUser')))
-                        )
-                ),
+                                                Dzit_IUrlCreator::PARAM_MODULE => 'createUser'))))),
                 Array('title' => $lang->getMessage('msg.settings'),
                         'groups' => Array(USER_GROUP_ADMIN),
                         'children' => Array(
@@ -69,9 +67,7 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
                                         'icon' => 'pageAdd',
                                         'groups' => Array(USER_GROUP_ADMIN),
                                         'url' => $urlCreator->createUrl(Array(
-                                                Dzit_IUrlCreator::PARAM_MODULE => 'createPage')))
-                            )
-                        ),
+                                                Dzit_IUrlCreator::PARAM_MODULE => 'createPage'))))),
                 Array('title' => $lang->getMessage('msg.adsManagement'),
                         'groups' => Array(USER_GROUP_ADMIN),
                         'children' => Array(
@@ -84,9 +80,7 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
                                         'icon' => 'adsAdd',
                                         'groups' => Array(USER_GROUP_ADMIN),
                                         'url' => $urlCreator->createUrl(Array(
-                                                Dzit_IUrlCreator::PARAM_MODULE => 'createAds')))
-                        )
-                ),
+                                                Dzit_IUrlCreator::PARAM_MODULE => 'createAds'))))),
                 Array('title' => '-'),
                 Array('title' => $lang->getMessage('msg.catalogManagement'),
                         'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER),
@@ -100,8 +94,7 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
                                         'icon' => 'itemAdd',
                                         'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER),
                                         'url' => $urlCreator->createUrl(Array(
-                                                Dzit_IUrlCreator::PARAM_MODULE => 'createItem')))))
-                );
+                                                Dzit_IUrlCreator::PARAM_MODULE => 'createItem'))))));
     }
 
     /**
@@ -135,6 +128,10 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
             if ($menuItem !== NULL) {
                 $menu[] = $menuItem;
             }
+        }
+        while (count($menu) > 0 && $menu[0]['title'] === '-') {
+            // make it look a bit less urgly if current user is not admin
+            array_shift($menu);
         }
 
         return $menu;
