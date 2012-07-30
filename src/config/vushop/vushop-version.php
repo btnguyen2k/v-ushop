@@ -1,7 +1,11 @@
 <?php
-$vCatalogVersion = preg_replace('/\\$Revision:.*?(\\d+).*?$/', '$1', 'v0.1.1.$Revision$');
+$vCatalogVersion = preg_replace('/\\$Revision:.*?(\\d+).*?$/', '$1', 'v0.1.2.$Revision$');
 define('VUSHOP_VERSION', $vCatalogVersion);
 /*
+ * * 2012-07-31: v0.1.2
+ *   - Bug fixes
+ *   - Feature: shop owner's profile
+ *
  * * 2012-07-30: v0.1.1
  *   - Bug fixes
  *   - Feature: create shop, user login
