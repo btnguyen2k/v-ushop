@@ -1,25 +1,26 @@
 <!--header -->
-	<div id="header">	
-		<br/>		
-		<h4 style="padding-left: 20px"> MUA LẺ TRỰC TUYẾN </h4>
+    <div id="header">
+        <br/>
+        <h4 style="padding-left: 20px"> MUA LẺ TRỰC TUYẾN </h4>
 		<div id="header-links">
-				<p>
-				<a href=""><img src="images/shoppingcart.jpg" alt="some_text"/>
-				2 Sản phẩm. Tổng cộng 2,500,000	</a>
-				</p>
-				[:if isset($USER):]	
-					<p style="font-weight: bold;font-size: 12px">
-                        [:$LANG->getMessage('msg.hello'):] [:$USER->getDisplayName():]
-                        [:if $USER->getGroupId() != $USER_GROUP_ADMIN:]| <a href="[:$MODEL.urlProfile:]">[:$LANG->getMessage('msg.profile'):]</a>[:/if:]
-                        | <a href="[:$MODEL.urlLogout:]">[:$LANG->getMessage('msg.logout'):]</a>
-                    </p>
-				[:else:]
-					<a href="javascript:void(0)" onclick="login()" style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):]</a>	
-				[:/if:]		
-		</div>							
+            <p>
+                <a href="[:$MODEL.cart->getUrlView():]"><img src="images/shoppingcart.jpg" alt="some_text"/>
+                    [:$MODEL.language->getMessage('msg.cart.numItems'):]: <strong>[:$MODEL.cart->getTotalItems():]</strong>,
+                    [:$MODEL.language->getMessage('msg.cart.totalPrice'):]: <strong>[:$MODEL.cart->getTotalPriceForDisplay():]</strong>
+    			</a>
+    		</p>
+    		[:if isset($USER):]
+                <p style="font-weight: bold;font-size: 12px">
+                    [:$LANG->getMessage('msg.hello'):] [:$USER->getDisplayName():]
+                    [:if $USER->getGroupId() != $USER_GROUP_ADMIN:]| <a href="[:$MODEL.urlProfile:]">[:$LANG->getMessage('msg.profile'):]</a>[:/if:]
+                    | <a href="[:$MODEL.urlLogout:]">[:$LANG->getMessage('msg.logout'):]</a>
+                </p>
+    		[:else:]
+                <a href="javascript:void(0)" onclick="login()" style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):]</a>
+    		[:/if:]
+		</div>
 	</div>
 <!--/ header ends-->
-
 		
 <!-- navigation starts-->
 <div  id="nav" align="center">
