@@ -46,6 +46,11 @@ define('MODEL_APP_VERSION', 'APP_VERSION');
 define('MODEL_REQUEST_MODULE', 'reqModule');
 define('MODEL_REQUEST_ACTION', 'reqAction');
 
+define('MODEL_BASE_HREF', 'basehref');
+define('MODEL_PAGE', 'page');
+define('MODEL_LANGUAGE', 'language');
+define('MODEL_USER', 'user');
+
 define('MODEL_SHOP_OWNERS', 'shopOwners');
 define('MODEL_USER_LIST', 'userList');
 define('MODEL_CATEGORY_TREE', 'categoryTree');
@@ -62,7 +67,14 @@ define('MODEL_ALL_PAGES_BY_CATEGORY', 'allPagesByCat');
 define('MODEL_INFO_MESSAGES', 'infoMessages');
 define('MODEL_ERROR_MESSAGES', 'errorMessages');
 define('MODEL_TRANSIT_MESSAGE', 'transitMessage');
-define('MODEL_URL_TRANSIT', 'urlTransit');
+define('MODEL_URL_HOME', 'urlHome');
+define('MODEL_URL_LOGOUT', 'urlLogout');
+define('MODEL_URL_LOGIN', 'urlLogin');
+define('MODEL_URL_REGISTER', 'urlRegister');
+define('MODEL_URL_BACKEND', 'urlBackend');
+define('MODEL_URL_UPLOAD_HANDLER', 'urlUploadHandler');
+define('MODEL_URL_PROFILE', 'urlProfile');
+define('MODEL_URL_CHANGE_PASSWORD', 'urlChangePassword');
 define('MODEL_PAGINATOR', 'paginator');
 define('MODEL_DEBUG', 'debug');
 

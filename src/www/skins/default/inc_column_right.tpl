@@ -39,7 +39,7 @@
 			<td><input name="search" class="button" value="Đăng Nhập" type="submit" /></td>
 		</tr>
 	</table>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">[:$LANG->getMessage('msg.register'):]</a> | <a href="../../#">[:$LANG->getMessage('msg.forgetPassword'):]</a>	
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">[:$LANG->getMessage('msg.register'):]</a> | <a href="../../#">[:$LANG->getMessage('msg.forgotPassword'):]</a>	
 </form>	
 [:/if:]
 <br/>

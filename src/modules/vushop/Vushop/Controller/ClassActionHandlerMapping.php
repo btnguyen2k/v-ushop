@@ -72,8 +72,8 @@ $YADIF_CONFIG = Array(
                 'scope' => 'singleton',
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))),
 
-        'Vushop_Controller_Profile_ProfileController' => Array(
-                'class' => 'Vushop_Controller_Profile_ProfileController',
+        'Vushop_Controller_Profile_UpdateProfileController' => Array(
+                'class' => 'Vushop_Controller_Profile_UpdateProfileController',
                 'scope' => 'singleton',
                 'methods' => Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)))),

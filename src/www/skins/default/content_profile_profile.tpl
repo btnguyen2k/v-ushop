@@ -1,6 +1,6 @@
 <!-- MIDDLE COLUMN -->
 <div id="main" style="width: 680px">
-	<h1>[:$LANG->getMessage('msg.profileCp'):]</h1>
+	<h1>[:$LANG->getMessage('msg.profile'):]</h1>
 	<br/>
 	[:call name=printFormHeader form=$MODEL.form:]
 	
@@ -10,7 +10,7 @@
         	<li><a href="#tabs-2">[:$LANG->getMessage('msg.changePassword'):]</a></li>
         </ul>
         <div id="tabs-1">
-        	<form method="post" id="userInformation" name="" enctype="multipart/form-data" action="[:$MODEL.urlProfileCp:]">
+        	<form method="post" id="userInformation" name="frmUserInformation" enctype="multipart/form-data" action="[:$MODEL.urlProfile:]">
         		<table width="100%">
         			<tr>
         				<td colspan="4"><h2>[:$LANG->getMessage('msg.accountInformation'):]</h2><br/></td>
@@ -28,10 +28,10 @@
         				<td class="lable">[:$LANG->getMessage('msg.shopName'):]:</td>
         				<td ><input type="text" value="[:$MODEL.form.shopTitle|escape:'html':]"  name="shopTitle" /></td>
         				<td colspan="2" rowspan="2" align="center">
-        					 [:if $MODEL.form.urlShopImage=='':]
-                                [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
-                            [:else:]
+                            [:if isset($MODEL.form.urlShopImage):]
                                 [:assign var="_urlThumbnail" value=$MODEL.form.urlShopImage:]
+                            [:else:]
+                                [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
                             [:/if:]
         					<img alt="" src="[:$_urlThumbnail:]" width="150" height="189">
         				</td>
@@ -51,14 +51,14 @@
         	<br/><br/><br/>
         </div>
         <div id="tabs-2">
-        	<form method="post" id="changePassword" action="[:$MODEL.urlChangePasswordCp:]" >
+        	<form method="post" id="changePassword" name="frmChangePassword" action="[:$MODEL.urlChangePassword:]" >
         		<table width="100%">
         			<tr>
         				<td colspan="2"><h2>[:$LANG->getMessage('msg.account'):] - [:$MODEL.form.username|escape:'html':]</h2><br/></td>
         			</tr>        			
         			<tr>
         				<td class="lable">[:$LANG->getMessage('msg.profile.currentPassword'):]:</td>
-        				<td><input type="password" value=""  name="currentPassword" /></td>
+        				<td><input type="password" value="" name="currentPassword" /></td>
         			</tr>
         			<tr>
         				<td class="lable">[:$LANG->getMessage('msg.profile.newPassword'):]:</td>
@@ -72,20 +72,18 @@
         		<br/>
         		<a class="button" href="javascript:void(0)" onclick="submitForm('changePassword')"><span>&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]</span></a><br/><br/>        
         	</form>
-        	
+
         	<script type="text/javascript">
-        	 var address= document.location.href;
-        	 if(address.indexOf('changePassword')>0){
-        		 $('#tabs').tabs({ selected: 1 });
-        	 }
+            var address= document.location.href;
+            if (address.indexOf('changePassword') > 0) {
+                $('#tabs').tabs({ selected: 1 });
+            }
         	</script>
         </div>       
     </div>
-<script>
+    <script>
 	$(function() {
 		$( "#tabs" ).tabs();
 	});
-</script>
-
-
+    </script>
 </div>
