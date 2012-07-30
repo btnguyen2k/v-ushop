@@ -39,7 +39,9 @@
                 </td>
                 <td style="text-align: center;" width="64px">
                     <a href="[:$_user->getUrlEdit():]"><img border="0" alt="" src="img/user_edit.png" /></a>
+                    <!--
                     <a href="[:$_user->getUrlDelete():]"><img border="0" alt="" src="img/user_delete.png" /></a>
+                    -->
                 </td>
             </tr>
         [:foreachelse:]
