@@ -1,24 +1,31 @@
 <?php
-class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controller_BaseFlowController {
-
+class Vushop_Controller_ProfileCp_ProfileController extends Vushop_Controller_BaseFlowController {
+    
     const VIEW_NAME = 'profilecp_profile';
     const VIEW_NAME_AFTER_POST = 'profilecp_profile';
-
-    const FORM_FIELD_TITLE = 'title';
+    
     const FORM_FIELD_FULLNAME = 'fullname';
-    const FORM_FIELD_LOCATION = 'location';
-    const FORM_FIELD_USERNAME = 'email';
-    const FORM_FIELD_CURRENT_PASSWORD = 'currentPassword';
-    const FORM_FIELD_NEW_PASSWORD = 'newPassword';
-    const FORM_FIELD_CONFIRMED_NEW_PASSWORD = 'confirmedNewPassword';
-
+    const FORM_FIELD_EMAIL = 'email';
+    const FORM_FIELD_SHOP_TITLE = 'shopTitle';
+    const FORM_FIELD_IMAGE = 'shopImage';
+    const FORM_FIELD_IMAGE_ID = 'shopImageId';
+    const FORM_FIELD_URL_SHOP_IMAGE = 'urlShopImage';
+    const FORM_FIELD_REMOVE_IMAGE = 'removeImage';
+    
+    private $sessionKey;
+    
+    public function __construct() {
+        parent::__construct();
+        $this->sessionKey = __CLASS__ . '_fileId';
+    }
+    
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
-
+    
     /**
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
@@ -30,21 +37,29 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
         }
         return new Dzit_ModelAndView($viewName, $model);
     }
-
+    
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Form()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmProfile');
         $user = $this->getCurrentUser();
-        $form[self::FORM_FIELD_TITLE] = $user->getTitle();
+        $shopDao = $this->getDao(DAO_SHOP);
+        $shop = $shopDao->getShopById($user->getId());
+        
         $form[self::FORM_FIELD_FULLNAME] = $user->getFullname();
-        $form[self::FORM_FIELD_LOCATION] = $user->getLocation();
         $form[self::FORM_FIELD_EMAIL] = $user->getEmail();
-        $this->populateForm($form, Array(self::FORM_FIELD_TITLE,
-                self::FORM_FIELD_FULLNAME,
-                self::FORM_FIELD_LOCATION,
-                self::FORM_FIELD_EMAIL));
+        $form[self::FORM_FIELD_SHOP_TITLE] = $shop->getTitle();
+        $form[self::FORM_FIELD_IMAGE_ID] = $shop->getImageId();
+        if ($shop->getImageId() > 0) {
+            $form[self::FORM_FIELD_URL_SHOP_IMAGE] = Paperclip_Utils::createUrlThumbnail($shop->getImageId());
+        }
+        $this->populateForm($form, Array(self::FORM_FIELD_FULLNAME, 
+                self::FORM_FIELD_EMAIL, 
+                self::FORM_FIELD_SHOP_TITLE, 
+                self::FORM_FIELD_URL_SHOP_IMAGE, 
+                self::FORM_FIELD_IMAGE_ID));
+        
         if ($this->hasError()) {
             $form[FORM_ERROR_MESSAGES] = $this->getErrorMessages();
         } else if ($this->isPostRequest()) {
@@ -53,7 +68,7 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
         }
         return $form;
     }
-
+    
     /**
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
@@ -61,7 +76,7 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
         $userDao = $this->getDao(DAO_USER);
         $lang = $this->getLanguage();
         $currentUser = $this->getCurrentUser();
-
+        
         $email = isset($_POST[self::FORM_FIELD_EMAIL]) ? strtolower(trim($_POST[self::FORM_FIELD_EMAIL])) : '';
         if ($email === '') {
             $this->addErrorMessage($lang->getMessage('error.invalidEmail', $email));
@@ -71,37 +86,42 @@ class Vcatalog_Controller_ProfileCp_ProfileController extends Vcatalog_Controlle
                 $this->addErrorMessage($lang->getMessage('error.emailExists', htmlspecialchars($email)));
             }
         }
-
-        $currentPassword = isset($_POST[self::FORM_FIELD_CURRENT_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_CURRENT_PASSWORD])) : '';
-        $newPassword = isset($_POST[self::FORM_FIELD_NEW_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_NEW_PASSWORD])) : '';
-        $confirmedNewPassword = isset($_POST[self::FORM_FIELD_CONFIRMED_NEW_PASSWORD]) ? strtolower(trim($_POST[self::FORM_FIELD_CONFIRMED_NEW_PASSWORD])) : '';
-        if ($currentPassword !== '' && !$this->hasError()) {
-            if (strtolower(md5($currentPassword)) !== strtolower($currentUser->getPassword())) {
-                $this->addErrorMessage($lang->getMessage('error.currentPasswordMismatches'));
-            } else if ($newPassword === '') {
-                $this->addErrorMessage($lang->getMessage('error.emptyNewPassword'));
-            } else if ($newPassword !== $confirmedNewPassword) {
-                $this->addErrorMessage($lang->getMessage('error.passwordsMismatch'));
-            } else {
-                $currentUser->setPassword(strtolower(md5($newPassword)));
-            }
-        }
-
+        
         if ($this->hasError()) {
             return FALSE;
         }
-
-        $title = isset($_POST[self::FORM_FIELD_TITLE]) ? trim($_POST[self::FORM_FIELD_TITLE]) : '';
+        
         $fullname = isset($_POST[self::FORM_FIELD_FULLNAME]) ? trim($_POST[self::FORM_FIELD_FULLNAME]) : '';
-        $location = isset($_POST[self::FORM_FIELD_LOCATION]) ? trim($_POST[self::FORM_FIELD_LOCATION]) : '';
-
+        
         $currentUser->setEmail($email);
-        $currentUser->setTitle($title);
         $currentUser->setFullname($fullname);
-        $currentUser->setLocation($location);
-        $_SESSION[SESSION_USER_ID] = $email;
+        $_SESSION[SESSION_USER_ID] = $currentUser->getId();
         $userDao->updateUser($currentUser);
-
+        
+        $shopDao = $this->getDao(DAO_SHOP);
+        $shop = $shopDao->getShopById($currentUser->getId());
+        $shopName = isset($_POST[self::FORM_FIELD_SHOP_TITLE]) ? strtolower(trim($_POST[self::FORM_FIELD_SHOP_TITLE])) : '';
+        
+        // take care of the uploaded file
+        $removeImage = isset($_POST[self::FORM_FIELD_REMOVE_IMAGE]) ? TRUE : FALSE;
+        $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
+        $paperclipItem = $this->processUploadFile(self::FORM_FIELD_IMAGE, MAX_UPLOAD_FILESIZE, ALLOWED_UPLOAD_FILE_TYPES, $paperclipId);
+        if ($paperclipItem !== NULL) {
+            $_SESSION[$this->sessionKey] = $paperclipItem->getId();
+        } else {
+            $paperclipItem = $paperclipId !== NULL ? $this->getDao(DAO_PAPERCLIP)->getAttachment($paperclipId) : NULL;
+            if ($removeImage && $paperclipItem !== NULL) {
+                $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+                $paperclipDao->deleteAttachment($paperclipItem);
+                unset($_SESSION[$this->sessionKey]);
+            }
+        }
+        
+        $shop->setTitle($shopName);
+        $shop->setImageId($paperclipItem->getId());
+        
+        $shopDao->updateShop($shop);
+        
         return FALSE;
     }
 }
