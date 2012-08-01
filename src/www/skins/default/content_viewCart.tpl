@@ -3,8 +3,8 @@
 <div id="main">
 	<h1>[:$LANG->getMessage('msg.cart'):]</h1>
 	<br></br>
-    <table class="cart-table" cellpadding="0" cellspacing="0" border="0" align="center">
-    	<thead style="background: #666666;color: white">  
+    <table class="table" cellpadding="0" cellspacing="0" border="0" align="center">
+    	<thead class="table-header">  
         	<tr>        		
         		<th width="20px"><input type="checkbox" class="checkbox"> </th>
         		<th width="30px">[:$MODEL.language->getMessage('msg.stt'):]</th>

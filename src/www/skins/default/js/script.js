@@ -77,3 +77,21 @@ function getFileUploadName(fileId,inputId) {
 				.lastIndexOf("\\"), fileUpload.value.length);
 		inputId.value= name;
 }
+
+function changeColorOver(id) {
+	// dojo.query(".over").removeClass("over");
+	$("#"+id).addClass("hover");
+}
+function changeColorOut(id) {
+	// dojo.query(".over").removeClass("over");
+	$("#"+id).removeClass("hover");
+}
+
+function loadItemForCategory(select,url){
+	var selected=select.options[select.selectedIndex].value;
+	if(selected!=0){
+		redirect(url+'?c='+selected);
+	}else{
+		redirect(url);
+	}
+}

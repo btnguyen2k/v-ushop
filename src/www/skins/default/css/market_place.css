@@ -147,7 +147,7 @@ label {
 
 .input-mini {
 	padding: 2px;
-	width: 120px;
+	width: 100px;
 	font: normal 1em Tahoma, Arial;
 }
 
@@ -345,6 +345,7 @@ input.button {
 #main {
 	width: 500px;
 	padding-left: 20px;
+	position: relative;
 }
 
 #main h1 {
@@ -972,8 +973,16 @@ ul.sidemenu :last-child {
 	background: url("../images/home.png") 2px no-repeat !important;
 }
 
-.cart-table {
+.table {
 	width: 100%;
+	
+}
+.table-header{
+	background: #666666;
+	color: white
+}
+.table-conent{
+	padding-left: 20px
 }
 
 .odd {
@@ -983,6 +992,10 @@ ul.sidemenu :last-child {
 .even {
 	background: white;
 }
+.hover {
+	background: #DCDCDC;
+}
+
 
 /* all form DIVs have position property set to relative so we can easily position newly created SPAN */
 .container-select {
@@ -996,6 +1009,7 @@ select.select {
 	width: 166px !important;
 	height: 26px !important;
 	line-height: 26px;
+	font-size: 14px;
 }
 
 /* dynamically created SPAN, placed below the SELECT */
@@ -1011,6 +1025,7 @@ span.select {
 	background: url(../images/bg_select.gif) no-repeat 0 0;
 	cursor: default;
 	z-index: 1;
+	font-size: 14px;
 }
 
 .message {
@@ -1068,4 +1083,13 @@ span.select {
 	_width: 100%;
 	margin: 0 auto 2em;
 	border: 1px solid #DCDCDC;
+}
+
+.editItemImg{
+	width: 220;
+	height: 200px;
+	position: absolute;
+	right: 40px;
+	top: 120px;
+	z-index: 2;
 }

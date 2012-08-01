@@ -46,11 +46,11 @@
 <!--/ header photo ends-->
 
 <!-- sidebar top -->
-[:if isset($MODEL.hotItems) && count($MODEL.hotItems) gt 0:]
+[:if isset($MODEL.newItems) && count($MODEL.newItems) gt 0:]
 	<div class="sidebar-top">
 		<h1>Sản Phẩm Nổi Bật Nhất</h1>
 		<ul id="scroller" >
-			[:foreach $MODEL.hotItems as $_item:]	
+			[:foreach $MODEL.newItems as $_item:]	
 				 [:if $_item->getUrlThumbnail()=='':]
                     [:assign var="_urlThumbnail" value="img/img_general.jpg":]
                 [:else:]

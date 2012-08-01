@@ -318,6 +318,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                 Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $item->getImageId(), 
                 Vushop_Bo_Catalog_BoItem::COL_HOT_ITEM => $item->isHotItem() ? 1 : 0, 
                 Vushop_Bo_Catalog_BoItem::COL_NEW_ITEM => $item->isNewItem() ? 1 : 0, 
+                Vushop_Bo_Catalog_BoItem::COL_OWNER_ID => $item->getOwnerId(),
                 Vushop_Bo_Catalog_BoItem::COL_ACTIVE => $item->isActive() ? 1 : 0);
         $this->execNonSelect($sqlStm, $params);
         $this->invalidateItemCache();
@@ -367,6 +368,55 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         $params = Array(self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
                 self::PARAM_PAGE_SIZE => $pageSize);
+        switch ($itemSorting) {
+            case ITEM_SORTING_TITLE:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_TITLE);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            case ITEM_SORTING_PRICEASC:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_PRICE);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            case ITEM_SORTING_PRICEDESC:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_PRICE);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
+                break;
+            case ITEM_SORTING_TIMEASC:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            default:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
+                        Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
+        }
+        $result = Array();
+        $rows = $this->execSelect($sqlStm, $params);
+        if ($rows !== NULL && count($rows) > 0) {
+            foreach ($rows as $row) {
+                $itemId = $row[Vushop_Bo_Catalog_BoItem::COL_ID];
+                $item = $this->getItemById($itemId);
+                $result[] = $item;
+            }
+        }
+        return $result;
+    }
+    
+    /**
+     *
+     * @see Vushop_Bo_Catalog_ICatalogDao::getAllItems()
+     */
+    public function getAllItemsForShop($ownerId, $pageNum = 1, $pageSize = PHP_INT_MAX, $itemSorting = DEFAULT_ITEM_SORTING) {
+        
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array(self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
+                self::PARAM_PAGE_SIZE => $pageSize, 
+                self::PARAM_OWNER_ID => $ownerId);
+        
         switch ($itemSorting) {
             case ITEM_SORTING_TITLE:
                 $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
@@ -533,7 +583,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                 self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
                 self::PARAM_PAGE_SIZE => $pageSize, 
                 self::PARAM_OWNER_ID => $ownerId);
-                
+        
         switch ($itemSorting) {
             case ITEM_SORTING_TITLE:
                 $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(

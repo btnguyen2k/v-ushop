@@ -1,5 +1,4 @@
 <!-- rightcolumn starts -->
-<!--
 <h1>[:$LANG->getMessage('msg.shop'):]</h1>
 <div class="container-select" style="margin-left: 20px">
 <br/>
@@ -14,10 +13,9 @@
     	[:/foreach:]  
     </select>
 </div>
--->
 <!--
 <h1>Tìm kiếm</h1>
-<form class="form-mini" style="margin-top: 20px;">
+<form class="form-mini" style="margin-top: 20px;padding-left: 20px">
 		<input name="search_query" class="input-mini" type="text" />
 		<input name="search" class="button" value="Search" type="submit" />
 </form>	
@@ -30,13 +28,13 @@
 			<td style="font-weight: bold;">[:$LANG->getMessage('msg.username'):]:</td>
 		</tr>
 		<tr>
-			<td><input id="username"  class="textbox" name="username" type="text" /></td>
+			<td><input id="username" value=" "  class="textbox" name="username" type="text" /></td>
 		</tr>
 		<tr>
 			<td style="font-weight: bold;">[:$LANG->getMessage('msg.password'):]:</td>
 		</tr>
 		<tr>
-			<td><input  class="textbox" name="password" type="password" /></td>
+			<td><input  class="textbox" value="" name="password" type="password" /></td>
 		</tr>
 		<tr >
 			<td><input name="search" class="button" value="Đăng Nhập" type="submit" /></td>

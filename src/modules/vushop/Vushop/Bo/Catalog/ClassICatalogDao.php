@@ -92,6 +92,17 @@ interface Vushop_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @return Array
      */
     public function getAllItems($pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING, $featuredItems = FEATURED_ITEM_NONE);
+    
+    /**
+     * Gets all available items for shop as a list.
+     *
+     *	@param int $ownerId
+     * @param int $pageNum
+     * @param int $pageSize
+     * @param mixed $featuredItemsOnly
+     * @return Array
+     */
+    public function getAllItemsForShop($ownerId,$pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $itemSorting = DEFAULT_ITEM_SORTING);
 
     /**
      * Gets an item by id.
