@@ -44,7 +44,7 @@
                                 [:if $item->isNewItem():]
                                     <span class="new">[:$MODEL.language->getMessage('msg.new'):]</span>
                                 [:/if:]
-                                <big><a href="javascript:;" onclick="openUrl('[:$item->getUrlEdit():]')">[:$item->getTitle()|escape:'html':]</a></big>
+                                <big><a href="javascript:void(0);" onclick="redirect('[:$item->getUrlEdit():]')">[:$item->getTitle()|escape:'html':]</a></big>
                                 <br />
                                 <small>
                                     [:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$item->getVendor()|escape:'html':]</strong>
@@ -54,11 +54,7 @@
                             </td>
                             <td>
                                 <small>
-                                    [:if $item->getCategory()!==NULL:]
-                                        [:$item->getCategory()->getTitle()|escape:'html':]
-                                    [:else:]
-                                        &nbsp;
-                                    [:/if:]
+                                    
                                 </small>
                             </td>
                             <td style="text-align: center;" width="64px">
@@ -75,17 +71,18 @@
                 	 <tr class="table-header">
                          <td colspan="3" style="text-align: right;">
                             <small>
-                            	[:count($MODEL.paginator->getVisiblePages()):]
-                                [:$MODEL.language->getMessage('msg.page'):]:
+                            	[:$MODEL.language->getMessage('msg.page'):]:
                                 [:foreach $MODEL.paginator->getVisiblePages() as $_page:]
                                     [:if $_page==0:]
-                                        &nbsp;<big>...</big>&nbsp;
+                                       a
                                     [:elseif $_page==$MODEL.paginator->getCurrentPage():]
-                                        &nbsp;<big>[:$_page:]</big>&nbsp;
+                                        b
                                     [:else:]
                                     	&nbsp;<a href="[:$MODEL.paginator->getUrlForPage($_page):]">[:$_page:]</a>&nbsp;
                                     [:/if:]
                                 [:/foreach:]
+                                
+                                    
                             </small>
                         </td>
                     </tr>
