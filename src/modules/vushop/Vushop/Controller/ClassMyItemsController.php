@@ -59,15 +59,14 @@ class Vushop_Controller_MyItemsController extends Vushop_Controller_BaseFlowCont
             $model['objCategory'] = $this->category;
             $itemList = $catalogDao->getItemsForCategoryShop($this->category, $ownerId, $this->pageNum, 5, DEFAULT_ITEM_SORTING);
             // paging
-            $numItems = count($catalogDao->getItemsForCategoryShop($this->category, $ownerId, 1, PHP_INT_MAX, DEFAULT_ITEM_SORTING));
+            $numItems = $catalogDao->countNumItemsForCategoryForShop($this->category, $ownerId);
             
             $urlTemplate = $this->getUrlMyItems() . '?p=${page}&c=' . $this->category->getId();
             $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, 5, $this->pageNum);
         } else {
             $itemList = $catalogDao->getAllItemsForShop($ownerId, $this->pageNum, 5, DEFAULT_ITEM_SORTING);
             // paging
-            $numItems = count($catalogDao->getAllItemsForShop($ownerId, 1, PHP_INT_MAX, DEFAULT_ITEM_SORTING));
-            
+            $numItems =$catalogDao->countNumItemsForShop($ownerId);
             $urlTemplate = $this->getUrlMyItems() . '?p=${page}';
             $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, 5, $this->pageNum);
         }
