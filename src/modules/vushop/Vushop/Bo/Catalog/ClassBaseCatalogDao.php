@@ -316,7 +316,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::countNumItemsForCategoryForShop()
      */
-    public function countNumItemsForCategoryForShop($cat, $ownerId) {        
+    public function countNumItemsForCategoryShop($cat, $ownerId) {        
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $result = Array();
         // count items within this category and its children too

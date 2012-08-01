@@ -297,7 +297,7 @@ input.button {
 	list-style: none;
 	text-align: center;
 	padding: 0;
-	margin: 0 0 0 30px; /*0 0 0 30px;*/
+	margin: 0 0 0 15px; /*0 0 0 30px;*/
 	height: 31px; /* 45px; */
 	display: inline;
 	text-transform: uppercase;

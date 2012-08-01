@@ -101,21 +101,30 @@ class Vushop_Controller_ViewCategoryController extends Vushop_Controller_BaseFlo
          * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
-        $pageSize = DEFAULT_PAGE_SIZE;
+        $pageSize = 8;
         $itemSorting = $this->itemSorting;
         if (isset($_SESSION[SESSION_SHOP_ID])) {
-            $itemList = $catalogDao->getItemsForCategoryShop($this->category, $_SESSION[SESSION_SHOP_ID],  $this->pageNum, $pageSize, $itemSorting);
+            $itemList = $catalogDao->getItemsForCategoryShop($this->category, $_SESSION[SESSION_SHOP_ID], $this->pageNum, $pageSize, $itemSorting);
             $model[MODEL_ITEM_LIST] = $itemList;
-        } else {            
+            $model[CATEGORY_NAME] = $this->category->getTitle();
+            $urlTemplate = $this->category->getUrlView() . '?p=${PAGE}';
+            $urlTemplate .= '&s=' . $this->itemSorting;
+            $numItems = $catalogDao->countNumItemsForCategoryShop($this->category,$_SESSION[SESSION_SHOP_ID]);
+            $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $pageSize, 
+                    $this->pageNum);
+            $model[MODEL_PAGINATOR] = $paginator;
+        
+        } else {
             $itemsInPage = $catalogDao->getItemsForCategory($this->category, $this->pageNum, $pageSize, $itemSorting);
             $model[MODEL_ITEM_LIST] = $itemsInPage;
-        }        
-        $model[CATEGORY_NAME] = $this->category->getTitle();
-        $urlTemplate = $this->category->getUrlView() . '?p=${PAGE}';
-        $urlTemplate .= '&s=' . $this->itemSorting;
-        $numItems = $catalogDao->countNumItemsForCategory($this->category);
-        $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $pageSize, $this->pageNum);
-        $model[MODEL_PAGINATOR] = $paginator;
+            $model[CATEGORY_NAME] = $this->category->getTitle();
+            $urlTemplate = $this->category->getUrlView() . '?p=${PAGE}';
+            $urlTemplate .= '&s=' . $this->itemSorting;
+            $numItems = $catalogDao->countNumItemsForCategory($this->category);
+            $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $pageSize, 
+                    $this->pageNum);
+            $model[MODEL_PAGINATOR] = $paginator;
+        }
         
         return $model;
     }

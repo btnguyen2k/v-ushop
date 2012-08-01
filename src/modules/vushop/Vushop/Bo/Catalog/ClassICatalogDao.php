@@ -85,7 +85,7 @@ interface Vushop_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @param mixed $featuredItemsOnly
      * @return int
      */
-    public function countNumItemsForCategoryForShop($cat,$ownerId);
+    public function countNumItemsForCategoryShop($cat,$ownerId);
 
     /**
      * Creates a new item.
