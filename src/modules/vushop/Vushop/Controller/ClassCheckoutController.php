@@ -118,7 +118,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         require_once 'class.phpmailer.php';
         $mailer = new PHPMailer(TRUE);
         $mailer->SetFrom($this->getAppConfig(CONFIG_EMAIL_OUTGOING));
-        print_r($mailer->getFrmm());
+        print_r($mailer->getFrom());
         exit(0);
         $mailer->AddAddress($this->getAppConfig(CONFIG_EMAIL_ORDER_NOTIFICATION));
         //$mailer->ContentType = 'text/html';

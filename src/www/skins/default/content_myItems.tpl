@@ -75,6 +75,7 @@
                 	 <tr class="table-header">
                          <td colspan="3" style="text-align: right;">
                             <small>
+                            	[:count($MODEL.paginator->getVisiblePages()):]
                                 [:$MODEL.language->getMessage('msg.page'):]:
                                 [:foreach $MODEL.paginator->getVisiblePages() as $_page:]
                                     [:if $_page==0:]

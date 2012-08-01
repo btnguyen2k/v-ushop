@@ -182,7 +182,7 @@
     [:foreach $catList as $cat:]
         <option [:if $selectedIndex==$cat->getId():]selected="selected"[:/if:] value="[:$cat->getId():]">
             [:if ($index > 0):]
-                +[:for $_=1 to $index:]-[:/for:]&nbsp;
+              [:for $_=1 to $index:]&nbsp;&nbsp;&nbsp;&nbsp;[:/for:]+-
             [:/if:]
             [:$cat->getTitle()|escape:'html':]
         </option>
