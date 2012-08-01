@@ -384,7 +384,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     }
     
     /**
-     * Get the url to access user's item list.
+     * Get the url to access user's create item.
      *
      * @return string
      */

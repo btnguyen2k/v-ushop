@@ -5,7 +5,7 @@
     <div id="tabs">
         <ul>
         	<li><a onclick="window.location.href='[:$MODEL.urlProfile:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.shopInformation'):]</a></li>
-        	<li><a onclick="window.location.href='[:$MODEL.urlProfile:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.changePassword'):]</a></li>
+        	<li><a onclick="window.location.href='[:$MODEL.urlChangePassword:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.changePassword'):]</a></li>
             <li><a href="#tab-3">[:$LANG->getMessage('msg.myitems'):]</a></li>
         </ul>
         <div id="tab-3">
@@ -74,14 +74,13 @@
                             	[:$MODEL.language->getMessage('msg.page'):]:
                                 [:foreach $MODEL.paginator->getVisiblePages() as $_page:]
                                     [:if $_page==0:]
-                                       a
+                                        &nbsp;<big>...</big>&nbsp;
                                     [:elseif $_page==$MODEL.paginator->getCurrentPage():]
-                                        b
+                                        &nbsp;<big>[:$_page:]</big>&nbsp;
                                     [:else:]
-                                    	&nbsp;<a href="[:$MODEL.paginator->getUrlForPage($_page):]">[:$_page:]</a>&nbsp;
+                                    	&nbsp;<a style="color: white;text-decoration: underline;" href="[:$MODEL.paginator->getUrlForPage($_page):]">[:$_page:]</a>&nbsp;
                                     [:/if:]
                                 [:/foreach:]
-                                
                                     
                             </small>
                         </td>
