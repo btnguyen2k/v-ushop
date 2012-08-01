@@ -28,7 +28,7 @@
 			<td style="font-weight: bold;">[:$LANG->getMessage('msg.username'):]:</td>
 		</tr>
 		<tr>
-			<td><input id="username" value=" "  class="textbox" name="username" type="text" /></td>
+			<td><input id="username" value=""  class="textbox" name="username" type="text" /></td>
 		</tr>
 		<tr>
 			<td style="font-weight: bold;">[:$LANG->getMessage('msg.password'):]:</td>

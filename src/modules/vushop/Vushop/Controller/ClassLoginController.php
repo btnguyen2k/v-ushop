@@ -68,8 +68,8 @@ class Vushop_Controller_LoginController extends Vushop_Controller_BaseFlowContro
     protected function performFormSubmission() {
         $lang = $this->getLanguage();
         $userDao = $this->getDao(DAO_USER);
-        $username = isset($_POST[self::FORM_FIELD_USERNAME]) ? $_POST[self::FORM_FIELD_USERNAME] : '';
-        $password = isset($_POST[self::FORM_FIELD_PASSWORD]) ? $_POST[self::FORM_FIELD_PASSWORD] : '';
+        $username = isset($_POST[self::FORM_FIELD_USERNAME]) ? trim($_POST[self::FORM_FIELD_USERNAME]) : '';
+        $password = isset($_POST[self::FORM_FIELD_PASSWORD]) ?  trim($_POST[self::FORM_FIELD_PASSWORD]) : '';
 
         // $username = trim(strtolower($username));
         $password = trim($password);

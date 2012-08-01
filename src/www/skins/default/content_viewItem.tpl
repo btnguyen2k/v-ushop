@@ -4,7 +4,7 @@
     [:assign var="_cart" value=$MODEL.cart nocache:]
     [:assign var="_item" value=$MODEL.itemObj:]    
     
-    <h1>[:$LANG->getMessage('msg.detailsInformation'):]</h1>
+    <h1 class="main-header">[:$LANG->getMessage('msg.detailsInformation'):]</h1>
     <br/>
     <div>
     	<table>
@@ -46,6 +46,26 @@
     		</tr>
     	</table>
     </div>
+    <hr/>
+    <br/>
     
-   
+     <div id="tabs">
+        <ul>
+        	<li><a href="#tabs-1">[:$LANG->getMessage('msg.itemInformation'):]</a></li>
+        	<li><a href="#tabs-2">[:$LANG->getMessage('msg.image'):]</a></li>           
+        </ul>
+        <div id="tabs-1">
+        	[:$_item->getDescription():]
+        
+        </div>
+        <div id="tabs-2">        
+        	 <img alt="" src="[:$_urlImage:]">        
+        </div>
+        <br/><br/><br/>
+   </div>
+    <script>
+	$(function() {
+		$( "#tabs" ).tabs();
+	});
+    </script>
 </div>
