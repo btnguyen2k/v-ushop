@@ -37,7 +37,7 @@
         	</tr>
         [:foreachelse:]
             <tr>
-                <td colspan="7">[:$MODEL.language->getMessage('msg.nodata'):]</td>
+                <td colspan="7">[:call name=noData:]</td>
             </tr>
         [:/foreach:]
         </tbody>

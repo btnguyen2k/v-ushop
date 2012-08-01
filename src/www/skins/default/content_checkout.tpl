@@ -3,7 +3,7 @@
 <div id="main">
 	<h1>[:$MODEL.language->getMessage('msg.cart'):]</h1>
 	<br></br>
-        <table class="cart-table" cellpadding="0" cellspacing="0" border="0" align="center">
+        <table class="table" cellpadding="0" cellspacing="0" border="0" align="center">
     	<thead style="background: #666666;color: white">  
         	<tr>        		
         		
@@ -20,7 +20,7 @@
         		<td>[:$item@index+1:]</td>
         		<td style="white-space: normal;">[:$item->getTitle()|escape:'html':]</td>        		
 				<td style="text-align: right;">[:$item->getPriceForDisplay():]</td>
-        		<td style="text-align: center;"><input type="text" style="width: 30px" value="[:$item->getQuantity():]"> </td>
+        		<td style="text-align: center;">[:$item->getQuantity():] </td>
         		<td style="text-align: right;font-size: 16px">[:$item->getTotalForDisplay():]</td>
         	</tr>
         [:foreachelse:]
