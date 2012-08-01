@@ -191,3 +191,17 @@
         [:/if:]
     [:/foreach:]
 [:/function:]
+[:function name="paginator" paginator=NULL:]
+<div align="right" style="color: black;">
+        	<strong>[:$MODEL.language->getMessage('msg.page'):]:</strong>
+            [:foreach $paginator->getVisiblePages() as $_page:]
+                [:if $_page==0:]
+                    &nbsp;<big>...</big>&nbsp;
+                [:elseif $_page==$paginator->getCurrentPage():]
+                    &nbsp;<big>[:$_page:]</big>&nbsp;
+                [:else:]
+                	&nbsp;<a style="text-decoration: underline;" href="[:$paginator->getUrlForPage($_page):]">[:$_page:]</a>&nbsp;
+                [:/if:]
+            [:/foreach:]
+        </div>
+[:/function:]
