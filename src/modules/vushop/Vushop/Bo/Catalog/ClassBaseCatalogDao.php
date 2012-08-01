@@ -273,6 +273,18 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
     
     /**
      *
+     * @see Vushop_Bo_Catalog_ICatalogDao::countNumItems()
+     */
+    public function countNumItemsForShop($ownerId) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array(self::PARAM_OWNER_ID => $ownerId);
+        // $result = $this->execCount($sqlStm, NULL, NULL, $cacheKey);
+        $result = $this->execCount($sqlStm, $params);
+        return $result;
+    }
+    
+    /**
+     *
      * @see Vushop_Bo_Catalog_ICatalogDao::countNumItemsForCategory()
      */
     public function countNumItemsForCategory($cat, $featuredItems = FEATURED_ITEM_NONE) {
@@ -302,6 +314,24 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
     
     /**
      *
+     * @see Vushop_Bo_Catalog_ICatalogDao::countNumItemsForCategoryForShop()
+     */
+    public function countNumItemsForCategoryForShop($cat, $ownerId) {        
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $result = Array();
+        // count items within this category and its children too
+        $params = Array($cat->getId());
+        foreach ($cat->getChildren() as $child) {
+            $params[] = $child->getId();
+        }
+        $params = Array(self::PARAM_CATEGORY_IDS => $params,
+                        self::PARAM_OWNER_ID => $ownerId);
+        $result = $this->execCount($sqlStm, $params);
+        return $result;
+    }
+    
+    /**
+     *
      * @see Vushop_Bo_Catalog_ICatalogDao::createItem()
      */
     public function createItem($item) {
@@ -318,7 +348,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                 Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $item->getImageId(), 
                 Vushop_Bo_Catalog_BoItem::COL_HOT_ITEM => $item->isHotItem() ? 1 : 0, 
                 Vushop_Bo_Catalog_BoItem::COL_NEW_ITEM => $item->isNewItem() ? 1 : 0, 
-                Vushop_Bo_Catalog_BoItem::COL_OWNER_ID => $item->getOwnerId(),
+                Vushop_Bo_Catalog_BoItem::COL_OWNER_ID => $item->getOwnerId(), 
                 Vushop_Bo_Catalog_BoItem::COL_ACTIVE => $item->isActive() ? 1 : 0);
         $this->execNonSelect($sqlStm, $params);
         $this->invalidateItemCache();

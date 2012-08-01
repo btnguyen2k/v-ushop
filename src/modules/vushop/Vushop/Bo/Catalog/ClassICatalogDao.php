@@ -59,6 +59,14 @@ interface Vushop_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @return int
      */
     public function countNumItems($featuredItems = FEATURED_ITEM_NONE);
+    
+    /**
+     * Counts number of current items for shop.
+     *
+     * @param mixed $featuredItemsOnly
+     * @return int
+     */
+    public function countNumItemsForShop($ownerId);
 
     /**
      * Counts number of current items within a category.
@@ -68,6 +76,16 @@ interface Vushop_Bo_Catalog_ICatalogDao extends Ddth_Dao_IDao {
      * @return int
      */
     public function countNumItemsForCategory($cat, $featuredItems = FEATURED_ITEM_NONE);
+    
+    
+    /**
+     * Counts number of current items within a category for shop.
+     *
+     * @param Vushop_Bo_Catalog_BoCategory $cat
+     * @param mixed $featuredItemsOnly
+     * @return int
+     */
+    public function countNumItemsForCategoryForShop($cat,$ownerId);
 
     /**
      * Creates a new item.
