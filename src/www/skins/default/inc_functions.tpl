@@ -141,7 +141,7 @@
 	<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
 	<ul class="sidemenu">
 		<li><a href=""><a href="skype:[:$skype:]?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_white_124x52.png" style="border: none;" width="124" height="52" alt="Skype Me™!" /></a></li>
-		<li><a href=""><a href="ymsgr:sendim?[:$yahoo:]">
+		<li><a href=""><a href="ymsgr:sendim?[:$nickYahoo:]">
             <img src="http://opi.yahoo.com/online?u=[:$nickYahoo:]&m=g&t=2" alt="gpv-jsc.com" border=0></a> 
          </li>
 	</ul>
