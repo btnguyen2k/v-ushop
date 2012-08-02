@@ -48,11 +48,18 @@
     </div>
     <hr/>
     <br/>
-    
-     <div id="tabs">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=141267699346533";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div id="tabs">
         <ul>
-        	<li><a href="#tabs-1">[:$LANG->getMessage('msg.itemInformation'):]</a></li>
-        	<li><a href="#tabs-2">[:$LANG->getMessage('msg.image'):]</a></li>           
+            <li><a href="#tabs-1">[:$LANG->getMessage('msg.itemInformation'):]</a></li>
+        	<li><a href="#tabs-2">[:$LANG->getMessage('msg.image'):]</a></li>
         </ul>
         <div id="tabs-1">
         	[:if $_item->getDescription()!='':]
@@ -63,11 +70,14 @@
         </div>
         <div id="tabs-2">  
        		[:if $_item->getUrlImage()!='':]
-        	 	<img alt="" src="[:$_urlImage:]">      
+        	 	<img alt="" src="[:$_urlImage:]" style="max-width: 462px">
         	[:/if:]  
         </div>
+        <div id="tabs-3">
+            <div class="fb-comments" data-href="//[:$smarty.server.HTTP_HOST:]/[:$smarty.server.REQUEST_URI:]" data-num-posts="4" data-width="494"></div>
+        </div>
         <br/><br/><br/>
-   </div>
+    </div>
     <script>
 	$(function() {
 		$( "#tabs" ).tabs();
