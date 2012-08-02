@@ -1,6 +1,6 @@
 <!--- main column starts-->
 <div id="main">
-	<h1>DANH SÁCH SHOP</h1>
+	<h1>[:$LANG->getMessage('msg.shopList'):]</h1>
 	<br>		
 	[:if isset($MODEL.shopList) && count($MODEL.shopList) gt 0:]
 		[:call name="paginator" paginator=$MODEL.paginator:]

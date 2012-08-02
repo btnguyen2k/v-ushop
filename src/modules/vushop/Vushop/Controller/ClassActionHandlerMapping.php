@@ -36,7 +36,8 @@ $YADIF_CONFIG = Array(
         
         'Vushop_Controller_UpdateCartController' => Array(
                 'class' => 'Vushop_Controller_UpdateCartController', 
-                'scope' => 'singleton'), 
+                'scope' => 'singleton', 
+                'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))), 
         
         'Vushop_Controller_ViewCategoryController' => Array(
                 'class' => 'Vushop_Controller_ViewCategoryController', 
@@ -76,6 +77,11 @@ $YADIF_CONFIG = Array(
         
         'Vushop_Controller_AddToCartController' => Array(
                 'class' => 'Vushop_Controller_AddToCartController', 
+                'scope' => 'singleton', 
+                'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))), 
+                
+         'Vushop_Controller_DeleteItemInCartController' => Array(
+                'class' => 'Vushop_Controller_DeleteItemInCartController', 
                 'scope' => 'singleton', 
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))), 
         

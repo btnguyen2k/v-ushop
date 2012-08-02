@@ -37,8 +37,7 @@
 <!--/ navigation ends-->		
 	
 <!-- header photo start-->				
-	<div id="header-photo">
-	
+	<div id="header-photo">	
 		<h1 id="logo-text"><a href="index.html" title=""></a></h1>		
 		<h2 id="slogan">Sành điệu và thời trang nhất. Chỉ có tại MUALE.COM.VN</h2>	
 		</br>	
@@ -48,7 +47,7 @@
 <!-- sidebar top -->
 [:if isset($MODEL.newItems) && count($MODEL.newItems) gt 0:]
 	<div class="sidebar-top">
-		<h1>Sản Phẩm Nổi Bật Nhất</h1>
+		<h1>[:$LANG->getMessage('msg.sanPhamNoiBanNhat'):]</h1>
 		<ul id="scroller" >
 			[:foreach $MODEL.newItems as $_item:]	
 				 [:if $_item->getUrlThumbnail()=='':]

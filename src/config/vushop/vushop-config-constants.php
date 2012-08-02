@@ -79,6 +79,8 @@ define('MODEL_URL_UPLOAD_HANDLER', 'urlUploadHandler');
 define('MODEL_URL_PROFILE', 'urlProfile');
 define('MODEL_URL_MY_ITEMS', 'urlMyItems');
 define('MODEL_URL_CREATE_ITEM', 'urlCreateItem');
+define('MODEL_URL_DELETE_ITEM_IN_CART', 'urlDeleteItemInCart');
+define('MODEL_URL_UPDATE_CART', 'urlUpdateCart');
 define('MODEL_URL_CHANGE_PASSWORD', 'urlChangePassword');
 define('MODEL_PAGINATOR', 'paginator');
 define('MODEL_DEBUG', 'debug');

@@ -59,10 +59,9 @@ Note all DIVs are generated and should not be hard-coded
 		}
 	
 	.simply-scroll-btn {
-		position: absolute;
-		background-image: url(../images/buttons.png);
-		width: 42px;
-		height: 44px;
+		position: absolute;		
+		width: 19px;
+		height: 18px;
 		z-index:3;
 		cursor: pointer;
 	}
@@ -70,65 +69,63 @@ Note all DIVs are generated and should not be hard-coded
 	.simply-scroll-btn-left {
 		left: 6px;
 		bottom: 6px;
-		background-position: 0 -44px;
+		background-image: url(../images/leftarrow.jpg);
+	
 	}
 	.simply-scroll-btn-left.disabled {
-		background-position: 0 0 !important;
+		
 	}
 	.simply-scroll-btn-left:hover, .simply-scroll-btn-left:focus {
-		background-position: 0 -88px;
+		
 	}
 	
 	.simply-scroll-btn-right {
 		right: 6px;
 		bottom: 6px;
-		background-position: -84px -44px;
+		background-image: url(../images/rightarrow.jpg);
 	}
 	.simply-scroll-btn-right.disabled {
-		background-position: -84px 0 !important;
 	}
 	.simply-scroll-btn-right:hover, .simply-scroll-btn-right:focus {
-		background-position: -84px -88px;
 	}
 	
 	.simply-scroll-btn-up {
 		right: 6px;
 		top: 6px;
-		background-position: -126px -44px;
 	}
 	.simply-scroll-btn-up.disabled {
-		background-position: -126px 0 !important;
+		
 	}
 	.simply-scroll-btn-up:hover, .simply-scroll-btn-up:focus {
-		background-position: -126px -88px;
+		
 	}
 	
 	.simply-scroll-btn-down {
 		right: 6px;
 		bottom: 6px;
-		background-position: -42px -44px;
+		
 	}
 	.simply-scroll-btn-down.disabled {
-		background-position: -42px 0 !important;
+		
 	}
 	.simply-scroll-btn-down:hover, .simply-scroll-btn-down:focus {
-		background-position: -42px -88px;
+		
 	}
 	
 	.simply-scroll-btn-pause {
 		right: 6px;
 		bottom: 6px;
-		background-position: -168px -44px;
+		
 	}
 	.simply-scroll-btn-pause:hover, .simply-scroll-btn-pause:focus {
-		background-position: -168px -88px;
+		
 	}
 	
 	.simply-scroll-btn-pause.active {
-		background-position: -84px -44px;
+		
 	}
 	.simply-scroll-btn-pause.active:hover, .simply-scroll-btn-pause.active:focus {
-		background-position: -84px -88px;
+		
 	}
 
 /* Custom class modifications - override classees
@@ -154,14 +151,14 @@ Note all DIVs are generated and should not be hard-coded
 			text-align: center;
 			cursor: pointer;
 			color: #656565;
-			width:150px;
-			height: 170px;
+			width:200px;
+			height: 220px;
 			white-space: normal;
 		}
 		.simply-scroll .simply-scroll-list li img {			
 			padding: 5px;		
-			width: 140px;
-			height: 120px;	
+			width: 180px;
+			height: 160px;	
 		}
 		
 	
@@ -194,14 +191,14 @@ Note all DIVs are generated and should not be hard-coded
 }
 
 	.vert .simply-scroll-clip {
-		width: 290px;
+		width: 390px;
 		height: 400px;
 	}
 	
 		.vert .simply-scroll-list {}
 		
 		.vert .simply-scroll-list li {
-			width: 290px;
+			width: 390px;
 			height: 200px;
 		}
 		.vert .simply-scroll-list li img {}

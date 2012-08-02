@@ -18,12 +18,12 @@ DATE            :   January 18, 2010
 	outline: 0
 }
 
-body {
-	background: #3D3D3D;
+body {	
 	font: 11px/1.75em Tahoma, Arial;
 	color: #666666;
 	text-align: center;
 	margin: 0 0 15px 0;
+	background: #fff url(../images/background.png);
 }
 
 /* links */
@@ -254,9 +254,9 @@ input.button {
 	position: relative;
 	clear: both;
 	margin: 5px auto;
-	height: 250px;
+	height: 200px;
 	width: 910px; /*850px;*/
-	background: #fff url(../images/banner.jpg) no-repeat center center;
+	background: #fff url(../images/banner.png) no-repeat center center;
 }
 
 #header-photo h1#logo-text a {
@@ -282,7 +282,7 @@ input.button {
 	text-transform: none;
 	color: #3D0405; /*#B6D1F8;*/
 	/* change the values of top and left to adjust the position of the slogan*/
-	top: 190px;
+	top: 150px;
 	left: 165px;
 }
 
@@ -300,13 +300,14 @@ input.button {
 	margin: 0 0 0 15px; /*0 0 0 30px;*/
 	height: 31px; /* 45px; */
 	display: inline;
-	text-transform: uppercase;
+	
 }
 
 #nav ul li {
 	display: inline;
 	margin: 0;
 	padding: 0;
+	
 }
 
 #nav ul li a {
@@ -322,7 +323,6 @@ input.button {
 	color: #555;
 	font: bold 12px/29px Tahoma, Arial;
 	/*font: bold 14px/45px  Helvetica, Arial, Geneva, sans-serif; */
-	text-transform: uppercase;
 	text-decoration: none;
 	letter-spacing: 1px;
 	border-left: 1px solid;
@@ -650,9 +650,10 @@ ul.sidemenu :last-child {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	box-shadow: 0.5px 0.5px 0 #CCC, 1px 1px 0 #CCC, 2px 2px 0 #CCC,
-		/* end of 2 level deep grey shadow */ 
-	 3px 3px 0 #444, 4px 4px 0 #444;
+	
+}
+item a{
+	color: black;	
 }
 
 .item-image {
@@ -697,6 +698,7 @@ ul.sidemenu :last-child {
 	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
+	color: black;
 }
 
 .item-price {
@@ -982,7 +984,7 @@ ul.sidemenu :last-child {
 	color: white
 }
 .table-conent{
-	padding-left: 20px
+	padding-left: 10px
 }
 
 .odd {

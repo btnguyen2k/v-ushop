@@ -37,13 +37,7 @@
                         <tr class="[:if $item@index%2==0:]odd[:else:]even[:/if:] "
                         id="item_[:$item->getId():]"
                         	onmouseover="changeColorOver('item_[:$item->getId():]')" onmouseout="changeColorOut('item_[:$item->getId():]')">
-                            <td class="table-conent">
-                                [:if $item->isHotItem():]
-                                    <span class="hot">[:$MODEL.language->getMessage('msg.hot'):]</span>
-                                [:/if:]
-                                [:if $item->isNewItem():]
-                                    <span class="new">[:$MODEL.language->getMessage('msg.new'):]</span>
-                                [:/if:]
+                            <td class="table-conent">                                
                                 <big><a href="javascript:void(0);" onclick="redirect('[:$item->getUrlEdit():]')">[:$item->getTitle()|escape:'html':]</a></big>
                                 <br />
                                 <small>

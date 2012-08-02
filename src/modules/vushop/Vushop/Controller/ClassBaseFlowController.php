@@ -344,7 +344,25 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
      * @return string
      */
     protected function getUrlBackend() {
-        return $_SERVER['SCRIPT_NAME'] . '../backend/';
+        return $_SERVER['SCRIPT_NAME'] . '/../backend/';
+    }
+    
+    /**
+     * Get the url to access backend section.
+     *
+     * @return string
+     */
+    protected function getUrlDeleteItemInCart() {
+        return $_SERVER['SCRIPT_NAME'] . '/deleteItemInCart/';
+    }
+    
+/**
+     * Get the url to access backend section.
+     *
+     * @return string
+     */
+    protected function getUrlUpdateCart() {
+        return $_SERVER['SCRIPT_NAME'] . '/updateCart/';
     }
     
     /**
@@ -509,6 +527,8 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $model[MODEL_URL_PROFILE] = $this->getUrlProfile();
         $model[MODEL_URL_MY_ITEMS] = $this->getUrlMyItems();
         $model[MODEL_URL_CREATE_ITEM] = $this->getUrlCreateItem();
+        $model[MODEL_URL_DELETE_ITEM_IN_CART] = $this->getUrlDeleteItemInCart();
+        $model[MODEL_URL_UPDATE_CART] = $this->getUrlUpdateCart();
         $model[MODEL_URL_CHANGE_PASSWORD] = $this->getUrlChangePassword();
         if ($user !== NULL) {
             if ($user !== NULL && $user->getGroupId() === USER_GROUP_ADMIN) {
@@ -575,8 +595,8 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         // shop
         $shopDao = $this->getDao(DAO_SHOP);
         $pageNum = 1;
-        $pageSize=PHP_INT_MAX;
-        $shopOwners = $shopDao->getShops($pageNum,$pageSize);
+        $pageSize = PHP_INT_MAX;
+        $shopOwners = $shopDao->getShops($pageNum, $pageSize);
         $model[MODEL_SHOP_OWNERS] = Vushop_Model_ShopModel::createModelObj($shopOwners);
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
@@ -587,7 +607,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         
         if (isset($_SESSION[SESSION_SHOP_ID])) {
-            $newItems = $catalogDao->getAllItemsForShop($_SESSION[SESSION_SHOP_ID],1, 20, DEFAULT_ITEM_SORTING, FEATURED_ITEM_ALL);
+            $newItems = $catalogDao->getAllItemsForShop($_SESSION[SESSION_SHOP_ID], 1, 20, DEFAULT_ITEM_SORTING, FEATURED_ITEM_ALL);
             if ($newItems !== NULL && count($newItems) > 0) {
                 $model[MODEL_NEW_ITEMS] = $newItems;
             }

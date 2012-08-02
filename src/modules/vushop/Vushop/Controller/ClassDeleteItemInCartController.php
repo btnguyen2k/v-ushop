@@ -1,16 +1,15 @@
 <?php
-class Vushop_Controller_UpdateCartController extends Vushop_Controller_BaseFlowController {
+class Vushop_Controller_DeleteItemInCartController extends Vushop_Controller_BaseFlowController {
+    const VIEW_NAME_ERROR = 'error';
     const VIEW_NAME_AFTER_POST = 'info';
     
-    const FORM_FIELD_ITEM_IDS = 'updateItemIds';
-    const FORM_FIELD_QUANTITYS = 'quantitys';
+    const FORM_FIELD_ITEM_IDs = 'itemIds';
     
     /**
      * @var Vushop_Bo_Catalog_BoItem
      */
-    private $items = Array();
-    private $itemIds = Array();
-    private $quantitys = Array();
+    private $items = array();
+    private $itemIds= array();
     
     /**
      * Populates item and quantity.
@@ -19,8 +18,7 @@ class Vushop_Controller_UpdateCartController extends Vushop_Controller_BaseFlowC
      */
     protected function populateParams() {
         if ($this->isPostRequest()) {
-            $this->itemIds = isset($_POST[self::FORM_FIELD_ITEM_IDS]) ? $_POST[self::FORM_FIELD_ITEM_IDS] : 0;
-            $this->quantitys = isset($_POST[self::FORM_FIELD_QUANTITYS]) ? $_POST[self::FORM_FIELD_QUANTITYS] : 0.0;
+            $this->itemIds = isset($_POST[self::FORM_FIELD_ITEM_IDs]) ? $_POST[self::FORM_FIELD_ITEM_IDs] : 0;
             
             /**
              * @var Vushop_Bo_Cart_ICartDao
@@ -29,7 +27,33 @@ class Vushop_Controller_UpdateCartController extends Vushop_Controller_BaseFlowC
                 $catalogDao = $this->getDao(DAO_CATALOG);
                 $this->items[] = $catalogDao->getItemById($this->itemIds[$i]);
             }
+        
+        }       
+    }
+    
+    /**
+     * Test if the item to be added is valid.
+     *
+     * @see Dzit_Controller_FlowController::validateParams()
+     */
+    protected function validateParams() {
+        return TRUE;
+    }
+    
+    /**
+     * @see Dzit_Controller_FlowController::getModelAndView_Error()
+     */
+    protected function getModelAndView_Error() {
+        $viewName = self::VIEW_NAME_ERROR;
+        $model = $this->buildModel();
+        if ($model == NULL) {
+            $model = Array();
         }
+        
+        $lang = $this->getLanguage();
+        $model[MODEL_ERROR_MESSAGES] = $this->getErrorMessages();
+        
+        return new Dzit_ModelAndView($viewName, $model);
     }
     
     /**
@@ -45,9 +69,7 @@ class Vushop_Controller_UpdateCartController extends Vushop_Controller_BaseFlowC
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
     protected function performFormSubmission() {
-        $quantitys = $this->quantitys;
         $items = $this->items;
-       
         /**
          * @var Vushop_Bo_Cart_BoCart
          */
@@ -55,17 +77,12 @@ class Vushop_Controller_UpdateCartController extends Vushop_Controller_BaseFlowC
         /**
          * @var Vushop_Bo_Cart_ICartDao
          */
-        if (is_array($items) && is_array($quantitys)) {
-            for ($i = 0; $i < count($this->itemIds); $i++) {                
+        if (is_array($items)) {
+            foreach ($items as $item) {
                 $cartDao = $this->getDao(DAO_CART);
-                if ($cart->existInCart($items[$i])) {
-                    $cartItem = $cart->getItem($items[$i]);
-                    if (isset($quantitys[$i]) && $quantitys[$i] > 0) {
-                        $cartItem->setQuantity($quantitys[$i]);
-                        $cartDao->updateCartItem($cartItem);
-                    } else {
-                        $cartDao->deleteCartItem($cartItem);
-                    }
+                if ($cart->existInCart($item)) {
+                    $cartItem = $cart->getItem($item);
+                    $cartDao->deleteCartItem($cartItem);
                 }
             }
         }
