@@ -55,20 +55,21 @@ class Vushop_Controller_MyItemsController extends Vushop_Controller_BaseFlowCont
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $ownerId = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : 0;
+        $page_size=DEFAULT_PAGE_SIZE;
         if ($this->category !== NULL) {
             $model['objCategory'] = $this->category;
-            $itemList = $catalogDao->getItemsForCategoryShop($this->category, $ownerId, $this->pageNum, 5, DEFAULT_ITEM_SORTING);
+            $itemList = $catalogDao->getItemsForCategoryShop($this->category, $ownerId, $this->pageNum, $page_size, DEFAULT_ITEM_SORTING);
             // paging
-            $numItems = $catalogDao->countNumItemsForCategoryForShop($this->category, $ownerId);
+            $numItems = $catalogDao->countNumItemsForCategoryShop($this->category, $ownerId);
             
             $urlTemplate = $this->getUrlMyItems() . '?p=${page}&c=' . $this->category->getId();
-            $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, 5, $this->pageNum);
+            $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $page_size, $this->pageNum);
         } else {
-            $itemList = $catalogDao->getAllItemsForShop($ownerId, $this->pageNum, 5, DEFAULT_ITEM_SORTING);
+            $itemList = $catalogDao->getAllItemsForShop($ownerId, $this->pageNum, $page_size, DEFAULT_ITEM_SORTING);
             // paging
             $numItems =$catalogDao->countNumItemsForShop($ownerId);
             $urlTemplate = $this->getUrlMyItems() . '?p=${page}';
-            $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, 5, $this->pageNum);
+            $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $page_size, $this->pageNum);
         }
         $model[MODEL_MY_ITEMS] = $itemList;
         $model[MODEL_PAGINATOR] = $paginator;

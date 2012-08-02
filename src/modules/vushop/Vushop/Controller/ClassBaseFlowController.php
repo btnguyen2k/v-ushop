@@ -574,11 +574,14 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         }
         // shop
         $shopDao = $this->getDao(DAO_SHOP);
-        $shopOwners = $shopDao->getShops();
+        $pageNum = 1;
+        $pageSize=PHP_INT_MAX;
+        $shopOwners = $shopDao->getShops($pageNum,$pageSize);
         $model[MODEL_SHOP_OWNERS] = Vushop_Model_ShopModel::createModelObj($shopOwners);
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
         }
+        
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::push('getItems.featured');
         }
@@ -590,7 +593,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
             }
         
         } else {
-            $newItems = $catalogDao->getAllItems(1, 20, DEFAULT_ITEM_SORTING, FEATURED_ITEM_ALL);
+            $newItems = $catalogDao->getAllItems(1, 20, ITEM_SORTING_TIMEDESC, FEATURED_ITEM_NONE);
             if ($newItems !== NULL && count($newItems) > 0) {
                 $model[MODEL_NEW_ITEMS] = $newItems;
             }

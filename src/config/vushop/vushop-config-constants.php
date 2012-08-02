@@ -52,6 +52,7 @@ define('MODEL_LANGUAGE', 'language');
 define('MODEL_USER', 'user');
 
 define('MODEL_SHOP_OWNERS', 'shopOwners');
+define('MODEL_SHOP_LIST', 'shopList');
 define('MODEL_USER_LIST', 'userList');
 define('MODEL_CATEGORY_TREE', 'categoryTree');
 define('MODEL_CATEGORY_LIST', 'categoryList');
@@ -104,7 +105,9 @@ define('ITEM_SORTING_TITLE', 'title');
 
 define('PAGE_ATTR_ONMENU', 1);
 
-define('DEFAULT_PAGE_SIZE', 10);
+define('DEFAULT_PAGE_SIZE', 8);
+
+define('DEFAULT_PAGE_SIZE_SHOP', 4);
 
 define('USER_GROUP_GUEST', 0);
 define('USER_GROUP_ADMIN', 1);

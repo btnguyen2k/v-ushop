@@ -417,7 +417,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                         Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP);
                 $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
         }
-        $result = Array();
+        $result = Array();        
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {
             foreach ($rows as $row) {
@@ -656,13 +656,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         
         $paramSearchTerms = array_keys($searchTerms);
         
-        $paramCats = Array();
-        if ($cat !== NULL) {
-            $paramCats[] = $cat->getId();
-            foreach ($cat->getChildren() as $child) {
-                $paramCats[] = $child->getId();
-            }
-        }
+        $paramCats = $this->getCategoryTreeIds($cat);
         
         switch ($searchType) {
             case 0:

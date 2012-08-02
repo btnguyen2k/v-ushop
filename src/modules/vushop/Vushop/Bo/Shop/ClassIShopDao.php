@@ -6,7 +6,15 @@ interface Vushop_Bo_Shop_IShopDao extends Ddth_Dao_IDao {
      *
      * @return Array
      */
-    public function getShops();
+    public function getShops($pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE);
+    
+    
+     /**
+     * Gets count all shops.
+     *
+     * @return Array
+     */
+     public function getCountNumShops();
     
     /**
      * Gets a shop by id.

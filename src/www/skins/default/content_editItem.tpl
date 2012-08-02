@@ -17,7 +17,7 @@
                 [:if isset($MODEL.form.urlItemImage):]
                         <img border="0" src="[:$MODEL.form.urlItemImage:]" class="editItemImg"/>
                 [:else:]
-                    <p></p>
+                     <img border="0" src="images/img_general.jpg" class="editItemImg"/>
                 [:/if:]
                 [:call name="printFormHeader" form=$FORM:]
                 <p></p>

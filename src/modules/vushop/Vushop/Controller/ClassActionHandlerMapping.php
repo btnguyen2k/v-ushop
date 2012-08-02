@@ -48,9 +48,9 @@ $YADIF_CONFIG = Array(
         
         'Vushop_Controller_MyItemsController' => Array(
                 'class' => 'Vushop_Controller_MyItemsController', 
-                'scope' => 'singleton'), 
-        'methods' => Array(
-                Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE))), 
+                'scope' => 'singleton', 
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)))), 
         
         'Vushop_Controller_CreateItemController' => Array(
                 'class' => 'Vushop_Controller_CreateItemController', 
