@@ -54,7 +54,11 @@
                             </td>
                             <td>
                                 <small>
-                                    
+                                    [:if $item->getCategory()!==NULL:]
+                                        [:$item->getCategory()->getTitle()|escape:'html':]
+                                    [:else:]
+                                        &nbsp;
+                                    [:/if:]
                                 </small>
                             </td>
                             <td style="text-align: center;" width="64px">
