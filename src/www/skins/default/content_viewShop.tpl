@@ -12,7 +12,7 @@
     			<ul id="[:$scrollerId:]">
         			[:foreach $_category->getItemsForCategoryShop() as $_item:]
         				[:if $_item->getUrlThumbnail()=='':]
-                            [:assign var="_urlThumbnail" value="img/img_general.jpg":]
+                            [:assign var="_urlThumbnail" value="images/img_general.jpg":]
                         [:else:]
                             [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
                         [:/if:]	        			

@@ -10,11 +10,13 @@ function submitForm(formId){
 	document.getElementById(formId).submit();
 }
 
-function login(){
+function login(url){
 	document.location.hash='#login';
 	var username=document.getElementById("username");
 	if(username!=null){
 		username.focus();
+	}else{
+		redirect(url);
 	}
 }
 

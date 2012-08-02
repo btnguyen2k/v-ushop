@@ -16,7 +16,7 @@
                     | <a href="[:$MODEL.urlLogout:]">[:$LANG->getMessage('msg.logout'):]</a>
                 </p>
     		[:else:]
-                <a href="javascript:void(0)" onclick="login()" style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):]</a>
+                <a href="javascript:void(0)" onclick="login('[:$MODEL.urlLogin:]')" style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):]</a>
     		[:/if:]
 		</div>
 	</div>
@@ -52,7 +52,7 @@
 		<ul id="scroller" >
 			[:foreach $MODEL.newItems as $_item:]	
 				 [:if $_item->getUrlThumbnail()=='':]
-                    [:assign var="_urlThumbnail" value="img/img_general.jpg":]
+                    [:assign var="_urlThumbnail" value="images/img_general.jpg":]
                 [:else:]
                     [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
                 [:/if:]			

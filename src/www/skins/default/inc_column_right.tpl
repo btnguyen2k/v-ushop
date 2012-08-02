@@ -40,10 +40,10 @@
 			<td><input name="search" class="button" value="Đăng Nhập" type="submit" /></td>
 		</tr>
 	</table>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">[:$LANG->getMessage('msg.register'):]</a> | <a href="../../#">[:$LANG->getMessage('msg.forgotPassword'):]</a>	
+	<div align="center"><a href="../../#">[:$LANG->getMessage('msg.forgotPassword'):]</a>	</div>
 </form>	
 [:/if:]
-<br/>
+
 	<h1>HOTLINE</h1>
 	<div  style="margin-left: 20px">		
     	[:call name=skypeAndYahoo skype=$MODEL.page.email yahoo=$MODEL.page.email nickYahoo=$MODEL.page.nickYahoo:]

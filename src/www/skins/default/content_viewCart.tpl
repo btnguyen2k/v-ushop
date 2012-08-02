@@ -18,7 +18,7 @@
         <tbody>
         [:foreach $MODEL.cart->getItems() as $item:]            	
         	[:if $item->getUrlThumbnail()=='':]
-                [:assign var="_urlThumbnail" value="img/img_general.jpg":]
+                [:assign var="_urlThumbnail" value="images/img_general.jpg":]
             [:else:]
                 [:assign var="_urlThumbnail" value=$item->getUrlThumbnail():]
             [:/if:]

@@ -122,7 +122,7 @@
                      		 	<input type="hidden" name="item" value="[:$item->getId():]" />
                                 <input type="hidden" name="quantity" value="1" />       
                          		<div class="btn-group">
-                    				<button type="button" class="btn">[:$LANGUAGE->getMessage('msg.view'):]</button>
+                    				<button type="button" class="btn" onclick="redirect('[:$item->getUrlView():]')">[:$LANGUAGE->getMessage('msg.view'):]</button>
                     				<button type="submit" class="btn icon-cart-add" >[:$LANGUAGE->getMessage('msg.addToCart'):]</button>    				
             					</div>
                 			</form>
