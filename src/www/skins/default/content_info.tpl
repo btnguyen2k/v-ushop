@@ -1,6 +1,6 @@
 
 <div class="main" align="center">
-    <div class="standard_error" align="left">
+    <div id="info" class="standard_error" align="left">
         <h2 class="blockhead">[:$LANG->getMessage('msg.message'):]</h2>
     	<form  id="[:$FORM.name|escape:'html':]" class="vbform" style="text-align: center;"
             name="[:$FORM.name|escape:'html':]" action="[:$FORM.action:]" method="post"> 
@@ -15,3 +15,6 @@
        
     </div>
 </div>
+<script>
+	jumpTo('info');
+</script>

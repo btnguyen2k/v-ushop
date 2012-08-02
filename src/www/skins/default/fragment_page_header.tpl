@@ -56,7 +56,7 @@
                 [:else:]
                     [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
                 [:/if:]			
-            	<li onclick="redirect('[:$_item->getUrlView():]')"><img src="[:$_urlThumbnail:]" class="sanpham" alt="">[:$_item->getTitle():]</li>
+            	<li onclick="redirect('[:$_item->getUrlView():]')"><img src="[:$_urlThumbnail:]" alt="">[:$_item->getTitle():]</li>
            [:/foreach:]
         </ul>
 	</div>

@@ -49,6 +49,7 @@ Note all DIVs are generated and should not be hard-coded
 		.simply-scroll-list li {
 			padding: 0;
 			margin: 0;
+			
 			list-style: none;
 		}
 	
@@ -138,7 +139,7 @@ Note all DIVs are generated and should not be hard-coded
 
 .simply-scroll { /* Customisable base class for style override DIV */
 	width: 100%;
-	margin-bottom: 1em;
+	margin-bottom: 0;
 }
 
 	.simply-scroll .simply-scroll-clip {
@@ -153,6 +154,9 @@ Note all DIVs are generated and should not be hard-coded
 			text-align: center;
 			cursor: pointer;
 			color: #656565;
+			width:150px;
+			height: 170px;
+			white-space: normal;
 		}
 		.simply-scroll .simply-scroll-list li img {			
 			padding: 5px;		

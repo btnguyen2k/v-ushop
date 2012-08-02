@@ -16,7 +16,7 @@
                         [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
                     [:/if:]
                     [:if $_item->getUrlImage()=='':]
-                        [:assign var="_urlImage" value="img/img_general.jpg":]
+                        [:assign var="_urlImage" value="images/img_general.jpg":]
                     [:else:]
                         [:assign var="_urlImage" value=$_item->getUrlImage():]
                     [:/if:]
@@ -55,11 +55,16 @@
         	<li><a href="#tabs-2">[:$LANG->getMessage('msg.image'):]</a></li>           
         </ul>
         <div id="tabs-1">
-        	[:$_item->getDescription():]
-        
+        	[:if $_item->getDescription()!='':]
+        		[:$_item->getDescription():]  
+        	[:else:]
+        		[:call name=noData:]
+        	[:/if:]        
         </div>
-        <div id="tabs-2">        
-        	 <img alt="" src="[:$_urlImage:]">        
+        <div id="tabs-2">  
+       		[:if $_item->getUrlImage()!='':]
+        	 	<img alt="" src="[:$_urlImage:]">      
+        	[:/if:]  
         </div>
         <br/><br/><br/>
    </div>
