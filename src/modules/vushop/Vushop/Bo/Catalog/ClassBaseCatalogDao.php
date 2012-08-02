@@ -303,10 +303,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         $result = Array();
         // count items within this category and its children too
-        $params = Array($cat->getId());
-        foreach ($cat->getChildren() as $child) {
-            $params[] = $child->getId();
-        }
+        $params = $this->getCategoryTreeIds($cat);
         $params = Array(self::PARAM_CATEGORY_IDS => $params);
         $result = $this->execCount($sqlStm, $params);
         return $result;
@@ -316,16 +313,12 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::countNumItemsForCategoryForShop()
      */
-    public function countNumItemsForCategoryShop($cat, $ownerId) {        
+    public function countNumItemsForCategoryShop($cat, $ownerId) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $result = Array();
         // count items within this category and its children too
-        $params = Array($cat->getId());
-        foreach ($cat->getChildren() as $child) {
-            $params[] = $child->getId();
-        }
-        $params = Array(self::PARAM_CATEGORY_IDS => $params,
-                        self::PARAM_OWNER_ID => $ownerId);
+        $params = $this->getCategoryTreeIds($cat);
+        $params = Array(self::PARAM_CATEGORY_IDS => $params, self::PARAM_OWNER_ID => $ownerId);
         $result = $this->execCount($sqlStm, $params);
         return $result;
     }
@@ -550,10 +543,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         $result = Array();
         // get all items within this category and its children too
-        $params = Array($cat->getId());
-        foreach ($cat->getChildren() as $child) {
-            $params[] = $child->getId();
-        }
+        $params = $this->getCategoryTreeIds($cat);
         $params = Array(self::PARAM_CATEGORY_IDS => $params, 
                 self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
                 self::PARAM_PAGE_SIZE => $pageSize);
@@ -605,10 +595,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $result = Array();
         // get all items within this category and its children too
-        $params = Array($cat->getId());
-        foreach ($cat->getChildren() as $child) {
-            $params[] = $child->getId();
-        }
+        $params = $this->getCategoryTreeIds($cat);
         $params = Array(self::PARAM_CATEGORY_IDS => $params, 
                 self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
                 self::PARAM_PAGE_SIZE => $pageSize, 
@@ -813,13 +800,12 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         return $result;
     }
     
-    private function getCategoryChildId($parent, $array) {
-        if ($parent->hasChildren()) {
-            $category = $parent->getChildren();
-            $params[] = $category->getId();
-            if ($category->hasChildren()) {
-                $this->getCategoryChildId($category, $params);
-            }
+    private function getCategoryTreeIds($cat) {
+        $result = Array($cat->getId());
+        foreach ($cat->getChildren() as $child) {
+            $childrenIds = $this->getCategoryTreeIds($child);
+            $result = array_merge($result, $childrenIds);
         }
+        return $result;
     }
 }
