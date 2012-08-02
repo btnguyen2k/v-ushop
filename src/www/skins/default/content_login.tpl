@@ -16,7 +16,7 @@
     		<tr>
     			<td colspan="2" align="center"><br/>
         			<button type="submit" class="btn" >[:$LANGUAGE->getMessage('msg.login'):]</button>
-        			<button type="button" class="btn" onclick="redirect('[:$MODEL.urlHome:]')">[:$LANGUAGE->getMessage('msg.cancelForm'):]</button>
+        			<button type="button" class="btn" onclick="redirect('[:$MODEL.urlHome:]')">[:$LANGUAGE->getMessage('msg.cancel'):]</button>
     			</td>	
     		</tr>		
     	</table>

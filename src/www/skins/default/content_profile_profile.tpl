@@ -6,7 +6,7 @@
 	
     <div id="tabs">
         <ul>
-        	<li><a href="#tabs-1">[:$LANG->getMessage('msg.shopInformation'):]</a></li>
+        	<li><a href="#tabs-1">[:$LANG->getMessage('msg.shop.information'):]</a></li>
         	<li><a href="#tabs-2">[:$LANG->getMessage('msg.changePassword'):]</a></li>
             <li><a onclick="window.location.href='[:$MODEL.urlMyItems:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.myitems'):]</a></li>
         </ul>
@@ -14,40 +14,44 @@
         	<form method="post" id="userInformation" name="frmUserInformation" enctype="multipart/form-data" action="[:$MODEL.urlProfile:]">
         		<table width="100%">
         			<tr>
-        				<td colspan="4"><h2>[:$LANG->getMessage('msg.accountInformation'):]</h2><br/></td>
+        				<td colspan="4"><h2>[:$LANG->getMessage('msg.accountInformation'):]</h2></td>
         			</tr>
         			<tr>
-        				<td class="lable">[:$LANG->getMessage('msg.user.email'):] :</td>
-        				<td><input type="text" value="[:$MODEL.form.email|escape:'html':]" name="email" /></td>
-        				<td class="lable">[:$LANG->getMessage('msg.user.fullname'):] :</td>
-        				<td><input type="text" value="[:$MODEL.form.fullname|escape:'html':]" name="fullname" /></td>
-        			</tr> 
+        				<td class="lable" width="15%">[:$LANG->getMessage('msg.user.email'):] :</td>
+        				<td width="35%"><input type="text" value="[:$MODEL.form.email|escape:'html':]" name="email" /></td>
+        				<td class="lable" width="15%">[:$LANG->getMessage('msg.user.fullname'):] :</td>
+        				<td width="35%"><input type="text" value="[:$MODEL.form.fullname|escape:'html':]" name="fullname" /></td>
+        			</tr>
+                </table>
+                <table width="100%">
         			<tr>
-        				<td colspan="4"><h2>[:$LANG->getMessage('msg.shopInformation'):]</h2><br/></td>
+        				<td colspan="3"><h2>[:$LANG->getMessage('msg.shop.information'):]</h2></td>
         			</tr>
-        			<tr height="30px">
-        				<td class="lable">[:$LANG->getMessage('msg.shopName'):]:</td>
-        				<td ><input type="text" value="[:$MODEL.form.shopTitle|escape:'html':]"  name="shopTitle" /></td>
-        				<td colspan="2" rowspan="2" align="center">
-                            [:if isset($MODEL.form.urlShopImage):]
-                                [:assign var="_urlThumbnail" value=$MODEL.form.urlShopImage:]
-                            [:else:]
-                                [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
-                            [:/if:]
-        					<img alt="" src="[:$_urlThumbnail:]" width="150" height="189">
-        				</td>
+        			<tr>
+        				<td class="lable" width="15%">[:$LANG->getMessage('msg.shop.name'):]:</td>
+        				<td><input type="text" value="[:$MODEL.form.shopTitle|escape:'html':]" name="shopTitle" style="width: 40%" /></td>
         			</tr>
-        			<tr valign="top">
-        				<td class="lable">[:$LANG->getMessage('msg.image'):]: 	</td>
-        				<td style="position: relative;">
-							 <input id="form_categoryImage" style="display: none" type="file" name="shopImage" onchange="getFileUploadName('form_categoryImage','images-name')" />
-							 <input type="text" id="images-name" readonly="readonly" onclick="document.getElementById('form_categoryImage').click();"><button type="button" onclick="document.getElementById('form_categoryImage').click();" >&nbsp;&nbsp;[:$LANG->getMessage('msg.selectImage'):]&nbsp;&nbsp;</button>
-        					<input type="hidden" name="shopImageId" value="" /><br/>
-        					
+        			<tr>
+        				<td class="lable" width="15%">[:$LANG->getMessage('msg.image'):]:</td>
+        				<td>
+                            <input id="form_categoryImage" style="display: none" type="file" name="shopImage" onchange="getFileUploadName('form_categoryImage','images-name')" />
+							<input type="text" id="images-name" readonly="readonly" onclick="document.getElementById('form_categoryImage').click();" style="width: 40%" />
+                            <button type="button" onclick="document.getElementById('form_categoryImage').click();" >&nbsp;&nbsp;[:$LANG->getMessage('msg.selectImage'):]&nbsp;&nbsp;</button>
+        					<input type="hidden" name="shopImageId" value="" />
+                            <br/>
 						</td>
-        			</tr>        			
+        			</tr>
+                    <tr>
+                        <td class="lable" width="15%">[:$LANG->getMessage('msg.shop.location'):]:</td>
+                        <td>
+                            <input type="text" value="[:$MODEL.form.shopLocation|escape:'html':]" name="shopLocation" style="width: 40%" />
+                            <button type="button" onclick="openPopupTestLocation('#popupLocation', this.form.shopLocation.value);">&nbsp;&nbsp;[:$LANG->getMessage('msg.testLocation'):]&nbsp;&nbsp;</button>
+                            <br />
+                            <small><i>[:$LANG->getMessage('msg.testLocation.hint'):]</i></small>
+                        </td>
+                    </tr>
         		</table> 
-        		<a class="button" href="javascript:void(0)" onclick="submitForm('userInformation')"><span>&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]</span></a>        
+        		<a class="button" href="javascript:void(0)" onclick="submitForm('userInformation')"><span>&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]</span></a>
         	</form>
         	<br/><br/><br/>
         </div>

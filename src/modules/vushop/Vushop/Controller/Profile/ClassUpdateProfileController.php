@@ -60,7 +60,9 @@ class Vushop_Controller_Profile_UpdateProfileController extends Vushop_Controlle
 
         $shopDao = $this->getDao(DAO_SHOP);
         $shopTitle = isset($_POST[self::FORM_FIELD_SHOP_TITLE]) ? trim($_POST[self::FORM_FIELD_SHOP_TITLE]) : '';
+        $shopLocation = isset($_POST[self::FORM_FIELD_SHOP_LOCATION]) ? trim($_POST[self::FORM_FIELD_SHOP_LOCATION]) : '';
         $this->shop->setTitle($shopTitle);
+        $this->shop->setLocation($shopLocation);
         $this->shop->setImageId($paperclipItem !== NULL ? $paperclipItem->getId() : NULL);
         $shopDao->updateShop($this->shop);
 

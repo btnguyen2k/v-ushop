@@ -1,25 +1,25 @@
 <?php
-abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao implements 
+abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao implements
         Vushop_Bo_Catalog_ICatalogDao {
-    
+
     /**
      *
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
-    
+
     const PARAM_SORTING_FIELD = 'sortingField';
     const PARAM_SORTING = 'sorting';
     const PARAM_CATEGORY_IDS = 'categoryIds';
     const PARAM_OWNER_ID = 'owner_id';
     const PARAM_START_OFFSET = 'startOffset';
     const PARAM_PAGE_SIZE = 'pageSize';
-    
+
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
         parent::__construct();
     }
-    
+
     /**
      * (non-PHPdoc)
      *
@@ -28,23 +28,23 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
     public function getCacheName() {
         return 'ICatalogDao';
     }
-    
+
     protected function createCacheKeyCat($catId) {
         return 'CATEGORY_' . $catId;
     }
-    
+
     protected function createCacheKeyCatChidren($catId) {
         return 'CATEGORY_CHILDREN_' . $catId;
     }
-    
+
     protected function createCacheKeyCatCount() {
         return 'CATEGORY_COUNT';
     }
-    
+
     protected function createCacheKeyCatTree() {
         return 'CATEGORY_TREE';
     }
-    
+
     private function getAllCategoryIds() {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $result = Array();
@@ -56,7 +56,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $result;
     }
-    
+
     /**
      * Invalidates the category cache due to change.
      *
@@ -73,23 +73,23 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $this->deleteFromCache($this->createCacheKeyCatCount());
         $this->deleteFromCache($this->createCacheKeyCatTree());
     }
-    
+
     protected function createCacheKeyItem($itemId) {
         return 'ITEM_' . $itemId;
     }
-    
+
     protected function createCacheKeyAllItems() {
         return 'ITEM_ALL';
     }
-    
+
     protected function createCacheKeyHotItems() {
         return 'ITEM_HOT';
     }
-    
+
     protected function createCacheKeyItemCount() {
         return 'ITEM_COUNT';
     }
-    
+
     /**
      * Invalidates the item cache due to change.
      *
@@ -105,7 +105,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $this->deleteFromCache($this->createCacheKeyHotItems());
         $this->deleteFromCache($this->createCacheKeyItemCount());
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::countNumCategories()
@@ -119,23 +119,23 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::createCategory()
      */
     public function createCategory($category) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Catalog_BoCategory::COL_POSITION => $category->getPosition(), 
-                Vushop_Bo_Catalog_BoCategory::COL_PARENT_ID => $category->getParentId(), 
-                Vushop_Bo_Catalog_BoCategory::COL_TITLE => $category->getTitle(), 
-                Vushop_Bo_Catalog_BoCategory::COL_DESCRIPTION => $category->getDescription(), 
+        $params = Array(Vushop_Bo_Catalog_BoCategory::COL_POSITION => $category->getPosition(),
+                Vushop_Bo_Catalog_BoCategory::COL_PARENT_ID => $category->getParentId(),
+                Vushop_Bo_Catalog_BoCategory::COL_TITLE => $category->getTitle(),
+                Vushop_Bo_Catalog_BoCategory::COL_DESCRIPTION => $category->getDescription(),
                 Vushop_Bo_Catalog_BoCategory::COL_IMAGE_ID => $category->getImageId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCategoryCache();
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::deleteCategory()
@@ -145,7 +145,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $params = Array(Vushop_Bo_Catalog_BoCategory::COL_ID => $category->getId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCategoryCache($category);
-        
+
         // delete the attachment too!
         $paperclipId = $category->getImageId();
         $paperclipDao = $this->getDaoFactory()->getDao(DAO_PAPERCLIP);
@@ -155,7 +155,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getCategoryById()
@@ -174,13 +174,13 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
             if ($result !== NULL) {
                 $children = $this->getCategoryChildren($result);
                 $result->setChildren($children);
-            
+
             }
-        
+
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getCategoryChildren()
@@ -207,7 +207,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getCategoryTree()
@@ -229,24 +229,24 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::updateCategory()
      */
     public function updateCategory($category) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Catalog_BoCategory::COL_ID => $category->getId(), 
-                Vushop_Bo_Catalog_BoCategory::COL_POSITION => $category->getPosition(), 
-                Vushop_Bo_Catalog_BoCategory::COL_PARENT_ID => $category->getParentId(), 
-                Vushop_Bo_Catalog_BoCategory::COL_TITLE => $category->getTitle(), 
-                Vushop_Bo_Catalog_BoCategory::COL_DESCRIPTION => $category->getDescription(), 
+        $params = Array(Vushop_Bo_Catalog_BoCategory::COL_ID => $category->getId(),
+                Vushop_Bo_Catalog_BoCategory::COL_POSITION => $category->getPosition(),
+                Vushop_Bo_Catalog_BoCategory::COL_PARENT_ID => $category->getParentId(),
+                Vushop_Bo_Catalog_BoCategory::COL_TITLE => $category->getTitle(),
+                Vushop_Bo_Catalog_BoCategory::COL_DESCRIPTION => $category->getDescription(),
                 Vushop_Bo_Catalog_BoCategory::COL_IMAGE_ID => $category->getImageId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCategoryCache($category);
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::countNumItems()
@@ -270,7 +270,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $result = $this->execCount($sqlStm);
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::countNumItems()
@@ -282,7 +282,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $result = $this->execCount($sqlStm, $params);
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::countNumItemsForCategory()
@@ -308,7 +308,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $result = $this->execCount($sqlStm, $params);
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::countNumItemsForCategoryForShop()
@@ -322,35 +322,35 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $result = $this->execCount($sqlStm, $params);
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::createItem()
      */
     public function createItem($item) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Catalog_BoItem::COL_CATEGORY_ID => $item->getCategoryId(), 
-                Vushop_Bo_Catalog_BoItem::COL_TITLE => $item->getTitle(), 
-                Vushop_Bo_Catalog_BoItem::COL_DESCRIPTION => $item->getDescription(), 
-                Vushop_Bo_Catalog_BoItem::COL_VENDOR => $item->getVendor(), 
-                Vushop_Bo_Catalog_BoItem::COL_CODE => $item->getCode(), 
-                Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP => $item->getTimestamp(), 
-                Vushop_Bo_Catalog_BoItem::COL_PRICE => $item->getPrice(), 
-                Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $item->getOldPrice(), 
-                Vushop_Bo_Catalog_BoItem::COL_STOCK => $item->getStock(), 
-                Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $item->getImageId(), 
-                Vushop_Bo_Catalog_BoItem::COL_HOT_ITEM => $item->isHotItem() ? 1 : 0, 
-                Vushop_Bo_Catalog_BoItem::COL_NEW_ITEM => $item->isNewItem() ? 1 : 0, 
-                Vushop_Bo_Catalog_BoItem::COL_OWNER_ID => $item->getOwnerId(), 
+        $params = Array(Vushop_Bo_Catalog_BoItem::COL_CATEGORY_ID => $item->getCategoryId(),
+                Vushop_Bo_Catalog_BoItem::COL_TITLE => $item->getTitle(),
+                Vushop_Bo_Catalog_BoItem::COL_DESCRIPTION => $item->getDescription(),
+                Vushop_Bo_Catalog_BoItem::COL_VENDOR => $item->getVendor(),
+                Vushop_Bo_Catalog_BoItem::COL_CODE => $item->getCode(),
+                Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP => $item->getTimestamp(),
+                Vushop_Bo_Catalog_BoItem::COL_PRICE => $item->getPrice(),
+                Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $item->getOldPrice(),
+                Vushop_Bo_Catalog_BoItem::COL_STOCK => $item->getStock(),
+                Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $item->getImageId(),
+                Vushop_Bo_Catalog_BoItem::COL_HOT_ITEM => $item->isHotItem() ? 1 : 0,
+                Vushop_Bo_Catalog_BoItem::COL_NEW_ITEM => $item->isNewItem() ? 1 : 0,
+                Vushop_Bo_Catalog_BoItem::COL_OWNER_ID => $item->getOwnerId(),
                 Vushop_Bo_Catalog_BoItem::COL_ACTIVE => $item->isActive() ? 1 : 0);
         $this->execNonSelect($sqlStm, $params);
         $this->invalidateItemCache();
-        
+
         $item = $this->getItemJustCreated($item->getTimestamp(), $item->getTitle());
         $this->updateIndexItem($item);
         return $item;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::deleteItem()
@@ -360,7 +360,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $params = Array(Vushop_Bo_Catalog_BoItem::COL_ID => $item->getId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateItemCache($item);
-        
+
         // delete the attachment too!
         $paperclipId = $item->getImageId();
         $paperclipDao = $this->getDaoFactory()->getDao(DAO_PAPERCLIP);
@@ -370,7 +370,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getAllItems()
@@ -389,7 +389,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
             default:
                 $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         }
-        $params = Array(self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
+        $params = Array(self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize,
                 self::PARAM_PAGE_SIZE => $pageSize);
         switch ($itemSorting) {
             case ITEM_SORTING_TITLE:
@@ -417,7 +417,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                         Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP);
                 $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
         }
-        $result = Array();        
+        $result = Array();
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {
             foreach ($rows as $row) {
@@ -428,18 +428,18 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getAllItems()
      */
     public function getAllItemsForShop($ownerId, $pageNum = 1, $pageSize = PHP_INT_MAX, $itemSorting = DEFAULT_ITEM_SORTING) {
-        
+
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
-                self::PARAM_PAGE_SIZE => $pageSize, 
+        $params = Array(self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize,
+                self::PARAM_PAGE_SIZE => $pageSize,
                 self::PARAM_OWNER_ID => $ownerId);
-        
+
         switch ($itemSorting) {
             case ITEM_SORTING_TITLE:
                 $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
@@ -477,7 +477,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $result;
     }
-    
+
     /**
      * Gets the item that has just been created.
      *
@@ -488,7 +488,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
     protected function getItemJustCreated($timestamp, $title) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $itemId = 0;
-        $params = Array(Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP => $timestamp, 
+        $params = Array(Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP => $timestamp,
                 Vushop_Bo_Catalog_BoItem::COL_TITLE => $title);
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {
@@ -496,7 +496,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $this->getItemById($itemId);
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getItemById()
@@ -519,7 +519,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getItemsForCategory()
@@ -544,8 +544,8 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $result = Array();
         // get all items within this category and its children too
         $params = $this->getCategoryTreeIds($cat);
-        $params = Array(self::PARAM_CATEGORY_IDS => $params, 
-                self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
+        $params = Array(self::PARAM_CATEGORY_IDS => $params,
+                self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize,
                 self::PARAM_PAGE_SIZE => $pageSize);
         switch ($itemSorting) {
             case ITEM_SORTING_TITLE:
@@ -583,7 +583,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::getItemsForShopCategory()
@@ -596,11 +596,11 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $result = Array();
         // get all items within this category and its children too
         $params = $this->getCategoryTreeIds($cat);
-        $params = Array(self::PARAM_CATEGORY_IDS => $params, 
-                self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
-                self::PARAM_PAGE_SIZE => $pageSize, 
+        $params = Array(self::PARAM_CATEGORY_IDS => $params,
+                self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize,
+                self::PARAM_PAGE_SIZE => $pageSize,
                 self::PARAM_OWNER_ID => $ownerId);
-        
+
         switch ($itemSorting) {
             case ITEM_SORTING_TITLE:
                 $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(
@@ -627,7 +627,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                         Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP);
                 $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
         }
-        
+
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {
             foreach ($rows as $row) {
@@ -638,7 +638,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $result;
     }
-    
+
     private function buildSearchParams($searchQuery, $searchType, $cat) {
         $tokens = preg_split(WORD_SPLIT_PATTERN, strip_tags($searchQuery));
         $searchTerms = Array();
@@ -648,16 +648,16 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                 $searchTerms[$temp] = 1;
             }
         }
-        
+
         if (count($searchTerms) === 0) {
             // no or empty search tearm(s), thus no search should be performed
             return NULL;
         }
-        
+
         $paramSearchTerms = array_keys($searchTerms);
-        
+
         $paramCats = $this->getCategoryTreeIds($cat);
-        
+
         switch ($searchType) {
             case 0:
                 $paramSearchTypes = Array(0);
@@ -669,14 +669,14 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                 $paramSearchTypes = Array(0, 1);
                 break;
         }
-        
+
         // build the final parameters and return
-        $params = Array('searchTypes' => $paramSearchTypes, 
-                'tags' => $paramSearchTerms, 
+        $params = Array('searchTypes' => $paramSearchTypes,
+                'tags' => $paramSearchTerms,
                 self::PARAM_CATEGORY_IDS => $paramCats);
         return $params;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::countSearchItems()
@@ -689,7 +689,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($params[self::PARAM_CATEGORY_IDS]) === 0 ? 'NoCategory' : 'Category'));
         return $this->execCount($sqlStm, $params);
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::searchItems()
@@ -699,7 +699,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         if ($params === NULL) {
             return Array();
         }
-        
+
         $pageNum = (int)$pageNum;
         if ($pageNum < 1) {
             $pageNum = 1;
@@ -710,7 +710,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         $params['startOffset'] = ($pageNum - 1) * $pageSize;
         $params['pageSize'] = $pageSize;
-        
+
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($params[self::PARAM_CATEGORY_IDS]) === 0 ? 'NoCategory' : 'Category'));
         $result = Array();
         $rows = $this->execSelect($sqlStm, $params);
@@ -723,37 +723,38 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         }
         return $result;
     }
-    
+
     /**
      *
      * @see Vushop_Bo_Catalog_ICatalogDao::updateItem()
      */
     public function updateItem($item) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Catalog_BoItem::COL_ID => $item->getId(), 
-                Vushop_Bo_Catalog_BoItem::COL_ACTIVE => $item->isActive() ? 1 : 0, 
-                Vushop_Bo_Catalog_BoItem::COL_CATEGORY_ID => $item->getCategoryId(), 
-                Vushop_Bo_Catalog_BoItem::COL_TITLE => $item->getTitle(), 
-                Vushop_Bo_Catalog_BoItem::COL_DESCRIPTION => $item->getDescription(), 
-                Vushop_Bo_Catalog_BoItem::COL_VENDOR => $item->getVendor(), 
-                Vushop_Bo_Catalog_BoItem::COL_CODE => $item->getCode(), 
-                Vushop_Bo_Catalog_BoItem::COL_PRICE => $item->getPrice(), 
-                Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $item->getOldPrice(), 
-                Vushop_Bo_Catalog_BoItem::COL_STOCK => $item->getStock(), 
-                Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $item->getImageId(), 
-                Vushop_Bo_Catalog_BoItem::COL_HOT_ITEM => $item->isHotItem() ? 1 : 0, 
+        $params = Array(Vushop_Bo_Catalog_BoItem::COL_ID => $item->getId(),
+                Vushop_Bo_Catalog_BoItem::COL_ACTIVE => $item->isActive() ? 1 : 0,
+                Vushop_Bo_Catalog_BoItem::COL_CATEGORY_ID => $item->getCategoryId(),
+                Vushop_Bo_Catalog_BoItem::COL_TITLE => $item->getTitle(),
+                Vushop_Bo_Catalog_BoItem::COL_DESCRIPTION => $item->getDescription(),
+                Vushop_Bo_Catalog_BoItem::COL_VENDOR => $item->getVendor(),
+                Vushop_Bo_Catalog_BoItem::COL_CODE => $item->getCode(),
+                Vushop_Bo_Catalog_BoItem::COL_PRICE => $item->getPrice(),
+                Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $item->getOldPrice(),
+                Vushop_Bo_Catalog_BoItem::COL_OWNER_ID => $item->getOwnerId(),
+                Vushop_Bo_Catalog_BoItem::COL_STOCK => $item->getStock(),
+                Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $item->getImageId(),
+                Vushop_Bo_Catalog_BoItem::COL_HOT_ITEM => $item->isHotItem() ? 1 : 0,
                 Vushop_Bo_Catalog_BoItem::COL_NEW_ITEM => $item->isNewItem() ? 1 : 0);
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateItemCache($item);
         $this->updateIndexItem($item);
         return $result;
     }
-    
+
     private function updateIndexItem($item) {
         $this->deleteIndexItem($item);
-        
+
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        
+
         $params = Array(Vushop_Bo_Catalog_BoItem::COL_ID => $item->getId());
         $params['type'] = 0;
         $tokens = preg_split(WORD_SPLIT_PATTERN, strip_tags($item->getTitle()));
@@ -768,7 +769,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
                 $this->execNonSelect($sqlStm, $params);
             }
         }
-        
+
         $params['type'] = 1;
         $tokens = preg_split(WORD_SPLIT_PATTERN, strip_tags($item->getDescription()));
         $tags = Array();
@@ -783,7 +784,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
             }
         }
     }
-    
+
     private function deleteIndexItem($item) {
         if ($item === NULL) {
             return;
@@ -793,7 +794,7 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
         $result = $this->execNonSelect($sqlStm, $params);
         return $result;
     }
-    
+
     private function getCategoryTreeIds($cat) {
         $result = Array($cat->getId());
         foreach ($cat->getChildren() as $child) {

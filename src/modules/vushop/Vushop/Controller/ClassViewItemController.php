@@ -3,11 +3,15 @@ class Vushop_Controller_ViewItemController extends Vushop_Controller_BaseFlowCon
     const VIEW_NAME = 'viewItem';
     const VIEW_NAME_ERROR = 'error';
 
+    private $itemId;
     /**
-     * @var Vushop_Bo_Catalog_BoCategory
+     * @var Vushop_Bo_Catalog_BoItem
      */
     private $item = NULL;
-    private $itemId;
+    /**
+     * @var Vushop_Bo_Shop_BoShop
+     */
+    private $shop = NULL;
 
     /**
      * @see Vushop_Controller_BaseFlowController::getViewName()
@@ -26,12 +30,19 @@ class Vushop_Controller_ViewItemController extends Vushop_Controller_BaseFlowCon
          * @var Dzit_RequestParser
          */
         $requestParser = Dzit_RequestParser::getInstance();
+
         $this->itemId = (int)$requestParser->getPathInfoParam(1);
         /**
          * @var Vushop_Bo_Catalog_ICatalogDao
          */
         $catalogDao = $this->getDao(DAO_CATALOG);
         $this->item = $catalogDao->getItemById($this->itemId);
+
+        if ( $this->item !== NULL ) {
+            $shopId = $this->item->getOwnerId();
+            $shopDao = $this->getDao(DAO_SHOP);
+            $this->shop = $shopDao->getShopById($shopId);
+        }
     }
 
     /**
@@ -76,6 +87,7 @@ class Vushop_Controller_ViewItemController extends Vushop_Controller_BaseFlowCon
         }
 
         $model['itemObj'] = $this->item;
+        $model['shopObj'] = $this->shop;
 
         return $model;
     }

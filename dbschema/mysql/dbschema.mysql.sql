@@ -168,6 +168,7 @@ CREATE TABLE vushop_shop (
     sposition       INT                     NOT NULL DEFAULT 0,
         INDEX(sposition),
     stitle          VARCHAR(64)             NOT NULL DEFAULT '',
+    slocation       TEXT,
     sdesc           TEXT,
     simage_id       VARCHAR(64),
         INDEX (simage_id),

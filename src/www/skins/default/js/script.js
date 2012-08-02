@@ -6,6 +6,15 @@ function jumpTo(id) {
 	document.location.hash = '#' + id;
 }
 
+function openPopupTestLocation(popupId, locationValue) {
+    var wWidth = 640;
+    var wHeight = 480;
+    var centeredY = (screen.height - wHeight)/2;
+    var centeredX = (screen.width - wWidth)/2;
+    var wOptions = 'width='+wWidth+',height='+wHeight+',top='+centeredY+',left='+centeredX;
+    window.open('https://maps.google.com/maps?f=q&source=s_q&hl=vi&geocode=&ie=UTF8&hq=&t=m&z=15&iwloc=A&output=embed&q='+locationValue+'&hnear='+locationValue, '', wOptions).focus();
+}
+
 function submitForm(formId) {
 	document.getElementById(formId).submit();
 }

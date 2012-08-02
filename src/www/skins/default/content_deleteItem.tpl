@@ -7,7 +7,7 @@
             [:call name="printFormHeader" form=$FORM:]
             
             <button class="btn" type="submit">&nbsp;&nbsp;[:$LANG->getMessage('msg.yes'):]&nbsp;&nbsp;</button>
-            <button class="btn" type="button" onclick="redirect('[:$MODEL.form.actionCancel:]');">[:$LANG->getMessage('msg.cancelForm'):]</button> <br/> <br/>
+            <button class="btn" type="button" onclick="redirect('[:$MODEL.form.actionCancel:]');">[:$LANG->getMessage('msg.cancel'):]</button> <br/> <br/>
         </form>
        
     </div>

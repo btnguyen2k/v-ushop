@@ -8,6 +8,7 @@ abstract class Vushop_Controller_Profile_BaseProfileController extends Vushop_Co
     const FORM_FIELD_EMAIL = 'email';
     const FORM_FIELD_USERNAME = 'username';
     const FORM_FIELD_SHOP_TITLE = 'shopTitle';
+    const FORM_FIELD_SHOP_LOCATION = 'shopLocation';
     const FORM_FIELD_IMAGE = 'shopImage';
     const FORM_FIELD_IMAGE_ID = 'shopImageId';
     const FORM_FIELD_URL_IMAGE = 'urlShopImage';
@@ -86,12 +87,14 @@ abstract class Vushop_Controller_Profile_BaseProfileController extends Vushop_Co
         $form[self::FORM_FIELD_USERNAME] = $user->getUsername();
 
         $form[self::FORM_FIELD_SHOP_TITLE] = $this->shop->getTitle();
+        $form[self::FORM_FIELD_SHOP_LOCATION] = $this->shop->getLocation();
         $form[self::FORM_FIELD_IMAGE_ID] = md5($this->shop->getImageId());
 
         $this->populateForm($form, Array(self::FORM_FIELD_FULLNAME,
                 self::FORM_FIELD_EMAIL,
                 self::FORM_FIELD_USERNAME,
                 self::FORM_FIELD_SHOP_TITLE,
+                self::FORM_FIELD_SHOP_LOCATION,
                 self::FORM_FIELD_IMAGE_ID));
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
         if ($paperclipId !== NULL) {

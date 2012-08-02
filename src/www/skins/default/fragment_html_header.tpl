@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="css/simpletree.css" type="text/css" />
 	<link rel="stylesheet" href="css/button.css" type="text/css" />
 	<link rel="stylesheet" href="css/custom-theme/jquery-ui-1.8.22.custom.css" type="text/css" />
+    <link rel="stylesheet" href="css/popup.css" type="text/css" />
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
 			<script src="http://code.jquery.com/ui/1.8.22/jquery-ui.min.js" type="text/javascript"></script>

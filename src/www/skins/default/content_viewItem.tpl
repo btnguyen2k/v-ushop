@@ -74,6 +74,10 @@
         	[:/if:]  
         </div>
         <div id="tabs-3">
+            [:if ($MODEL.shopObj->getLocation() !== NULL) && ($MODEL.shopObj->getLocation() !== ''):]
+                <iframe width="494" height="440" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                    src="https://maps.google.com/maps?f=q&source=s_q&hl=vi&geocode=&ie=UTF8&hq=&t=m&z=15&iwloc=A&output=embed&q=[:$MODEL.shopObj->getLocation()|escape:'url':]&hnear=[:$MODEL.shopObj->getLocation()|escape:'url':]"></iframe>
+            [:/if:]
             <div class="fb-comments" data-href="//[:$smarty.server.HTTP_HOST:]/[:$smarty.server.REQUEST_URI:]" data-num-posts="4" data-width="494"></div>
         </div>
         <br/><br/><br/>

@@ -17,15 +17,10 @@
                 
                 <p></p>
                 <label for="form_itemCategory">[:$LANG->getMessage('msg.item.category'):]:</label>
-                 
-                
-                
-                 <select dojoType="dijit.form.Select" name="categoryId">
+                <select dojoType="dijit.form.Select" name="categoryId">
                     [:call name="printCategoryTreeSelectBox" catList=$MODEL.categoryTree index=0 selectedIndex=$MODEL.form.categoryId:]
                 </select>
                 <br />
-                
-                
                 
                 <label for="form_itemVendor">[:$LANG->getMessage('msg.item.vendor'):]:</label>
                 <input dojoType="dijit.form.ValidationTextBox" id="form_itemVendor"
@@ -60,7 +55,7 @@
                 
                 <p></p>
                 <button class="btn" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                <button class="btn" type="button" onclick="openUrl('[:$MODEL.form.actionCancel:]');">&nbsp;&nbsp;[:$LANG->getMessage('msg.cancelForm'):]&nbsp;&nbsp;</button>
+                <button class="btn" type="button" onclick="openUrl('[:$MODEL.form.actionCancel:]');">&nbsp;&nbsp;[:$LANG->getMessage('msg.cancel'):]&nbsp;&nbsp;</button>
             </form>
            [:call name=tinymce elName=form_itemDesc:]
         	<script type="text/javascript">           
