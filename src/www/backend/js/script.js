@@ -13,3 +13,11 @@ function confirmPassword(value, constraints) {
 	}
 	return isValid;
 }
+
+function getFileUploadName(fileId, inputId) {
+	var fileUpload = document.getElementById(fileId);
+	var inputId = document.getElementById(inputId);
+	var name = fileUpload.value.substring(fileUpload.value.lastIndexOf("\\"),
+			fileUpload.value.length);
+	inputId.value = name;
+}

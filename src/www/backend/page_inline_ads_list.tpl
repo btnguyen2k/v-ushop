@@ -10,8 +10,7 @@
     
     <div class="align-center viewport-800">
         <button dojoType="dijit.form.Button" onclick="openUrl('[:$MODEL.urlCreateAds:]');">[:$MODEL.language->getMessage('msg.createAds'):]</button>
-    </div>
-    
+    </div>   
     <table cellpadding="2" class="align-center viewport-800">
     <thead>
         <tr>

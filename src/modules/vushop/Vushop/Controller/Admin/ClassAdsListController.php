@@ -26,7 +26,9 @@ class Vushop_Controller_Admin_AdsListController extends Vushop_Controller_Admin_
          */
         $adsDao = $this->getDao(DAO_TEXTADS);
         $allAds = $adsDao->getAds();
-        $model[MODEL_ADS_LIST] = Vushop_Model_AdsBEModel::createModelObj($allAds);
+       
+        $model[MODEL_ADS_LIST] = $allAds;
+      
         return $model;
     }
 }

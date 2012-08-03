@@ -41,7 +41,7 @@
 			<td><input name="search" class="button" value="Đăng Nhập" type="submit" /></td>
 		</tr>
 	</table>
-	<div align="center"><a href="javascirpt:void(0)" onclick="alert('[:$LANG->getMessage('msg.forgotPassword.info'):]')">[:$LANG->getMessage('msg.forgotPassword'):]</a>	</div>
+	<div align="center"><a href="javascript:void(0)" onclick="alert('[:$LANG->getMessage('msg.forgotPassword.info'):]')">[:$LANG->getMessage('msg.forgotPassword'):]</a>	</div>
 </form>	
 [:/if:]
 

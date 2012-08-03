@@ -356,13 +356,22 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         return $_SERVER['SCRIPT_NAME'] . '/deleteItemInCart/';
     }
     
-/**
+    /**
      * Get the url to access backend section.
      *
      * @return string
      */
     protected function getUrlUpdateCart() {
         return $_SERVER['SCRIPT_NAME'] . '/updateCart/';
+    }
+    
+    /**
+     * Get the url to access backend section.
+     *
+     * @return string
+     */
+    protected function getUrlPrintCart() {
+        return $_SERVER['SCRIPT_NAME'] . '/printCart/';
     }
     
     /**
@@ -529,6 +538,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $model[MODEL_URL_CREATE_ITEM] = $this->getUrlCreateItem();
         $model[MODEL_URL_DELETE_ITEM_IN_CART] = $this->getUrlDeleteItemInCart();
         $model[MODEL_URL_UPDATE_CART] = $this->getUrlUpdateCart();
+        $model[MODEL_URL_PRINT_CART] = $this->getUrlPrintCart();
         $model[MODEL_URL_CHANGE_PASSWORD] = $this->getUrlChangePassword();
         if ($user !== NULL) {
             if ($user !== NULL && $user->getGroupId() === USER_GROUP_ADMIN) {

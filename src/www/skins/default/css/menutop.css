@@ -4,8 +4,7 @@ ul.ws_css_cb_menu {
 	font:bold 13px Arial, Helvetica, sans-serif;
 	display:block;
 	float: left;
-	height:33px;
-	
+	height:30px;
 }
 ul.ws_css_cb_menu li {
 	display:block;
@@ -57,6 +56,7 @@ ul.ws_css_cb_menu, ul.ws_css_cb_menu ul {
 	margin:0px;
 	list-style:none;
 	padding:0px 2px 2px 0px;
+	margin-bottom: 1px;
 }
 ul.ws_css_cb_menu a:active, ul.ws_css_cb_menu a:focus {
 	outline-style:none;
@@ -92,13 +92,10 @@ ul.ws_css_cb_menum li a:hover {
 ul.ws_css_cb_menu img {
 	border: none;
 	float:left;
-	margin-right:4px;
-	width:16px;
-	height:16px;
+	
 }
 ul.ws_css_cb_menu ul img {
-	width:16px;
-	height:16px;
+	
 }
 ul.ws_css_cb_menu ul, ul.ws_css_cb_menu a:hover ul ul {
 	display:none;
@@ -109,8 +106,6 @@ ul.ws_css_cb_menu li:hover>ul {
 }
 ul.ws_css_cb_menu span {
 	display:block;
-	padding-right:11px;
-	background-image:url('../images/icons/arrow_down.gif');
 	background-position:right center;
 	background-repeat: no-repeat;
 }
@@ -131,13 +126,13 @@ ul.ws_css_cb_menu li a table ul, ul.ws_css_cb_menu li a:hover table ul {
 	margin:-4px 0px 0px -9px;
 }
 ul.ws_css_cb_menu ul span, ul.ws_css_cb_menu a:hover table span {
-	background-image:url('../images/icons/arrow_down.gif');
+	
 }
 ul.ws_css_cb_menu table a:hover span, ul.ws_css_cb_menu table a:hover a:hover span, ul.ws_css_cb_menu table a:hover a:hover a:hover span {
-	background-image:url('../images/icons/arrow_down.gif');
+	
 }
 ul.ws_css_cb_menu table a:hover table span, ul.ws_css_cb_menu table a:hover a:hover table span {
-	background-image:url('../images/icons/arrow_down.gif');
+
 }
 /* CSS for TABLE Tags for IE 6 and Lower END */
 /* CSS for All the Menus END */
@@ -145,10 +140,12 @@ ul.ws_css_cb_menu table a:hover table span, ul.ws_css_cb_menu table a:hover a:ho
 /* Video Menu Starts - Our Second Menu, by using the above class - this is just to change the colors and the height, width of the menu */
 ul.videoCssMenu {
 	font-size: 13px;
-	background-color:#ffffff;
-	-moz-border-radius: 0px;
-	-webkit-border:0px;
+	background-color:#f5f5f5;
 	border:0px;
+	border: 1px solid #dcdcdc;	
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 }
 ul.videoCssMenu .videoMenuTitleImage {
 	margin: -2px 0px 0px -2px;
@@ -157,7 +154,7 @@ ul.videoCssMenu .videoMenuTitleImage {
 }
 ul.videoCssMenu ul {
 	left:0px;
-	background-color: #f5f5f5;
+	background-color: #fff;
 	width:900px;
 	border-left:0px;
 	border-bottom:1px solid #fff;
@@ -166,24 +163,28 @@ ul.videoCssMenu ul {
 ul.videoCssMenu li a {
 	padding:5px !important;
 	color:#000;
+	background: url("../images/MenuSeparator.png") no-repeat;
+	background-position: right;
 }
 ul.videoCssMenu ul li a {
 	color: #000;
 }
 ul.videoCssMenu ul li {
 	float: left;
-	padding-left:15px;
 	height: 27px;
+	background: url("../images/MenuSeparator.png") no-repeat;
+	background-position: right;
 }
+
+
 ul.videoCssMenu li:hover>a, ul.videoCssMenu li a:hover {
-	background-color:#f5f5f5;
+	background-color:#fff;
 	border-color:#fff;
 	padding:6px !important;
 	color:#000;
 }
 ul.videoCssMenu li ul li:hover>a, ul.videoCssMenu li ul li a:hover {
-	background-color:#eee;
 	border-color:#fff;
 	padding:5px;
-	color:#000;
+	color:#962d2d;
 }

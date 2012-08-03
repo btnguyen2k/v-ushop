@@ -51,7 +51,8 @@ abstract class Vushop_Bo_TextAds_BaseAdsDao extends Quack_Bo_BaseDao implements
     public function createAds($ads) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(Vushop_Bo_TextAds_BoAds::COL_TITLE => $ads->getTitle(),
-                Vushop_Bo_TextAds_BoAds::COL_URL => $ads->getUrl());
+                Vushop_Bo_TextAds_BoAds::COL_URL => $ads->getUrl(),
+                Vushop_Bo_TextAds_BoAds::COL_IMAGE_ID => $ads->getImageId());
         $this->execNonSelect($sqlStm, $params);
         $this->invalidatePageCache();
     }

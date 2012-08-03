@@ -30,19 +30,19 @@
       [:foreach $MODEL.categoryTree as $_cat:]
       	<li><a href="[:$_cat->getUrlView():]">      		
       		[:if $_cat->hasChildren():]
-      			<span>[:$_cat->getTitle()|escape:'html':]</span>
+      			<span>[:$_cat->getTitle()|escape:'html':] </span>
       				 <![if gt IE 6]>
-                   		 </a>
-                    <![endif]>
+                   		 </a> 
+                    <![endif]> 
       				<ul class='ws_css_cb_menum'>
       				[:foreach $_cat->getChildren() as $_child:]
       					 <li><a href="[:$_child->getUrlView():]" >[:$_child->getTitle()|escape:'html':]</a></li>
       				[:/foreach:]
-      				</ul>
+      				</ul> 
       		[:else:]
       			[:$_cat->getTitle()|escape:'html':] 
       		[:/if:]
-      		</a>
+      		</a>  
       </li>
       [:/foreach:]
        [:foreach $MODEL.onMenuPages as $page:]

@@ -54,24 +54,29 @@
                 </tr>
             [:/foreach:]
             </tbody>
-            <tfoot>  
-            	<tr class="table-header">
-            		<th colspan="5">
-            			
-                    </th>
-            		<th style="text-align: right;font-size: 14px;font-weight: normal;">[:$MODEL.language->getMessage('msg.grandTotal'):] : </th>
-            		<th style="text-align: right;font-size: 14px;font-weight: normal;" >[:$MODEL.cart->getGrandTotalForDisplay():]</th>
-            		
-            	</tr>
-            </tfoot>
-        </table>
-        <div class="btn-group ">
-          	<button type="submit" class="btn btn-warning" onclick="return confirmDelete('[:$MODEL.msgDelete:]')" >[:$MODEL.language->getMessage('msg.delete'):]</button>
-          	<button type="submit" class="btn btn-warning" onclick="return changeActionForm('[:$MODEL.urlUpdateCart:]','form_cart')" >[:$MODEL.language->getMessage('msg.update'):]</button>                          	
-        
-        	<button type="button" class="btn btn-warning" onclick="redirect('[:$MODEL.cart->getUrlCheckout():]')">[:$MODEL.language->getMessage('msg.checkout'):]</button>
-          	<button type="button" class="btn btn-warning" onclick="redirect('[:$smarty.server.SCRIPT_NAME:]')">[:$MODEL.language->getMessage('msg.continueShopping'):]</button>
-       	</div>
+        	<tr class="table-header">
+        		<th colspan="5">
+        			
+                </th>
+        		<th style="text-align: right;font-size: 14px;font-weight: normal;">[:$MODEL.language->getMessage('msg.grandTotal'):] : </th>
+        		<th style="text-align: right;font-size: 14px;font-weight: normal;" >[:$MODEL.cart->getGrandTotalForDisplay():]</th>
+        		
+        	</tr>
+            <tr>
+            	<td colspan="6">
+                    <div class="btn-group ">
+                      	<button type="submit" class="btn btn-warning" onclick="return confirmDelete('[:$MODEL.msgDelete:]')" >[:$MODEL.language->getMessage('msg.delete'):]</button>
+                      	<button type="submit" class="btn btn-warning" onclick="return changeActionForm('[:$MODEL.urlUpdateCart:]','form_cart')" >[:$MODEL.language->getMessage('msg.update'):]</button>                          	
+                    
+                    	<button type="button" class="btn btn-warning" onclick="redirect('[:$MODEL.cart->getUrlCheckout():]')">[:$MODEL.language->getMessage('msg.checkout'):]</button>
+                      	<button type="button" class="btn btn-warning" onclick="redirect('[:$smarty.server.SCRIPT_NAME:]')">[:$MODEL.language->getMessage('msg.continueShopping'):]</button>
+                   	</div>
+               	</td>
+               	<td align="right">
+               		<button type="button" class="btn btn-warning" onclick="redirect('[:$MODEL.urlPrintCart:]')" >[:$MODEL.language->getMessage('msg.print'):]</button>
+               	</td>
+             </tr>
+       	 </table>
     </form>
 </div>
    

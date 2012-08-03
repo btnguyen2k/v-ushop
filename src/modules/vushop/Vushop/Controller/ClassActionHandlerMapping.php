@@ -46,6 +46,10 @@ $YADIF_CONFIG = Array(
         'Vushop_Controller_ViewItemController' => Array(
                 'class' => 'Vushop_Controller_ViewItemController', 
                 'scope' => 'singleton'), 
+
+        'Vushop_Controller_PrintCartController' => Array(
+                'class' => 'Vushop_Controller_PrintCartController', 
+                'scope' => 'singleton'), 
         
         'Vushop_Controller_MyItemsController' => Array(
                 'class' => 'Vushop_Controller_MyItemsController', 
