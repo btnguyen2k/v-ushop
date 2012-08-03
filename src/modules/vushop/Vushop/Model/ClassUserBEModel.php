@@ -44,7 +44,7 @@ class Vushop_Model_UserBEModel extends Vushop_Model_UserModel {
     private $urlDelete = NULL;
     private $urlEdit = NULL;
     private $urlView = NULL;
-    
+    private $urlChangePassword = NULL;
     
     /**
      * Gets the URL to delete the page.
@@ -59,7 +59,7 @@ class Vushop_Model_UserBEModel extends Vushop_Model_UserModel {
         return $this->urlDelete;
     }
     
- /**
+    /**
      * Gets the URL to edit the user.
      *
      * @return string
@@ -70,5 +70,18 @@ class Vushop_Model_UserBEModel extends Vushop_Model_UserModel {
             $this->urlEdit = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
         }
         return $this->urlEdit;
+    }
+    
+    /**
+     * Gets the URL to edit the user.
+     *
+     * @return string
+     */
+    public function getUrlChangePassword() {
+        if ($this->urlChangePassword === NULL) {
+            $vparams = Array('changePassword', $this->getTargetObject()->getId());
+            $this->urlChangePassword = Quack_Util_UrlCreator::createUri($_SERVER['SCRIPT_NAME'], $vparams);
+        }
+        return $this->urlChangePassword;
     }
 }

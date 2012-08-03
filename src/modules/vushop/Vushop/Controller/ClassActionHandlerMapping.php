@@ -303,6 +303,14 @@ $YADIF_CONFIG = Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
                         Array('method' => 'setAllowedUserGroups', 
                                 'arguments' => Array(Array(USER_GROUP_ADMIN))))), 
+                        
+        'Vushop_Controller_Admin_ChangePasswordController' => Array(
+                'class' => 'Vushop_Controller_Admin_ChangePasswordController', 
+                'scope' => 'singleton', 
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
+                        Array('method' => 'setAllowedUserGroups', 
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))), 
         
         'Vushop_Controller_Admin_DeleteUserController' => Array(
                 'class' => 'Vushop_Controller_Admin_DeleteUserController', 

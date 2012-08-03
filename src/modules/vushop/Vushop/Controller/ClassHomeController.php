@@ -54,16 +54,27 @@ class Vushop_Controller_HomeController extends Vushop_Controller_BaseFlowControl
         $catTree = $catalogDao->getCategoryTree();
         $model[MODEL_CATEGORY_LIST] = $catTree;
         
-        // shop
-        $shopDao = $this->getDao(DAO_SHOP);
-        $pageSize = DEFAULT_PAGE_SIZE_SHOP;
-        $shopOwners = $shopDao->getShops($this->pageNum, $pageSize);
-        $model[MODEL_SHOP_LIST] = Vushop_Model_ShopModel::createModelObj($shopOwners);
-        // paging
-        $numItems = $shopDao->getCountNumShops();
-        $urlTemplate =$_SERVER['SCRIPT_NAME'] . '?p=${page}';
-        $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $pageSize, $this->pageNum);
-        $model[MODEL_PAGINATOR] = $paginator;
+//        // shop
+//        $shopDao = $this->getDao(DAO_SHOP);
+//        $pageSize = DEFAULT_PAGE_SIZE_SHOP;
+//        $shopOwners = $shopDao->getShops($this->pageNum, $pageSize);
+//        $model[MODEL_SHOP_LIST] = Vushop_Model_ShopModel::createModelObj($shopOwners);
+//        // paging
+//        $numItems = $shopDao->getCountNumShops();
+//        $urlTemplate =$_SERVER['SCRIPT_NAME'] . '?p=${page}';
+//        $paginator = new Quack_Model_Paginator($urlTemplate, $numItems, $pageSize, $this->pageNum);
+//        $model[MODEL_PAGINATOR] = $paginator;
+
+        //item
+        $catalogDao = $this->getDao(DAO_CATALOG);
+        $categories=$catalogDao->getCategoryTree();  
+        foreach ($categories as $category) {
+            $itemList=$catalogDao->getItemsForCategory($category,1,PHP_INT_MAX,ITEM_SORTING_TIMEDESC);
+            if (isset($itemList) && count($itemList) > 0 ) {
+                $category->setItemsForCategoryShop($itemList);
+            }            
+        }   
+        $model[MODEL_CATEGORY_LIST]=$categories;
         return $model;
     }
 }
