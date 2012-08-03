@@ -23,7 +23,7 @@ body {
 	color: #666666;
 	text-align: center;
 	margin: 0 0 15px 0;
-	background: #fff url(../images/background.png);
+	background: #fff url(../images/background.png) no-repeat;
 }
 
 /* links */

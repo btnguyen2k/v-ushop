@@ -63,7 +63,6 @@ ul.ws_css_cb_menu a:active, ul.ws_css_cb_menu a:focus {
 }
 ul.ws_css_cb_menu ul li {
 	float: left;
-	width: 150px;
 }
 ul.ws_css_cb_menu ul a {
 	white-space:nowrap;
@@ -172,8 +171,8 @@ ul.videoCssMenu ul li a {
 	color: #000;
 }
 ul.videoCssMenu ul li {
-	width:110px;
 	float: left;
+	padding-left:15px;
 	height: 27px;
 }
 ul.videoCssMenu li:hover>a, ul.videoCssMenu li a:hover {
