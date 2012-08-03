@@ -28,12 +28,20 @@
         				<td colspan="3"><h2>[:$LANG->getMessage('msg.shop.information'):]</h2></td>
         			</tr>
         			<tr>
-        				<td class="lable" width="15%">[:$LANG->getMessage('msg.shop.name'):]:</td>
-        				<td><input type="text" value="[:$MODEL.form.shopTitle|escape:'html':]" name="shopTitle" style="width: 40%" /></td>
+        				<td class="lable" width="15%" valign="top">[:$LANG->getMessage('msg.shop.name'):]:</td>
+        				<td valign="top"><input type="text" value="[:$MODEL.form.shopTitle|escape:'html':]" name="shopTitle" style="width: 40%" /></td>
+                        <td rowspan="3" valign="top">
+                            [:if isset($MODEL.form.urlShopImage):]
+                                [:assign var="_urlThumbnail" value=$MODEL.form.urlShopImage:]
+                            [:else:]
+                                [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
+                            [:/if:]
+                            <img alt="" src="[:$_urlThumbnail:]" width="150" height="189" style="margin: 8px">
+                        </td>
         			</tr>
         			<tr>
-        				<td class="lable" width="15%">[:$LANG->getMessage('msg.image'):]:</td>
-        				<td>
+        				<td class="lable" width="15%" valign="top">[:$LANG->getMessage('msg.image'):]:</td>
+        				<td valign="top">
                             <input id="form_categoryImage" style="display: none" type="file" name="shopImage" onchange="getFileUploadName('form_categoryImage','images-name')" />
 							<input type="text" id="images-name" readonly="readonly" onclick="document.getElementById('form_categoryImage').click();" style="width: 40%" />
                             <button type="button" onclick="document.getElementById('form_categoryImage').click();" >&nbsp;&nbsp;[:$LANG->getMessage('msg.selectImage'):]&nbsp;&nbsp;</button>
@@ -42,22 +50,12 @@
 						</td>
         			</tr>
                     <tr>
-                        <td class="lable" width="15%">[:$LANG->getMessage('msg.shop.location'):]:</td>
-                        <td>
+                        <td class="lable" width="15%" valign="top">[:$LANG->getMessage('msg.shop.location'):]:</td>
+                        <td valign="top">
                             <input type="text" value="[:$MODEL.form.shopLocation|escape:'html':]" name="shopLocation" style="width: 40%" />
                             <button type="button" onclick="openPopupTestLocation('#popupLocation', this.form.shopLocation.value);">&nbsp;&nbsp;[:$LANG->getMessage('msg.testLocation'):]&nbsp;&nbsp;</button>
                             <br />
                             <small><i>[:$LANG->getMessage('msg.testLocation.hint'):]</i></small>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5">
-                            [:if isset($MODEL.form.urlShopImage):]
-                                [:assign var="_urlThumbnail" value=$MODEL.form.urlShopImage:]
-                            [:else:]
-                                [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
-                            [:/if:]
-                            <img alt="" src="[:$_urlThumbnail:]" width="150" height="189">
                         </td>
                     </tr>
         		</table> 
