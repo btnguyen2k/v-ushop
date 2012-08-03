@@ -50,6 +50,16 @@
                             <small><i>[:$LANG->getMessage('msg.testLocation.hint'):]</i></small>
                         </td>
                     </tr>
+                    <tr>
+                        <td rowspan="5">
+                            [:if isset($MODEL.form.urlShopImage):]
+                                [:assign var="_urlThumbnail" value=$MODEL.form.urlShopImage:]
+                            [:else:]
+                                [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
+                            [:/if:]
+                            <img alt="" src="[:$_urlThumbnail:]" width="150" height="189">
+                        </td>
+                    </tr>
         		</table> 
         		<a class="button" href="javascript:void(0)" onclick="submitForm('userInformation')"><span>&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]</span></a>
         	</form>
