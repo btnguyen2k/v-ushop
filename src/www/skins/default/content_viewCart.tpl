@@ -3,7 +3,7 @@
 <div id="main">
 	<h1>[:$LANG->getMessage('msg.cart'):]</h1>
 	<br></br>
-	<form action="" id="form_cart" method="post" >
+	<form action="[:$MODEL.urlDeleteItemInCart:]" id="form_cart" method="post" >
 		<div class="btn-group ">
           	<button type="submit" class="btn btn-warning" onclick="return confirmDelete('[:$MODEL.msgDelete:]')" >[:$MODEL.language->getMessage('msg.delete'):]</button>
           	<button type="submit" class="btn btn-warning" onclick="return changeActionForm('[:$MODEL.urlUpdateCart:]','form_cart')" >[:$MODEL.language->getMessage('msg.update'):]</button>                          	
@@ -35,7 +35,7 @@
                         	onmouseover="changeColorOver('item_[:$item->getItemId():]')" onmouseout="changeColorOut('item_[:$item->getItemId():]')">        		
             		<td class="table-conent"><input type="checkbox" class="checkbox" value="[:$item->getItemId():]" name="itemIds[]"></td>
             		<td>[:$item@index+1:]</td>
-            		<td style="white-space: normal;">[:$item->getTitle()|escape:'html':]</td>
+            		<td style="white-space: normal;">[:$item->getCode()|escape:'html':]-[:$item->getTitle()|escape:'html':]</td>
             		<td>
             			<div >  
                     		<img src="[:$_urlThumbnail:]" width="40px" style="padding: 2px" height="40px" alt="">

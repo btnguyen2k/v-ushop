@@ -36,7 +36,7 @@
                             [:else:]
                                 [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
                             [:/if:]
-                            <img alt="" src="[:$_urlThumbnail:]" width="150" height="189" style="margin: 8px">
+                            <img alt="" src="[:$_urlThumbnail:]" width="230" height="250" style="margin: 8px;border: 1px solid #DCDCDC;">
                         </td>
         			</tr>
         			<tr>

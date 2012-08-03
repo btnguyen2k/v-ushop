@@ -22,13 +22,15 @@
 	<link rel="stylesheet" href="css/button.css" type="text/css" />
 	<link rel="stylesheet" href="css/custom-theme/jquery-ui-1.8.22.custom.css" type="text/css" />
     <link rel="stylesheet" href="css/popup.css" type="text/css" />
+    <link rel="stylesheet" href="css/menutop.css" type="text/css" />
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-			<script src="http://code.jquery.com/ui/1.8.22/jquery-ui.min.js" type="text/javascript"></script>
-			<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
-			<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/ui/1.8.22/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
+	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
 	<script src="js/script.js" type="text/javascript"></script> 
-	<script src="js/simpletreemenu.js" type="text/javascript"></script> 
+	<script src="js/simpletreemenu.js" type="text/javascript"></script>
+	 
 
   <title>[:$MODEL.page.title|escape:'html':]</title>
     [:if isset($MODEL.urlTransit):]

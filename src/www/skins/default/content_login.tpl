@@ -2,7 +2,7 @@
     <div class="standard_error">
         <h2 class="blockhead">[:$LANG->getMessage('msg.login'):]</h2>
         
-        <form class="vbform" method="post" action="">
+        <form id="form-login" class="vbform" method="post" action="">
        		[:call name=printFormHeader form=$MODEL.form:]
        <table style="padding: 20px;width: 400px">
     		<tr>
@@ -24,3 +24,6 @@
         </form>
 	</div>
 </div>
+<script>
+	jumpTo('form-login');
+</script>

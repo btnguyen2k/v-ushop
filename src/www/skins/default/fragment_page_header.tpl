@@ -23,17 +23,36 @@
 <!--/ header ends-->
 		
 <!-- navigation starts-->
-<div  id="nav" align="center">
-    <ul>
-        <li><a href="[:$MODEL.urlHome:]" class="home">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-        [:foreach $MODEL.categoryTree as $_cat:]
-            <li><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></li>
-        [:/foreach:]
-        [:foreach $MODEL.onMenuPages as $page:]
+<div class="menu" style="padding-left: 5px;padding-right: 5px;position: relative;">	
+    <ul class="ws_css_cb_menu videoCssMenu">
+   
+      <li ><a href="[:$MODEL.urlHome:]" ><img style="width: 20px;height: 20px;padding-left: 8px" src="images/icons/home.png" width="35" alt="some_text"/>&nbsp;</a></li>
+      [:foreach $MODEL.categoryTree as $_cat:]
+      	<li><a href="[:$_cat->getUrlView():]">      		
+      		[:if $_cat->hasChildren():]
+      			<span>[:$_cat->getTitle()|escape:'html':]</span>
+      				 <![if gt IE 6]>
+                   		 </a>
+                    <![endif]>
+      				<ul class='ws_css_cb_menum'>
+      				[:foreach $_cat->getChildren() as $_child:]
+      					 <li><a href="[:$_child->getUrlView():]" >[:$_child->getTitle()|escape:'html':]</a></li>
+      				[:/foreach:]
+      				</ul>
+      		[:else:]
+      			[:$_cat->getTitle()|escape:'html':] 
+      		[:/if:]
+      		</a>
+      </li>
+      [:/foreach:]
+       [:foreach $MODEL.onMenuPages as $page:]
             <li><a href="[:$page->getUrlView():]">[:$page->getTitle()|escape:'html':]</a></li>
         [:/foreach:]
     </ul>
 </div>
+
+
+
 <!--/ navigation ends-->		
 	
 <!-- header photo start-->				

@@ -53,6 +53,7 @@ $router = Array('*' => 'Vushop_Controller_Admin_HomeController',
         'users' => 'Vushop_Controller_Admin_UserListController', 
         'deleteUser' => 'Vushop_Controller_Admin_DeleteUserController', 
         'createUser' => 'Vushop_Controller_Admin_CreateUserController', 
+        'changePassword' => 'Vushop_Controller_Admin_ChangePasswordController', 
         'editUser' => 'Vushop_Controller_Admin_EditUserController');
 Dzit_Config::set(Dzit_Config::CONF_ROUTER, $router);
 

@@ -74,6 +74,7 @@
         	[:/if:]  
         </div>
         <div id="tabs-3">
+        		<div class="shop-title-blue shop-title" style="text-transform: uppercase;">[:$MODEL.shopObj->getTitle():]</div>
             [:if ($MODEL.shopObj->getLocation() !== NULL) && ($MODEL.shopObj->getLocation() !== ''):]
                 <iframe width="494" height="440" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                     src="https://maps.google.com/maps?f=q&source=s_q&hl=vi&geocode=&ie=UTF8&hq=&t=m&z=15&iwloc=A&output=embed&q=[:$MODEL.shopObj->getLocation()|escape:'url':]&hnear=[:$MODEL.shopObj->getLocation()|escape:'url':]"></iframe>

@@ -85,6 +85,10 @@ define('MODEL_URL_CHANGE_PASSWORD', 'urlChangePassword');
 define('MODEL_PAGINATOR', 'paginator');
 define('MODEL_DEBUG', 'debug');
 
+define('FORM_ACTION', 'action');
+define('FORM_ACTION_CANCEL', 'actionCancel');
+define('FORM_NAME', 'name');
+
 define('CATEGORY_NAME', 'categoryName');
 
 define('SESSION_ITEM_SORTING', 'ITEM_SORTING');

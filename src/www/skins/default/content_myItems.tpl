@@ -4,7 +4,7 @@
 	<br/>
     <div id="tabs">
         <ul>
-        	<li><a onclick="window.location.href='[:$MODEL.urlProfile:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.shopInformation'):]</a></li>
+        	<li><a onclick="window.location.href='[:$MODEL.urlProfile:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.shop.information'):]</a></li>
         	<li><a onclick="window.location.href='[:$MODEL.urlChangePassword:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.changePassword'):]</a></li>
             <li><a href="#tab-3">[:$LANG->getMessage('msg.myitems'):]</a></li>
         </ul>

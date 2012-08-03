@@ -13,6 +13,7 @@
     	[:/foreach:]  
     </select>
 </div>
+
 <!--
 <h1>Tìm kiếm</h1>
 <form class="form-mini" style="margin-top: 20px;padding-left: 20px">
@@ -40,18 +41,33 @@
 			<td><input name="search" class="button" value="Đăng Nhập" type="submit" /></td>
 		</tr>
 	</table>
-	<div align="center"><a href="../../#">[:$LANG->getMessage('msg.forgotPassword'):]</a>	</div>
+	<div align="center"><a href="javascirpt:void(0)" onclick="alert('[:$LANG->getMessage('msg.forgotPassword.info'):]')">[:$LANG->getMessage('msg.forgotPassword'):]</a>	</div>
 </form>	
 [:/if:]
 
-	<h1>HOTLINE</h1>
-	<div  style="margin-left: 20px">		
-    	[:call name=skypeAndYahoo skype=$MODEL.page.email yahoo=$MODEL.page.email nickYahoo=$MODEL.page.nickYahoo:]
-    	<br></br>
-    	<!--<ul class="sidemenu">				
-    		<li><a href="#">Số lượt truy cập/ngày: </a></li>
-    		<li><a href="#">Số người đang online: </a></li>				
-    	</ul>	
-	--></div>
-		
-		<!--- end rightcolumn -->
+<h1>QUẢNG CÁO</h1>
+<div class="pr-banner">						
+		<a href="">Quảng cáo 1</a><br/>
+		<a>www.quangcao1.com</a>
+		<br/>
+		<a href=""><img src="images/quangcao1.jpg" alt="some_text"/></a>
+</div>
+<div class="pr-banner">						
+		<a href="">Quảng cáo 2</a><br/>
+		<a>www.quangcao2.com</a>
+		<br/>
+		<a href=""><img src="images/quangcao2.jpg" alt="some_text"/></a>
+</div>
+<div class="pr-banner">						
+		<a href="">Quảng cáo 3</a><br/>
+		<a>www.quangcao3.com</a>
+		<br/>
+		<a href=""><img src="images/quangcao3.jpg" alt="some_text"/></a>
+</div>
+<div class="pr-banner">						
+		<a href="">Quảng cáo 4</a><br/>
+		<a>www.quangcao4.com</a>
+		<br/>
+		<a href=""><img src="images/quangcao4.jpg" alt="some_text"/></a>
+</div >
+	

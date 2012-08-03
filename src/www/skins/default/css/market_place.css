@@ -286,60 +286,6 @@ input.button {
 	left: 165px;
 }
 
-/* Navigation */
-#nav {
-	clear: both;
-	padding: 0;
-}
-
-#nav ul {
-	float: left;
-	list-style: none;
-	text-align: center;
-	padding: 0;
-	margin: 0 0 0 15px; /*0 0 0 30px;*/
-	height: 31px; /* 45px; */
-	display: inline;
-	
-}
-
-#nav ul li {
-	display: inline;
-	margin: 0;
-	padding: 0;
-	
-}
-
-#nav ul li a {
-	display: block;
-	float: left;
-	width: auto;
-	margin: 0;
-	padding: 0 6px;
-	background: #F5F5F5;
-	/*border-right: 1px solid #E8A701;
-	
-	border-left: 1px solid #fafafa; border-bottom: none;*/
-	color: #555;
-	font: bold 12px/29px Tahoma, Arial;
-	/*font: bold 14px/45px  Helvetica, Arial, Geneva, sans-serif; */
-	text-decoration: none;
-	letter-spacing: 1px;
-	border-left: 1px solid;
-	border-top: 1px solid;
-	border-right: 1px solid;
-	border-bottom: 1px solid;
-	border-radius: 5px;
-}
-
-#nav ul li a:hover,#nav ul li a:active {
-	color: #E5430D;
-}
-
-#nav ul li#current a {
-	/*background: #DBDBDB url(nav-current.jpg) repeat-x;	*/
-	
-}
 
 /* Main Column */
 #main {
@@ -374,6 +320,7 @@ input.button {
 #left-column,#right-column {
 	width: 195px;
 	margin-top: 15px;
+	background-color: #ffffff;
 }
 
 /* left-column */
@@ -416,7 +363,7 @@ ul.sidemenu :last-child {
 	font-size: 95%;
 	padding: 20px 0;
 	text-align: left;
-	background: #ffffff;
+	background-color: #ffffff;
 	/* url(footer-bottom.jpg) no-repeat center bottom;	*/
 }
 
@@ -503,68 +450,29 @@ ul.sidemenu :last-child {
 .shop {
 	float: left;
 	text-align: center;
-	width: 230px;
+	width: 228px;
 	margin-left: 10px;
 	margin-right: 10px;
+	cursor: pointer;
+	border: 1px solid #eee;
+	margin-bottom: 20px;
 }
 
 .shop img {
-	width: 230px;
+	width: 216px;
 	height: 250px;
+	padding-left: 5px;
+	padding-right: 5px;
+	
 }
 
-.middle-column-box-blue {
-	float: left;
-	width: 100%;
-	margin: 0em 0em 1.5em 0em;
-	padding: 0em 0em 0em 0em;
-	/* background-color: rgb(187,211,247); */
-	background-color: rgb(226, 238, 252);
-}
-
-.middle-column-box-yellow {
-	float: left;
-	width: 100%;
-	margin: 0em 0em 1.5em 0em;
-	padding: 0em 0em 0em 0em;
-	background-color: rgb(255, 240, 170);
-}
-
-.middle-column-box-green {
-	float: left;
-	width: 100%;
-	margin: 0em 0em 1.5em 0em;
-	padding: 0em 0em 0em 0em;
-	background-color: rgb(224, 244, 181);
-}
-
-.middle-column-box-red {
-	float: left;
-	width: 100%;
-	margin: 0em 0em 1.5em 0em;
-	padding: 0em 0em 0em 0em;
-	background-color: rgb(255, 219, 219);
-}
-
-.middle-column-box-title-white {
-	clear: both;
-	display: block;
-	margin: 0em 0em 0.5em 0em;
-	padding: 0.2em 0em 0.2em 0.3em;
-	background-color: #ffffff;
+.shop-title{
+	font-size: 16px;
 	font-weight: bold;
-	color: rgb(50, 50, 50);
+	text-align: center;
 }
 
-.middle-column-box-title-grey {
-	clear: both;
-	display: block;
-	margin: 0em 0em 0.5em 0em;
-	padding: 0.2em 0em 0.2em 0.3em;
-	background-color: rgb(220, 220, 220);
-	font-weight: bold;
-	color: rgb(50, 50, 50);
-}
+
 
 .shop-title-blue {
 	clear: both;
@@ -576,15 +484,7 @@ ul.sidemenu :last-child {
 	color: rgb(50, 50, 50);
 }
 
-.shop-title-red {
-	clear: both;
-	display: block;
-	margin: 0em 0em 0.5em 0em;
-	padding: 0.2em 0em 0.2em 0.3em;
-	background-color: rgb(255, 176, 176);
-	font-weight: bold;
-	color: rgb(50, 50, 50);
-}
+
 
 /*.middle-column-box-title-yellow {
     clear: both;
@@ -718,6 +618,7 @@ item a{
 	border-bottom-style: groove;
 	text-shadow: #666 0.2em 0.2em 0.4em;
 	margin: 10px 5px 0px 10px;
+	cursor: pointer;
 }
 
 .btn {
@@ -980,22 +881,21 @@ item a{
 	
 }
 .table-header{
-	background: #666666;
-	color: white
+	background: #dcdcdc;
 }
 .table-conent{
 	padding-left: 10px
 }
 
 .odd {
-	background: #eee;
+	background: #F5F5F5;
 }
 
 .even {
 	background: white;
 }
 .hover {
-	background: #DCDCDC;
+	background: #eee;
 }
 
 
@@ -1094,4 +994,10 @@ span.select {
 	right: 40px;
 	top: 120px;
 	z-index: 2;
+}
+
+.contact{
+	font-size: 14px;
+	font-weight: bold;
+	padding-left: 20px;
 }

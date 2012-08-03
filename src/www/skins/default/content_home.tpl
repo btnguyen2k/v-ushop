@@ -1,23 +1,28 @@
 <!--- main column starts-->
 <div id="main">
-	<h1>[:$LANG->getMessage('msg.shopList'):]</h1>
-	<br>		
-	[:if isset($MODEL.shopList) && count($MODEL.shopList) gt 0:]
-		[:call name="paginator" paginator=$MODEL.paginator:]
-		[:foreach $MODEL.shopList as $_shop:]
-			 [:if $_shop->getUrlThumbnail()=='':]
-                [:assign var="_urlThumbnail" value="images/shop_default.jpg":]
-            [:else:]
-                [:assign var="_urlThumbnail" value=$_shop->getUrlThumbnail():]
-            [:/if:]
-			<div class="shop" onclick="redirect('[:$_shop->getUrlView():]')">
-				<div class="shop-title-blue" >[:$_shop->getTitle():]</div>
-				<img src="[:$_urlThumbnail:]"  alt="" />
-			</div>
-			
+	<h1>[:$LANG->getMessage('msg.categories'):]</h1>
+	<br/>			
+	[:if isset($MODEL.categoryList) && count($MODEL.categoryList) gt 0:]
+		[:foreach $MODEL.categoryList as $_category:]
+			[:if count($_category->getItemsForCategoryShop()) gt 0:]
+    			<div class="category-title" onclick="redirect('[:$_category->getUrlView():]')">[:$_category->getTitle():]</div>
+    			<br style="clear: both;"/>
+    			<br/>
+    			[:assign var="scrollerId" value=$_category@index-scroller-item scope=root:]
+    			<ul id="[:$scrollerId:]">
+        			[:foreach $_category->getItemsForCategoryShop() as $_item:]
+        				[:if $_item->getUrlThumbnail()=='':]
+                            [:assign var="_urlThumbnail" value="images/img_general.jpg":]
+                        [:else:]
+                            [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
+                        [:/if:]	        			
+            				<li onclick="redirect('[:$_item->getUrlView():]')"><img src="[:$_urlThumbnail:]" class="sanpham" alt=""><div style="width: 120px;height:40px;white-space: normal;">[:$_item->getTitle():]</div></li>  
+            				
+            		[:/foreach:] 
+            		[:call name=autoScroller elName=$scrollerId auto='no':]
+    			</ul>
+			[:/if:]
 		[:/foreach:] 
-		<br style="clear:both;"/>
-		[:call name="paginator" paginator=$MODEL.paginator:]
 	[:else:]
 		[:call name=noData:]
 	[:/if:]	

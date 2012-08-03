@@ -179,6 +179,8 @@
     </script>
     <!-- /TinyMCE -->
 [:/function:]
+
+
 [:function name="printCategoryTreeSelectBox" catList=NULL index=0 selectedIndex=0:]
     [:foreach $catList as $cat:]
         <option [:if $selectedIndex==$cat->getId():]selected="selected"[:/if:] value="[:$cat->getId():]">
