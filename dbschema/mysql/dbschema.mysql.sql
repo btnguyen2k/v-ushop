@@ -286,14 +286,14 @@ CREATE TABLE vushop_order (
 CREATE TABLE vushop_order_detail (   
     order_id            		VARCHAR(64)             NOT NULL,
     	INDEX (order_id),
-    oitem_id            		INT                     NOT NULL,
-    	INDEX (oitem_id),   
-    oquantity           		DECIMAL(10,2)           NOT NULL,
-    oprice              		DECIMAL(10,2)           NOT NULL, 
-    ostatus	             		TINYINT(1)            	NOT NULL DEFAULT 0,
-        INDEX (ostatus),
-   	otimestamp      			INT                     NOT NULL DEFAULT 0,
-        INDEX (otimestamp),
-    PRIMARY KEY (order_id,oitem_id),
+    odetail_item_id            		INT                     NOT NULL,
+    	INDEX (odetail_item_id),   
+    odetail_quantity           		DECIMAL(10,2)           NOT NULL,
+    odetail_price              		DECIMAL(10,2)           NOT NULL, 
+    odetail_status	             	TINYINT(1)            	NOT NULL DEFAULT 0,
+        INDEX (odetail_status),
+   	odetail_timestamp      			INT                     NOT NULL DEFAULT 0,
+        INDEX (odetail_timestamp),
+    PRIMARY KEY (order_id,odetail_item_id),
     FOREIGN KEY (order_id) REFERENCES vushop_order(oid) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
