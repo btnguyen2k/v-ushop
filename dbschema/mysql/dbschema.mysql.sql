@@ -270,9 +270,7 @@ CREATE TABLE vushop_paperclip (
 
 
 CREATE TABLE vushop_order (
-    oid         				INT            			NOT NULL AUTO_INCREMENT,
-    order_id             		INT                     NOT NULL DEFAULT 0,
-        INDEX (order_id),
+    oid         				VARCHAR(64)             NOT NULL,   
     otimestamp      			INT                     NOT NULL DEFAULT 0,
         INDEX (otimestamp),
     ofull_name          		VARCHAR(64)				NOT NULL DEFAULT '',
@@ -283,14 +281,15 @@ CREATE TABLE vushop_order (
     PRIMARY KEY (oid)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE TABLE vushop_order_detail (
-    o_detail_id         	INT			            NOT NULL AUTO_INCREMENT,
-    order_id            	INT                     NOT NULL,
+CREATE TABLE vushop_order_detail (   
+    order_id            		INT                     NOT NULL,
     	INDEX (order_id),
-    oitem_id            	INT                     NOT NULL,
+    oitem_id            		INT                     NOT NULL,
     	INDEX (oitem_id),   
-    oquantity           	DECIMAL(10,2)           NOT NULL,
-    oprice              	DECIMAL(10,2)           NOT NULL, 
-    PRIMARY KEY (o_detail_id),
+    oquantity           		DECIMAL(10,2)           NOT NULL,
+    oprice              		DECIMAL(10,2)           NOT NULL, 
+    ostatus	             		TINYINT(1),	            NOT NULL DEFAULT 0,
+        INDEX (ostatus),
+    PRIMARY KEY (o_detail_id,oitem_id),
     FOREIGN KEY (order_id) REFERENCES vushop_order(oid) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
