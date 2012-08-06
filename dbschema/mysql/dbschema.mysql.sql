@@ -14,6 +14,8 @@ DROP TABLE IF EXISTS vushop_app_config;
 DROP TABLE IF EXISTS vushop_page;
 DROP TABLE IF EXISTS vushop_textads;
 DROP TABLE IF EXISTS http_session;
+DROP TABLE IF EXISTS vushop_order_detail;
+DROP TABLE IF EXISTS vushop_order;
 
 CREATE TABLE vushop_textads (
     aid                 INT                 NOT NULL AUTO_INCREMENT,
@@ -288,8 +290,7 @@ CREATE TABLE vushop_order_detail (
     oitem_id            	INT                     NOT NULL,
     	INDEX (oitem_id),   
     oquantity           	DECIMAL(10,2)           NOT NULL,
-    oprice              	DECIMAL(10,2)           NOT NULL,   
-    
+    oprice              	DECIMAL(10,2)           NOT NULL, 
     PRIMARY KEY (o_detail_id),
     FOREIGN KEY (order_id) REFERENCES vushop_order(oid) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
