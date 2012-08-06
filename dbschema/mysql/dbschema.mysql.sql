@@ -268,11 +268,16 @@ CREATE TABLE vushop_paperclip (
 
 
 CREATE TABLE vushop_order (
-    oid         			INT            			NOT NULL AUTO_INCREMENT,
-    orderId             	INT                     NOT NULL DEFAULT 0,
+    oid         				INT            			NOT NULL AUTO_INCREMENT,
+    order_id             		INT                     NOT NULL DEFAULT 0,
         INDEX (orderId),
-    otimestamp      		INT                     NOT NULL DEFAULT 0,
-        INDEX (ptimestamp),    	
+    otimestamp      			INT                     NOT NULL DEFAULT 0,
+        INDEX (ptimestamp),
+    ofull_name          		VARCHAR(64)				NOT NULL DEFAULT '',
+    oemail          			VARCHAR(64)				NOT NULL DEFAULT '',
+    ophone						VARCHAR(64)				NOT NULL DEFAULT '',
+    opayment_method				TINYINT(1)				NOT NULL DEFAULT 0,
+    oaddress					TEXT,
     PRIMARY KEY (csession_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
