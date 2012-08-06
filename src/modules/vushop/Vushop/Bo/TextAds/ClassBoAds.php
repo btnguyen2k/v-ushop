@@ -8,7 +8,7 @@ class Vushop_Bo_TextAds_BoAds extends Quack_Bo_BaseBo {
     const COL_TIMESTAMP = 'ads_timestamp';
     const COL_IMAGE_ID = 'ads_image_id';
     
-    private $id, $title, $url, $clicks, $timestamp, $imageId;
+    private $id, $title, $url, $clicks, $timestamp, $imageId,$urlThumbnail;
     
     /*
      * (non-PHPdoc) @see Quack_Bo_BaseBo::getFieldMap()
@@ -20,6 +20,21 @@ class Vushop_Bo_TextAds_BoAds extends Quack_Bo_BaseBo {
                 self::COL_CLICKS => Array('clicks', self::TYPE_INT), 
                  self::COL_IMAGE_ID => Array('imageId'), 
                 self::COL_TIMESTAMP => Array('timestamp'));
+    }
+    
+ /**
+     * Gets the URL to view the ads's image as thumbnail.
+     *
+     * @return string
+     */
+    public function getUrlThumbnail() {
+        if ($this->urlThumbnail === NULL) {
+            $this->urlThumbnail = Paperclip_Utils::createUrlThumbnail($this->imageId);
+            if ($this->urlThumbnail === NULL) {
+                $this->urlThumbnail = '';
+            }
+        }
+        return $this->urlThumbnail;
     }
     
     public function getId() {

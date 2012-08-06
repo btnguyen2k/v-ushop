@@ -78,6 +78,25 @@
  #content p, #content table, #content-main ul, #content ol, #content dl {
      margin: 0 0 1em;
  }
+ 
+.table {
+	width: 100%;
+	
+}
+.table-header{
+	background: #dcdcdc;
+}
+.table-conent{
+	padding-left: 10px
+}
+
+.odd {
+	background: #F5F5F5;
+}
+
+.even {
+	background: white;
+}
 
 
  /*-- 1.3 Headings --*/

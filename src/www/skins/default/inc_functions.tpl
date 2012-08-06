@@ -23,20 +23,6 @@
     [:/if:]
 [:/function:]
 
-[:function name=topMenu:]
-    <div  id="nav" align="center">
-    	<ul>
-    		<li ><a href="javascript:void(0)" onclick="" class="home">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-     	[:foreach $MODEL.categoryTree as $cat:] 	
-     		 <li><a href="javascript:void(0)" onclick="redirect('[:$cat->getUrlView():]')">[:$cat->getTitleForDisplay(25)|escape:'html':]</a></li> 	
-     	[:/foreach:]
-     		<li><a href="javascript:void(0)">KHUYẾN MÃI</a></li>
-     		<li><a href="#">TIN TỨC</a></li>
-    		<li><a href="#">HƯỚNG DẪN</a></li>
-    		<li><a href="#">LIÊN HỆ</a></li>	
-    	</ul>
-    </div>
-[:/function:]
 
 [:function name=categoryTree:]
     <ul id="treemenu1" class="treeview" style="cursor: pointer;">
@@ -207,4 +193,22 @@
                 [:/if:]
             [:/foreach:]
         </div>
+[:/function:]
+
+
+[:function name=displayAds adsList=NULL:]
+	
+	 [:foreach $adsList as $_ads:]
+       [:if $_ads->getUrlThumbnail()=='':]
+            [:assign var="_urlThumbnail" value="images/img_general.jpg":]
+        [:else:]
+            [:assign var="_urlThumbnail" value=$_ads->getUrlThumbnail():]
+        [:/if:]
+        <div class="pr-banner">						
+    		<a href="">[:$_ads->getTitle():]</a><br/>
+    		<a href="[:$_ads->getUrl():]"><img src="[:$_urlThumbnail:]" alt="some_text"/></a>
+        </div>
+    
+     [:/foreach:]
+    
 [:/function:]

@@ -113,15 +113,22 @@ class Vushop_Controller_Admin_CreateAdsController extends Vushop_Controller_Admi
         if ($this->hasError()) {
             return FALSE;
         }
-         $data = Array(Vushop_Bo_TextAds_BoAds::COL_TITLE=>$title,
-                        Vushop_Bo_TextAds_BoAds::COL_URL=>$url,
-                         Vushop_Bo_TextAds_BoAds::COL_CLICKS=>0,
-                        Vushop_Bo_TextAds_BoAds::COL_IMAGE_ID=>$paperclipItem !== NULL ? $paperclipItem->getId() : NULL);        
-        
+        $data = Array(Vushop_Bo_TextAds_BoAds::COL_TITLE => $title, 
+                Vushop_Bo_TextAds_BoAds::COL_URL => $url, 
+                Vushop_Bo_TextAds_BoAds::COL_CLICKS => 0, 
+                Vushop_Bo_TextAds_BoAds::COL_IMAGE_ID => $paperclipItem !== NULL ? $paperclipItem->getId() : NULL);
         
         $ads = new Vushop_Bo_TextAds_BoAds();
         $ads->populate($data);
         $adsDao->createAds($ads);
+        
+        // clean-up
+        unset($_SESSION[$this->sessionKey]);
+        if ($paperclipItem !== NULL) {
+            $paperclipItem->setIsDraft(FALSE);
+            $paperclipDao = $this->getDao(DAO_PAPERCLIP);
+            $paperclipDao->updateAttachment($paperclipItem);
+        }
         
         return TRUE;
     }

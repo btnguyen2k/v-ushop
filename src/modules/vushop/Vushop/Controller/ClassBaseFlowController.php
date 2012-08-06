@@ -632,6 +632,17 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
             Quack_Util_ProfileUtils::pop();
         }
         
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::push('getAds');
+        }
+        
+        $adsDao = $this->getDao(DAO_TEXTADS);
+        $allAds = $adsDao->getAds();
+        $model[MODEL_ADS_LIST] = $allAds;
+        
+        if (defined('PROFILING')) {
+            Quack_Util_ProfileUtils::pop();
+        }
         return $model;
     }
     

@@ -72,8 +72,8 @@
                       	<button type="button" class="btn btn-warning" onclick="redirect('[:$smarty.server.SCRIPT_NAME:]')">[:$MODEL.language->getMessage('msg.continueShopping'):]</button>
                    	</div>
                	</td>
-               	<td align="right">
-               		<button type="button" class="btn btn-warning" onclick="redirect('[:$MODEL.urlPrintCart:]')" >[:$MODEL.language->getMessage('msg.print'):]</button>
+               	<td align="right" >
+               		<a href="javascript:void(0)" onclick="window.open('[:$MODEL.urlPrintCart:]', '_blank'); return false;" target="_blank"><img alt="" src="images/icons/print_review.png" width="25" title="[:$MODEL.language->getMessage('msg.printReview'):]"> </a>
                	</td>
              </tr>
        	 </table>

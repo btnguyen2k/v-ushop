@@ -19,8 +19,27 @@ a.print-preview {
 body {
     background: #FFF;
     color: #000;
-    font-family: Georgia, serif;
+    font-family: arial;
     line-height: 1.2;
+}
+
+.table {
+	width: 100%;
+	
+}
+.table-header{
+	background: #dcdcdc;
+}
+.table-conent{
+	padding-left: 10px
+}
+
+.odd {
+	background: #F5F5F5;
+}
+
+.even {
+	background: white;
 }
 
 p, table, ul, ol, dl, blockquote, pre, code, form {

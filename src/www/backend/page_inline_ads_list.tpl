@@ -15,18 +15,27 @@
     <thead>
         <tr>
             <th colspan="2" style="text-align: left;">[:$MODEL.language->getMessage('msg.ads'):]</th>
+            <th style="text-align: center;">[:$MODEL.language->getMessage('msg.ads.image'):]</th>
             <th style="text-align: center;">[:$MODEL.language->getMessage('msg.ads.clicks'):]</th>
             <th width="80px" style="text-align: center;">[:$MODEL.language->getMessage('msg.actions'):]</th>
          </tr>
     </thead>
     <tbody>
         [:foreach $MODEL.adsList as $ads:]
+        	[:if $ads->getUrlThumbnail()=='':]
+                [:assign var="_urlThumbnail" value="images/img_general.jpg":]
+            [:else:]
+                [:assign var="_urlThumbnail" value=$ads->getUrlThumbnail():]
+            [:/if:]
             <tr class="[:if $ads@index%2==0:]row-a[:else:]row-a[:/if:]">
                 <td>
                     <a href="[:$ads->url:]" target="_blank">[:$ads->title|escape:'html':]</a>
                 </td>
                 <td>
                     [:$ads->url|escape:'html':]
+                </td>
+                 <td>
+                   <img src="[:$_urlThumbnail:]" width="165" height="60">
                 </td>
                 <td style="text-align: center;">
                     [:$ads->clicks:]

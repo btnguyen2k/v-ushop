@@ -1,4 +1,4 @@
-[:include file="inc_html_header.tpl":]
+    [:include file="inc_html_header.tpl":]
 <body class="[:$DOJO_THEME:]">
     <div dojoType="dijit.layout.BorderContainer" design="headline" gutters="true" liveSplitters="false" id="main">
         <div dojoType="dijit.layout.ContentPane" splitter="false" region="top" minSize="0">

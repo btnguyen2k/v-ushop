@@ -6,7 +6,7 @@
         <script type="dojo/method" event="onSubmit">
             return this.validate();
         </script>
-
+		[:call name="printFormHeader" form=$FORM:]
         <label for="form_adsTitle">[:$LANG->getMessage('msg.ads.title'):]:</label>
         <input dojoType="dijit.form.ValidationTextBox" id="form_adsTitle"
             style="width: 100%" type="text" name="adsTitle" value="[:$MODEL.form.adsTitle|escape:'html':]" />

@@ -117,7 +117,8 @@ abstract class Vushop_Bo_TextAds_BaseAdsDao extends Quack_Bo_BaseDao implements
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
         $params = Array(Vushop_Bo_TextAds_BoAds::COL_ID => $ads->getId(),
                 Vushop_Bo_TextAds_BoAds::COL_TITLE => $ads->getTitle(),
-                Vushop_Bo_TextAds_BoAds::COL_URL => $ads->getUrl());
+                Vushop_Bo_TextAds_BoAds::COL_URL => $ads->getUrl(),
+                 Vushop_Bo_TextAds_BoAds::COL_IMAGE_ID => $ads->getImageId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidatePageCache($ads);
         return $result;
