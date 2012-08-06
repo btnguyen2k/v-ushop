@@ -284,7 +284,7 @@ CREATE TABLE vushop_order (
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vushop_order_detail (   
-    order_id            		VARCHAR(64)             NOT NULL,
+    order_id            			VARCHAR(64)             NOT NULL,
     	INDEX (order_id),
     odetail_item_id            		INT                     NOT NULL,
     	INDEX (odetail_item_id),   
