@@ -265,3 +265,26 @@ CREATE TABLE vushop_paperclip (
         INDEX (pis_draft),
     PRIMARY KEY (pid)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+CREATE TABLE vushop_order (
+    oid         			INT            			NOT NULL AUTO_INCREMENT,
+    orderId             	INT                     NOT NULL DEFAULT 0,
+        INDEX (orderId),
+    otimestamp      		INT                     NOT NULL DEFAULT 0,
+        INDEX (ptimestamp),    	
+    PRIMARY KEY (csession_id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE vushop_order_detail (
+    o_detail_id         	INT			            NOT NULL AUTO_INCREMENT,
+    order_id            	INT                     NOT NULL,
+    	INDEX (order_id),
+    oitem_id            	INT                     NOT NULL,
+    	INDEX (oitem_id),   
+    oquantity           	DECIMAL(10,2)           NOT NULL,
+    oprice              	DECIMAL(10,2)           NOT NULL,   
+    
+    PRIMARY KEY (o_detail_id),
+    FOREIGN KEY (order_id) REFERENCES vushop_order(oid) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
