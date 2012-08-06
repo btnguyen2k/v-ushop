@@ -20,7 +20,7 @@ CREATE TABLE vushop_textads (
     atitle              VARCHAR(128),
     aurl                VARCHAR(255),
     aclicks             INT                 NOT NULL DEFAULT 0,
-    aimage_id       VARCHAR(64),
+    aimage_id           VARCHAR(64),
     atimestamp          TIMESTAMP,
     PRIMARY KEY (aid)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
