@@ -75,18 +75,17 @@ abstract class Vushop_Bo_TextAds_BaseAdsDao extends Quack_Bo_BaseDao implements
      */
     public function getAdsById($id) {
         $cacheKey = $this->createCacheKeyAds($id);
-        $ads = $this->getFromCache($cacheKey);
-        if ($ads === NULL) {
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
             $params = Array(Vushop_Bo_TextAds_BoAds::COL_ID => $id);
             $rows = $this->execSelect($sqlStm, $params);
             if ($rows !== NULL && count($rows) > 0) {
-                $ads = new Vushop_Bo_TextAds_BoAds();
-                $ads->populate($rows[0]);
-                $this->putToCache($cacheKey, $ads);
+                $result = new Vushop_Bo_TextAds_BoAds();
+                $result->populate($rows[0]);
             }
         }
-        return $ads;
+        return $this->returnCachedResult($result, $cacheKey);
     }
 
     /**
