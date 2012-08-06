@@ -272,9 +272,9 @@ CREATE TABLE vushop_paperclip (
 CREATE TABLE vushop_order (
     oid         				INT            			NOT NULL AUTO_INCREMENT,
     order_id             		INT                     NOT NULL DEFAULT 0,
-        INDEX (orderId),
+        INDEX (order_id),
     otimestamp      			INT                     NOT NULL DEFAULT 0,
-        INDEX (ptimestamp),
+        INDEX (otimestamp),
     ofull_name          		VARCHAR(64)				NOT NULL DEFAULT '',
     oemail          			VARCHAR(64)				NOT NULL DEFAULT '',
     ophone						VARCHAR(64)				NOT NULL DEFAULT '',
