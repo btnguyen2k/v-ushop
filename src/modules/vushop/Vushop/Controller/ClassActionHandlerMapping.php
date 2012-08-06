@@ -46,7 +46,7 @@ $YADIF_CONFIG = Array(
         'Vushop_Controller_ViewItemController' => Array(
                 'class' => 'Vushop_Controller_ViewItemController', 
                 'scope' => 'singleton'), 
-
+        
         'Vushop_Controller_PrintCartController' => Array(
                 'class' => 'Vushop_Controller_PrintCartController', 
                 'scope' => 'singleton'), 
@@ -72,19 +72,21 @@ $YADIF_CONFIG = Array(
                 Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
                 Array('method' => 'setAllowedUserGroups', 
                         'arguments' => Array(Array(USER_GROUP_SHOP_OWNER)))), 
-                
+        
         'Vushop_Controller_EditItemController' => Array(
                 'class' => 'Vushop_Controller_EditItemController', 
                 'scope' => 'singleton'), 
         'methods' => Array(
-                Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE))), 
+                Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
+                Array('method' => 'setAllowedUserGroups', 
+                        'arguments' => Array(Array(USER_GROUP_SHOP_OWNER)))), 
         
         'Vushop_Controller_AddToCartController' => Array(
                 'class' => 'Vushop_Controller_AddToCartController', 
                 'scope' => 'singleton', 
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))), 
-                
-         'Vushop_Controller_DeleteItemInCartController' => Array(
+        
+        'Vushop_Controller_DeleteItemInCartController' => Array(
                 'class' => 'Vushop_Controller_DeleteItemInCartController', 
                 'scope' => 'singleton', 
                 'methods' => Array(Array('method' => 'setSaveUrl', 'arguments' => Array(FALSE)))), 
@@ -307,7 +309,7 @@ $YADIF_CONFIG = Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
                         Array('method' => 'setAllowedUserGroups', 
                                 'arguments' => Array(Array(USER_GROUP_ADMIN))))), 
-                        
+        
         'Vushop_Controller_Admin_ChangePasswordController' => Array(
                 'class' => 'Vushop_Controller_Admin_ChangePasswordController', 
                 'scope' => 'singleton', 

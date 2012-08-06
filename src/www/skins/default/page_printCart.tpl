@@ -47,7 +47,7 @@
         	<br/><br/><br/>
         	<a id="print" class="print-preview" ctyle><img src="images/icons/print.gif" alt="" /> In trang này</a>
         		<h1>MUALE.COM.VN</h1>
-        	
+        	<br/><br/><br/>
         	<table class="talbe"  cellpadding="0" cellspacing="0" border="1" style="border-color: #DCDCDC;" align="center">
             	<thead class="table-header" style="font-weight: bold;">  
                 	<tr> 
