@@ -3,13 +3,13 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
     const VIEW_NAME = 'checkout';
     const VIEW_NAME_ERROR = 'error';
     const VIEW_NAME_AFTER_POST = 'info';
-
+    
     const FORM_FIELD_ORDER_NAME = 'orderName';
     const FORM_FIELD_ORDER_EMAIL = 'orderEmail';
     const FORM_FIELD_ORDER_PHONE = 'orderPhone';
     const FORM_FIELD_ORDER_PAYMENT_METHOD = 'orderPaymentMethod';
     const FORM_FIELD_ORDER_OTHER_INFO = 'orderOtherInfo';
-
+    
     /**
      * Test if the cart is valid.
      *
@@ -24,14 +24,14 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         }
         return TRUE;
     }
-
+    
     /**
      * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
     }
-
+    
     /**
      * @see Dzit_Controller_FlowController::getModelAndView_Error()
      */
@@ -41,13 +41,13 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         if ($model == NULL) {
             $model = Array();
         }
-
+        
         $lang = $this->getLanguage();
         $model[MODEL_ERROR_MESSAGES] = $this->getErrorMessages();
-
+        
         return new Dzit_ModelAndView($viewName, $model);
     }
-
+    
     /**
      * @see Dzit_Controller_FlowController::getModelAndView_FormSubmissionSuccessful()
      */
@@ -57,35 +57,34 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         if ($model == NULL) {
             $model = Array();
         }
-
         $lang = $this->getLanguage();
         $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.checkout.done'));
         $urlTransit = $_SERVER['SCRIPT_NAME'];
         $model[MODEL_URL_TRANSIT] = $urlTransit;
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
-
+        
         return new Dzit_ModelAndView($viewName, $model);
     }
-
+    
     /**
      * @see Vushop_Controller_BaseFlowController::buildModel_Form()
      */
     protected function buildModel_Form() {
         $cart = $this->getCurrentCart();
-        $form = Array('action' => $_SERVER['REQUEST_URI'],
-                'actionCancel' => $cart->getUrlView(),
+        $form = Array('action' => $_SERVER['REQUEST_URI'], 
+                'actionCancel' => $cart->getUrlView(), 
                 'name' => 'frmCheckout');
-        $this->populateForm($form, Array(self::FORM_FIELD_ORDER_EMAIL,
-                self::FORM_FIELD_ORDER_NAME,
-                self::FORM_FIELD_ORDER_PHONE,
-                self::FORM_FIELD_ORDER_OTHER_INFO,
+        $this->populateForm($form, Array(self::FORM_FIELD_ORDER_EMAIL, 
+                self::FORM_FIELD_ORDER_NAME, 
+                self::FORM_FIELD_ORDER_PHONE, 
+                self::FORM_FIELD_ORDER_OTHER_INFO, 
                 self::FORM_FIELD_ORDER_PAYMENT_METHOD));
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
         }
         return $form;
     }
-
+    
     /**
      * @see Dzit_Controller_FlowController::performFormSubmission()
      */
@@ -95,12 +94,12 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $orderPhone = isset($_POST[self::FORM_FIELD_ORDER_PHONE]) ? trim($_POST[self::FORM_FIELD_ORDER_PHONE]) : '';
         $orderOtherInfo = isset($_POST[self::FORM_FIELD_ORDER_OTHER_INFO]) ? trim($_POST[self::FORM_FIELD_ORDER_OTHER_INFO]) : '';
         $orderPaymentMethod = isset($_POST[self::FORM_FIELD_ORDER_PAYMENT_METHOD]) ? (int)$_POST[self::FORM_FIELD_ORDER_PAYMENT_METHOD] : 0;
-
+        
         /**
          * @var Ddth_Mls_ILanguage
          */
         $lang = $this->getLanguage();
-
+        
         if ($orderEmail === '') {
             $this->addErrorMessage($lang->getMessage('error.emptyOrderEmail'));
         }
@@ -110,11 +109,13 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         if ($orderPhone === '') {
             $this->addErrorMessage($lang->getMessage('error.emptyOrderPhone'));
         }
-
+        
         if ($this->hasError()) {
             return FALSE;
         }
-
+        
+        $this->createOrder($this->getCurrentCart(),$orderEmail,$orderPhone,$orderPaymentMethod,$orderOtherInfo, $orderName);
+        
         require_once 'class.phpmailer.php';
         $mailer = new PHPMailer(TRUE);
         $mailer->SetFrom($this->getAppConfig(CONFIG_EMAIL_OUTGOING));
@@ -151,23 +152,23 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $orderItems .= '<th style="text-align: right;">' . $cart->getGrandTotalForDisplay() . '</th>';
         $orderItems .= '</tr></tfoot>';
         $orderItems .= '</table>';
-
+        
         $replacements = Array(
-                'SITE_NAME' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_NAME)),
-                'SITE_TITLE' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_TITLE)),
-                'SITE_SLOGAN' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_SLOGAN)),
-                'SITE_COPYRIGHT' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_COPYRIGHT)),
-                'ORDER_NAME' => htmlspecialchars($orderName),
-                'ORDER_EMAIL' => htmlspecialchars($orderEmail),
-                'ORDER_PHONE' => htmlspecialchars($orderPhone),
-                'ORDER_OTHER_INFO' => htmlspecialchars($orderOtherInfo),
-                'ORDER_ITEMS' => $orderItems,
-                'PAYMENT_METHOD' => $orderPaymentMethod==0 ? $lang->getMessage('msg.order.paymentMethod.cash') : $lang->getMessage('msg.order.paymentMethod.transfer'));
+                'SITE_NAME' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_NAME)), 
+                'SITE_TITLE' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_TITLE)), 
+                'SITE_SLOGAN' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_SLOGAN)), 
+                'SITE_COPYRIGHT' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_COPYRIGHT)), 
+                'ORDER_NAME' => htmlspecialchars($orderName), 
+                'ORDER_EMAIL' => htmlspecialchars($orderEmail), 
+                'ORDER_PHONE' => htmlspecialchars($orderPhone), 
+                'ORDER_OTHER_INFO' => htmlspecialchars($orderOtherInfo), 
+                'ORDER_ITEMS' => $orderItems, 
+                'PAYMENT_METHOD' => $orderPaymentMethod == 0 ? $lang->getMessage('msg.order.paymentMethod.cash') : $lang->getMessage('msg.order.paymentMethod.transfer'));
         //$mailer->IsHTML(TRUE);
         $mailer->Subject = $this->renderEmail($subject, $replacements);
         $mailer->AltBody = 'To view the message, please use an HTML compatible email viewer!';
         $mailer->MsgHTML($this->renderEmail($body, $replacements));
-
+        
         if ($this->getAppConfig(CONFIG_USE_SMTP) != 0) {
             $mailer->IsSMTP();
             $smtpHost = $this->getAppConfig(CONFIG_SMTP_HOST);
@@ -187,7 +188,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
                 $mailer->SMTPSecure = 'ssl';
             }
         }
-
+        
         try {
             $mailer->Send();
         } catch (Exception $e) {
@@ -198,20 +199,36 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $msg = "Can not send email: " . $e->getMessage();
             $LOGGER->error($msg, $e);
         }
-
+        
         //clear the cart
         $cartDao = $this->getDao(DAO_CART);
         foreach ($cart->getItems() as $item) {
             $cartDao->deleteCartItem($item);
         }
-
+        
         return TRUE;
     }
-
+    
     private function renderEmail($content, $params = Array()) {
         foreach ($params as $key => $value) {
             $content = str_replace('{' . $key . '}', $value, $content);
         }
         return $content;
+    }
+    
+    private function createOrder($cart,$orderEmail,$orderPhone,$orderPaymentMethod,$orderAddress,$orderName) {
+        if ($cart != NULL) {
+            $order = new Vushop_Bo_Order_BoOrder();
+            $order->setId(Quack_Util_IdUtils::id48hex());
+            $order->setAddress($orderAddress);
+            $order->setEmail($orderEmail);
+            $order->setFullName($orderName);
+            $order->setPaymentMethod($orderPaymentMethod);
+            $order->setPhone($orderPhone);
+            $order->setStatus(0);
+            $order->setTimestamp(time());
+            $orderDao=$this->getDao(DAO_ORDER);
+            $orderDao->createOrder($order);
+        }
     }
 }

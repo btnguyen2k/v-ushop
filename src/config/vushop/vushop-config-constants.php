@@ -103,12 +103,27 @@ define('FEATURED_ITEM_HOT' , 1);
 define('FEATURED_ITEM_NEW' , 2);
 define('FEATURED_ITEM_ALL' , 3);
 
+define('STATUS_ORDER_COMPLETE' , TRUE);
+define('STATUS_ORDER_NOT_COMPLETE' , FALSE);
+
+define('FEATURED_ORDER_ALL' , 'ALL');
+define('FEATURED_ORDER_COMPLETED' , 'COMPLETED');
+define('FEATURED_ORDER_NOT_COMPLETE' , 'NOTCOMPLETE');
+
+
+
 define('DEFAULT_ITEM_SORTING', 'timedesc');
 define('ITEM_SORTING_TIMEDESC', 'timedesc');
 define('ITEM_SORTING_TIMEASC', 'timeasc');
 define('ITEM_SORTING_PRICEDESC', 'pricedesc');
 define('ITEM_SORTING_PRICEASC', 'priceasc');
 define('ITEM_SORTING_TITLE', 'title');
+
+define('DEFAULT_ORDER_SORTING', 'timedesc');
+define('ORDER_SORTING_TIMEDESC', 'timedesc');
+define('ORDER_SORTING_TIMEASC', 'timeasc');
+define('ORDER_SORTING_STATUSDESC', 'statusdesc');
+define('ORDER_SORTING_STATUSASC', 'stautsasc');
 
 define('PAGE_ATTR_ONMENU', 1);
 
@@ -133,3 +148,4 @@ define('DAO_PAPERCLIP', 'dao.paperclip');
 define('DAO_SESSION', 'dao.session');
 define('DAO_USER', 'dao.user');
 define('DAO_PROFILE', 'dao.profile');
+define('DAO_ORDER', 'dao.order');

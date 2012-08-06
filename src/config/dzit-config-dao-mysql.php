@@ -44,4 +44,6 @@ $DPHP_DAO_CONFIG_MYSQL = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Mysql_BaseMy
         DAO_CONFIG => Array('class' => 'Quack_Bo_AppConfig_MysqlAppConfigDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_config.base.properties'),
         DAO_PAPERCLIP => Array('class' => 'Paperclip_Bo_MysqlPaperclipDao',
-                Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_paperclip.base.properties'));
+                Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_paperclip.base.properties'),
+       DAO_ORDER => Array('class' => 'Vushop_Bo_Order_MysqlOrderDao',
+                Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_order.base.properties'));

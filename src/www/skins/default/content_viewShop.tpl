@@ -5,7 +5,7 @@
 	[:if isset($MODEL.categoryList) && count($MODEL.categoryList) gt 0:]
 		[:foreach $MODEL.categoryList as $_category:]
 			[:if count($_category->getItemsForCategoryShop()) gt 0:]
-    			<div class="category-title">[:$_category->getTitle():]</div>
+    			<div class="category-title"  onclick="redirect('[:$_category->getUrlView():]')">[:$_category->getTitle():]</div>
     			<br style="clear: both;"/>
     			<br/>
     			[:assign var="scrollerId" value=$_category@index-scroller-item scope=root:]

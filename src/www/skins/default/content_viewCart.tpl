@@ -73,7 +73,7 @@
                    	</div>
                	</td>
                	<td align="right" >
-               		<a href="javascript:void(0)" onclick="window.open('[:$MODEL.urlPrintCart:]', '_blank'); return false;" target="_blank"><img alt="" src="images/icons/print_review.png" width="25" title="[:$MODEL.language->getMessage('msg.printReview'):]"> </a>
+               		<a href="javascript:void(0)" onclick="window.open('[:$MODEL.urlPrintCart:]','mywindow','width=1000,height=600'); return false;" target="_blank"><img alt="" src="images/icons/print_review.png" width="25" title="[:$MODEL.language->getMessage('msg.printReview'):]"> </a>
                	</td>
              </tr>
        	 </table>
