@@ -288,8 +288,8 @@ CREATE TABLE vushop_order_detail (
     	INDEX (oitem_id),   
     oquantity           		DECIMAL(10,2)           NOT NULL,
     oprice              		DECIMAL(10,2)           NOT NULL, 
-    ostatus	             		TINYINT(1),	            NOT NULL DEFAULT 0,
+    ostatus	             		TINYINT(1)            NOT NULL DEFAULT 0,
         INDEX (ostatus),
-    PRIMARY KEY (o_detail_id,oitem_id),
+    PRIMARY KEY (order_id,oitem_id),
     FOREIGN KEY (order_id) REFERENCES vushop_order(oid) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
