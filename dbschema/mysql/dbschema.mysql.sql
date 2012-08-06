@@ -278,7 +278,7 @@ CREATE TABLE vushop_order (
     ophone						VARCHAR(64)				NOT NULL DEFAULT '',
     opayment_method				TINYINT(1)				NOT NULL DEFAULT 0,
     oaddress					TEXT,
-    PRIMARY KEY (csession_id)
+    PRIMARY KEY (oid)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vushop_order_detail (
