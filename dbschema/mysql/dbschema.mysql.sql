@@ -277,9 +277,7 @@ CREATE TABLE vushop_order (
     oemail          			VARCHAR(64)				NOT NULL DEFAULT '',
     ophone						VARCHAR(64)				NOT NULL DEFAULT '',
     opayment_method				TINYINT(1)				NOT NULL DEFAULT 0,
-    oaddress					TEXT,
-    ostatus	             		TINYINT(1)            	NOT NULL DEFAULT 0,
-       	INDEX (ostatus),
+    oaddress					TEXT,    
     PRIMARY KEY (oid)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
@@ -292,6 +290,8 @@ CREATE TABLE vushop_order_detail (
     oprice              		DECIMAL(10,2)           NOT NULL, 
     ostatus	             		TINYINT(1)            	NOT NULL DEFAULT 0,
         INDEX (ostatus),
+   	otimestamp      			INT                     NOT NULL DEFAULT 0,
+        INDEX (otimestamp),
     PRIMARY KEY (order_id,oitem_id),
     FOREIGN KEY (order_id) REFERENCES vushop_order(oid) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
