@@ -11,7 +11,13 @@ class Vushop_Controller_ChangeStatusOrderDetailController extends Vushop_Control
     private $itemId;
     private $status;
     
-  
+    /**
+     *
+     * @see Vushop_Controller_BaseFlowController::getViewName()
+     */
+    protected function getViewName() {
+        return self::VIEW_NAME;
+    }
     
     /**
      * Populates itemId and item instance.
@@ -33,17 +39,16 @@ class Vushop_Controller_ChangeStatusOrderDetailController extends Vushop_Control
      */
     protected function buildModel_Custom() {
         $orderDetail = $this->orderDetail;
-         $orderDao = $this->getDao(DAO_ORDER);
+        $orderDao = $this->getDao(DAO_ORDER);
         $currenUserId = $_SESSION[SESSION_USER_ID];
         if ($orderDetail !== NULL && $orderDetail->getItem()->getOwnerId() == $currenUserId) {
             $orderDetail->setStatus($this->status);
-           
             $orderDao->updateOrderDetail($orderDetail);
         }
+        
         $order = $orderDao->getOrderById($this->orderId);
         $url = $order->getUrlView();
         $view = new Dzit_View_RedirectView($url);
     }
-	
-	
+
 }

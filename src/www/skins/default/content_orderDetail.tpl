@@ -58,13 +58,12 @@
             	<tr>        		
             		
             		<th width="30px">[:$MODEL.language->getMessage('msg.stt'):]</th>
-            		<th >[:$MODEL.language->getMessage('msg.order.status'):]</th>
             		<th >[:$MODEL.language->getMessage('msg.item'):]</th>
             		<th width="60px">[:$MODEL.language->getMessage('msg.image'):]</th>
             		<th style="text-align: right;" >[:$MODEL.language->getMessage('msg.price'):]</th>            		
             		<th style="text-align: center;width: 80px">[:$MODEL.language->getMessage('msg.quantity'):]</th>
             		<th  style="text-align: right;">[:$MODEL.language->getMessage('msg.total'):]</th>
-            		<th  style="text-align: right;">[:$MODEL.language->getMessage('msg.actions'):]</th>
+            		<th  style="text-align: right;">[:$MODEL.language->getMessage('msg.order.status.completed'):]</th>
             	</tr>
             </thead>
                 </thead>
@@ -73,13 +72,8 @@
                         <tr class="[:if $_orderItem@index%2==0:]odd[:else:]even[:/if:] "
                         id="item_[:$_orderItem->getItemId():]"
                         	onmouseover="changeColorOver('item_[:$_orderItem->getItemId():]')" onmouseout="changeColorOut('item_[:$_orderItem->getItemId():]')">
-                            <td class="table-conent">                                
-                                [:$_orderItem@index+1:]
-                            </td>
-                             <td>[:$LANG->getMessage($_orderItem->getStatusForDisplay()):]</td>
-                            <td>
-                              [:$_orderItem->getItemId():]-[:$_orderItem->getItem()->getTitle():]
-                            </td>
+                            <td class="table-conent">  [:$_orderItem@index+1:]</td>                            
+                            <td>[:$_orderItem->getItemId():]-[:$_orderItem->getItem()->getTitle():] </td>
                             <td>
                                 [:if $_orderItem->getItem()->getUrlThumbnail()=='':]
                                     [:assign var="_urlThumbnail" value="images/img_general.jpg":]
