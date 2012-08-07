@@ -118,3 +118,8 @@ function changeActionForm(action,formId){
 	form.action=action;
 	return true;
 }
+
+function loadOrderForShop(select,url){
+	var selected = select.options[select.selectedIndex].value;
+		redirect(url + '?status=' + selected);
+}

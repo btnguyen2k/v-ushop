@@ -2,6 +2,7 @@
     <div id="header">
         <br/>
         <h4 style="padding-left: 20px"> MUA LẺ TRỰC TUYẾN </h4>
+        <span style="font-size: 14px; font-style: italic;color: #E82E18;padding-left: 50px">Thời trang hiệu nơi thể hiện sự sành điệu!</span>
 		<div id="header-links">
             <p>
                 <a href="[:$MODEL.cart->getUrlView():]"><img src="images/shoppingcart.jpg" alt="some_text"/>
@@ -66,7 +67,7 @@
 <!-- sidebar top -->
 [:if isset($MODEL.newItems) && count($MODEL.newItems) gt 0:]
 	<div class="sidebar-top">
-		<h1>[:$LANG->getMessage('msg.sanPhamNoiBanNhat'):]</h1>
+		<h1 style="background-color: #E82E18;color: #fff;float: left;margin-bottom: 5px;">[:$LANG->getMessage('msg.sanPhamNoiBanNhat'):]</h1>
 		<ul id="scroller" >
 			[:foreach $MODEL.newItems as $_item:]	
 				 [:if $_item->getUrlThumbnail()=='':]

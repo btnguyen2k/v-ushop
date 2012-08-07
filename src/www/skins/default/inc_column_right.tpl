@@ -38,7 +38,7 @@
 			<td><input  class="textbox" value="" name="password" type="password" /></td>
 		</tr>
 		<tr >
-			<td><input name="search" class="button" value="Đăng Nhập" type="submit" /></td>
+			<td><input name="search" class="btn" value="Đăng Nhập" type="submit" /></td>
 		</tr>
 	</table>
 	<div align="center"><a href="javascript:void(0)" onclick="alert('[:$LANG->getMessage('msg.forgotPassword.info'):]')">[:$LANG->getMessage('msg.forgotPassword'):]</a>	</div>

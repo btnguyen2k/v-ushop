@@ -4,13 +4,13 @@
 	<h1>[:$LANG->getMessage('msg.cart'):]</h1>
 	<br></br>
 	<form action="[:$MODEL.urlDeleteItemInCart:]" id="form_cart" method="post" >
-		<div class="btn-group ">
+		
           	<button type="submit" class="btn btn-warning" onclick="return confirmDelete('[:$MODEL.msgDelete:]')" >[:$MODEL.language->getMessage('msg.delete'):]</button>
           	<button type="submit" class="btn btn-warning" onclick="return changeActionForm('[:$MODEL.urlUpdateCart:]','form_cart')" >[:$MODEL.language->getMessage('msg.update'):]</button>                          	
         
         	<button type="button" class="btn btn-warning" onclick="redirect('[:$MODEL.cart->getUrlCheckout():]')">[:$MODEL.language->getMessage('msg.checkout'):]</button>
           	<button type="button" class="btn btn-warning" onclick="redirect('[:$smarty.server.SCRIPT_NAME:]')">[:$MODEL.language->getMessage('msg.continueShopping'):]</button>
-       	</div>
+  		<br/>  <br/>  
         <table class="table" cellpadding="0" cellspacing="0" border="0" align="center">
         	<thead class="table-header">  
             	<tr>        		
@@ -64,15 +64,16 @@
         	</tr>
             <tr>
             	<td colspan="6">
-                    <div class="btn-group ">
+                   	<br/>
                       	<button type="submit" class="btn btn-warning" onclick="return confirmDelete('[:$MODEL.msgDelete:]')" >[:$MODEL.language->getMessage('msg.delete'):]</button>
                       	<button type="submit" class="btn btn-warning" onclick="return changeActionForm('[:$MODEL.urlUpdateCart:]','form_cart')" >[:$MODEL.language->getMessage('msg.update'):]</button>                          	
                     
                     	<button type="button" class="btn btn-warning" onclick="redirect('[:$MODEL.cart->getUrlCheckout():]')">[:$MODEL.language->getMessage('msg.checkout'):]</button>
                       	<button type="button" class="btn btn-warning" onclick="redirect('[:$smarty.server.SCRIPT_NAME:]')">[:$MODEL.language->getMessage('msg.continueShopping'):]</button>
-                   	</div>
+                 
                	</td>
                	<td align="right" >
+               		<br/>
                		<a href="javascript:void(0)" onclick="window.open('[:$MODEL.urlPrintCart:]','mywindow','width=1000,height=600'); return false;" target="_blank"><img alt="" src="images/icons/print_review.png" width="25" title="[:$MODEL.language->getMessage('msg.printReview'):]"> </a>
                	</td>
              </tr>

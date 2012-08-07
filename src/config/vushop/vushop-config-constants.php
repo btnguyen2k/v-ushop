@@ -51,6 +51,9 @@ define('MODEL_PAGE', 'page');
 define('MODEL_LANGUAGE', 'language');
 define('MODEL_USER', 'user');
 
+define('MODEL_MY_ORDERS', 'myOrders');
+define('MODEL_ORDER_DETAIL', 'orderDetail');
+define('MODEL_URL_MY_ORDERS', 'urlMyOrders');
 define('MODEL_SHOP_OWNERS', 'shopOwners');
 define('MODEL_SHOP_LIST', 'shopList');
 define('MODEL_USER_LIST', 'userList');

@@ -114,7 +114,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             return FALSE;
         }
         
-        $this->createOrder($this->getCurrentCart(),$orderEmail,$orderPhone,$orderPaymentMethod,$orderOtherInfo, $orderName);
+        $this->createOrder($this->getCurrentCart(), $orderEmail, $orderPhone, $orderPaymentMethod, $orderOtherInfo, $orderName);
         
         require_once 'class.phpmailer.php';
         $mailer = new PHPMailer(TRUE);
@@ -216,10 +216,11 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         return $content;
     }
     
-    private function createOrder($cart,$orderEmail,$orderPhone,$orderPaymentMethod,$orderAddress,$orderName) {
+    private function createOrder($cart, $orderEmail, $orderPhone, $orderPaymentMethod, $orderAddress, $orderName) {
         if ($cart != NULL) {
+            $id = Quack_Util_IdUtils::id48hex();
             $order = new Vushop_Bo_Order_BoOrder();
-            $order->setId(Quack_Util_IdUtils::id48hex());
+            $order->setId($id);
             $order->setAddress($orderAddress);
             $order->setEmail($orderEmail);
             $order->setFullName($orderName);
@@ -227,8 +228,27 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $order->setPhone($orderPhone);
             $order->setStatus(0);
             $order->setTimestamp(time());
-            $orderDao=$this->getDao(DAO_ORDER);
+            $orderDao = $this->getDao(DAO_ORDER);
             $orderDao->createOrder($order);
+           $this->createOrderDetail($cart, $id, $orderDao);
+        }
+    }
+    
+    private function createOrderDetail($cart, $orderId, $orderDao) {
+        if ($cart != NULL) {
+            $orderDetail = new Vushop_Bo_Order_BoOrderDetail();
+            $cartItems = $cart->getItems();
+            if (isset($cartItems) && count($cartItems) > 0) {
+                foreach ($cartItems as $cartItem) {
+                    $orderDetail->setItemId($cartItem->getItemId());
+                    $orderDetail->setOrderId($orderId);
+                    $orderDetail->setPrice($cartItem->getPrice());
+                    $orderDetail->setQuantity($cartItem->getQuantity());
+                    $orderDetail->setTimestamp(time());
+                    $orderDetail->setStatus(0);
+                    $orderDao->createOrderDetail($orderDetail);
+                }
+            }
         }
     }
 }

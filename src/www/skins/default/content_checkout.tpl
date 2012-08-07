@@ -4,7 +4,7 @@
 	<h1>[:$MODEL.language->getMessage('msg.cart'):]</h1>
 	<br></br>
         <table class="table" cellpadding="0" cellspacing="0" border="0" align="center">
-    	<thead style="background: #666666;color: white">  
+    	<thead class="table-header">  
         	<tr>        		
         		
         		<th width="30px">[:$MODEL.language->getMessage('msg.stt'):]</th>
@@ -17,7 +17,7 @@
         <tbody>
         [:foreach $MODEL.cart->getItems() as $item:]
         	<tr class="[:if $item@index % 2 ==0:]even[:else:]odd[:/if:]">
-        		<td>[:$item@index+1:]</td>
+        		<td align="center">[:$item@index+1:]</td>
         		<td style="white-space: normal;">[:$item->getTitle()|escape:'html':]</td>        		
 				<td style="text-align: right;">[:$item->getPriceForDisplay():]</td>
         		<td style="text-align: center;">[:$item->getQuantity():] </td>

@@ -9,11 +9,11 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
     const COL_PHONE = 'order_phone';
     const COL_PAYMENT_METHOD = 'order_payment_method';
     const COL_ADDRESS = 'order_address';
-    const COL_STATUS = 'order_status';
     
-    private $id, $timestamp, $fullName, $email, $phone, $paymentMethod, $address, $status;
+    private $id, $timestamp, $fullName, $email, $phone, $paymentMethod, $address;
     private $orderDetail = Array();
     private $ordersDetailForOrder = Array();
+    private $urlView = NULL;
     
     /**
      * @see Quack_Bo_BaseBo::getFieldMap()
@@ -25,8 +25,19 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
                 self::COL_EMAIL => Array('email'), 
                 self::COL_PHONE => Array('phone'), 
                 self::COL_PAYMENT_METHOD => Array('paymentMethod', self::TYPE_BOOLEAN), 
-                self::COL_ADDRESS => Array('address'), 
-                self::COL_STATUS => Array('status', self::TYPE_BOOLEAN));
+                self::COL_ADDRESS => Array('address'));
+    }
+    
+    /**
+     * Gets the URL to view the category.
+     *
+     * @return string
+     */
+    public function getUrlView() {
+        if ($this->urlView === NULL) {
+            $this->urlView = $_SERVER['SCRIPT_NAME'] . '/order/' . $this->id . '/';
+        }
+        return $this->urlView;
     }
     
     /**
@@ -83,14 +94,6 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
      */
     public function getAddress() {
         return $this->address;
-    }
-    
-    /**
-     * @return the $status
-     * @return boolean (true:completed, false:notcomplete)
-     */
-    public function getStatus() {
-        return $this->status;
     }
     
     /**
@@ -159,13 +162,6 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
     }
     
     /**
-     * @param field_type $status type boolean
-     */
-    public function setStatus($status) {
-        $this->status = $status;
-    }
-    
-    /**
      * @param field_type $orderDetail type Object Vushop_Bo_Cart_BoOrderDetail
      * 
      */
@@ -182,4 +178,11 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
             $this->ordersDetailForOrder = Array();
         }
     }
+    
+    public function getDisplayForTimeStamp() {
+        return date('d-m-Y', $this->timestamp);
+    }
+    
+   
+
 }

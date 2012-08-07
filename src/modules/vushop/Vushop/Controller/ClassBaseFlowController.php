@@ -411,6 +411,24 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
     }
     
     /**
+     * Get the url to access order detail list.
+     *
+     * @return string
+     */
+    protected function getUrlOrderView() {
+        return $_SERVER['SCRIPT_NAME'] . '/order';
+    }
+    
+/**
+     * Get the url to access user's item list.
+     *
+     * @return string
+     */
+    protected function getUrlMyOrders() {
+        return $_SERVER['SCRIPT_NAME'] . '/myOrders';
+    }
+    
+    /**
      * Get the url to access user's create item.
      *
      * @return string
@@ -540,6 +558,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $model[MODEL_URL_UPDATE_CART] = $this->getUrlUpdateCart();
         $model[MODEL_URL_PRINT_CART] = $this->getUrlPrintCart();
         $model[MODEL_URL_CHANGE_PASSWORD] = $this->getUrlChangePassword();
+         $model[MODEL_URL_MY_ORDERS] = $this->getUrlMyOrders();
         if ($user !== NULL) {
             if ($user !== NULL && $user->getGroupId() === USER_GROUP_ADMIN) {
                 $model[MODEL_URL_BACKEND] = $this->getUrlBackend();
