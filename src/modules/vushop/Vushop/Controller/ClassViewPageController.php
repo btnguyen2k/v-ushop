@@ -1,16 +1,16 @@
 <?php
-class Vcatalog_Controller_ViewPageController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_ViewPageController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME = 'viewPage';
     const VIEW_NAME_ERROR = 'error';
 
     /**
-     * @var Vcatalog_Bo_Page_BoPage
+     * @var Vushop_Bo_Page_BoPage
      */
     private $page = NULL;
     private $pageId;
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     * @see Vushop_Controller_BaseFlowController::getViewName()
      */
     protected function getViewName() {
         return self::VIEW_NAME;
@@ -28,7 +28,7 @@ class Vcatalog_Controller_ViewPageController extends Vcatalog_Controller_BaseFlo
         $requestParser = Dzit_RequestParser::getInstance();
         $this->pageId = $requestParser->getPathInfoParam(1);
         /**
-         * @var Vcatalog_Bo_Page_IPageDao
+         * @var Vushop_Bo_Page_IPageDao
          */
         $pageDao = $this->getDao(DAO_PAGE);
         $this->page = $pageDao->getPageById($this->pageId);
@@ -67,7 +67,7 @@ class Vcatalog_Controller_ViewPageController extends Vcatalog_Controller_BaseFlo
     }
 
     /**
-     * @see Vcatalog_Controller_BaseFlowController::buildModel_Custom()
+     * @see Vushop_Controller_BaseFlowController::buildModel_Custom()
      */
     protected function buildModel_Custom() {
         $model = parent::buildModel_Custom();

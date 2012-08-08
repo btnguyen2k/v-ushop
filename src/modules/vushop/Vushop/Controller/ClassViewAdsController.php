@@ -1,9 +1,9 @@
 <?php
-class Vcatalog_Controller_ViewAdsController extends Vcatalog_Controller_BaseFlowController {
+class Vushop_Controller_ViewAdsController extends Vushop_Controller_BaseFlowController {
     const VIEW_NAME_ERROR = 'error';
 
     /**
-     * @var Vcatalog_Bo_TextAds_BoAds
+     * @var Vushop_Bo_TextAds_BoAds
      */
     private $ads = NULL;
     private $adsId;
@@ -20,7 +20,7 @@ class Vcatalog_Controller_ViewAdsController extends Vcatalog_Controller_BaseFlow
         $requestParser = Dzit_RequestParser::getInstance();
         $this->adsId = $requestParser->getPathInfoParam(1);
         /**
-         * @var Vcatalog_Bo_TextAds_IAdsDao
+         * @var Vushop_Bo_TextAds_IAdsDao
          */
         $adsDao = $this->getDao(DAO_TEXTADS);
         $this->ads = $adsDao->getAdsById($this->adsId);
