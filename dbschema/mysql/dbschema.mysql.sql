@@ -146,6 +146,8 @@ INSERT INTO vushop_group (gid, gname, gdesc)
 VALUES (1, 'Administrator', 'Administrator has all permissions!');
 INSERT INTO vushop_group (gid, gname, gdesc)
 VALUES (2, 'ShopOwner', 'Shop Owner');
+INSERT INTO vushop_group (gid, gname, gdesc)
+VALUES (3, 'Member', 'Member');
 
 CREATE TABLE vushop_user (
     uid             INT                     NOT NULL AUTO_INCREMENT,
