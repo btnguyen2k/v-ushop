@@ -1002,3 +1002,13 @@ span.select {
 	font-weight: bold;
 	padding-left: 20px;
 }
+
+.errorMsg {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.infoMsg {
+    font-weight: bold;
+    color: #009010;
+}

@@ -10,19 +10,26 @@
 
 [:function name=printFormHeader form=NULL:]
     [:if isset($form.errorMessages) && count($form.errorMessages) gt 0:]
-    	<ul>
+    	<ul id="mess" style="text-align: left;">
         [:foreach $form.errorMessages as $msg:]
-          <li> <div class="errorMsg">[:$msg:]</div></li>
+          <li> <div class="errorMsg" >[:$msg:]</div></li>
         [:/foreach:]
         </ul>
+        <script type="text/javascript">
+    		jumpTo('mess');
+    	</script>
     [:/if:]
     [:if isset($form.infoMessages) && count($form.infoMessages) gt 0:]
-    	<ul>
+    	<ul id="mess" style="text-align: left;">
         [:foreach $form.infoMessages as $msg:]
             <li><div class="infoMsg">[:$msg:]</div></li>
         [:/foreach:]
         </ul>
+         <script type="text/javascript">
+    		jumpTo('mess');
+    	</script>
     [:/if:]
+   
 [:/function:]
 
 

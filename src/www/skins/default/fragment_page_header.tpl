@@ -68,7 +68,8 @@
 [:if isset($MODEL.newItems) && count($MODEL.newItems) gt 0:]
 	<div class="sidebar-top">
 		<h1 style="background: #E82E18;color: #fff;float: left;margin-bottom: 5px;">[:$LANG->getMessage('msg.sanPhamNoiBanNhat'):]</h1>
-		<ul id="scroller" >
+		<br style="clear: both;"/>
+		<ul id="scroller">
 			[:foreach $MODEL.newItems as $_item:]	
 				 [:if $_item->getUrlThumbnail()=='':]
                     [:assign var="_urlThumbnail" value="images/img_general.jpg":]
@@ -79,6 +80,8 @@
            [:/foreach:]
         </ul>
 	</div>
+	
 	[:call name=autoScroller elName=scroller auto='yes':]
 [:/if:]
+
 <!--/ sidebar top end-->
