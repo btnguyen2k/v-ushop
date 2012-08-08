@@ -10,16 +10,18 @@
 
 [:function name=printFormHeader form=NULL:]
     [:if isset($form.errorMessages) && count($form.errorMessages) gt 0:]
+    	<ul>
         [:foreach $form.errorMessages as $msg:]
-           <div class="errorMsg">[:$msg:]</div>
+          <li> <div class="errorMsg">[:$msg:]</div></li>
         [:/foreach:]
-        <br />
+        </ul>
     [:/if:]
     [:if isset($form.infoMessages) && count($form.infoMessages) gt 0:]
+    	<ul>
         [:foreach $form.infoMessages as $msg:]
-            <div class="infoMsg">[:$msg:]</div>
+            <li><div class="infoMsg">[:$msg:]</div></li>
         [:/foreach:]
-        <br />
+        </ul>
     [:/if:]
 [:/function:]
 

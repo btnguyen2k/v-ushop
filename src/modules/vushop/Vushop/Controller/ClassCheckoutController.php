@@ -226,7 +226,6 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $order->setFullName($orderName);
             $order->setPaymentMethod($orderPaymentMethod);
             $order->setPhone($orderPhone);
-            $order->setStatus(0);
             $order->setTimestamp(time());
             $orderDao = $this->getDao(DAO_ORDER);
             $orderDao->createOrder($order);

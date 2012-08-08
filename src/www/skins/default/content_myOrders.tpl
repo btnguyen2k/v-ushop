@@ -17,15 +17,11 @@
         <br />&nbsp;&nbsp;&nbsp;
         <span style="font-weight: bold;">[:$LANG->getMessage('msg.order.status'):]:</span>  
         	<select onchange="loadOrderForShop(this,'[:$MODEL.urlMyOrders:]');">
+        		<option value="0">[:$MODEL.language->getMessage('msg.order.status.notComplete'):]</option>
             	[:if isset($MODEL.status) && $MODEL.status==1:]
                 	<option value="1" selected="selected">[:$MODEL.language->getMessage('msg.order.status.completed'):]</option>
-                	<option value="0">[:$MODEL.language->getMessage('msg.order.status.notComplete'):]</option>
-            	[:elseif isset($MODEL.status) && $MODEL.status==0:]
+                [:else:]
                 	<option value="1" >[:$MODEL.language->getMessage('msg.order.status.completed'):]</option>
-                	<option value="0" selected="selected">[:$MODEL.language->getMessage('msg.order.status.notComplete'):]</option>
-            	[:else:]
-            		<option value="1" >[:$MODEL.language->getMessage('msg.order.status.completed'):]</option>
-                	<option value="0" >[:$MODEL.language->getMessage('msg.order.status.notComplete'):]</option>
                 [:/if:]
         	</select> 
         <br />
@@ -40,6 +36,7 @@
         			<th>[:$MODEL.language->getMessage('msg.order.phone'):]</th>
         			<th>[:$MODEL.language->getMessage('msg.order.email'):]</th>
         			<th>[:$MODEL.language->getMessage('msg.order.time'):]</th>
+        			<th>[:$MODEL.language->getMessage('msg.order.priceTotal'):]</th>
         			<th width="80px" style="text-align: center;">[:$LANG->getMessage('msg.actions'):]</th>
         		</tr>
         	</thead>
@@ -51,7 +48,7 @@
         			onclick="redirect('[:$_order->getUrlView():]')"
         			onmouseover="changeColorOver('order_[:$_order->getId():]')"
         			onmouseout="changeColorOut('order_[:$_order->getId():]')">
-        			<td class="table-conent">[:$_order->getId()|escape:'html':]</td>
+        			<td class="table-conent"><span style="text-transform: uppercase;">[:$_order->getId()|escape:'html':]</span></td>
         			<td>
         				[:if isset($MODEL.status) && $MODEL.status==1:]
         					[:$LANG->getMessage('msg.order.status.completed'):]
@@ -62,17 +59,18 @@
         			<td>[:$_order->getFullName()|escape:'html':]</td>
         			<td>[:$_order->getEmail()|escape:'html':]</td>
         			<td>[:$_order->getPhone()|escape:'html':]</td>
-        			<td>[:$_order->getDisplayForTimeStamp()|escape:'html':]</td>   
+        			<td>[:$_order->getDisplayForTimeStamp():]</td>   
+        			<td>[:$_order->getTotalPriceForDisplay():]</td>   
         			<td align="center"><img alt="" title="[:$LANG->getMessage('msg.view'):]" src="images/icons/detail.png"> </td>        			
         		</tr>
         		[:foreachelse:]
         		<tr>
-        			<td colspan="7">[:call name=noData:]</td>
+        			<td colspan="8">[:call name=noData:]</td>
         		</tr>
         		[:/foreach:]
         	</tbody>
         	<tr class="table-header">
-        		<td colspan="7" style="text-align: right;"><small>
+        		<td colspan="8" style="text-align: right;"><small>
         		[:$MODEL.language->getMessage('msg.page'):]: [:foreach
         		$MODEL.paginator->getVisiblePages() as $_page:] [:if $_page==0:]
         		&nbsp;<big>...</big>&nbsp; [:elseif

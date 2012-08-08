@@ -13,11 +13,11 @@
     		[:if isset($USER):]
                 <p style="font-weight: bold;font-size: 12px">
                     [:$LANG->getMessage('msg.hello'):] [:$USER->getDisplayName():]
-                    [:if $USER->getGroupId() != $USER_GROUP_ADMIN:]| <a href="[:$MODEL.urlProfile:]">[:$LANG->getMessage('msg.profile'):]</a>[:/if:]
+                    [:if $USER->getGroupId() == $USER_GROUP_SHOP_OWNER:]| <a href="[:$MODEL.urlProfile:]">[:$LANG->getMessage('msg.profile'):]</a>[:/if:]
                     | <a href="[:$MODEL.urlLogout:]">[:$LANG->getMessage('msg.logout'):]</a>
                 </p>
     		[:else:]
-                <a href="javascript:void(0)" onclick="login('[:$MODEL.urlLogin:]')" style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):]</a>
+                <a href="javascript:void(0)" style="font-weight: bold;font-size: 12px" onclick="redirect('[:$MODEL.urlRegister:]')">[:$LANG->getMessage('msg.register'):]</a> | <a href="javascript:void(0)" onclick="login('[:$MODEL.urlLogin:]')" style="font-weight: bold;font-size: 12px">[:$LANG->getMessage('msg.login'):]</a>
     		[:/if:]
 		</div>
 	</div>
@@ -67,7 +67,7 @@
 <!-- sidebar top -->
 [:if isset($MODEL.newItems) && count($MODEL.newItems) gt 0:]
 	<div class="sidebar-top">
-		<h1 style="background-color: #E82E18;color: #fff;float: left;margin-bottom: 5px;">[:$LANG->getMessage('msg.sanPhamNoiBanNhat'):]</h1>
+		<h1 style="background: #E82E18;color: #fff;float: left;margin-bottom: 5px;">[:$LANG->getMessage('msg.sanPhamNoiBanNhat'):]</h1>
 		<ul id="scroller" >
 			[:foreach $MODEL.newItems as $_item:]	
 				 [:if $_item->getUrlThumbnail()=='':]

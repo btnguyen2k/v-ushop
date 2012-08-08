@@ -23,7 +23,7 @@ class Vushop_Bo_Order_BoOrderDetail extends Quack_Bo_BaseBo {
                 self::COL_ITEM_ID => Array('itemId', self::TYPE_INT), 
                 self::COL_QUANTITY => Array('quantity', self::TYPE_DOUBLE), 
                 self::COL_PRICE => Array('price', self::TYPE_DOUBLE), 
-                self::COL_STATUS => Array('status', self::TYPE_BOOLEAN));
+                self::COL_STATUS => Array('status', self::TYPE_INT));
     }
     /**
      * @return the $orderId
@@ -130,8 +130,17 @@ class Vushop_Bo_Order_BoOrderDetail extends Quack_Bo_BaseBo {
         return Vushop_Utils::formatQuantity($this->getQuantity());
     }
     
+ 	/**
+     * Gets total value (= price * quantity)
+     *
+     * @return double
+     */
+    public function getTotal() {
+        return $this->getPrice() * $this->getQuantity();
+    }
+    
     public function getTotalForDisplay() {
-        return Vushop_Utils::formatPrice($this->getPrice() * $this->getQuantity());
+        return Vushop_Utils::formatPrice($this->getTotal());
     }
     
     public function getStatusForDisplay() {
@@ -148,7 +157,7 @@ class Vushop_Bo_Order_BoOrderDetail extends Quack_Bo_BaseBo {
             $status=false;
         }
         if ($this->urlChangeStatus === NULL) {
-            $this->urlChangeStatus = $_SERVER['SCRIPT_NAME'] . '/changeStatusOrderDetail?oid=' . $this->orderId.'&iid='.$this->itemId.'&s='.$status;
+            $this->urlChangeStatus = $_SERVER['SCRIPT_NAME'] . '/changeStatusOrderDetail/';
         }
         return $this->urlChangeStatus;
     }

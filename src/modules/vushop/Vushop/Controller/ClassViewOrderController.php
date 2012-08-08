@@ -1,7 +1,7 @@
 <?php
-class Vushop_Controller_OrderDetailController extends Vushop_Controller_BaseFlowController {
+class Vushop_Controller_ViewOrderController extends Vushop_Controller_BaseFlowController {
     
-    const VIEW_NAME = 'orderDetail';
+    const VIEW_NAME = 'viewOrder';
     private $order;
     private $shop;
     
@@ -24,9 +24,9 @@ class Vushop_Controller_OrderDetailController extends Vushop_Controller_BaseFlow
         $orderDao = $this->getDao(DAO_ORDER);
         $this->order = $orderDao->getOrderById($orderId);
         
-        $shopId=$_SESSION[SESSION_USER_ID];
-        $shopDao=$this->getDao(DAO_SHOP);
-        $this->shop=$shopDao->getShopById($shopId);
+        $shopId = $_SESSION[SESSION_USER_ID];
+        $shopDao = $this->getDao(DAO_SHOP);
+        $this->shop = $shopDao->getShopById($shopId);
     }
     
     /**
@@ -44,15 +44,21 @@ class Vushop_Controller_OrderDetailController extends Vushop_Controller_BaseFlow
          * @var Vushop_Bo_Order_IOrderDao
          */
         $page_size = DEFAULT_PAGE_SIZE;
-        $orderDetailList=array();
+        $orderDetailList = array();
         $numOrders = 0;
-        if ($this->order !== NULL && $this->shop!==NULL) {
+        if ($this->order !== NULL && $this->shop !== NULL) {
             $orderDao = $this->getDao(DAO_ORDER);
-            $orderDetailList = $orderDao->getOrderDetailForOrderShop($this->order,$this->shop);            
+            $orderDetailList = $orderDao->getOrderDetailForOrderShop($this->order, $this->shop);
             $model['orderObj'] = $this->order;
         }
         $model[MODEL_ORDER_DETAIL] = $orderDetailList;
-        
+        if ($orderDetailList != NULL) {
+            $priceTotal=0;
+            foreach ($orderDetailList as $orderItem) {
+                $priceTotal+=$orderItem->getTotal();
+            }
+            $model['priceTotal'] = Vushop_Utils::formatPrice($priceTotal);
+        }
         return $model;
     }
 }

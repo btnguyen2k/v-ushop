@@ -478,7 +478,7 @@ ul.sidemenu :last-child {
 	display: block;
 	margin: 0em 0em 0.5em 0em;
 	padding: 0.2em 0em 0.2em 0.3em;
-	background-color: rgb(187, 211, 247);
+	background-color: #e5e5e5;
 	font-weight: bold;
 	color: rgb(50, 50, 50);
 }
@@ -612,7 +612,7 @@ item a{
 	margin: 10px 5px 0px 10px;
 	padding: 5px 5px;
 	font: bold 1.7em Tahoma, Arial;
-	color: #730100;
+	color: #E81f1f;
 	border-bottom: 2px solid #ECD56D;
 	border-bottom-style: groove;
 	text-shadow: #666 0.2em 0.2em 0.4em;

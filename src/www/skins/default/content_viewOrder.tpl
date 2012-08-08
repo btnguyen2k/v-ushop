@@ -19,11 +19,17 @@
         		[:assign var="_order" value=$MODEL.orderObj:]
            		<table width="100%">
         			<tr>
-        				<td colspan="4"><h2>[:$LANG->getMessage('msg.orderInformation'):]</h2></td>
+        				<td colspan="4"><h2>[:$LANG->getMessage('msg.orderInformation'):] - [:$_order->getId()|escape:'html':]</h2><br/></td>
         			</tr>
         			<tr>
-        				<td class="lable" width="15%" >[:$LANG->getMessage('msg.order.id'):] :</td>
-        				<td width="35%"><span style="text-transform: uppercase;">[:$_order->getId()|escape:'html':]</span></td>
+        				<td class="lable" width="15%">[:$LANG->getMessage('msg.order.paymentMethod'):] :</td>
+        				<td width="35%">
+        					[:if $_order->getPaymentMethod():]
+        						[:$LANG->getMessage('msg.order.paymentMethod.cash'):]
+        					[:else:]
+        						[:$LANG->getMessage('msg.order.paymentMethod.transfer'):]
+        					[:/if:]
+        				</td>         				
         				<td class="lable" width="15%">[:$LANG->getMessage('msg.order.name'):] :</td>
         				<td width="35%">[:$_order->getFullName()|escape:'html':]</td>
         			</tr>
@@ -33,16 +39,7 @@
         				<td class="lable" width="15%">[:$LANG->getMessage('msg.order.phone'):] :</td>
         				<td width="35%">[:$_order->getPhone()|escape:'html':]</td>
         			</tr>
-        			<tr>
-        				<td class="lable" width="15%">[:$LANG->getMessage('msg.order.paymentMethod'):] :</td>
-        				<td colspan="3">
-        					[:if $_order->getPaymentMethod():]
-        						[:$LANG->getMessage('msg.order.paymentMethod.cash'):]
-        					[:else:]
-        						[:$LANG->getMessage('msg.order.paymentMethod.transfer'):]
-        					[:/if:]
-        				</td>        				
-        			</tr>
+        			
         			<tr>
         				<td class="lable" colspan="4">[:$LANG->getMessage('msg.order.otherInfo'):] :
         				[:$_order->getAddress()|escape:'html':]</td>        				
@@ -67,8 +64,8 @@
             	</tr>
             </thead>
                 </thead>
-                <tbody>
-                    [:foreach $MODEL.orderDetail as $_orderItem:]                    	
+                <tbody>                	 
+                    [:foreach $MODEL.orderDetail as $_orderItem:]         	
                         <tr class="[:if $_orderItem@index%2==0:]odd[:else:]even[:/if:] "
                         id="item_[:$_orderItem->getItemId():]"
                         	onmouseover="changeColorOver('item_[:$_orderItem->getItemId():]')" onmouseout="changeColorOut('item_[:$_orderItem->getItemId():]')">
@@ -85,22 +82,27 @@
                             <td align="right">[:$_orderItem->getPriceForDisplay():]</td>
                             <td align="center">[:$_orderItem->getQuantityForDisplay():]</td>
                             <td align="right">[:$_orderItem->getTotalForDisplay():]</td>
-                           <td align="center" ><input onclick="redirect('[:$_orderItem->getUrlChangeStatus():]')" type="checkbox" value="true" [:if $_orderItem->getStatus():]checked [:/if:]/></td>
+                           <td align="center" >
+                           		<form id="form_item_[:$_orderItem->getItemId():]" action="[:$_orderItem->getUrlChangeStatus():]" method="post">
+                           			<input type="hidden" name="orderId" value="[:$_orderItem->getOrderId():]">
+                           			<input type="hidden" name="itemId" value="[:$_orderItem->getItemId():]">
+                           			<input onchange="submitForm('form_item_[:$_orderItem->getItemId():]')" name="status" type="checkbox" value="true" [:if $_orderItem->getStatus():]checked [:/if:]/></td>
+                           		</form>
                         </tr>
-                    [:foreachelse:]
+                    	[:foreachelse:]
                         <tr>
                             <td colspan="8">[:call name=noData:]</td>
                         </tr>
-                    [:/foreach:]
+                    	[:/foreach:]
                     	<tr class="table-header" >
-                    		<td colspan="8">&nbsp;</td>
+                    		<td colspan="8" style="text-align: right;font-weight: bold;	">[:if isset($MODEL.priceTotal):][:$LANG->getMessage('msg.order.priceTotal'):]: [:$MODEL.priceTotal:][:/if:]</td>
                     	</tr>
                 </tbody>
                 </table>
         
         <script type="text/javascript">           
-                        $('#tabs').tabs({ selected: 4 });
-                	</script> <br />
+            $('#tabs').tabs({ selected: 4 });
+    	</script> <br />
         <br />
         <br />
     </div>
@@ -108,5 +110,6 @@
 <script>
 	$(function() {
 		$( "#tabs" ).tabs();
+		jumpTo('tabs');
 	});
     </script></div>

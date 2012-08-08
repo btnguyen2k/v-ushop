@@ -416,7 +416,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
      * @return string
      */
     protected function getUrlOrderView() {
-        return $_SERVER['SCRIPT_NAME'] . '/order';
+        return $_SERVER['SCRIPT_NAME'] . '/viewOrder';
     }
     
 /**

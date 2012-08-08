@@ -41,7 +41,7 @@
 			<td><input name="search" class="btn" value="Đăng Nhập" type="submit" /></td>
 		</tr>
 	</table>
-	<div align="center"><a href="javascript:void(0)" onclick="alert('[:$LANG->getMessage('msg.forgotPassword.info'):]')">[:$LANG->getMessage('msg.forgotPassword'):]</a>	</div>
+	<a href="javascript:void(0)" onclick="redirect('[:$MODEL.urlRegister:]')">[:$LANG->getMessage('msg.register'):]</a> | <a href="javascript:void(0)" onclick="showMessage('[:$LANG->getMessage('msg.forgotPassword.info'):]')">[:$LANG->getMessage('msg.forgotPassword'):]</a>
 </form>	
 [:/if:]
 

@@ -105,12 +105,13 @@ abstract class Vushop_Bo_Order_BaseOrderDao extends Quack_Bo_BaseDao implements
                 Vushop_Bo_Order_BoOrderDetail::COL_PRICE => $orderDetail->getPrice(), 
                 Vushop_Bo_Order_BoOrderDetail::COL_QUANTITY => $orderDetail->getQuantity(), 
                 Vushop_Bo_Order_BoOrderDetail::COL_STATUS => $orderDetail->getStatus());
+               
         $result = $this->execNonSelect($sqlStm, $params);
         return $result;
     
     }
     
-        /**
+    /**
      * @see Vushop_Bo_Order_IOrderDao::getOrderDetailById()
      */
     public function getOrderDetailByOrderIdAndItemId($orderId, $itemId) {
@@ -132,8 +133,7 @@ abstract class Vushop_Bo_Order_BaseOrderDao extends Quack_Bo_BaseDao implements
     
     }
     
-    
-         /**
+    /**
      * @see Vushop_Bo_Order_IOrderDao::getAllOrdersForShop()
      */
     public function getAllOrdersForShop($shop, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $orderSorting = DEFAULT_ORDER_SORTING, $featuredOrders = FEATURED_ORDER_ALL) {
@@ -176,6 +176,13 @@ abstract class Vushop_Bo_Order_BaseOrderDao extends Quack_Bo_BaseDao implements
                 $result[] = $order;
             }
         }
+        if ($result != NULL) {
+            foreach ($result as $order) {
+                $orderDao = $this->getDaoFactory()->getDao(DAO_ORDER);
+                $orderDetailList = $orderDao->getOrderDetailForOrderShop($order, $shop);
+                $order->setOrderDetail($orderDetailList);
+            }
+        }
         return $result;
     
     }
@@ -205,8 +212,6 @@ abstract class Vushop_Bo_Order_BaseOrderDao extends Quack_Bo_BaseDao implements
         return $result;
     }
     
-    
-    
     /** 
      * @see Vushop_Bo_Order_IOrderDao::countNumOrdersForShop()
      */
@@ -229,7 +234,5 @@ abstract class Vushop_Bo_Order_BaseOrderDao extends Quack_Bo_BaseDao implements
         return $result;
     
     }
-    
-   
 
 }

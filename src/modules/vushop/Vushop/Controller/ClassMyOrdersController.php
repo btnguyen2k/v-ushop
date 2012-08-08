@@ -47,27 +47,23 @@ class Vushop_Controller_MyOrdersController extends Vushop_Controller_BaseFlowCon
         $shop = $shopDao->getShopById($ownerId);
         $page_size = DEFAULT_PAGE_SIZE;
         $orderList = array();
-        $numOrders=0;
+        $numOrders = 0;
         if ($shop !== NULL) {
-            switch ($this->status) {               
-                case 0:
-                     $orderList = $orderDao->getAllOrdersForShop($shop, $this->pageNum, $page_size, DEFAULT_ORDER_SORTING,FEATURED_ORDER_NOT_COMPLETE);
-                    // paging
-                    $numOrders = $orderDao->countNumOrdersForShop($shop, FEATURED_ORDER_NOT_COMPLETE);
-                    break;
-                 case 1:
-                    $orderList = $orderDao->getAllOrdersForShop($shop, $this->pageNum, $page_size, DEFAULT_ORDER_SORTING,FEATURED_ORDER_COMPLETED);
+            switch ($this->status) {
+                case 1:
+                    $orderList = $orderDao->getAllOrdersForShop($shop, $this->pageNum, $page_size, DEFAULT_ORDER_SORTING, FEATURED_ORDER_COMPLETED);
                     // paging
                     $numOrders = $orderDao->countNumOrdersForShop($shop, FEATURED_ORDER_COMPLETED);
                     break;
                 default:
-                     $orderList = $orderDao->getAllOrdersForShop($shop, $this->pageNum, $page_size, DEFAULT_ORDER_SORTING,FEATURED_ORDER_ALL);
+                    $orderList = $orderDao->getAllOrdersForShop($shop, $this->pageNum, $page_size, DEFAULT_ORDER_SORTING, FEATURED_ORDER_NOT_COMPLETE);
                     // paging
-                    $numOrders = $orderDao->countNumOrdersForShop($shop, FEATURED_ORDER_ALL);
+                    $numOrders = $orderDao->countNumOrdersForShop($shop, FEATURED_ORDER_NOT_COMPLETE);
+            
             }
             $urlTemplate = $this->getUrlMyOrders() . '?p=${page}';
             $paginator = new Quack_Model_Paginator($urlTemplate, $numOrders, $page_size, 
-                            $this->pageNum);
+                    $this->pageNum);
             $model[MODEL_MY_ORDERS] = $orderList;
             $model[MODEL_PAGINATOR] = $paginator;
             $model['status'] = $this->status;

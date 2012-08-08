@@ -183,7 +183,7 @@ ul.videoCssMenu ul li {
 ul.videoCssMenu li:hover>a, ul.videoCssMenu li a:hover {
 	background-color:#fff;
 	border-color:#fff;
-	padding:6px !important;
+	padding:7px !important;
 	color:#E82E18;
 }
 ul.videoCssMenu li ul li:hover>a, ul.videoCssMenu li ul li a:hover {

@@ -123,3 +123,7 @@ function loadOrderForShop(select,url){
 	var selected = select.options[select.selectedIndex].value;
 		redirect(url + '?status=' + selected);
 }
+
+function showMessage(mess){
+	alert(mess);
+}

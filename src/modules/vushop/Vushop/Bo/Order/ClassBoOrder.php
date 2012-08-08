@@ -12,7 +12,6 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
     
     private $id, $timestamp, $fullName, $email, $phone, $paymentMethod, $address;
     private $orderDetail = Array();
-    private $ordersDetailForOrder = Array();
     private $urlView = NULL;
     
     /**
@@ -35,7 +34,7 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
      */
     public function getUrlView() {
         if ($this->urlView === NULL) {
-            $this->urlView = $_SERVER['SCRIPT_NAME'] . '/order/' . $this->id . '/';
+            $this->urlView = $_SERVER['SCRIPT_NAME'] . '/viewOrder/' . $this->id . '/';
         }
         return $this->urlView;
     }
@@ -167,15 +166,8 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
      */
     public function setOrderDetail($orderDetail) {
         $this->orderDetail = $orderDetail;
-    }
-    
-    /**
-     * @param field_type $ordersDetailForOrder type Array Vushop_Bo_Cart_BoOrderDetail
-     */
-    public function setOrdersDetailForOrder($ordersDetailForOrder) {
-        $this->ordersDetailForOrder = $ordersDetailForOrder;
-        if (!is_array($this->ordersDetailForOrder)) {
-            $this->ordersDetailForOrder = Array();
+        if (!is_array($this->orderDetail)) {
+            $this->orderDetail = Array();
         }
     }
     
@@ -183,6 +175,26 @@ class Vushop_Bo_Order_BoOrder extends Quack_Bo_BaseBo {
         return date('d-m-Y', $this->timestamp);
     }
     
-   
+    /**
+     * Gets total price of items currently in the cart.
+     *
+     * @return int
+     */
+    public function getTotalPrice() {
+        $result = 0;
+        foreach ($this->orderDetail as $orderItem) {
+            $result += $orderItem->getTotal();
+        }
+        return $result;
+    }
+    
+    /**
+     * Gets total price of items currently in the cart (for displaying purpose).
+     *
+     * @return string
+     */
+    public function getTotalPriceForDisplay() {
+        return Vushop_Utils::formatPrice($this->getTotalPrice());
+    }
 
 }
