@@ -206,18 +206,15 @@
 
 
 [:function name=displayAds adsList=NULL:]
-	
-	 [:foreach $adsList as $_ads:]
-       [:if $_ads->getUrlThumbnail()=='':]
+    [:foreach $adsList as $_ads:]
+        [:if $_ads->getUrlThumbnail()=='':]
             [:assign var="_urlThumbnail" value="images/img_general.jpg":]
         [:else:]
             [:assign var="_urlThumbnail" value=$_ads->getUrlThumbnail():]
         [:/if:]
         <div class="pr-banner">						
-    		<a href="">[:$_ads->getTitle():]</a><br/>
-    		<a href="[:$_ads->getUrl():]"><img src="[:$_urlThumbnail:]" alt="some_text"/></a>
-        </div>
-    
-     [:/foreach:]
-    
+    		<a href="[:$_ads->getUrlView():]">[:$_ads->getTitle():]</a><br/>
+    		<a href="[:$_ads->getUrlView():]"><img src="[:$_urlThumbnail:]" alt="[:$_ads->getTitle()|escape:'html':]"/></a>
+        </div>    
+    [:/foreach:]
 [:/function:]
