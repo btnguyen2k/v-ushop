@@ -1,18 +1,18 @@
 <?php
-abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
+abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements 
         Vushop_Bo_Cart_ICartDao {
-
+    
     /**
      *
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
-
+    
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
         parent::__construct();
     }
-
+    
     /**
      * (non-PHPdoc)
      *
@@ -21,11 +21,11 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
     public function getCacheName() {
         return 'ICartDao';
     }
-
+    
     protected function createCacheKeyCart($sessionId) {
         return 'CART_' . $sessionId;
     }
-
+    
     /**
      * Invalidates the cache due to change.
      *
@@ -37,14 +37,14 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
             $this->deleteFromCache($cacheKey);
         }
     }
-
+    
     /**
      *
      * @see Vushop_Bo_Cart_ICartDao::createCart()
      */
     public function createCart($sessionId, $userId = 0) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Cart_BoCart::COL_SESSION_ID => $sessionId,
+        $params = Array(Vushop_Bo_Cart_BoCart::COL_SESSION_ID => $sessionId, 
                 Vushop_Bo_Cart_BoCart::COL_USER_ID => (int)$userId);
         $this->execNonSelect($sqlStm, $params);
         $cacheKey = $this->createCacheKeyCart($sessionId);
@@ -52,7 +52,7 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
         $result = $this->getCart($sessionId);
         return $result;
     }
-
+    
     /**
      * (non-PHPdoc)
      *
@@ -64,7 +64,7 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
         $this->invalidateCache();
         return $result;
     }
-
+    
     /**
      *
      * @see Vushop_Bo_Cart_ICartDao::getCart()
@@ -85,13 +85,17 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
             if ($result !== NULL) {
                 $items = $this->getItemsInCart($result);
                 foreach ($items as $item) {
+                    $shopDao = $this->getDaoFactory()->getDao(DAO_SHOP);
+                    $shop = $shopDao->getShopById($item->getOwnerId());
+                    $item->setShop($shop);
                     $result->addItem($item);
+                
                 }
             }
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-
+    
     /**
      *
      * @see Vushop_Bo_Cart_ICartDao::getItemsInCart()
@@ -110,44 +114,44 @@ abstract class Vushop_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
         }
         return $result;
     }
-
+    
     /**
      *
      * @see Vushop_Bo_Cart_ICartDao::createCartItem()
      */
     public function createCartItem($cart, $itemId, $quantity, $price) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Cart_BoCartItem::COL_SESSION_ID => $cart->getSessionId(),
-                Vushop_Bo_Cart_BoCartItem::COL_ITEM_ID => $itemId,
-                Vushop_Bo_Cart_BoCartItem::COL_QUANTITY => $quantity,
+        $params = Array(Vushop_Bo_Cart_BoCartItem::COL_SESSION_ID => $cart->getSessionId(), 
+                Vushop_Bo_Cart_BoCartItem::COL_ITEM_ID => $itemId, 
+                Vushop_Bo_Cart_BoCartItem::COL_QUANTITY => $quantity, 
                 Vushop_Bo_Cart_BoCartItem::COL_PRICE => $price);
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($cart->getSessionId());
         return $result;
     }
-
+    
     /**
      *
      * @see Vushop_Bo_Cart_ICartDao::deleteCartItem()
      */
     public function deleteCartItem($cartItem) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Cart_BoCartItem::COL_SESSION_ID => $cartItem->getSessionId(),
+        $params = Array(Vushop_Bo_Cart_BoCartItem::COL_SESSION_ID => $cartItem->getSessionId(), 
                 Vushop_Bo_Cart_BoCartItem::COL_ITEM_ID => $cartItem->getItemId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($cartItem->getSessionId());
         return $result;
     }
-
+    
     /**
      *
      * @see Vushop_Bo_Cart_ICartDao::updateCartItem()
      */
     public function updateCartItem($cartItem) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vushop_Bo_Cart_BoCartItem::COL_SESSION_ID => $cartItem->getSessionId(),
-                Vushop_Bo_Cart_BoCartItem::COL_ITEM_ID => $cartItem->getItemId(),
-                Vushop_Bo_Cart_BoCartItem::COL_QUANTITY => $cartItem->getQuantity(),
+        $params = Array(Vushop_Bo_Cart_BoCartItem::COL_SESSION_ID => $cartItem->getSessionId(), 
+                Vushop_Bo_Cart_BoCartItem::COL_ITEM_ID => $cartItem->getItemId(), 
+                Vushop_Bo_Cart_BoCartItem::COL_QUANTITY => $cartItem->getQuantity(), 
                 Vushop_Bo_Cart_BoCartItem::COL_PRICE => $cartItem->getPrice());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($cartItem->getSessionId());

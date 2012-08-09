@@ -213,8 +213,8 @@
             [:assign var="_urlThumbnail" value=$_ads->getUrlThumbnail():]
         [:/if:]
         <div class="pr-banner">		
-    		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrl():]')">[:$_ads->getTitle():]</a><br/>
-    		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrl():]')"><img src="[:$_urlThumbnail:]" alt="some_text"/></a>
+    		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrlView():]')">[:$_ads->getTitle():]</a><br/>
+    		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrlView():]')"><img src="[:$_urlThumbnail:]" alt="some_text"/></a>
         </div>
     
      [:/foreach:]

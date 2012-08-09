@@ -80,7 +80,13 @@
            [:/foreach:]
         </ul>
 	</div>
-	
+	<script type="text/javascript">
+	$("div.sidebar-top").hide();
+	 setTimeout('showHeader()',1500);
+	function showHeader(){
+		$("div.sidebar-top").show();
+	}
+	</script>
 	[:call name=autoScroller elName=scroller auto='yes':]
 [:/if:]
 

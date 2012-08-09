@@ -22,6 +22,7 @@ class Vushop_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
     private $price, $oldPrice, $stock;
     private $imageId;
     private $hotItem, $newItem;
+    private $shop;
     
     private $category;
     
@@ -280,5 +281,19 @@ class Vushop_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
     public function setOwnerId($ownerId) {
         $this->ownerId = $ownerId;
     }
+	/**
+	 * @return the $shop
+	 */
+	public function getShop() {
+		return $this->shop;
+	}
 
+	/**
+	 * @param field_type $shop
+	 */
+	public function setShop($shop) {
+		$this->shop = $shop;
+	}
+
+    
 }

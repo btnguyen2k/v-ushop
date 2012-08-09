@@ -10,6 +10,7 @@ class Vushop_Bo_Cart_BoCartItem extends Vushop_Bo_Catalog_BoItem {
     private $sessionId, $itemId, $quantity;
 
     private $urlView = NULL;
+    private $shop=NULL;
 
     /**
      * @see Quack_Bo_BaseBo::getFieldMap()
@@ -150,4 +151,20 @@ class Vushop_Bo_Cart_BoCartItem extends Vushop_Bo_Catalog_BoItem {
     public function getTotalForDisplay() {
         return Vushop_Utils::formatPrice($this->getTotal());
     }
+	/**
+	 * @return the $shop
+	 */
+	public function getShop() {
+		return parent::getShop();
+	}
+
+	/**
+	 * @param field_type $shop
+	 */
+	public function setShop($shop) {
+		 parent::setShop($shop);
+	}
+
+    
+    
 }

@@ -1,28 +1,28 @@
 <?php
 class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
-
+    
     /* Database table columns */
     const COL_SESSION_ID = 'session_id';
     const COL_STATUS = 'cart_status';
     const COL_UPDATE_TIMESTAMP = 'update_timestamp';
     const COL_USER_ID = 'user_id';
-
+    
     private $sessionId, $status, $updateTimestamp, $userId;
     private $cartItems = Array();
-
+    
     private $urlView = NULL;
     private $urlCheckout = NULL;
-
+    
     /**
      * @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {
-        return Array(self::COL_SESSION_ID => Array('sessionId'),
-                self::COL_STATUS => Array('status', self::TYPE_INT),
-                self::COL_UPDATE_TIMESTAMP => Array('updateTimestamp', self::TYPE_INT),
+        return Array(self::COL_SESSION_ID => Array('sessionId'), 
+                self::COL_STATUS => Array('status', self::TYPE_INT), 
+                self::COL_UPDATE_TIMESTAMP => Array('updateTimestamp', self::TYPE_INT), 
                 self::COL_USER_ID => Array('userId', self::TYPE_INT));
     }
-
+    
     /**
      * Gets the URL to checkout the cart.
      *
@@ -34,7 +34,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
         }
         return $this->urlCheckout;
     }
-
+    
     /**
      * Gets the URL to view the cart.
      *
@@ -46,7 +46,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
         }
         return $this->urlView;
     }
-
+    
     /**
      * Getter for $sessionId.
      *
@@ -55,7 +55,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function getSessionId() {
         return $this->sessionId;
     }
-
+    
     /**
      * Setter for $sessionId.
      *
@@ -64,7 +64,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function setSessionId($sessionId) {
         $this->sessionId = $sessionId;
     }
-
+    
     /**
      * Getter for $status.
      *
@@ -73,7 +73,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function getStatus() {
         return $this->status;
     }
-
+    
     /**
      * Setter for $status.
      *
@@ -82,7 +82,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function setStatus($status) {
         $this->status = $status;
     }
-
+    
     /**
      * Getter for $updateTimestamp.
      *
@@ -91,7 +91,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function getUpdateTimestamp() {
         return $this->updateTimestamp;
     }
-
+    
     /**
      * Setter for $updateTimestamp.
      *
@@ -100,7 +100,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function setUpdateTimestamp($updateTimestamp) {
         $this->updateTimestamp = $updateTimestamp;
     }
-
+    
     /**
      * Getter for $userId.
      *
@@ -109,7 +109,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function getUserId() {
         return $this->userId;
     }
-
+    
     /**
      * Setter for $userId.
      *
@@ -118,7 +118,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function setUserId($userId) {
         $this->userId = $userId;
     }
-
+    
     /**
      * Gets all items currently in the cart.
      *
@@ -127,7 +127,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function getItems() {
         return $this->cartItems;
     }
-
+    
     /**
      * Gets number of items currently in the cart.
      *
@@ -136,7 +136,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function getNumItems() {
         return count($this->cartItems);
     }
-
+    
     /**
      * Gets total number of items currently in the cart.
      *
@@ -149,7 +149,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
         }
         return $result;
     }
-
+    
     /**
      * Gets total price of items currently in the cart.
      *
@@ -162,7 +162,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
         }
         return $result;
     }
-
+    
     /**
      * Gets total price of items currently in the cart (for displaying purpose).
      *
@@ -171,7 +171,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function getTotalPriceForDisplay() {
         return Vushop_Utils::formatPrice($this->getTotalPrice());
     }
-
+    
     /**
      * Gets an item in the cart
      *
@@ -189,7 +189,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
         }
         return isset($this->cartItems[$item]) ? $this->cartItems[$item] : NULL;
     }
-
+    
     /**
      * Adds an item to cart.
      *
@@ -199,17 +199,19 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function addItem($item, $quantity = 1) {
         if ($item instanceof Vushop_Bo_Cart_BoCartItem) {
             $this->cartItems[$item->getItemId()] = $item;
+            $this->cartItems[$item->getItemId()]->setShop($item->getShop());
         } else {
             //assuming $item is of type Vushop_Bo_Catalog_BoItem
             $itemId = $item->getId();
             if (!isset($this->cartItems[$itemId])) {
                 $this->cartItems[$itemId] = new Vushop_Bo_Cart_BoCartItem();
                 $this->cartItems[$itemId]->setPrice($item->getPrice());
+                $this->cartItems[$itemId]->setShop($item->getShop());
             }
             $this->cartItems[$itemId]->addQuantity($quantity);
         }
     }
-
+    
     /**
      * Checks if an item exists in cart.
      *
@@ -224,7 +226,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
         }
         return isset($this->cartItems[$item]);
     }
-
+    
     /**
      * Checks if the cart is empty.
      *
@@ -233,7 +235,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
     public function isEmpty() {
         return count($this->cartItems) == 0;
     }
-
+    
     /**
      * Gets the grand total value of the cart (=sum of all items' price * quantity)
      *
@@ -246,7 +248,7 @@ class Vushop_Bo_Cart_BoCart extends Quack_Bo_BaseBo {
         }
         return $result;
     }
-
+    
     /**
      * Gets the grand total value of the cart (=sum of all items' price * quantity) for displaying purpose.
      *

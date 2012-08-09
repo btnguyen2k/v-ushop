@@ -4,10 +4,11 @@
 	<br/>
     <div id="tabs">
         <ul>
-        	<li><a onclick="window.location.href='[:$MODEL.urlProfile:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.shopInformation'):]</a></li>
+        	<li><a onclick="window.location.href='[:$MODEL.urlProfile:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.shop.information'):]</a></li>
         	<li><a onclick="window.location.href='[:$MODEL.urlChangePassword:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.changePassword'):]</a></li>
             <li><a onclick="window.location.href='[:$MODEL.urlMyItems:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.myitems'):]</a></li>
             <li><a href="#tab-4">[:$LANG->getMessage('msg.createItem'):]</a></li>
+             <li><a onclick="window.location.href='[:$MODEL.urlMyOrders:]';" href="javascript:void(0);">[:$LANG->getMessage('msg.myOrders'):]</a></li>
         </ul>
         <div id="tab-4">
         	<h2>[:$LANG->getMessage('msg.createItem'):]</h2>

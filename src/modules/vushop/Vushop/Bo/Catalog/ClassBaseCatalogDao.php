@@ -515,6 +515,9 @@ abstract class Vushop_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao impleme
             if ($result !== NULL) {
                 $cat = $this->getCategoryById($result->getCategoryId());
                 $result->setCategory($cat);
+                $shopDao=$this->getDaoFactory()->getDao(DAO_SHOP);
+                $shop=$shopDao->getShopById($result->getOwnerId());
+                $result->setShop($shop);
             }
         }
         return $this->returnCachedResult($result, $cacheKey);
