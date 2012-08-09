@@ -110,6 +110,8 @@
         			<img src="[:$_urlThumbnail:]" width="220px" height="150px" class="sanpham" alt="some_text"/><br/>  </a>
     			</div>
     			<div class="item-price">[:$LANGUAGE->getMessage('msg.price'):]: [:$item->getPriceForDisplay():]</div>
+    			<div class="item-price">[:$LANGUAGE->getMessage('msg.shopPrice'):]: [:$item->getOldPriceForDisplay():]</div>
+    			<div class="item-price">[:$LANGUAGE->getMessage('msg.savingPrice'):]: [:$item->getSavingForDisplay():]</div>
     			<table width="100%">
     				<tr>
     					<td>

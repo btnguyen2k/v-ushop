@@ -108,7 +108,7 @@ abstract class Vushop_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
             $rows = $this->execSelect($sqlStm, $params);
             if ($rows !== NULL && count($rows) > 0) {
                 $result = new Vushop_Bo_User_BoUser();
-                $result->populate($rows[0]);               
+                $result->populate($rows[0]);
             }
         }
         return $this->returnCachedResult($result, $cacheKey);
@@ -175,6 +175,8 @@ abstract class Vushop_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
                 Vushop_Bo_User_BoUser::COL_GROUP_ID => (int)$user->getGroupId(), 
                 Vushop_Bo_User_BoUser::COL_TITLE => $user->getTitle(), 
                 Vushop_Bo_User_BoUser::COL_FULLNAME => $user->getFullname(), 
+                Vushop_Bo_User_BoUser::COL_ADDRESS => $user->getAddress(), 
+                Vushop_Bo_User_BoUser::COL_PHONE => $user->getPhone(), 
                 Vushop_Bo_User_BoUser::COL_LOCATION => $user->getLocation());
         $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache();
@@ -194,6 +196,8 @@ abstract class Vushop_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
                 Vushop_Bo_User_BoUser::COL_FULLNAME => $user->getFullname(), 
                 Vushop_Bo_User_BoUser::COL_LOCATION => $user->getLocation(), 
                 Vushop_Bo_User_BoUser::COL_PASSWORD => $user->getPassword(), 
+                Vushop_Bo_User_BoUser::COL_ADDRESS => $user->getAddress(), 
+                Vushop_Bo_User_BoUser::COL_PHONE => $user->getPhone(), 
                 Vushop_Bo_User_BoUser::COL_GROUP_ID => (int)$user->getGroupId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($user);

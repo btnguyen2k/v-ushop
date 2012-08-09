@@ -6,8 +6,8 @@
     
     <h1 class="main-header">[:$LANG->getMessage('msg.detailsInformation'):]</h1>
     <br/>
-    <div>
-    	<table>
+    <div >
+    	<table style="width: 100%">
     		<tr>
     			<td width="200">
     				[:if $_item->getUrlThumbnail()=='':]
@@ -22,7 +22,7 @@
                     [:/if:]
                     <img width="200" height="200" alt="" style="padding: 5px; border: 1px solid #DCDCDC;" src="[:$_urlThumbnail:]"/>
     			</td>
-    			<td valign="top" style="padding-left: 20px">
+    			<td >
     				<span class="item-header-name">[:$_item->getTitle()|escape:'html':]</span>
     				<br/>
     				<br/>
@@ -37,10 +37,23 @@
                             <input type="text" name="quantity" value="1" style="width: 20px"/>                                
                         </small>
             	 	</form>   
-            	 	<br/>          		
-            		<span class="item-header-price" style="color:#08C;">[:$LANG->getMessage('msg.item.price'):]:</span> <span style="font-size: 16px;font-weight: bold;">[:$_item->getPriceForDisplay():]</span>
-            		<br/><br/>
-            		<span class="item-header-price" style="color:#08C;font-size: 14px">[:$LANG->getMessage('msg.item.vendor'):]:</span> [:$_item->getVendor()|escape:'html':]
+            	 	<br/>    
+            	 	<table style="width: 100%">	
+            	 		<tr>
+            	 			<td class="item-header-price" >[:$LANG->getMessage('msg.price'):]:</td>
+            	 			<td class="item-display-price">[:$_item->getPriceForDisplay():]</td>
+            	 		</tr>
+            	 		<tr>
+            	 			<td class="item-header-price" >[:$LANG->getMessage('msg.shopPrice'):]:</td>
+            	 			<td class="item-display-price">[:$_item->getOldPriceForDisplay():]</td>
+            	 		</tr>
+            	 		<tr>
+            	 			<td class="item-header-price" >[:$LANG->getMessage('msg.savingPrice'):]:</td>
+            	 			<td class="item-display-price">[:$_item->getSavingForDisplay():]</td>
+            	 		</tr>
+            		</table>      
+            		<br/>
+            		<span class="item-header-price" >[:$LANG->getMessage('msg.item.vendor'):]:</span> [:$_item->getVendor()|escape:'html':]
                 	
     			</td>
     		</tr>

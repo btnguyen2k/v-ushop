@@ -18,7 +18,7 @@
             		<th width="30px">[:$MODEL.language->getMessage('msg.stt'):]</th>
             		<th >[:$MODEL.language->getMessage('msg.item'):]</th>
             		<th width="60px">[:$MODEL.language->getMessage('msg.image'):]</th>
-            		<th style="text-align: right;" >[:$MODEL.language->getMessage('msg.price'):]</th>            		
+            		<th style="text-align: right;" >[:$MODEL.language->getMessage('msg.item.price'):]</th>            		
             		<th style="text-align: center;width: 80px">[:$MODEL.language->getMessage('msg.quantity'):]</th>
             		<th  style="text-align: right;">[:$MODEL.language->getMessage('msg.total'):]</th>
             	</tr>

@@ -9,7 +9,7 @@
         		
         		<th width="30px">[:$MODEL.language->getMessage('msg.stt'):]</th>
         		<th >[:$MODEL.language->getMessage('msg.item'):]</th>
-        		<th style="text-align: right;" >[:$MODEL.language->getMessage('msg.price'):]</th>            		
+        		<th style="text-align: right;" >[:$MODEL.language->getMessage('msg.item.price'):]</th>            		
         		<th style="text-align: center;width: 80px">[:$MODEL.language->getMessage('msg.quantity'):]</th>
         		<th  style="text-align: right;">[:$MODEL.language->getMessage('msg.total'):]</th>
         	</tr>
@@ -21,7 +21,7 @@
         		<td style="white-space: normal;">[:$item->getTitle()|escape:'html':]</td>        		
 				<td style="text-align: right;">[:$item->getPriceForDisplay():]</td>
         		<td style="text-align: center;">[:$item->getQuantity():] </td>
-        		<td style="text-align: right;font-size: 16px">[:$item->getTotalForDisplay():]</td>
+        		<td style="text-align: right;font-size: 14px">[:$item->getTotalForDisplay():]</td>
         	</tr>
         [:foreachelse:]
             <tr>
@@ -30,19 +30,15 @@
         [:/foreach:]
         </tbody>
         <tfoot>  
-        	<tr>
-        		<th colspan="3">
-        			<div class="btn-group ">
-                      	<button class="btn btn-warning" onclick="redirect('[:$MODEL.cart->getUrlView():]')" >[:$MODEL.language->getMessage('msg.editCart'):]</button>
-                    </div>
-                </th>
-        		<th style="text-align: right;font-size: 16px">[:$MODEL.language->getMessage('msg.grandTotal'):] : </th>
-        		<th style="text-align: right;font-size: 16px" >[:$MODEL.cart->getGrandTotalForDisplay():]</th>
+        	<tr class="table-header">        		
+        		<th colspan="4" style="text-align: right;font-size: 14px">[:$MODEL.language->getMessage('msg.grandTotal'):] : </th>
+        		<th style="text-align: right;font-size: 14px" >[:$MODEL.cart->getGrandTotalForDisplay():]</th>
         		
         	</tr>
         </tfoot>
     </table>
-
+    <br/>
+	<button class="btn btn-warning" onclick="redirect('[:$MODEL.cart->getUrlView():]')" >[:$MODEL.language->getMessage('msg.editCart'):]</button>
  <h1>[:$MODEL.language->getMessage('msg.checkout'):]</h1>
  <br/>
 <form method="post" style="text-align: left;" action="[:$MODEL.form.action:]" name="[:$MODEL.form.name|escape:'html':]">
@@ -59,7 +55,7 @@
     <label style="display: inline;" class="lable-css">[:$MODEL.language->getMessage('msg.order.paymentMethod'):]:</label>
     <input [:if $MODEL.form.orderPaymentMethod==0:]checked="checked"[:/if:] type="radio" name="orderPaymentMethod" value="0" />
         [:$MODEL.language->getMessage('msg.order.paymentMethod.cash'):]
-    <input [:if $MODEL.form.orderPaymentMethod==1:]checked="checked"[:/if:] type="radio" name="orderPaymentMethod" value="1" />
+    <input  [:if $MODEL.form.orderPaymentMethod==1:]checked="checked"[:/if:] type="radio" name="orderPaymentMethod" value="1" />
         [:$MODEL.language->getMessage('msg.order.paymentMethod.transfer'):]
     <br />
     <label class="lable-css">[:$MODEL.language->getMessage('msg.order.otherInfo'):]:</label>

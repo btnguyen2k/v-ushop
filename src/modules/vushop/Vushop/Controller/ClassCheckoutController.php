@@ -71,9 +71,18 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
      */
     protected function buildModel_Form() {
         $cart = $this->getCurrentCart();
+        
         $form = Array('action' => $_SERVER['REQUEST_URI'], 
                 'actionCancel' => $cart->getUrlView(), 
                 'name' => 'frmCheckout');
+        if ($this->getCurrentUser() !== NULL) {
+            $user = $this->getCurrentUser();
+            $form[self::FORM_FIELD_ORDER_NAME] = $user->getFullname();
+            $form[self::FORM_FIELD_ORDER_EMAIL] = $user->getEmail();
+            $form[self::FORM_FIELD_ORDER_PHONE] = $user->getPhone() != NULL ? $user->getPhone() : '';
+            $form[self::FORM_FIELD_ORDER_OTHER_INFO] = $user->getAddress() != NULL ? $user->getAddress() : '';
+        
+        }
         $this->populateForm($form, Array(self::FORM_FIELD_ORDER_EMAIL, 
                 self::FORM_FIELD_ORDER_NAME, 
                 self::FORM_FIELD_ORDER_PHONE, 
@@ -125,6 +134,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $mailer = new PHPMailer(TRUE);
         $mailer->SetFrom($this->getAppConfig(CONFIG_EMAIL_OUTGOING));
         $mailer->AddAddress($this->getAppConfig(CONFIG_EMAIL_ORDER_NOTIFICATION));
+        $mailer->AddAddress($orderEmail);        
         //$mailer->ContentType = 'text/html';
         $mailer->CharSet = 'UTF-8';
         $subject = $this->getAppConfig(CONFIG_EMAIL_ON_SUBJECT);
@@ -234,11 +244,11 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $order->setTimestamp(time());
             $orderDao = $this->getDao(DAO_ORDER);
             $orderDao->createOrder($order);
-            $this->createOrderDetail($cart, $id, $orderDao);
+            $this->createOrderDetail($cart, $id, $orderDao, $orderPaymentMethod);
         }
     }
     
-    private function createOrderDetail($cart, $orderId, $orderDao) {
+    private function createOrderDetail($cart, $orderId, $orderDao, $orderPaymentMethod) {
         if ($cart != NULL) {
             $orderDetail = new Vushop_Bo_Order_BoOrderDetail();
             $cartItems = $cart->getItems();
@@ -246,7 +256,8 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
                 foreach ($cartItems as $cartItem) {
                     $orderDetail->setItemId($cartItem->getItemId());
                     $orderDetail->setOrderId($orderId);
-                    $orderDetail->setPrice($cartItem->getPrice());
+                    $price = $orderPaymentMethod == 0 ? $cartItem->getPrice() : $cartItem->getOldPrice();
+                    $orderDetail->setPrice($price);
                     $orderDetail->setQuantity($cartItem->getQuantity());
                     $orderDetail->setTimestamp(time());
                     $orderDetail->setStatus(0);

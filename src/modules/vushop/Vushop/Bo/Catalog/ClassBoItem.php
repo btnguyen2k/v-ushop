@@ -205,6 +205,24 @@ class Vushop_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
         return Vushop_Utils::formatPrice($this->price);
     }
     
+    /**
+     * Gets price value for displaying purpose.
+     *
+     * @return double
+     */
+    public function getOldPriceForDisplay() {
+        return Vushop_Utils::formatPrice($this->oldPrice);
+    }
+    
+ /**
+     * Gets price value for displaying purpose.
+     *
+     * @return double
+     */
+    public function getSavingForDisplay() {
+        return Vushop_Utils::formatPrice(abs($this->price-$this->oldPrice));
+    }
+    
     public function getPrice() {
         return $this->price;
     }
@@ -281,19 +299,18 @@ class Vushop_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
     public function setOwnerId($ownerId) {
         $this->ownerId = $ownerId;
     }
-	/**
-	 * @return the $shop
-	 */
-	public function getShop() {
-		return $this->shop;
-	}
-
-	/**
-	 * @param field_type $shop
-	 */
-	public function setShop($shop) {
-		$this->shop = $shop;
-	}
-
+    /**
+     * @return the $shop
+     */
+    public function getShop() {
+        return $this->shop;
+    }
     
+    /**
+     * @param field_type $shop
+     */
+    public function setShop($shop) {
+        $this->shop = $shop;
+    }
+
 }

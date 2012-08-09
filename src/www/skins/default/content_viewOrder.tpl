@@ -25,9 +25,9 @@
         				<td class="lable" width="15%">[:$LANG->getMessage('msg.order.paymentMethod'):] :</td>
         				<td width="35%">
         					[:if $_order->getPaymentMethod():]
-        						[:$LANG->getMessage('msg.order.paymentMethod.cash'):]
-        					[:else:]
         						[:$LANG->getMessage('msg.order.paymentMethod.transfer'):]
+        					[:else:]
+        						[:$LANG->getMessage('msg.order.paymentMethod.cash'):]
         					[:/if:]
         				</td>         				
         				<td class="lable" width="15%">[:$LANG->getMessage('msg.order.name'):] :</td>
@@ -57,7 +57,7 @@
             		<th width="30px">[:$MODEL.language->getMessage('msg.stt'):]</th>
             		<th >[:$MODEL.language->getMessage('msg.item'):]</th>
             		<th width="60px">[:$MODEL.language->getMessage('msg.image'):]</th>
-            		<th style="text-align: right;" >[:$MODEL.language->getMessage('msg.price'):]</th>            		
+            		<th style="text-align: right;" >[:$MODEL.language->getMessage('msg.item.price'):]</th>            		
             		<th style="text-align: center;width: 80px">[:$MODEL.language->getMessage('msg.quantity'):]</th>
             		<th  style="text-align: right;">[:$MODEL.language->getMessage('msg.total'):]</th>
             		<th  style="text-align: right;">[:$MODEL.language->getMessage('msg.order.status.completed'):]</th>
@@ -86,7 +86,7 @@
                            		<form id="form_item_[:$_orderItem->getItemId():]" action="[:$_orderItem->getUrlChangeStatus():]" method="post">
                            			<input type="hidden" name="orderId" value="[:$_orderItem->getOrderId():]">
                            			<input type="hidden" name="itemId" value="[:$_orderItem->getItemId():]">
-                           			<input onchange="submitForm('form_item_[:$_orderItem->getItemId():]')" name="status" type="checkbox" value="true" [:if $_orderItem->getStatus():]checked [:/if:]/></td>
+                           			<input onchange="submitForm('form_item_[:$_orderItem->getItemId():]')" name="status" type="checkbox" value="1" [:if $_orderItem->getStatus():]checked [:/if:]/></td>
                            		</form>
                         </tr>
                     	[:foreachelse:]

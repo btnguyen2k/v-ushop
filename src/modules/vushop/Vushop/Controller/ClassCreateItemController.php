@@ -9,6 +9,7 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
     const FORM_FIELD_VENDOR = 'itemVendor';
     const FORM_FIELD_CODE = 'itemCode';
     const FORM_FIELD_PRICE = 'itemPrice';
+    const FORM_FIELD_OLD_PRICE = 'itemOldPrice';
     const FORM_FIELD_IMAGE = 'itemImage';
     const FORM_FIELD_IMAGE_ID = 'itemImageId';
     const FORM_FIELD_URL_IMAGE = 'urlItemImage';
@@ -82,6 +83,7 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
                 self::FORM_FIELD_PRICE, 
                 self::FORM_FIELD_TITLE, 
                 self::FORM_FIELD_VENDOR, 
+                 self::FORM_FIELD_OLD_PRICE,
                 self::FORM_FIELD_CODE, 
                 self::FORM_FIELD_IMAGE_ID));
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
@@ -117,7 +119,8 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
         $vendor = isset($_POST[self::FORM_FIELD_VENDOR]) ? trim($_POST[self::FORM_FIELD_VENDOR]) : '';
         $code = isset($_POST[self::FORM_FIELD_CODE]) ? trim($_POST[self::FORM_FIELD_CODE]) : '';
         $price = isset($_POST[self::FORM_FIELD_PRICE]) ? (double)$_POST[self::FORM_FIELD_PRICE] : 0.0;
-        $ownerId = isset($_SESSION[SESSION_USER_ID])?$_SESSION[SESSION_USER_ID]:0;
+        $oldPrice = isset($_POST[self::FORM_FIELD_OLD_PRICE]) ? (double)$_POST[self::FORM_FIELD_OLD_PRICE] : 0.0;
+        $ownerId = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : 0;
         
         if ($categoryId < 1) {
             $categoryId = 0;
@@ -130,10 +133,10 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
         
         if ($ownerId == 0) {
             $this->addErrorMessage($lang->getMessage('error.yourShopNotFound'));
-        }else{
-            $shopDao=$this->getDao(DAO_SHOP);
-            $shop=$shopDao->getShopById($ownerId);
-            if ($shop==NULL){
+        } else {
+            $shopDao = $this->getDao(DAO_SHOP);
+            $shop = $shopDao->getShopById($ownerId);
+            if ($shop == NULL) {
                 $this->addErrorMessage($lang->getMessage('error.yourShopNotFound'));
             }
         }
@@ -172,6 +175,7 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
                 Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, 
                 Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $oldPrice, 
                 Vushop_Bo_Catalog_BoItem::COL_PRICE => $price, 
+                Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $oldPrice, 
                 Vushop_Bo_Catalog_BoItem::COL_STOCK => $stock, 
                 Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP => $timestamp, 
                 Vushop_Bo_Catalog_BoItem::COL_TITLE => $title, 
@@ -181,6 +185,7 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
         $item->populate($data);
         //$catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, $hotItem, $newItem);
         
+
         $catalogDao->createItem($item);
         
         // clean-up

@@ -13,7 +13,8 @@
     	<!--<a href="ymsgr:sendIM?thoitranghieu"><img src="http://opi.yahoo.com/online?u=thoitranghieu&m=g&t=2" border="0"></a>
     	<a href="ymsgr:sendIM?vankhoa_tcdn11"><img src="http://opi.yahoo.com/online?u=vankhoa_tcdn11&m=g&t=2" border="0"></a>-->
     </div>
-	<p>
+    	<br/>
+	<p style="padding-left: 10px">
         <!-- Histats.com  START  (standard)-->
         <script type="text/javascript">document.write(unescape("%3Cscript src=%27http://s10.histats.com/js15.js%27 type=%27text/javascript%27%3E%3C/script%3E"));</script>
         <a href="http://www.histats.com" target="_blank" title="counter easy hit" ><script  type="text/javascript" >

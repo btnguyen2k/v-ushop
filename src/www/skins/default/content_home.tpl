@@ -16,7 +16,11 @@
                         [:else:]
                             [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
                         [:/if:]	        			
-            				<li onclick="redirect('[:$_item->getUrlView():]')"><img src="[:$_urlThumbnail:]" class="sanpham" alt=""><div style="width: 120px;height:40px;white-space: normal;">[:$_item->getTitle():]</div></li>  
+            				<li onclick="redirect('[:$_item->getUrlView():]')" style="text-align: left;"><img src="[:$_urlThumbnail:]" class="sanpham" alt=""><div style="width: 120px;height:40px;white-space: normal;padding-left: 5px">
+							[:$_item->getTitle():]<br/>
+                    		[:$LANG->getMessage('msg.price'):]: [:$_item->getPriceForDisplay():]<br/>
+                    		[:$LANG->getMessage('msg.shopPrice'):]: [:$_item->getOldPriceForDisplay():]<br/>
+                    		[:$LANG->getMessage('msg.savingPrice'):]: [:$_item->getSavingForDisplay():]</div></li>  
             				
             		[:/foreach:] 
             		[:call name=autoScroller elName=$scrollerId auto='no':]

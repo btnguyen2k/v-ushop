@@ -135,3 +135,15 @@ function doBlink() {
     for (var i=0; i<blink.length; i++)
         blink[i].style.visibility = blink[i].style.visibility == "" ? "hidden" : "" 
 }
+
+function changeHomeImage(toggle){
+	var img=document.getElementById('home-image');
+	if (img!=null) {
+		if(toggle=='out'){
+			img.src='images/icons/home.png';
+		}else{
+			img.src='images/icons/home1.png';
+		}
+	}
+	
+}

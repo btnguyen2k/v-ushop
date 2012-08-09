@@ -9,6 +9,8 @@ class Vushop_Controller_RegisterController extends Vushop_Controller_BaseFlowCon
     const FORM_FIELD_USERNAME = 'username';
     const FORM_FIELD_EMAIL = 'email';
     const FORM_FIELD_PASSWORD = 'password';
+    const FORM_FIELD_ADDRESS = 'address';
+    const FORM_FIELD_PHONE = 'phone';
     const FORM_FIELD_CONFIRMED_PASSWORD = 'confirmedPassword';
     
     /**
@@ -47,6 +49,8 @@ class Vushop_Controller_RegisterController extends Vushop_Controller_BaseFlowCon
                 self::FORM_FIELD_FULLNAME, 
                 self::FORM_FIELD_USERNAME, 
                 self::FORM_FIELD_LOCATION, 
+                self::FORM_FIELD_ADDRESS, 
+                self::FORM_FIELD_PHONE, 
                 self::FORM_FIELD_EMAIL));
         if ($this->hasError()) {
             $form['errorMessages'] = $this->getErrorMessages();
@@ -66,6 +70,8 @@ class Vushop_Controller_RegisterController extends Vushop_Controller_BaseFlowCon
         
         $username = isset($_POST[self::FORM_FIELD_USERNAME]) ? trim($_POST[self::FORM_FIELD_USERNAME]) : '';
         $email = isset($_POST[self::FORM_FIELD_EMAIL]) ? trim($_POST[self::FORM_FIELD_EMAIL]) : '';
+        $address = isset($_POST[self::FORM_FIELD_ADDRESS]) ? trim($_POST[self::FORM_FIELD_ADDRESS]) : '';
+        $phone = isset($_POST[self::FORM_FIELD_PHONE]) ? trim($_POST[self::FORM_FIELD_PHONE]) : '';
         $password = isset($_POST[self::FORM_FIELD_PASSWORD]) ? trim($_POST[self::FORM_FIELD_PASSWORD]) : '';
         $confirmedPassword = isset($_POST[self::FORM_FIELD_CONFIRMED_PASSWORD]) ? trim($_POST[self::FORM_FIELD_CONFIRMED_PASSWORD]) : '';
         
@@ -95,6 +101,12 @@ class Vushop_Controller_RegisterController extends Vushop_Controller_BaseFlowCon
         } else if ($password !== $confirmedPassword) {
             $this->addErrorMessage($lang->getMessage('error.passwordsMismatch'));
         }
+        if ($address === '') {
+            $this->addErrorMessage($lang->getMessage('error.emptyAddress'));
+        }
+        if ($phone === '') {
+            $this->addErrorMessage($lang->getMessage('error.emptyPhone'));
+        }
         
         if ($this->hasError()) {
             return FALSE;
@@ -108,6 +120,8 @@ class Vushop_Controller_RegisterController extends Vushop_Controller_BaseFlowCon
         $user->setPassword(md5($password));
         $user->setTitle($title);
         $user->setUsername($username);
+        $user->setAddress($address);
+        $user->setPhone($phone);
         $userDao->createUser($user);
         return TRUE;
     }

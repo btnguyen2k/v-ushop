@@ -23,7 +23,7 @@ class Vushop_Bo_Order_BoOrderDetail extends Quack_Bo_BaseBo {
                 self::COL_ITEM_ID => Array('itemId', self::TYPE_INT), 
                 self::COL_QUANTITY => Array('quantity', self::TYPE_DOUBLE), 
                 self::COL_PRICE => Array('price', self::TYPE_DOUBLE), 
-                self::COL_STATUS => Array('status', self::TYPE_INT));
+                self::COL_STATUS => Array('status', self::TYPE_BOOLEAN));
     }
     /**
      * @return the $orderId
