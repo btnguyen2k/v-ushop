@@ -156,6 +156,8 @@ CREATE TABLE vushop_user (
     uemail          VARCHAR(64)             NOT NULL,
         UNIQUE INDEX (uemail),
     upassword       VARCHAR(64)             NOT NULL,
+    uaddress       	VARCHAR(64),
+    uphone	       	VARCHAR(64),
     ugroup_id       INT                     NOT NULL DEFAULT 0,
         INDEX (ugroup_id),
     utitle          VARCHAR(32),
