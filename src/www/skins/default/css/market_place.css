@@ -18,12 +18,13 @@ DATE            :   January 18, 2010
 	outline: 0
 }
 
-body {	
+body {
 	font: 11px/1.75em Tahoma, Arial;
 	color: #666666;
 	text-align: center;
 	margin: 0 0 15px 0;
-	background: #fff url(../images/background.jpg) no-repeat;
+	border-top: 4px solid #E41f1f;
+	/*background: #fff url(../images/background.jpg) no-repeat*/;
 }
 
 /* links */
@@ -80,7 +81,6 @@ h5 {
 }
 
 h1,h2,h3,p {
-	padding: 10px;
 	margin: 0;
 }
 
@@ -217,7 +217,7 @@ input.button {
 
 #header {
 	position: relative;
-	background: #fff; /*url(header-bg.jpg) repeat-y center top;*/
+	background: #fff url('../images/header.png') no-repeat;*/
 	height: 60px;
 	width: 910px;
 	padding: 0;
@@ -286,7 +286,6 @@ input.button {
 	left: 315px;
 }
 
-
 /* Main Column */
 #main {
 	width: 500px;
@@ -295,7 +294,7 @@ input.button {
 }
 
 #main h1 {
-	margin: 10px 5px 0px 0px;
+	margin: 3px 2px 0px 0px;
 	padding: 5px 5px;
 	font: bold 1.7em Tahoma, Arial;
 	color: #E81f1f;
@@ -309,7 +308,7 @@ input.button {
 	margin: 10px 5px 0px 0px;
 	padding: 5px 5px;
 	font: bold 1.3em Tahoma, Arial;
-	color:#E81f1f;
+	color: #E81f1f;
 	border-bottom: 2px solid #E82E18;
 	border-bottom-style: groove;
 	text-shadow: #666 0.2em 0.2em 0.4em;
@@ -318,9 +317,7 @@ input.button {
 
 /* left-column right-column*/
 #left-column,#right-column {
-	width: 195px;
-	margin-top: 15px;
-	
+	width: 190px;
 }
 
 /* left-column */
@@ -336,10 +333,11 @@ input.button {
 #right-column h1,#left-column h1 {
 	margin: 10px 5px 0px 10px;
 	padding: 5px 5px;
-	font: bold 1.4em Tahoma, Arial;	
+	font: bold 1.4em Tahoma, Arial;
 	text-transform: uppercase;
 	background-color: #E82E18;
 	color: #fff;
+	
 }
 
 /* sidemenu */
@@ -462,16 +460,13 @@ ul.sidemenu :last-child {
 	height: 250px;
 	padding-left: 5px;
 	padding-right: 5px;
-	
 }
 
-.shop-title{
+.shop-title {
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
 }
-
-
 
 .shop-title-blue {
 	clear: both;
@@ -482,8 +477,6 @@ ul.sidemenu :last-child {
 	font-weight: bold;
 	color: rgb(50, 50, 50);
 }
-
-
 
 /*.middle-column-box-title-yellow {
     clear: both;
@@ -540,7 +533,7 @@ ul.sidemenu :last-child {
 .item-list {
 	float: left;
 	width: 230px;
-	height: 320px;
+	height: 360px;
 	padding: 10px;
 }
 
@@ -549,10 +542,10 @@ ul.sidemenu :last-child {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	
 }
-item a{
-	color: black;	
+
+item a {
+	color: black;
 }
 
 .item-image {
@@ -604,7 +597,7 @@ item a{
 	text-align: right;
 	padding-right: 5px;
 	font-weight: bold;
-	font-size: 14px
+	font-size: 12px
 }
 
 .category-title {
@@ -616,7 +609,6 @@ item a{
 	border-bottom: 2px solid #ECD56D;
 	border-bottom-style: groove;
 	text-shadow: #666 0.2em 0.2em 0.4em;
-	margin: 10px 5px 0px 10px;
 	cursor: pointer;
 }
 
@@ -652,11 +644,13 @@ item a{
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	filter: progid :   dximagetransform.microsoft.gradient (   startColorstr
-		= 
-		 '#ffffff', endColorstr =   '#c6c6c6', GradientType =   0 );
-	filter: progid :   dximagetransform.microsoft.gradient (   enabled =  
-		false );
+	filter: progid :       dximagetransform.microsoft.gradient (     
+		 startColorstr =   
+		   '#ffffff', endColorstr =       '#c6c6c6', GradientType =       0 );
+	filter: progid :       dximagetransform.microsoft.gradient (      
+		enabled = 
+		  
+		  false );
 	*zoom: 1;
 	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px
 		rgba(0, 0, 0, 0.05);
@@ -877,14 +871,14 @@ item a{
 
 .table {
 	width: 100%;
-	
-	
 }
-.table-header{
+
+.table-header {
 	background: #E82E18;
 	color: #fff;
 }
-.table-conent{
+
+.table-conent {
 	padding-left: 10px
 }
 
@@ -895,10 +889,10 @@ item a{
 .even {
 	background: white;
 }
+
 .hover {
 	background: #eee;
 }
-
 
 /* all form DIVs have position property set to relative so we can easily position newly created SPAN */
 .container-select {
@@ -948,9 +942,16 @@ span.select {
 }
 
 .item-header-price {
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: bold;
 	text-transform: capitalize;
+	color: #08C;
+}
+
+.item-display-price {
+	font-size: 14px;
+	font-weight: bold;
+	text-align: right;
 }
 
 .lable {
@@ -959,9 +960,9 @@ span.select {
 }
 
 .standard_error {
-	width: 440px;
+	width: 540px;
 	margin: 0 auto;
-	padding: 4em 0 6em;	
+	padding: 4em 0 6em;
 }
 
 .blockhead {
@@ -988,7 +989,7 @@ span.select {
 	border: 1px solid #DCDCDC;
 }
 
-.editItemImg{
+.editItemImg {
 	width: 220;
 	height: 200px;
 	position: absolute;
@@ -997,18 +998,36 @@ span.select {
 	z-index: 2;
 }
 
-.contact{
+.contact {
 	font-size: 14px;
 	font-weight: bold;
 	padding-left: 20px;
 }
 
 .errorMsg {
-    font-weight: bold;
-    color: #ff0000;
+	font-weight: bold;
+	color: #ff0000;
 }
 
 .infoMsg {
-    font-weight: bold;
-    color: #009010;
+	font-weight: bold;
+	color: #009010;
 }
+
+.text-logo {
+	font-size: 14px;
+	font-style: italic;
+	color: #E82E18;
+	padding-left: 50px
+}
+.sidebar-top h1 {
+	margin: 10px 5px 0px 0px;
+	padding: 5px 5px;
+	font: bold 1.7em Tahoma, Arial;
+	color: #E81f1f;
+	border-bottom: 2px solid #E82E18;
+	border-bottom-style: groove;
+	text-shadow: #666 0.2em 0.2em 0.4em;
+	text-transform: uppercase;
+}
+

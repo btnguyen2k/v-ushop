@@ -135,12 +135,12 @@ Note all DIVs are generated and should not be hard-coded
 */
 
 .simply-scroll { /* Customisable base class for style override DIV */
-	width: 100%;
+	width: 99%;
 	margin-bottom: 0;
 }
 
 	.simply-scroll .simply-scroll-clip {
-		width: 100%;
+		width: 99.5%;
 	}
 	
 		.simply-scroll .simply-scroll-list {}
@@ -151,13 +151,13 @@ Note all DIVs are generated and should not be hard-coded
 			text-align: center;
 			cursor: pointer;
 			color: #656565;
-			width:170px;
-			height: 200px;
+			width:165px;
+			height: 260px;
 			white-space: normal;
 		}
 		.simply-scroll .simply-scroll-list li img {			
 			padding: 5px;		
-			width: 160px;
+			width: 155px;
 			height: 150px;	
 		}
 		
