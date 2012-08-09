@@ -28,9 +28,9 @@ jQuery(document).ready(function(){
 
    		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-			<a href="javascript:void(0)">[:$LANG->getMessage('msg.home'):] |</a> 
+			<a href="javascript:void(0)" onclick="redirect('$MODEL.urlHome')">[:$LANG->getMessage('msg.home'):] |</a> 
 			<a href="javascript:void(0)">[:$LANG->getMessage('msg.contact'):] |</a>
-			<a href="javascript:void(0)">[:$LANG->getMessage('msg.registerShop'):] </a>
+			<a href="javascript:void(0)" onclick="showMessage('[:$LANG->getMessage('msg.shop.register.info'):]')">[:$LANG->getMessage('msg.registerShop'):] </a>
 			[:if isset($MODEL.urlBackend):]
 			<a href="javascript:void(0)" onclick="redirect('[:$MODEL.urlBackend:]')">| [:$LANG->getMessage('msg.pageAdmin'):]</a>
 			[:/if:]

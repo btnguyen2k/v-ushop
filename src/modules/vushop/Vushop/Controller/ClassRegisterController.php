@@ -34,7 +34,6 @@ class Vushop_Controller_RegisterController extends Vushop_Controller_BaseFlowCon
         
         $model[MODEL_URL_TRANSIT] = $_SERVER['SCRIPT_NAME'];
         $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $_SERVER['SCRIPT_NAME']);
-       
         
         return new Dzit_ModelAndView($viewName, $model);
     }
@@ -73,9 +72,14 @@ class Vushop_Controller_RegisterController extends Vushop_Controller_BaseFlowCon
         if ($email === '') {
             $this->addErrorMessage($lang->getMessage('error.invalidEmail', $email));
         } else {
-            $user = $userDao->getUserByEmail($email);
-            if ($user !== NULL) {
-                $this->addErrorMessage($lang->getMessage('error.emailExists', htmlspecialchars($email)));
+            if ($this->isValidEmail($email)) {
+                $user = $userDao->getUserByEmail($email);
+                if ($user !== NULL) {
+                    $this->addErrorMessage($lang->getMessage('error.emailExists', htmlspecialchars($email)));
+                }
+            
+            } else {
+                $this->addErrorMessage($lang->getMessage('error.invalidEmail', $email));
             }
         }
         if ($username === '') {

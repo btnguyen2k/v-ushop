@@ -102,6 +102,11 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         
         if ($orderEmail === '') {
             $this->addErrorMessage($lang->getMessage('error.emptyOrderEmail'));
+        } else {
+            if (!$this->isValidEmail($orderEmail)) {
+                
+                $this->addErrorMessage($lang->getMessage('error.invalidEmail', $orderEmail));
+            }
         }
         if ($orderName === '') {
             $this->addErrorMessage($lang->getMessage('error.emptyOrderName'));
@@ -229,7 +234,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $order->setTimestamp(time());
             $orderDao = $this->getDao(DAO_ORDER);
             $orderDao->createOrder($order);
-           $this->createOrderDetail($cart, $id, $orderDao);
+            $this->createOrderDetail($cart, $id, $orderDao);
         }
     }
     

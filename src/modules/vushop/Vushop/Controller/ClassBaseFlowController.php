@@ -419,7 +419,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         return $_SERVER['SCRIPT_NAME'] . '/viewOrder';
     }
 
-/**
+    /**
      * Get the url to access user's item list.
      *
      * @return string
@@ -473,6 +473,10 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         return $this->viewName;
     }
 
+    protected function isValidEmail($email) {
+         return preg_match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^', $email);
+    }
+    
     /**
      *
      * @see Dzit_Controller_FlowController::getModelAndView()
@@ -558,7 +562,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
         $model[MODEL_URL_UPDATE_CART] = $this->getUrlUpdateCart();
         $model[MODEL_URL_PRINT_CART] = $this->getUrlPrintCart();
         $model[MODEL_URL_CHANGE_PASSWORD] = $this->getUrlChangePassword();
-         $model[MODEL_URL_MY_ORDERS] = $this->getUrlMyOrders();
+        $model[MODEL_URL_MY_ORDERS] = $this->getUrlMyOrders();
         if ($user !== NULL) {
             if ($user !== NULL && $user->getGroupId() === USER_GROUP_ADMIN) {
                 $model[MODEL_URL_BACKEND] = $this->getUrlBackend();

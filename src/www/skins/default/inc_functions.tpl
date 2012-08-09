@@ -212,9 +212,11 @@
         [:else:]
             [:assign var="_urlThumbnail" value=$_ads->getUrlThumbnail():]
         [:/if:]
-        <div class="pr-banner">						
-    		<a href="[:$_ads->getUrlView():]">[:$_ads->getTitle():]</a><br/>
-    		<a href="[:$_ads->getUrlView():]"><img src="[:$_urlThumbnail:]" alt="[:$_ads->getTitle()|escape:'html':]"/></a>
-        </div>    
-    [:/foreach:]
+        <div class="pr-banner">		
+    		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrl():]')">[:$_ads->getTitle():]</a><br/>
+    		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrl():]')"><img src="[:$_urlThumbnail:]" alt="some_text"/></a>
+        </div>
+    
+     [:/foreach:]
+
 [:/function:]

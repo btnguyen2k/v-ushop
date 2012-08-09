@@ -5,6 +5,10 @@ function redirect(url) {
 function jumpTo(id) {
 	document.location.hash = '#' + id;
 }
+function openNewTab(url){
+	window.open(url, '_blank'); 
+	return false;
+}
 
 function openPopupTestLocation(popupId, locationValue) {
     var wWidth = 640;
