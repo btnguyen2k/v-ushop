@@ -111,10 +111,7 @@ function toggleChecked(status) {
 }
 
 function confirmDelete(mess){
-	if (confirm(mess)) {
-		return true;
-	}
-	return false;
+	return confirm(mess);
 }
 
 function changeActionForm(action,formId){
