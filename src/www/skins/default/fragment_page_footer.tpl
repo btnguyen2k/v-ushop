@@ -19,7 +19,9 @@ jQuery(document).ready(function(){
 </script>
 <!-- footer starts -->			
 	<div id="footer-wrap" >
-		<div id="footer">			
+				
+		<div id="footer">	
+				
 			<p>
     			<a>[:$MODEL.page.copyright:] </a>
     
@@ -29,7 +31,6 @@ jQuery(document).ready(function(){
        		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
     			<a href="javascript:void(0)" onclick="redirect('$MODEL.urlHome')">[:$LANG->getMessage('msg.home'):] |</a> 
-    			<a href="javascript:void(0)">[:$LANG->getMessage('msg.contact'):] |</a>
     			<a href="javascript:void(0)" onclick="showMessage('[:$LANG->getMessage('msg.shop.register.info'):]')">[:$LANG->getMessage('msg.registerShop'):] </a>
     			[:if isset($MODEL.urlBackend):]
     			<a href="javascript:void(0)" onclick="redirect('[:$MODEL.urlBackend:]')">| [:$LANG->getMessage('msg.pageAdmin'):]</a>

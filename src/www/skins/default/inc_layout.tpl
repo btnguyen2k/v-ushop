@@ -16,8 +16,7 @@
             		[:include file='inc_column_right.tpl':]
     			[:/if:]
       		</div>
-  		
-    [:include file='fragment_page_footer.tpl':]
     </div>
+    [:include file='fragment_page_footer.tpl':]
 </body>
 </html>
