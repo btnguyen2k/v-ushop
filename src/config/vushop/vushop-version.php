@@ -1,5 +1,5 @@
 <?php
-$vCatalogVersion = preg_replace('/\\$Revision:.*?(\\d+).*?$/', '$1', 'v0.1.4.120809.$Revision$');
+$vCatalogVersion = preg_replace('/\\$Revision:.*?(\\d+).*?$/', '$1', 'v0.1.4.120810.$Revision$');
 define('VUSHOP_VERSION', $vCatalogVersion);
 /*
  * * 2012-08-02: v0.1.4
