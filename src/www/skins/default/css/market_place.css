@@ -24,6 +24,7 @@ body {
 	text-align: center;
 	margin: 0 0 15px 0;
 	border-top: 4px solid #E41f1f;
+	position: relative;
 	/*background: #fff url(../images/background.jpg) no-repeat*/;
 }
 
@@ -356,22 +357,23 @@ ul.sidemenu :last-child {
 /* footer-wrap */
 #footer-wrap {
 	clear: both;
-	width: 910px;
+	width: 100%;
 	font-size: 95%;
 	padding: 20px 0;
 	text-align: left;
-	background-color: #ffffff;
+	background-color: #E41f1f;
+	color: #fff
 	/* url(footer-bottom.jpg) no-repeat center bottom;	*/
 }
 
 #footer-wrap a {
 	text-decoration: none;
-	color: #1E1C0D;
+	color: #fff;
 	font-weight: bold;
 }
 
 #footer-wrap a:hover {
-	color: #000;
+	color: #fff;
 }
 
 #footer-wrap p {
@@ -379,7 +381,7 @@ ul.sidemenu :last-child {
 }
 
 #footer-wrap h2 {
-	color: #1E1C0D;
+	color: #fff;
 	margin: 0;
 	padding: 0 10px;
 }
@@ -392,7 +394,6 @@ ul.sidemenu :last-child {
 	width: 850px;
 	padding: 5px 0;
 	text-align: center;
-	background: #Ffffff;
 	border-top: 1px solid #D9D9D9;
 }
 
