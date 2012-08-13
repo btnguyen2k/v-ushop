@@ -60,10 +60,8 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $model = Array();
         }
         $lang = $this->getLanguage();
-        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.checkout.done'));
-        $urlTransit = $_SERVER['SCRIPT_NAME'];
-        $model[MODEL_URL_TRANSIT] = $urlTransit;
-        $model[MODEL_TRANSIT_MESSAGE] = $lang->getMessage('msg.transit', $urlTransit);
+        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.checkout.done',htmlspecialchars($this->orderId)));
+        
         
         return new Dzit_ModelAndView($viewName, $model);
     }

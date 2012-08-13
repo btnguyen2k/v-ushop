@@ -304,15 +304,7 @@ input.button {
 	text-shadow: #666 0.2em 0.2em 0.4em;
 	text-transform: uppercase;
 }
-#main h1:not(:first-child) {
-	margin: 0;
-	padding: 0;
-	color: #666666;
-	border-bottom: none;
-	border-bottom-style: none;
-	text-shadow: none;
-	text-transform: none;
-}
+
 
 #main h2 {
 	margin: 10px 5px 0px 0px;
@@ -325,15 +317,7 @@ input.button {
 	text-transform: uppercase;
 	color: 
 }
-#main h2:not(:first-child) {
-	margin: 0;
-	padding: 0;
-	color: #666666;
-	border-bottom: none;
-	border-bottom-style: none;
-	text-shadow: none;
-	text-transform: none;
-}
+
 
 /* left-column right-column*/
 #left-column,#right-column {
@@ -626,7 +610,7 @@ item a {
 	padding: 5px 5px;
 	font: bold 1.7em Tahoma, Arial;
 	color: #E81f1f;
-	border-bottom: 2px solid #ECD56D;
+	border-bottom: 2px solid #E82E18;
 	border-bottom-style: groove;
 	text-shadow: #666 0.2em 0.2em 0.4em;
 	cursor: pointer;
@@ -977,8 +961,6 @@ span.select {
 .lable {
 	font-size: 13px;
 	font-weight: bold;
-	text-align: right;
-	width: 40%;
 }
 
 .standard_error {

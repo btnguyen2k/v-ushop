@@ -53,6 +53,7 @@
             	<thead class="table-header" style="font-weight: bold;">  
                 	<tr> 
                 		<th width="30px" style="text-align: center;">[:$MODEL.language->getMessage('msg.stt'):]</th>
+                		<th style="text-align: center;">[:$MODEL.language->getMessage('msg.order.id'):]</th>
                 		<th style="text-align: center;">[:$MODEL.language->getMessage('msg.item'):]</th>
                 		<th >[:$MODEL.language->getMessage('msg.shop'):]</th>
                 		<th width="60px">[:$MODEL.language->getMessage('msg.image'):]</th>
@@ -70,7 +71,8 @@
                     [:/if:]
                 	<tr class="[:if $item@index%2==0:]odd[:else:]even[:/if:] "> 
                 		<td style="text-align: center;">[:$item@index+1:]</td>
-                		<td >[:$item->getCode()|escape:'html':]-[:$item->getTitle()|escape:'html':]</td>
+                		<td style="text-align: center;">[:$item->getCode()|escape:'html':]</td>
+                		<td >[:$item->getTitle()|escape:'html':]</td>
                 		<td >[:$item->getShop()->getTitle()|escape:'html':]</td>
                 		<td style="text-align: center;"> <img src="[:$_urlThumbnail:]" width="40px"  style="padding: 2px;border: 1px solid #DCDCDC;margin-top: 2px;" height="40px" alt=""> </td>
         				<td style="text-align: right;">[:$item->getPriceForDisplay():]</td>
@@ -85,7 +87,7 @@
                 </tbody>
                 <tfoot>  
                 	<tr class="table-header">                		
-                		<th colspan="6" style="text-align: right;font-weight: normal;">[:$MODEL.language->getMessage('msg.grandTotal'):] : </th>
+                		<th colspan="7" style="text-align: right;font-weight: normal;">[:$MODEL.language->getMessage('msg.grandTotal'):] : </th>
                 		<th style="text-align: right;font-weight: normal;" >[:$MODEL.cart->getGrandTotalForDisplay():]</th>
                 		
                 	</tr>

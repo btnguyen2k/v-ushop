@@ -2,7 +2,7 @@
 <body class="[:$DOJO_THEME:]">
 [:if isset($MODEL.orderObj):]
 	[:assign var="_order" value=$MODEL.orderObj:]
-    <h1 class="heading align-center viewport-800">[:$LANG->getMessage('msg.orderInformation'):] - [:$_order->getId()|escape:'html':]</h1>
+    <h1 class="heading align-center viewport-800">[:$LANG->getMessage('msg.orderInformation'):] - <span style="text-transform: uppercase;">[:$_order->getId()|escape:'html':]</span></h1>
 		<div class="align-center viewport-800">
     			
            		<table class="align-center viewport-800" cellpadding="0" cellspacing="0" border="0px">        			
@@ -58,7 +58,7 @@
                             <td>[:$_orderItem->getItemId():]-[:$_orderItem->getItem()->getTitle():] </td>
                             <td>
                                 [:if $_orderItem->getItem()->getUrlThumbnail()=='':]
-                                    [:assign var="_urlThumbnail" value="images/img_general.jpg":]
+                                    [:assign var="_urlThumbnail" value="img/img_general.jpg":]
                                 [:else:]
                                     [:assign var="_urlThumbnail" value=$_orderItem->getItem()->getUrlThumbnail():]
                                 [:/if:]
