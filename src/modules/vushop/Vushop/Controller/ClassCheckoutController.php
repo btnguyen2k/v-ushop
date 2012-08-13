@@ -10,6 +10,8 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
     const FORM_FIELD_ORDER_PAYMENT_METHOD = 'orderPaymentMethod';
     const FORM_FIELD_ORDER_OTHER_INFO = 'orderOtherInfo';
     
+    private $orderId;
+    
     /**
      * Test if the cart is valid.
      *
@@ -245,6 +247,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $orderDao = $this->getDao(DAO_ORDER);
             $orderDao->createOrder($order);
             $this->createOrderDetail($cart, $id, $orderDao, $orderPaymentMethod);
+            $this->orderId=$id;
         }
     }
     

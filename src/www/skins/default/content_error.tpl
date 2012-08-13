@@ -1,5 +1,5 @@
 
-<div class="main" align="center">
+<div class="main" style="width: 885px; text-align: center">
     <div id="error" class="standard_error" align="left">
         <h2 class="blockhead">[:$MODEL.language->getMessage('msg.error'):]</h2>
     	<form  class="vbform" style="text-align: center;" method="post"> 

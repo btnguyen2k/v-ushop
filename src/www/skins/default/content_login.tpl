@@ -1,8 +1,8 @@
-<div class="main" align="center">
-    <div class="standard_error">
+<div class="main" style="width: 885px; text-align: center">
+    <div class="standard_error" >
         <h2 class="blockhead">[:$LANG->getMessage('msg.login'):]</h2>
         
-        <form id="form-login" class="vbform" method="post" action="">
+        <form id="form-login" class="vbform" method="post" action="" style="text-align: center">
        		[:call name=printFormHeader form=$MODEL.form:]
        <table style="padding: 20px;width: 400px">
     		<tr>
