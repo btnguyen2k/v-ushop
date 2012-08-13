@@ -512,7 +512,7 @@ ul.sidemenu :last-child {
 
 .pr-banner img {
 	width: 165px;
-	height: 60px;
+	height: 90px;
 	border: 1px solid #DCDCDC;
 	padding: 5px;
 }
@@ -964,6 +964,8 @@ span.select {
 	width: 540px;
 	margin: 0 auto;
 	padding: 4em 0 6em;
+	text-align: center;
+	border: 1px solid;
 }
 
 .blockhead {

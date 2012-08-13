@@ -151,14 +151,14 @@ Note all DIVs are generated and should not be hard-coded
 			text-align: center;
 			cursor: pointer;
 			color: #656565;
-			width:165px;
-			height: 260px;
+			width:245px;
+			height: 320px;
 			white-space: normal;
 		}
 		.simply-scroll .simply-scroll-list li img {			
 			padding: 5px;		
-			width: 155px;
-			height: 150px;	
+			width: 235px;
+			height: 210px;	
 		}
 		
 	
