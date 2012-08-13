@@ -24,5 +24,7 @@
         <noscript><a href="http://www.histats.com" target="_blank"><img  src="http://sstatic1.histats.com/0.gif?2026361&101" alt="counter easy hit" border="0"></a></noscript>
         <!-- Histats.com  END  -->
     </p>
-	
-	
+    [:if isset($MODEL.adsList) && count($MODEL.adsList)>10:]
+	<h1>[:$LANG->getMessage('msg.ads'):]</h1>
+	[:call name=displayAds adsList=$MODEL.adsList begin=10 end=20:]
+	[:/if:]

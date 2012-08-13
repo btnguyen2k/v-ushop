@@ -46,7 +46,7 @@ interface Vushop_Bo_Order_IOrderDao extends Ddth_Dao_IDao {
     public function getOrderDetailByOrderIdAndItemId($orderId, $itemId);
     
     /**
-     * Counts number of current order for shop.
+     * Counts number of all order for shop.
      *
      *@param Vushop_Bo_Order_BoShop $shop
      * @param mixed $featuredOrdersOnly
@@ -55,7 +55,7 @@ interface Vushop_Bo_Order_IOrderDao extends Ddth_Dao_IDao {
     public function getAllOrdersForShop($shop, $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $orderSorting = DEFAULT_ORDER_SORTING, $featuredOrders = FEATURED_ORDER_ALL);
     
     /**
-     * Counts number of current order for shop.
+     * Counts number of count order for shop.
      *
      *@param Vushop_Bo_Order_BoShop $shop
      * @param mixed $featuredOrdersOnly
@@ -72,5 +72,35 @@ interface Vushop_Bo_Order_IOrderDao extends Ddth_Dao_IDao {
      * @return array
      */
     public function getOrderDetailForOrderShop($order, $shop);
+    
+    
+    
+     /**
+     * Counts number of all order .
+     *
+     *@param Vushop_Bo_Order_BoShop $shop
+     * @param mixed $featuredOrdersOnly
+     * @return Array
+     */
+    public function getAllOrders($pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $orderSorting = DEFAULT_ORDER_SORTING, $featuredOrders = FEATURED_ORDER_ALL);
+    
+    /**
+     * Counts number of count orders.
+     *
+     *@param Vushop_Bo_Order_BoShop $shop
+     * @param mixed $featuredOrdersOnly
+     * @return int
+     */
+    public function countNumOrders($featuredOrders = FEATURED_ORDER_ALL);
+    
+    /**
+     * Gets all orders detail within a order as a list.
+     *
+     * @param Vushop_Bo_Order_BoOrder $order
+     * @param Vushop_Bo_Shop_BoShop $shop
+     * 
+     * @return array
+     */
+    public function getOrderDetailForOrder($order);
 
 }

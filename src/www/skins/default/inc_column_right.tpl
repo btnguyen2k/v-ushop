@@ -46,5 +46,5 @@
 [:/if:]
 
 <h1>[:$LANG->getMessage('msg.ads'):]</h1>
-[:call name=displayAds adsList=$MODEL.adsList:]
+[:call name=displayAds adsList=$MODEL.adsList begin=0 end=10:]
 	

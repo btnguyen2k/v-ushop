@@ -207,18 +207,19 @@
 [:/function:]
 
 
-[:function name=displayAds adsList=NULL:]
+[:function name=displayAds adsList=NULL begin=0 end=10:]
     [:foreach $adsList as $_ads:]
-        [:if $_ads->getUrlThumbnail()=='':]
-            [:assign var="_urlThumbnail" value="images/img_general.jpg":]
-        [:else:]
-            [:assign var="_urlThumbnail" value=$_ads->getUrlThumbnail():]
-        [:/if:]
-        <div class="pr-banner">		
-    		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrlView():]')">[:$_ads->getTitle():]</a><br/>
-    		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrlView():]')"><img src="[:$_urlThumbnail:]" alt="some_text"/></a>
-        </div>
-    
+    	[:if $_ads@index>$begin && $end>$_ads@index:]
+            [:if $_ads->getUrlThumbnail()=='':]
+                [:assign var="_urlThumbnail" value="images/img_general.jpg":]
+            [:else:]
+                [:assign var="_urlThumbnail" value=$_ads->getUrlThumbnail():]
+            [:/if:]
+            <div class="pr-banner">		
+        		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrlView():]')">[:$_ads->getTitle():]</a><br/>
+        		<a href="javascript:void(0)" onclick="openNewTab('[:$_ads->getUrlView():]')"><img src="[:$_urlThumbnail:]" alt="some_text"/></a>
+            </div>
+    	[:/if:]
      [:/foreach:]
 
 [:/function:]

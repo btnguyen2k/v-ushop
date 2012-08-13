@@ -359,6 +359,30 @@ $YADIF_CONFIG = Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
                         Array('method' => 'setAllowedUserGroups', 
                                 'arguments' => Array(Array(USER_GROUP_ADMIN))))), 
+                      
+        'Vushop_Controller_Admin_OrdersController' => Array(
+                'class' => 'Vushop_Controller_Admin_OrdersController', 
+                'scope' => 'singleton', 
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
+                        Array('method' => 'setAllowedUserGroups', 
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))), 
+                        
+         'Vushop_Controller_Admin_ViewOrderController' => Array(
+                'class' => 'Vushop_Controller_Admin_ViewOrderController', 
+                'scope' => 'singleton', 
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
+                        Array('method' => 'setAllowedUserGroups', 
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))), 
+                        
+       	'Vushop_Controller_Admin_EditOrderDetailController' => Array(
+                'class' => 'Vushop_Controller_Admin_EditOrderDetailController', 
+                'scope' => 'singleton', 
+                'methods' => Array(
+                        Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)), 
+                        Array('method' => 'setAllowedUserGroups', 
+                                'arguments' => Array(Array(USER_GROUP_ADMIN))))), 
         
         'Vushop_Controller_Admin_CreateUserController' => Array(
                 'class' => 'Vushop_Controller_Admin_CreateUserController', 

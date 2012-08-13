@@ -21,3 +21,13 @@ function getFileUploadName(fileId, inputId) {
 			fileUpload.value.length);
 	inputId.value = name;
 }
+function loadOrderForShop(select,url){
+	var selected = select.options[select.selectedIndex].value;
+		redirect(url + '?status=' + selected);
+}
+
+function submitForm(formId){
+	var form =document.getElementById(formId);
+	form.submit()
+	return true;	
+}

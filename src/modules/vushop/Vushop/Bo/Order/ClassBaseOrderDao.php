@@ -14,6 +14,7 @@ abstract class Vushop_Bo_Order_BaseOrderDao extends Quack_Bo_BaseDao implements
     const PARAM_SHOP_ID = 'shop_id';
     const PARAM_START_OFFSET = 'startOffset';
     const PARAM_PAGE_SIZE = 'pageSize';
+    const ORDER_COL_TIMESTAMP='otimestamp';
     
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
@@ -231,6 +232,101 @@ abstract class Vushop_Bo_Order_BaseOrderDao extends Quack_Bo_BaseDao implements
             }
             $result = $this->execCount($sqlStm, $params);
         }
+        return $result;
+    
+    }
+    
+          /**
+     * @see Vushop_Bo_Order_IOrderDao::getAllOrdersForShop()
+     */
+    public function getAllOrders( $pageNum = 1, $pageSize = DEFAULT_PAGE_SIZE, $orderSorting = DEFAULT_ORDER_SORTING, $featuredOrders = FEATURED_ORDER_ALL) {
+       
+        switch ($featuredOrders) {
+            case FEATURED_ORDER_COMPLETED:
+                $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . '.featuredCompleted');
+                break;
+            case FEATURED_ORDER_NOT_COMPLETE:
+                $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . '.featuredNotComplete');
+                break;
+            default:
+                $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        }
+        $params = Array(self::PARAM_START_OFFSET => ($pageNum - 1) * $pageSize, 
+                self::PARAM_PAGE_SIZE => $pageSize);
+        switch ($orderSorting) {
+            case ORDER_SORTING_TIMEASC:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(self::ORDER_COL_TIMESTAMP);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('ASC');
+                break;
+            case ORDER_SORTING_TIMEDESC:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(self::ORDER_COL_TIMESTAMP);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
+                break;
+            default:
+                $params[self::PARAM_SORTING_FIELD] = new Ddth_Dao_ParamAsIs(self::ORDER_COL_TIMESTAMP);
+                $params[self::PARAM_SORTING] = new Ddth_Dao_ParamAsIs('DESC');
+        }
+        $result = Array();
+        
+        $rows = $this->execSelect($sqlStm, $params);
+        if ($rows !== NULL && count($rows) > 0) {
+            foreach ($rows as $row) {
+                $orderId = $row[Vushop_Bo_Order_BoOrder::COL_ID];
+                $order = $this->getOrderById($orderId);
+                $result[] = $order;
+            }
+        }
+        if ($result != NULL) {
+            foreach ($result as $order) {
+                $orderDao = $this->getDaoFactory()->getDao(DAO_ORDER);
+                $orderDetailList = $orderDao->getOrderDetailForOrder($order);
+                $order->setOrderDetail($orderDetailList);
+            }
+        }
+        return $result;
+    
+    }
+    
+    /**
+     *
+     * @see Vushop_Bo_Order_IOrderDao::getOrderDetailForOrder()
+     */
+    public function getOrderDetailForOrder($order) {
+        $result = Array();
+        if ($order !== NULL) {
+            $orderId = $order->getId();
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $result = Array();
+            $params = Array(self::PARAM_ORDER_ID => $order->getId());
+            $rows = $this->execSelect($sqlStm, $params);
+            if ($rows !== NULL && count($rows) > 0) {
+                foreach ($rows as $row) {
+                    $orderId = $row[Vushop_Bo_Order_BoOrderDetail::COL_ORDER_ID];
+                    $itemId = $row[Vushop_Bo_Order_BoOrderDetail::COL_ITEM_ID];
+                    $orderDetail = $this->getOrderDetailByOrderIdAndItemId($orderId, $itemId);
+                    $result[] = $orderDetail;
+                }
+            }
+        }
+        return $result;
+    }
+    
+    /** 
+     * @see Vushop_Bo_Order_IOrderDao::countNumOrdersForShop()
+     */
+    public function countNumOrders($featuredOrders = FEATURED_ORDER_ALL) {
+        $result = 0;
+            switch ($featuredOrders) {
+                case FEATURED_ORDER_COMPLETED:
+                    $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . '.featuredCompleted');
+                    break;
+                case FEATURED_ORDER_NOT_COMPLETE:
+                    $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . '.featuredNotComplete');
+                    break;
+                default:
+                    $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            }
+            $result = $this->execCount($sqlStm);
         return $result;
     
     }

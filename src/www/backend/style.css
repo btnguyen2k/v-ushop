@@ -102,3 +102,10 @@ button[type=submit] {
 .hot {
     color: #009010;
 }
+.lable{
+	font-weight: bold;
+	white-space: nowrap;
+}
+.viewport-1000 {
+    width: 920px;
+}

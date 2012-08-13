@@ -81,6 +81,14 @@ class Vushop_Controller_Admin_HomeController extends Vushop_Controller_Admin_Bas
                                         'groups' => Array(USER_GROUP_ADMIN),
                                         'url' => $urlCreator->createUrl(Array(
                                                 Dzit_IUrlCreator::PARAM_MODULE => 'createAds'))))),
+                 Array('title' => $lang->getMessage('msg.orderManagement'),
+                        'groups' => Array(USER_GROUP_ADMIN),
+                        'children' => Array(
+                                Array('title' => $lang->getMessage('msg.orderList'),
+                                        'icon' => 'orderList',
+                                        'groups' => Array(USER_GROUP_ADMIN),
+                                        'url' => $urlCreator->createUrl(Array(
+                                                Dzit_IUrlCreator::PARAM_MODULE => 'orders'))))),                                                
                 Array('title' => '-'),
                 Array('title' => $lang->getMessage('msg.catalogManagement'),
                         'groups' => Array(USER_GROUP_ADMIN, USER_GROUP_SHOP_OWNER),

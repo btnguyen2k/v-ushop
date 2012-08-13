@@ -46,6 +46,7 @@ class Vushop_Controller_Admin_BaseFlowController extends Vushop_Controller_BaseF
         $model['urlUserManagement'] = $this->getUrlUserManagement();
         // '/admin/createUser';
         $model['urlCreateUser'] = $_SERVER['SCRIPT_NAME'] . '/createUser';
+        $model['urlOrderManagement'] = $_SERVER['SCRIPT_NAME'] . '/orders';
         
         return $model;
     }
