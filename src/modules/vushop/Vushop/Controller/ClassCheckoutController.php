@@ -140,12 +140,15 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $subject = $this->getAppConfig(CONFIG_EMAIL_ON_SUBJECT);
         $body = $this->getAppConfig(CONFIG_EMAIL_ON_BODY);
         $cart = $this->getCurrentCart();
+      
         $orderItems = '<table border="1"><thread><tr><th style="text-align: center;">';
         $orderItems .= $lang->getMessage('msg.item') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
         $orderItems .= $lang->getMessage('msg.item.code') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
         $orderItems .= $lang->getMessage('msg.item.vendor') . '</th>';
+        $orderItems .= '<th style="text-align: center;" width="64px">';
+        $orderItems .= $lang->getMessage('msg.shop') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
         $orderItems .= $lang->getMessage('msg.price') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
@@ -155,10 +158,16 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $orderItems .= '</tr></thead>';
         $orderItems .= '<tbody>';
         foreach ($cart->getItems() as $item) {
+            $shopName='';
+            $shop=$item->getShop();
+            if ($shop!=null){
+                $shopName=$shop->getTitle();
+            }
             $orderItems .= '<tr>';
             $orderItems .= '<td>' . htmlspecialchars($item->getTitle()) . '</td>';
             $orderItems .= '<td>' . htmlspecialchars($item->getCode()) . '</td>';
             $orderItems .= '<td>' . htmlspecialchars($item->getVendor()) . '</td>';
+             $orderItems .= '<td>' . htmlspecialchars($shopName) . '</td>';
             $orderItems .= '<td align="right">' . $item->getPriceForDisplay() . '</td>';
             $orderItems .= '<td align="right">' . $item->getQuantityForDisplay() . '</td>';
             $orderItems .= '<td align="right">' . $item->getTotalForDisplay() . '</td>';
@@ -166,7 +175,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         }
         $orderItems .= '</tbody>';
         $orderItems .= '<tfoot><tr>';
-        $orderItems .= '<th style="text-align: right;" colspan="5">' . $lang->getMessage('msg.grandTotal') . '</th>';
+        $orderItems .= '<th style="text-align: right;" colspan="6">' . $lang->getMessage('msg.grandTotal') . '</th>';
         $orderItems .= '<th style="text-align: right;">' . $cart->getGrandTotalForDisplay() . '</th>';
         $orderItems .= '</tr></tfoot>';
         $orderItems .= '</table>';
