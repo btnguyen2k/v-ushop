@@ -573,14 +573,17 @@ item a {
 	padding-left: 5px;
 	padding-right: 5px;
 	color: #666666;
-	background: #DCDCDC;
 	-webkit-border-top-left-radius: 2px;
 	-webkit-border-bottom-left-radius: 2px;
 	-moz-border-radius-topleft: 2px;
 	-moz-border-radius-bottomleft: 2px;
 	border-top-left-radius: 2px;
 	border-bottom-left-radius: 2px;
-}
+	text-transform: uppercase;
+	/*background: url('../images/item_code.png') no-repeat;
+	padding-top: 5px;	
+	text-align: center;
+*/}
 
 .item img {
 	width: 220px;
