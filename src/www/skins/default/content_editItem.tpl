@@ -14,7 +14,7 @@
         	<h2>[:$LANG->getMessage('msg.editItem'):]</h2>
         	<form id="[:$FORM.name|escape:'html':]" class="align-center viewport-800"
                     name="[:$FORM.name|escape:'html':]" action="[:$FORM.action:]" method="post" enctype="multipart/form-data">
-               [:call name="printFormHeader" form=$FORM:]
+                [:call name="printFormHeader" form=$FORM:]
                 [:if isset($MODEL.form.urlItemImage):]
                         <img border="0" src="[:$MODEL.form.urlItemImage:]" class="editItemImg"/>
                 [:else:]
@@ -22,16 +22,12 @@
                 [:/if:]
                 [:call name="printFormHeader" form=$FORM:]
                 <p></p>
+                
                 <label for="form_itemCategory">[:$LANG->getMessage('msg.item.category'):]:</label>
-                 
-                
-                
-                 <select dojoType="dijit.form.Select" name="categoryId">
+                <select dojoType="dijit.form.Select" name="categoryId">
                     [:call name="printCategoryTreeSelectBox" catList=$MODEL.categoryTree index=0 selectedIndex=$MODEL.form.categoryId:]
                 </select>
                 <br />
-                
-                
                 
                 <label for="form_itemVendor">[:$LANG->getMessage('msg.item.vendor'):]:</label>
                 <input dojoType="dijit.form.ValidationTextBox" id="form_itemVendor"
@@ -62,12 +58,17 @@
                 <textarea id="form_itemDesc" rows="6"
                     style="width: 100%" name="itemDescription">[:$MODEL.form.itemDescription|escape:'html':]</textarea>
                 <br />
-                
+
                 <label for="form_itemImage">[:$LANG->getMessage('msg.item.image'):]:</label>
-                 <input id="form_itemImage" style="display: none" type="file" name="itemImage" onchange="getFileUploadName('form_itemImage','images-name')" />
-				 <input type="text" id="images-name" readonly="readonly" onclick="document.getElementById('form_itemImage').click();"><button type="button" onclick="document.getElementById('form_itemImage').click();" cl >&nbsp;&nbsp;[:$LANG->getMessage('msg.selectImage'):]&nbsp;&nbsp;</button>
-				<input type="hidden" name="itemImageId" value="[:$MODEL.form.itemImageId|escape:'html':]" /><br/>
-        		<br />
+                <input type="hidden" name="itemImageId" value="[:$MODEL.form.itemImageId|escape:'html':]" />
+                [:if strpos($smarty.server.HTTP_USER_AGENT, 'MSIE') !== false:]
+                    <input id="form_itemImage" type="file" name="itemImage" />
+                [:else:]
+                    <input id="form_itemImage" style="display: none" type="file" name="itemImage" onchange="getFileUploadName('form_itemImage','images-name')" />
+                    <input type="text" id="images-name" readonly="readonly" onclick="document.getElementById('form_itemImage').click();">
+                    <button class="btn" style="padding: 0px; margin: 0px; height: 20px; font-size: x-small;" type="button" onclick="document.getElementById('form_itemImage').click();">&nbsp;&nbsp;[:$LANG->getMessage('msg.selectImage'):]&nbsp;&nbsp;</button>
+                [:/if:]
+        		<br /><br />
                 
                 <p></p>
                 <button class="btn" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]&nbsp;&nbsp;&nbsp;&nbsp;</button>
