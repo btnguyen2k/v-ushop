@@ -180,12 +180,12 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
                 }
             }
         }
-        print_r(array_keys($arrayMap));
-        print_r(array_values($arrayMap));
-        exit(0);
         $orderItems .= '<ul>';
-        for ($i = 0; $i < count($arrayMap); $i++) {
-             $orderItems .='<li><span style="font-weight:bold;">'.array_keys($arrayMap[i]).'</span>: '.array_values($arrayMap[i]).'</li>';
+         $values=array_values($arrayMap);
+        $i=0;
+        foreach (array_keys($arrayMap) as $key) {            
+             $orderItems .='<li><span style="font-weight:bold;">'.$key.'</span>: '.$values[$i].'</li>';
+             $i++;
         }
         $orderItems .= '</ul>';
         
