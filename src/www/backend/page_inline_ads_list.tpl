@@ -31,8 +31,8 @@
                 <td>
                     <a href="[:$ads->url:]" target="_blank">[:$ads->title|escape:'html':]</a>
                 </td>
-                <td>
-                    [:$ads->url|escape:'html':]
+                <td title="[:$ads->url|escape:'html':]">
+                    [:$ads->getUrlLimit()|escape:'html':]
                 </td>
                  <td>
                    <img src="[:$_urlThumbnail:]" width="165" height="60">

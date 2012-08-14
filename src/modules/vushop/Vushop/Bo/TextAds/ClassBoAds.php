@@ -84,4 +84,12 @@ class Vushop_Bo_TextAds_BoAds extends Quack_Bo_BaseBo {
     public function setTimestamp($timestamp) {
         $this->timestamp = $timestamp;
     }
+    
+    public function getUrlLimit(){
+        $url=$this->getUrl();
+        if(strlen($url)>25){
+            return substr($url, 0,25);
+        }
+        return $url;
+    }
 }
