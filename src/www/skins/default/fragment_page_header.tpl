@@ -81,7 +81,7 @@
                     [:assign var="_urlThumbnail" value=$_item->getUrlThumbnail():]
                 [:/if:]			
             	<li onclick="redirect('[:$_item->getUrlView():]')" style="text-align: left;"><img src="[:$_urlThumbnail:]" alt="">
-            		<div style="padding-left: 5px">
+            		<div style="padding-left: 5px;font-size: 14px">
                 		<strong>[:$_item->getTitle():]</strong> <br/>
                 		[:$LANG->getMessage('msg.price'):]: [:$_item->getPriceForDisplay():]<br/>
                 		[:$LANG->getMessage('msg.shopPrice'):]: [:$_item->getOldPriceForDisplay():]<br/>
