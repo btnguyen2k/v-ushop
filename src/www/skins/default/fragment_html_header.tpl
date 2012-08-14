@@ -31,6 +31,7 @@
 	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
 	<script src="js/script.js" type="text/javascript"></script> 
 	<script src="js/simpletreemenu.js" type="text/javascript"></script>
+	<script src="js/jquery.lazyload.pack.js" type="text/javascript"></script>
 	 
 
   <title>[:$MODEL.page.title|escape:'html':]</title>

@@ -43,9 +43,14 @@
                     style="width: 50%" type="text" name="itemCode" value="[:$MODEL.form.itemCode|escape:'html':]" />
                 <br />
                 
-                <label for="form_itemPrice">[:$LANG->getMessage('msg.item.price'):]:</label>
+                <label for="form_itemPrice">[:$LANG->getMessage('msg.price'):]:</label>
                 <input dojoType="dijit.form.ValidationTextBox" id="form_itemPrice"
                     style="width: 50%" type="text" name="itemPrice" value="[:$MODEL.form.itemPrice|escape:'html':]" />
+                <br />
+                
+                <label for="form_itemShopPrice">[:$LANG->getMessage('msg.shopPrice'):]:</label>
+                <input dojoType="dijit.form.ValidationTextBox" id="form_itemShopPrice"
+                    style="width: 50%" type="text" name="itemOldPrice" value="[:$MODEL.form.itemOldPrice|escape:'html':]" />
                 <br />
                 
                 <label for="form_itemTitle">[:$LANG->getMessage('msg.item.title'):]:</label>

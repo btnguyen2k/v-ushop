@@ -87,11 +87,11 @@
         </ul>
 	</div>
 	<script type="text/javascript">
-	$("div.sidebar-top").hide();
-	 setTimeout('showHeader()',800);
-	function showHeader(){
-		$("div.sidebar-top").show();
-	}
+	$(document).ready( function()
+			{
+			    $('#scroller').lazyLoad();
+			});
+
 	</script>
 	[:call name=autoScroller elName=scroller auto='yes':]
 [:/if:]

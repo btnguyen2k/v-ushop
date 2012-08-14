@@ -53,7 +53,7 @@
             	<thead class="table-header" style="font-weight: bold;">  
                 	<tr> 
                 		<th width="30px" style="text-align: center;">[:$MODEL.language->getMessage('msg.stt'):]</th>
-                		<th style="text-align: center;">[:$MODEL.language->getMessage('msg.order.id'):]</th>
+                		<th style="text-align: center;">[:$MODEL.language->getMessage('msg.item.code'):]</th>
                 		<th style="text-align: center;">[:$MODEL.language->getMessage('msg.item'):]</th>
                 		<th >[:$MODEL.language->getMessage('msg.shop'):]</th>
                 		<th width="60px">[:$MODEL.language->getMessage('msg.image'):]</th>

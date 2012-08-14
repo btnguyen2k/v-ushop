@@ -60,8 +60,8 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $model = Array();
         }
         $lang = $this->getLanguage();
-        $model[MODEL_INFO_MESSAGES] = Array($lang->getMessage('msg.checkout.done',htmlspecialchars($this->orderId)));
-        
+        $model[MODEL_INFO_MESSAGES] = Array(
+                $lang->getMessage('msg.checkout.done', htmlspecialchars($this->orderId)));
         
         return new Dzit_ModelAndView($viewName, $model);
     }
@@ -134,7 +134,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $mailer = new PHPMailer(TRUE);
         $mailer->SetFrom($this->getAppConfig(CONFIG_EMAIL_OUTGOING));
         $mailer->AddAddress($this->getAppConfig(CONFIG_EMAIL_ORDER_NOTIFICATION));
-        $mailer->AddAddress($orderEmail);        
+        $mailer->AddAddress($orderEmail);
         //$mailer->ContentType = 'text/html';
         $mailer->CharSet = 'UTF-8';
         $subject = $this->getAppConfig(CONFIG_EMAIL_ON_SUBJECT);
@@ -142,6 +142,8 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $cart = $this->getCurrentCart();
         $orderItems = '<table border="1"><thread><tr><th style="text-align: center;">';
         $orderItems .= $lang->getMessage('msg.item') . '</th>';
+        $orderItems .= '<th style="text-align: center;" width="64px">';
+        $orderItems .= $lang->getMessage('msg.item.code') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
         $orderItems .= $lang->getMessage('msg.item.vendor') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
@@ -155,6 +157,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         foreach ($cart->getItems() as $item) {
             $orderItems .= '<tr>';
             $orderItems .= '<td>' . htmlspecialchars($item->getTitle()) . '</td>';
+            $orderItems .= '<td>' . htmlspecialchars($item->getCode()) . '</td>';
             $orderItems .= '<td>' . htmlspecialchars($item->getVendor()) . '</td>';
             $orderItems .= '<td align="right">' . $item->getPriceForDisplay() . '</td>';
             $orderItems .= '<td align="right">' . $item->getQuantityForDisplay() . '</td>';
@@ -163,10 +166,28 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         }
         $orderItems .= '</tbody>';
         $orderItems .= '<tfoot><tr>';
-        $orderItems .= '<th style="text-align: center;" colspan="4">' . $lang->getMessage('msg.grandTotal') . '</th>';
+        $orderItems .= '<th style="text-align: right;" colspan="5">' . $lang->getMessage('msg.grandTotal') . '</th>';
         $orderItems .= '<th style="text-align: right;">' . $cart->getGrandTotalForDisplay() . '</th>';
         $orderItems .= '</tr></tfoot>';
         $orderItems .= '</table>';
+        
+        $arrayMap = array();
+        foreach ($cart->getItems() as $item) {            
+            $shop = $item->getShop();
+            if (isset($shop)) {
+                if (!array_key_exists($shop->getTitle(),$arrayMap)) {
+                    $arrayMap[$shop->getTitle()] = $shop->getLocation();
+                }
+            }
+        }
+        print_r(array_keys($arrayMap));
+        print_r(array_values($arrayMap));
+        exit(0);
+        $orderItems .= '<ul>';
+        for ($i = 0; $i < count($arrayMap); $i++) {
+             $orderItems .='<li><span style="font-weight:bold;">'.array_keys($arrayMap[i]).'</span>: '.array_values($arrayMap[i]).'</li>';
+        }
+        $orderItems .= '</ul>';
         
         $replacements = Array(
                 'SITE_NAME' => htmlspecialchars($this->getAppConfig(CONFIG_SITE_NAME)), 
@@ -245,7 +266,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $orderDao = $this->getDao(DAO_ORDER);
             $orderDao->createOrder($order);
             $this->createOrderDetail($cart, $id, $orderDao, $orderPaymentMethod);
-            $this->orderId=$id;
+            $this->orderId = $id;
         }
     }
     

@@ -83,7 +83,7 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
                 self::FORM_FIELD_PRICE, 
                 self::FORM_FIELD_TITLE, 
                 self::FORM_FIELD_VENDOR, 
-                 self::FORM_FIELD_OLD_PRICE,
+                self::FORM_FIELD_OLD_PRICE, 
                 self::FORM_FIELD_CODE, 
                 self::FORM_FIELD_IMAGE_ID));
         $paperclipId = isset($_SESSION[$this->sessionKey]) ? $_SESSION[$this->sessionKey] : NULL;
@@ -121,7 +121,7 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
         $price = isset($_POST[self::FORM_FIELD_PRICE]) ? (double)$_POST[self::FORM_FIELD_PRICE] : 0.0;
         $oldPrice = isset($_POST[self::FORM_FIELD_OLD_PRICE]) ? (double)$_POST[self::FORM_FIELD_OLD_PRICE] : 0.0;
         $ownerId = isset($_SESSION[SESSION_USER_ID]) ? $_SESSION[SESSION_USER_ID] : 0;
-        
+      
         if ($categoryId < 1) {
             $categoryId = 0;
         } else {
@@ -165,7 +165,6 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
         }
         
         $timestamp = time();
-        $oldPrice = 0.0;
         $stock = 0.0;
         
         $data = Array(Vushop_Bo_Catalog_BoItem::COL_ACTIVE => 1, 
@@ -175,7 +174,6 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
                 Vushop_Bo_Catalog_BoItem::COL_IMAGE_ID => $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, 
                 Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $oldPrice, 
                 Vushop_Bo_Catalog_BoItem::COL_PRICE => $price, 
-                Vushop_Bo_Catalog_BoItem::COL_OLD_PRICE => $oldPrice, 
                 Vushop_Bo_Catalog_BoItem::COL_STOCK => $stock, 
                 Vushop_Bo_Catalog_BoItem::COL_TIMESTAMP => $timestamp, 
                 Vushop_Bo_Catalog_BoItem::COL_TITLE => $title, 
@@ -185,7 +183,6 @@ class Vushop_Controller_CreateItemController extends Vushop_Controller_BaseFlowC
         $item->populate($data);
         //$catalogDao->createItem($categoryId, $title, $description, $vendor, $timestamp, $price, $oldPrice, $stock, $paperclipItem !== NULL ? $paperclipItem->getId() : NULL, $hotItem, $newItem);
         
-
         $catalogDao->createItem($item);
         
         // clean-up
