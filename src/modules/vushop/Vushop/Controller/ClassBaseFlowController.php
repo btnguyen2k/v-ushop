@@ -759,7 +759,7 @@ class Vushop_Controller_BaseFlowController extends Dzit_Controller_FlowControlle
             $hasError = TRUE;
         }
         if ($maxFileSize > 0 && $file['size'] > $maxFileSize) {
-            $this->addErrorMessage($lang->getMessage('error.uploadedFileTooLarge', MAX_UPLOAD_FILESIZE . ' b'));
+            $this->addErrorMessage($lang->getMessage('error.uploadedFileTooLarge', MAX_UPLOAD_FILESIZE/1000 . 'Kb'));
             $hasError = TRUE;
         }
         if (!Commons_Utils_FileUtils::isValidFileExtension($file['name'], $allowedFileTypes)) {

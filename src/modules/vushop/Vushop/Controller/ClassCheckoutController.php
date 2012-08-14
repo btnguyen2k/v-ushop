@@ -128,7 +128,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             return FALSE;
         }
         
-        $this->createOrder($this->getCurrentCart(), $orderEmail, $orderPhone, $orderPaymentMethod, $orderOtherInfo, $orderName);
+        $orderId=$this->createOrder($this->getCurrentCart(), $orderEmail, $orderPhone, $orderPaymentMethod, $orderOtherInfo, $orderName);
         
         require_once 'class.phpmailer.php';
         $mailer = new PHPMailer(TRUE);
@@ -140,7 +140,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $subject = $this->getAppConfig(CONFIG_EMAIL_ON_SUBJECT);
         $body = $this->getAppConfig(CONFIG_EMAIL_ON_BODY);
         $cart = $this->getCurrentCart();
-      
+        $orderHeader='<h3 style="text-transform: uppercase;">'.$lang->getMessage('msg.order.id').': <span style="color:red">'.$orderId.'</span></h3>';
         $orderItems = '<table border="1"><thread><tr><th style="text-align: center;">';
         $orderItems .= $lang->getMessage('msg.item') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
@@ -158,7 +158,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
         $orderItems .= '</tr></thead>';
         $orderItems .= '<tbody>';
         foreach ($cart->getItems() as $item) {
-            $shopName='';
+            $shopName='&	nbsp;';
             $shop=$item->getShop();
             if ($shop!=null){
                 $shopName=$shop->getTitle();
@@ -207,7 +207,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
                 'ORDER_EMAIL' => htmlspecialchars($orderEmail), 
                 'ORDER_PHONE' => htmlspecialchars($orderPhone), 
                 'ORDER_OTHER_INFO' => htmlspecialchars($orderOtherInfo), 
-                'ORDER_ITEMS' => $orderItems, 
+                'ORDER_ITEMS' => $orderItems.$orderHeader, 
                 'PAYMENT_METHOD' => $orderPaymentMethod == 0 ? $lang->getMessage('msg.order.paymentMethod.cash') : $lang->getMessage('msg.order.paymentMethod.transfer'));
         //$mailer->IsHTML(TRUE);
         $mailer->Subject = $this->renderEmail($subject, $replacements);
@@ -277,6 +277,7 @@ class Vushop_Controller_CheckoutController extends Vushop_Controller_BaseFlowCon
             $this->createOrderDetail($cart, $id, $orderDao, $orderPaymentMethod);
             $this->orderId = $id;
         }
+        return $this->orderId;
     }
     
     private function createOrderDetail($cart, $orderId, $orderDao, $orderPaymentMethod) {
