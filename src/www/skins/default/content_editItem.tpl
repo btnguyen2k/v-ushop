@@ -71,7 +71,7 @@
                 
                 <p></p>
                 <button class="btn" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                <button class="btn" type="button" onclick="openUrl('[:$MODEL.form.actionCancel:]');">&nbsp;&nbsp;[:$LANG->getMessage('msg.cancel'):]&nbsp;&nbsp;</button>
+                <button class="btn" type="button" onclick="redirect('[:$MODEL.form.actionCancel:]');">&nbsp;&nbsp;[:$LANG->getMessage('msg.cancel'):]&nbsp;&nbsp;</button>
             </form>
            [:call name=tinymce elName=form_itemDesc:]
         	<script type="text/javascript">           

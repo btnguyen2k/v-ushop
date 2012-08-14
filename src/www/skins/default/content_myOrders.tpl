@@ -37,7 +37,7 @@
         			<th>[:$MODEL.language->getMessage('msg.order.email'):]</th>
         			<th>[:$MODEL.language->getMessage('msg.order.time'):]</th>
         			<th>[:$MODEL.language->getMessage('msg.order.priceTotal'):]</th>
-        			<th width="80px" style="text-align: center;">[:$LANG->getMessage('msg.actions'):]</th>
+        			<th width="40px" style="text-align: center;">[:$LANG->getMessage('msg.actions'):]</th>
         		</tr>
         	</thead>
         	<tbody>
@@ -57,8 +57,8 @@
         				[:/if:]
         			</td>
         			<td>[:$_order->getFullName()|escape:'html':]</td>
+        			<td>[:$_order->getPhone()|escape:'html':]</td>        			
         			<td>[:$_order->getEmail()|escape:'html':]</td>
-        			<td>[:$_order->getPhone()|escape:'html':]</td>
         			<td>[:$_order->getDisplayForTimeStamp():]</td>   
         			<td>[:$_order->getTotalPriceForDisplay():]</td>   
         			<td align="center"><img alt="" title="[:$LANG->getMessage('msg.view'):]" src="images/icons/detail.png"> </td>        			

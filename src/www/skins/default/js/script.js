@@ -106,7 +106,7 @@ function loadItemForCategory(select, url) {
 
 function toggleChecked(status) {
 	$("[name='itemIds[]']").each(function() {
-		$(this).attr("checked", status);
+		this.checked= status;
 	});
 }
 
@@ -129,12 +129,6 @@ function showMessage(mess){
 	alert(mess);
 }
 
-
-function doBlink() {
-    var blink = document.all.tags("BLINK")
-    for (var i=0; i<blink.length; i++)
-        blink[i].style.visibility = blink[i].style.visibility == "" ? "hidden" : "" 
-}
 
 function changeHomeImage(toggle){
 	var img=document.getElementById('home-image');

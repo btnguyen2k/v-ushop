@@ -19,7 +19,6 @@
 	<link rel="stylesheet" href="css/market_place.css" type="text/css" />
 	<link rel="stylesheet" href="css/jquery.simplyscroll.css" type="text/css" />
 	<link rel="stylesheet" href="css/simpletree.css" type="text/css" />
-	<link rel="stylesheet" href="css/button.css" type="text/css" />
 	<link rel="stylesheet" href="css/custom-theme/jquery-ui-1.8.22.custom.css" type="text/css" />
     <link rel="stylesheet" href="css/popup.css" type="text/css" />
     <link rel="stylesheet" href="css/menutop.css" type="text/css" />

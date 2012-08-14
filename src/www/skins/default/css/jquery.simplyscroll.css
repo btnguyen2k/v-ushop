@@ -74,7 +74,9 @@ Note all DIVs are generated and should not be hard-coded
 		background-position:left bottom;
 	
 	}
-	.simply-scroll-btn-left.disabled {}
+	.simply-scroll-btn-left.disabled {
+		background-image: none;
+	}
 	.simply-scroll-btn-left:hover, .simply-scroll-btn-left:focus {
 		background-image: url(../images/leftarrow.jpg);
 	}
@@ -85,7 +87,9 @@ Note all DIVs are generated and should not be hard-coded
 		background-image: url(../images/rightarrow.jpg);
 		background-position:right bottom;
 	}
-	.simply-scroll-btn-right.disabled {}
+	.simply-scroll-btn-right.disabled {
+		background-image: none;
+	}
 	.simply-scroll-btn-right:hover, .simply-scroll-btn-right:focus {
 		background-image: url(../images/rightarrow.jpg);
 	}
@@ -169,6 +173,7 @@ Note all DIVs are generated and should not be hard-coded
 		background-image: url(../images/leftarrow.jpg);
 	}
 	.simply-scroll .simply-scroll-btn-left.disabled {
+		background-image: none;
 	}
 	.simply-scroll .simply-scroll-btn-left:hover {
 		background-image: url(../images/leftarrow.jpg);
@@ -178,6 +183,7 @@ Note all DIVs are generated and should not be hard-coded
 		background-image: url(../images/rightarrow.jpg);
 	}
 	.simply-scroll .simply-scroll-btn-right.disabled {
+		background-image: none;
 	}
 	.simply-scroll .simply-scroll-btn-right:hover {
 	}

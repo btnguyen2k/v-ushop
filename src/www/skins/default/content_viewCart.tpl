@@ -14,7 +14,7 @@
         <table class="table" cellpadding="0" cellspacing="0" border="0" align="center">
         	<thead class="table-header">  
             	<tr>        		
-            		<th width="20px" class="table-conent"><input type="checkbox" class="checkbox" id="check-all" onchange="toggleChecked(this.checked)"> </th>
+            		<th width="20px" style="text-align: center;"><input type="checkbox" class="checkbox" id="check-all" value="true" onclick="toggleChecked(this.checked)"> </th>
             		<th width="30px">[:$MODEL.language->getMessage('msg.stt'):]</th>
             		<th >[:$MODEL.language->getMessage('msg.item'):]</th>
             		<th width="60px">[:$MODEL.language->getMessage('msg.image'):]</th>
@@ -33,7 +33,7 @@
             	<tr class="[:if $item@index%2==0:]odd[:else:]even[:/if:] "
                         id="item_[:$item->getItemId():]"
                         	onmouseover="changeColorOver('item_[:$item->getItemId():]')" onmouseout="changeColorOut('item_[:$item->getItemId():]')">        		
-            		<td class="table-conent"><input type="checkbox" class="checkbox" value="[:$item->getItemId():]" name="itemIds[]"></td>
+            		<td style="text-align: center;"><input type="checkbox" class="checkbox" value="[:$item->getItemId():]" name="itemIds[]"></td>
             		<td>[:$item@index+1:]</td>
             		<td style="white-space: normal;">[:$item->getCode()|escape:'html':]-[:$item->getTitle()|escape:'html':]</td>
             		<td>

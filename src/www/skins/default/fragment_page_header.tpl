@@ -66,11 +66,14 @@
 <!--/ header photo ends-->
 <div style="border: 1px solid #DCDCDC;margin-left: 5px;margin-right: 5px;">
 <!-- sidebar top -->
+[:call name=autoScroller elName=scroller auto='yes':]
 [:if isset($MODEL.newItems) && count($MODEL.newItems) gt 0:]
 	<div class="sidebar-top">
 		<h1>[:$LANG->getMessage('msg.sanPhamNoiBanNhat'):]</h1>
 		<br style="clear: both;"/>
 		<ul id="scroller">
+			<script type="text/javascript">
+            	</script>
 			[:foreach $MODEL.newItems as $_item:]	
 				 [:if $_item->getUrlThumbnail()=='':]
                     [:assign var="_urlThumbnail" value="images/img_general.jpg":]
@@ -86,8 +89,8 @@
            [:/foreach:]
         </ul>
 	</div>
-
-	[:call name=autoScroller elName=scroller auto='yes':]
+	
+	
 [:/if:]
 </div>
 <!--/ sidebar top end-->

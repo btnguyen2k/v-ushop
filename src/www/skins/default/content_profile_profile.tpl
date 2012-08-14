@@ -84,7 +84,7 @@
         			</tr>
         		</table>
         		<br/>
-        		<a class="button" href="javascript:void(0)" onclick="submitForm('changePassword')"><span>&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]</span></a><br/><br/>        
+        		<button class="btn" onclick="submitForm('changePassword')">[:$LANG->getMessage('msg.save'):]</button><br/><br/>        
         	</form>
 
         	<script type="text/javascript">
