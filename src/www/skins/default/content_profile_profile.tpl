@@ -60,7 +60,7 @@
                         </td>
                     </tr>
         		</table> 
-        		<a class="button" href="javascript:void(0)" onclick="submitForm('userInformation')"><span>&nbsp;&nbsp;[:$LANG->getMessage('msg.save'):]</span></a>
+        		<button class="btn" onclick="submitForm('userInformation')">[:$LANG->getMessage('msg.save'):]</button>
         	</form>
         	<br/><br/><br/>
         </div>
