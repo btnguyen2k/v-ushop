@@ -35,7 +35,7 @@ Note all DIVs are generated and should not be hard-coded
 }
 
 	.simply-scroll-clip { /* Clip DIV - automatically generated */
-		position: relative;
+		
 		overflow: hidden;
 	}
 
@@ -60,33 +60,34 @@ Note all DIVs are generated and should not be hard-coded
 	
 	.simply-scroll-btn {
 		position: absolute;		
-		width: 19px;
-		height: 18px;
+		width: 50px;
+		height: 300px;
 		z-index:3;
 		cursor: pointer;
+		background-repeat: no-repeat;
 	}
 	
 	.simply-scroll-btn-left {
 		left: 6px;
 		bottom: 6px;
 		background-image: url(../images/leftarrow.jpg);
+		background-position:left bottom;
 	
 	}
-	.simply-scroll-btn-left.disabled {
-		
-	}
+	.simply-scroll-btn-left.disabled {}
 	.simply-scroll-btn-left:hover, .simply-scroll-btn-left:focus {
-		
+		background-image: url(../images/leftarrow.jpg);
 	}
 	
 	.simply-scroll-btn-right {
 		right: 6px;
 		bottom: 6px;
 		background-image: url(../images/rightarrow.jpg);
+		background-position:right bottom;
 	}
-	.simply-scroll-btn-right.disabled {
-	}
+	.simply-scroll-btn-right.disabled {}
 	.simply-scroll-btn-right:hover, .simply-scroll-btn-right:focus {
+		background-image: url(../images/rightarrow.jpg);
 	}
 	
 	.simply-scroll-btn-up {
@@ -94,10 +95,10 @@ Note all DIVs are generated and should not be hard-coded
 		top: 6px;
 	}
 	.simply-scroll-btn-up.disabled {
-		
+		background-image: url(../images/rightarrow.jpg);
 	}
 	.simply-scroll-btn-up:hover, .simply-scroll-btn-up:focus {
-		
+		background-image: url(../images/rightarrow.jpg);
 	}
 	
 	.simply-scroll-btn-down {
@@ -135,12 +136,12 @@ Note all DIVs are generated and should not be hard-coded
 */
 
 .simply-scroll { /* Customisable base class for style override DIV */
-	width: 99%;
+	width: 100%;
 	margin-bottom: 0;
 }
 
 	.simply-scroll .simply-scroll-clip {
-		width: 99.5%;
+		width: 100%;
 	}
 	
 		.simply-scroll .simply-scroll-list {}
@@ -164,17 +165,22 @@ Note all DIVs are generated and should not be hard-coded
 	
 	.simply-scroll .simply-scroll-btn {}
 	
-	.simply-scroll .simply-scroll-btn-left {}
+	.simply-scroll .simply-scroll-btn-left {
+		background-image: url(../images/leftarrow.jpg);
+	}
 	.simply-scroll .simply-scroll-btn-left.disabled {
-	background-image: none;
 	}
-	.simply-scroll .simply-scroll-btn-left:hover {}
+	.simply-scroll .simply-scroll-btn-left:hover {
+		background-image: url(../images/leftarrow.jpg);
+	}
 	
-	.simply-scroll .simply-scroll-btn-right {}
-	.simply-scroll .simply-scroll-btn-right.disabled {
-	background-image: none;
+	.simply-scroll .simply-scroll-btn-right {
+		background-image: url(../images/rightarrow.jpg);
 	}
-	.simply-scroll .simply-scroll-btn-right:hover {}
+	.simply-scroll .simply-scroll-btn-right.disabled {
+	}
+	.simply-scroll .simply-scroll-btn-right:hover {
+	}
 	
 	.simply-scroll .simply-scroll-btn-up {}
 	.simply-scroll .simply-scroll-btn-up.disabled {}
