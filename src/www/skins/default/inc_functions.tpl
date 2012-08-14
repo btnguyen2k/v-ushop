@@ -70,7 +70,8 @@
 		if('[:$auto:]'=='yes'){
             (function($) {
             	$(function() {
-            		$("#[:$elName:]").simplyScroll();
+            		$("#[:$elName:]").simplyScroll({startOnLoad: true});
+            		
             	});
             })(jQuery);
 		}else{
@@ -78,7 +79,8 @@
             	$(function() {
             		$("#[:$elName:]").simplyScroll({
             			auto: false,
-            			speed: 5
+            			speed: 5,
+            			startOnLoad: true
             		});
             	});
             })(jQuery);

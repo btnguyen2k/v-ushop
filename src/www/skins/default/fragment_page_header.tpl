@@ -86,13 +86,7 @@
            [:/foreach:]
         </ul>
 	</div>
-	<script type="text/javascript">
-	$(document).ready( function()
-			{
-			    $('#scroller').lazyLoad();
-			});
 
-	</script>
 	[:call name=autoScroller elName=scroller auto='yes':]
 [:/if:]
 </div>
